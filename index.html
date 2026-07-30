@@ -22,14 +22,25 @@ input,select{font-family:var(--body),'Noto Sans JP',sans-serif}
 
 /* ── app bar ── */
 .appbar{display:flex;align-items:center;gap:11px;padding:13px 15px;border-bottom:1px solid var(--line);background:#fff;position:sticky;top:0;z-index:30}
-.mark{width:34px;height:34px;flex:none;display:grid;place-items:center}
-.mark img{width:34px;height:34px;object-fit:contain}
-.mark svg{width:30px;height:30px;fill:var(--purple)}
-.brand{line-height:1.05}
-.brand b{display:block;font-family:var(--disp);font-weight:800;font-size:15px;letter-spacing:-.01em}
-.brand i{display:block;font-style:normal;font-size:9.5px;font-weight:600;color:var(--grey);letter-spacing:.02em;margin-top:1px}
+.mark{width:54px;height:54px;flex:none;display:grid;place-items:center}
+.mark img{width:54px;height:54px;object-fit:contain}
+.mark svg{width:46px;height:46px;fill:var(--purple)}
+.brand b{display:block;font-family:var(--disp);font-weight:800;font-size:22px;letter-spacing:-.03em;line-height:.96}
 .appbar .sp{flex:1}
+.season{font-family:var(--disp);font-size:11px;font-weight:800;color:var(--grey);letter-spacing:.02em}
 .chip-me{font-size:11px;font-weight:700;padding:6px 12px;border-radius:20px;background:var(--panel);color:var(--purple);border:none;cursor:pointer}
+
+/* ── league table mode switch ── */
+.seg{display:flex;margin:0 12px 10px;background:var(--panel);border-radius:10px;padding:3px;gap:2px}
+.seg button{flex:1;font-size:12px;font-weight:700;padding:8px 2px;border:none;border-radius:8px;background:none;color:var(--grey);cursor:pointer}
+.seg button.on{background:#fff;color:var(--purple);box-shadow:0 1px 3px rgba(55,0,60,.12)}
+.tblscroll{margin:0 12px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tblscroll .tbl{margin:0;min-width:342px}
+.frm{display:flex;gap:4px;justify-content:flex-end}
+.frm span{width:17px;height:17px;border-radius:50%;display:grid;place-items:center;
+  font-family:var(--disp);font-size:9px;font-weight:800;color:#fff}
+.frm .W{background:var(--green)} .frm .D{background:#9A8FA0} .frm .L{background:var(--pink)}
+.frm .none{background:var(--line);color:var(--grey)}
 
 /* ── hero ── */
 .hero{background:linear-gradient(100deg,#8F00FF 0%,#4B5BFF 42%,#04F5FF 100%);padding:22px 18px 26px;color:#fff;position:relative;overflow:hidden}
@@ -85,6 +96,15 @@ input,select{font-family:var(--body),'Noto Sans JP',sans-serif}
 .tk-top{background:var(--purple);color:#fff;padding:9px 12px;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
 .tk-top .who{font-size:11px;font-weight:700}
 .tk-top .who b{color:var(--green-lt)}
+.tk .cond{margin:2px 11px 8px;font-size:11px;font-weight:700;color:var(--purple);
+  background:var(--panel);border-left:3px solid var(--pink);border-radius:0 7px 7px 0;padding:7px 10px;line-height:1.5}
+.dsel{width:100%;padding:11px 12px;margin-bottom:8px;border:1.5px solid var(--line);border-radius:9px;
+  font-size:13px;font-weight:700;color:var(--purple);background:#fff;-webkit-appearance:none;appearance:none}
+.bprev{background:var(--panel);border-radius:9px;padding:9px 11px;margin-bottom:12px}
+.bp-cond{font-size:11.5px;font-weight:800;color:var(--purple);margin-bottom:5px}
+.bp-opts{display:flex;flex-direction:column;gap:3px}
+.bp-opts span{font-size:11px;font-weight:600;color:var(--grey)}
+.tk-top .rate{font-family:var(--disp);font-size:10px;font-weight:800;background:var(--green-lt);color:var(--purple);padding:3px 9px;border-radius:20px;letter-spacing:-.01em}
 .tk-top .sp{flex:1}
 .tk-top .dl{font-size:10.5px;font-weight:700;background:rgba(255,255,255,.16);padding:4px 10px;border-radius:20px}
 .tk-top .dl.shut{background:var(--pink)}
@@ -123,7 +143,10 @@ input,select{font-family:var(--body),'Noto Sans JP',sans-serif}
 
 /* ── league table ── */
 .tbl{margin:0 12px;border:1px solid var(--line);border-radius:12px;overflow:hidden}
-.th,.tr{display:grid;grid-template-columns:28px 1fr 24px 24px 30px 28px;align-items:center;gap:5px;padding:8px 10px}
+.th,.tr{display:grid;align-items:center;gap:5px;padding:8px 10px}
+.m-short .th,.m-short .tr{grid-template-columns:28px 1fr 24px 24px 30px 28px}
+.m-full .th,.m-full .tr{grid-template-columns:26px minmax(86px,1fr) 22px 22px 22px 22px 26px 26px 28px 26px}
+.m-form .th,.m-form .tr{grid-template-columns:28px 1fr auto}
 .th{font-size:9px;font-weight:700;color:var(--grey);letter-spacing:.05em;border-bottom:1px solid var(--line);background:#FCFBFD}
 .tr{border-bottom:1px solid var(--line);font-size:11.5px;position:relative}
 .tr:last-child{border-bottom:none}
@@ -141,10 +164,11 @@ input,select{font-family:var(--body),'Noto Sans JP',sans-serif}
 
 /* ── score grid ── */
 .sg{margin:0 12px 8px;border:1px solid var(--line);border-radius:12px;overflow:hidden}
-.sgrow{display:grid;grid-template-columns:1fr 44px 10px 44px 1fr;align-items:center;gap:6px;padding:9px 10px;border-bottom:1px solid var(--line)}
+.sgrow{display:grid;grid-template-columns:1fr 20px 42px 10px 42px 20px 1fr;align-items:center;gap:5px;padding:9px 9px;border-bottom:1px solid var(--line)}
 .sgrow:last-child{border-bottom:none}
-.sgrow .tn{font-size:11px;font-weight:700;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sgrow .tn{font-size:10.5px;font-weight:700;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .sgrow .tn.h{text-align:right}
+.sgrow .crest{width:20px;height:20px}
 .sgrow input{width:100%;padding:7px 0;text-align:center;border:1.5px solid var(--line);border-radius:7px;font-size:14px;font-weight:800;color:var(--purple)}
 .sgrow .dash{text-align:center;font-weight:800;color:var(--grey);font-size:11px}
 .sgrow.done input{border-color:#CFE9DA;background:#F3FBF6}
@@ -243,8 +267,9 @@ input,select{font-family:var(--body),'Noto Sans JP',sans-serif}
 <div class="wrap">
   <div class="appbar">
     <div class="mark" id="logoBox"></div>
-    <div class="brand"><b>賭けノート</b><i>PREMIER LEAGUE 2026/27</i></div>
+    <div class="brand"><b>Premier<br>League</b></div>
     <div class="sp"></div>
+    <span class="season">26/27</span>
     <button class="chip-me" id="meChip">誰？</button>
   </div>
 
@@ -331,7 +356,7 @@ const SEASON_LOCK = Math.min(...FIXTURES.filter(f=>f.gw===1).map(f=>f.ko));
 const byKey = {}; FIXTURES.forEach(f=>byKey[f.key]=f);
 const fxOf = gw => FIXTURES.filter(f=>f.gw===gw).sort((x,y)=>x.ko-y.ko);
 
-let state = null, db = null, curGw = 1, curTab = 'match';
+let state = null, db = null, curGw = 1, curTab = 'match', tableMode = 'short';
 let sideDraft = {};   /* 年間予想の編集中の選択 */
 
 /* ── 小物 ── */
@@ -513,7 +538,7 @@ async function autoReveal(){
       for(const who of Object.keys(enc[key]||{})){
         if((picks[key]||{})[who]) continue;
         const v = await unseal(key, who, enc[key][who]);
-        if(v && ['H','D','A'].includes(v)) updates[`${ROOT}/picks/${key}/${who}`] = v;
+        if(v && validPick(key, v)) updates[`${ROOT}/picks/${key}/${who}`] = v;
       }
       updates[`${ROOT}/enc/${key}`] = null;
     }
@@ -539,7 +564,95 @@ async function autoReveal(){
 
 /* ══════ 精算 ══════ */
 function scoreOf(key){ const s=(state.scores||{})[key]; return (s && s.h!=null && s.a!=null) ? s : null; }
-function resultOf(key){ const s=scoreOf(key); return s ? (s.h>s.a?'H':s.h<s.a?'A':'D') : null; }
+
+/* ── 賭けの種類 ──
+   3way : ホーム勝ち / 引き分け / アウェイ勝ち
+   hc   : ハンデ付き2択。condTeam が margin 点差以上で勝てば condTeam 側の勝ち
+          （margin=0 は「同点以上」）
+   md   : 点差多択。①相手が同点以上 ②〜ちょうどN点差 ③最後は N-1 点差以上 */
+function betCfg(key){
+  const b = (state.bet||{})[key];
+  if(!b || !b.mode) return { mode:'3way' };
+  return b;
+}
+const mdSteps = cfg => Math.min(5, Math.max(3, Number(cfg.steps)||3));
+
+/* スコアから当たりの選択肢を出す */
+function judgeOf(key){
+  const s = scoreOf(key); if(!s) return null;
+  const cfg = betCfg(key);
+  if(cfg.mode==='hc'){
+    const condH = cfg.condTeam==='H';
+    const t = condH ? s.h : s.a;
+    const o = condH ? s.a : s.h;
+    const mg = Number(cfg.margin)||0;
+    const holds = mg===0 ? (t>=o) : (t-o >= mg);
+    return holds ? cfg.condTeam : (condH ? 'A' : 'H');
+  }
+  if(cfg.mode==='md'){
+    const n = mdSteps(cfg);
+    const condH = cfg.condTeam==='H';
+    const diff = condH ? (s.h-s.a) : (s.a-s.h);
+    if(diff <= 0) return '1';
+    if(diff >= n-1) return String(n);
+    return String(diff+1);
+  }
+  return s.h>s.a ? 'H' : s.h<s.a ? 'A' : 'D';
+}
+const resultOf = judgeOf;
+
+/* その試合で有効な選択肢の値 */
+function optionValues(key){
+  const cfg = betCfg(key);
+  if(cfg.mode==='hc') return ['H','A'];
+  if(cfg.mode==='md'){ const n=mdSteps(cfg); return Array.from({length:n},(_,i)=>String(i+1)); }
+  return ['H','D','A'];
+}
+const validPick = (key,v) => optionValues(key).includes(v);
+
+/* 選択肢の表示名 */
+function optLabel(key, f, v, long){
+  const cfg = betCfg(key);
+  if(cfg.mode==='hc'){
+    const mg = Number(cfg.margin)||0;
+    const condClub = cfg.condTeam==='H' ? f.h : f.a;
+    const othClub  = cfg.condTeam==='H' ? f.a : f.h;
+    if(v===cfg.condTeam) return mg===0 ? `${jp(condClub)} 同点以上` : `${jp(condClub)} ${mg}点差以上`;
+    return long ? `それ以外（${jp(othClub)} 側）` : 'それ以外';
+  }
+  if(cfg.mode==='md'){
+    const n = mdSteps(cfg);
+    const F = jp(cfg.condTeam==='H' ? f.h : f.a);
+    const O = jp(cfg.condTeam==='H' ? f.a : f.h);
+    const k = Number(v);
+    if(k===1) return long ? `${O} 同点以上` : `${O}同点+`;
+    if(k===n) return long ? `${F} ${n-1}点差以上` : `${F}${n-1}点差+`;
+    return long ? `${F} ${k-1}点差ちょうど` : `${F}${k-1}点差`;
+  }
+  return v==='H' ? jp(f.h) : v==='A' ? jp(f.a) : '引き分け';
+}
+/* 条件文（チケット上部に出す1行） */
+function condText(key, f){
+  const cfg = betCfg(key);
+  if(cfg.mode==='hc'){
+    const mg = Number(cfg.margin)||0;
+    const c = jp(cfg.condTeam==='H' ? f.h : f.a);
+    return mg===0 ? `ハンデ付き2択：${c} が同点以上なら成立` : `ハンデ付き2択：${c} が${mg}点差以上で勝てば成立`;
+  }
+  if(cfg.mode==='md'){
+    const n = mdSteps(cfg);
+    const F = jp(cfg.condTeam==='H' ? f.h : f.a);
+    return `点差${n}択：${F} を基準にした点差を当てる`;
+  }
+  return null;
+}
+/* 選択肢に添えるエンブレム（無い場合はnull） */
+function optCrestCode(key, f, v){
+  const cfg = betCfg(key);
+  if(cfg.mode==='hc') return v==='H' ? f.h : f.a;
+  if(cfg.mode==='md') return null;
+  return v==='H' ? f.h : v==='A' ? f.a : null;
+}
 const nomsOf = gw => (state.noms||{})['gw'+gw] || {};
 function betMatches(){
   const out=[];
@@ -741,7 +854,8 @@ function viewMatch(){
   /* 指名済み＝賭けチケット */
   const tickets = fs.filter(f=>taken.includes(f.key));
   html += `<div class="sec"><h2>指名された試合</h2>
-    <p>各節1人1試合まで指名できる。指名された試合には全員が賭けられる。</p></div>`;
+    <p>各節1人1試合まで指名できる。指名した人が賭けの種類も決める。<br>
+    3択 / ハンデ付き2択 / 点差多択・<b style="color:var(--purple)">1試合 ${STAKE.toLocaleString()}ペリカ固定</b></p></div>`;
   html += tickets.length
     ? tickets.map(f=>ticket(f, Object.keys(noms).find(p=>noms[p]===f.key))).join('')
     : `<div class="empty">まだ誰も指名してへん。<br>下の試合一覧から選んでや</div>`;
@@ -761,7 +875,7 @@ function viewMatch(){
     else if(locked) foot = `<span class="mini">締切済み（指名でけへん）</span>`;
     else if(me && noms[me]) foot = `<span class="mini">あんたはもう指名済み</span>`;
     else foot = `<button class="nombtn" data-nom="${f.key}">この試合を指名する</button>
-      <span class="mini">締切まで ${remain(deadlineOf(f))||'—'}</span>`;
+      <span class="mini">締切まで ${remain(deadlineOf(f)-Date.now())||'—'}</span>`;
     html += `<div class="fx">${fxLine(f)}<div class="fxfoot">${foot}</div></div>`;
   });
   return html;
@@ -779,31 +893,35 @@ function ticket(f, nomBy){
      ローカルに控えを持っておく（Firebaseには平文を置かん） */
   const mine = me ? localPick(f.key, me) : null;
 
-  const cnt = {H:0,D:0,A:0};
+  const opts = optionValues(f.key);
+  const cnt = {}; opts.forEach(v=>cnt[v]=0);
   let voted = 0;
   PLAYERS.forEach(p=>{
     if(locked ? picks[p] : enc[p]) voted++;
-    if(locked && picks[p]) cnt[picks[p]]++;
+    if(locked && picks[p] && cnt[picks[p]]!=null) cnt[picks[p]]++;
   });
 
   const dl = sc
     ? `<div class="dl shut">記帳済み</div>`
     : locked ? `<div class="dl shut">締切済み・開票</div>`
-    : `<div class="dl">締切まで ${remain(deadlineOf(f))||'まもなく'}</div>`;
+    : `<div class="dl">締切まで ${remain(deadlineOf(f)-Date.now())||'まもなく'}</div>`;
 
-  /* 3択ボタン */
-  const opt = (side, inner, label) => {
-    const on = locked ? (res===side) : (mine===side);
-    const dim = locked && res && res!==side;
-    const votes = locked ? `<span class="pct">${cnt[side]}票</span>` : '';
-    return `<button class="pk ${on?'sel':''} ${dim?'dim':''}" ${locked?'':`data-bet="${f.key}" data-side="${side}"`}>
-      ${inner}<em>${label}</em>${votes}</button>`;
-  };
-  const picksHtml = `<div class="picks">
-    ${opt('H', crest(f.h,24), 'ホーム勝ち')}
-    ${opt('D', `<div class="dm">引</div>`, '引き分け')}
-    ${opt('A', crest(f.a,24), 'アウェイ勝ち')}
-  </div>`;
+  /* 条件行（3択のときは出さん） */
+  const ct = condText(f.key, f);
+  const condLine = ct ? `<div class="cond">${esc(ct)}</div>` : '';
+
+  /* 選択肢ボタン。モードによって数が変わる */
+  const picksHtml = `<div class="picks" style="grid-template-columns:repeat(${opts.length},1fr)">` +
+    opts.map(v=>{
+      const on  = locked ? (res===v) : (mine===v);
+      const dim = locked && res && res!==v;
+      const votes = locked ? `<span class="pct">${cnt[v]}票</span>` : '';
+      const cc = optCrestCode(f.key, f, v);
+      const icon = cc ? crest(cc,24)
+        : `<div class="dm">${betCfg(f.key).mode==='3way' ? '引' : (betCfg(f.key).mode==='hc' ? '×' : v)}</div>`;
+      return `<button class="pk ${on?'sel':''} ${dim?'dim':''}" ${locked?'':`data-bet="${f.key}" data-side="${v}"`}>
+        ${icon}<em>${esc(optLabel(f.key,f,v))}</em>${votes}</button>`;
+    }).join('') + `</div>`;
 
   /* メンバー行 */
   const rows = PLAYERS.map(p=>{
@@ -811,36 +929,37 @@ function ticket(f, nomBy){
       const v = picks[p];
       let mk = `<span class="mk">−</span>`;
       if(v && res && !r.void) mk = r.winners.includes(p) ? `<span class="mk win">◎</span>` : `<span class="mk lose">✕</span>`;
-      const label = v ? (v==='H'?jp(f.h):v==='A'?jp(f.a):'引き分け') : '不参加';
+      const label = v ? optLabel(f.key,f,v,true) : '不参加';
       const ovr = sc ? '' : `<button class="ovr" data-ovr="${f.key}" data-p="${esc(p)}">修正</button>`;
       return `<div class="vrow">${mk}<div class="nm">${esc(p)}</div>
         <div class="val">${esc(label)}</div>${ovr}</div>`;
     }
     const done = !!enc[p];
-    const label = (p===me && mine) ? (mine==='H'?jp(f.h):mine==='A'?jp(f.a):'引き分け')
-                : done ? '投票済み' : '未投票';
+    const label = (p===me && mine) ? optLabel(f.key,f,mine,true) : done ? '投票済み' : '未投票';
     return `<div class="vrow"><div class="dot ${done?'':'no'}"></div>
       <div class="nm">${esc(p)}</div><div class="val">${esc(label)}</div></div>`;
   }).join('');
 
   /* 開票後の人気メーター */
+  const METER_COLORS = ['#37003C','#9A8FA0','#1F5276','#6B4FA0','#B0533A'];
   let extra = '';
   if(locked && voted){
-    const t = voted||1;
-    extra += `<div class="meter"><div class="bar">
-      <span style="width:${cnt.H/t*100}%;background:${CLUBS[f.h].c1}"></span>
-      <span style="width:${cnt.D/t*100}%;background:#9A8FA0"></span>
-      <span style="width:${cnt.A/t*100}%;background:${CLUBS[f.a].c1}"></span></div>
-      <div class="lbl"><span>${esc(jp(f.h))} ${cnt.H}</span><span>引 ${cnt.D}</span><span>${esc(jp(f.a))} ${cnt.A}</span></div></div>`;
+    const tv = voted||1;
+    const bars = opts.map((v,i)=>{
+      const cc = optCrestCode(f.key,f,v);
+      const col = cc ? CLUBS[cc].c1 : METER_COLORS[i%5];
+      return `<span style="width:${cnt[v]/tv*100}%;background:${col}"></span>`;
+    }).join('');
+    const lbls = opts.map(v=>`<span>${esc(optLabel(f.key,f,v))} ${cnt[v]}</span>`).join('');
+    extra += `<div class="meter"><div class="bar">${bars}</div><div class="lbl">${lbls}</div></div>`;
   } else if(!locked){
-    extra += `<div class="blind">🔒 締切までは誰がどこに賭けたか非公開（Firebase上でも暗号化されとる）。見えるのは自分の選択と投票数だけ（${voted}/${PLAYERS.length}人）。</div>`;
+    extra += `<div class="blind">🔒 締切までは誰がどこに賭けたか<b>完全非公開</b>。管理人も含めて誰にも見えん。見えるのは自分の選択と投票数だけ（${voted}/${PLAYERS.length}人）。</div>`;
   }
 
   /* 結果・精算 */
   if(sc){
-    const lbl = res==='H'?`${jp(f.h)} 勝ち`:res==='A'?`${jp(f.a)} 勝ち`:'引き分け';
     extra += `<div class="settled"><span class="score ${r.void?'void':''}">${sc.h} - ${sc.a}</span>
-      <span style="font-size:11.5px;font-weight:700;color:var(--grey)">${esc(lbl)}${r.void?'・ノーゲーム':''}</span></div>`;
+      <span style="font-size:11.5px;font-weight:700;color:var(--grey)">${esc(optLabel(f.key,f,res,true))}${r.void?'・ノーゲーム':''}</span></div>`;
     if(!r.void){
       const lines = r.losers.map(l=>`<b>${esc(l)}</b> → ${r.winners.map(esc).join('・')}：各 ${peri(STAKE)}`);
       extra += `<div class="moneyline">${lines.join('<br>')}</div>`;
@@ -857,8 +976,9 @@ function ticket(f, nomBy){
   }
 
   return `<div class="tk">
-    <div class="tk-top"><div class="who">指名：<b>${esc(nomBy||'?')}</b></div><div class="sp"></div>${dl}</div>
-    ${fxLine(f)}${picksHtml}${rows}${extra}
+    <div class="tk-top"><div class="who">指名：<b>${esc(nomBy||'?')}</b></div>
+      <span class="rate">${STAKE.toLocaleString()}ペリカ</span><div class="sp"></div>${dl}</div>
+    ${fxLine(f)}${condLine}${picksHtml}${rows}${extra}
     <div style="height:11px"></div></div>`;
 }
 /* 自分の選択の控え（端末内のみ。Firebaseには暗号文だけ） */
@@ -875,6 +995,18 @@ function setLocalPick(key, who, v){
   }catch(e){}
 }
 
+/* 直近5試合の成績（新しいものが右） */
+function formOf(code, n){
+  const played = FIXTURES.filter(f=>(f.h===code||f.a===code) && scoreOf(f.key))
+    .sort((x,y)=>x.ko-y.ko).slice(-(n||5));
+  return played.map(f=>{
+    const s = scoreOf(f.key);
+    const gf = f.h===code ? s.h : s.a;
+    const ga = f.h===code ? s.a : s.h;
+    return gf>ga ? 'W' : gf<ga ? 'L' : 'D';
+  });
+}
+
 /* ── 順位表タブ ── */
 function viewTable(){
   const rows = leagueTable();
@@ -884,27 +1016,68 @@ function viewTable(){
   html += `<div class="sg">` + fxOf(curGw).map(f=>{
     const s = scoreOf(f.key);
     return `<div class="sgrow ${s?'done':''}">
-      <div class="tn h">${esc(jp(f.h))}</div>
+      <div class="tn h">${esc(jp(f.h))}</div>${crest(f.h,20)}
       <input type="number" min="0" inputmode="numeric" data-gh="${f.key}" value="${s?s.h:''}">
       <div class="dash">−</div>
       <input type="number" min="0" inputmode="numeric" data-ga="${f.key}" value="${s?s.a:''}">
-      <div class="tn">${esc(jp(f.a))}</div></div>`;
+      ${crest(f.a,20)}<div class="tn">${esc(jp(f.a))}</div></div>`;
   }).join('') + `</div>`;
   html += `<div style="padding:0 12px"><button class="sbtn" id="saveGrid">この節のスコアを保存</button></div>`;
 
   html += `<div class="divider"></div><div class="sec"><h2>プレミアリーグ順位表</h2>
     <p>入力済みスコアから自動計算</p></div>`;
-  html += `<div class="tbl">
-    <div class="th"><span style="text-align:center">Pos</span><span>Team</span>
-    <span style="text-align:center">Pl</span><span style="text-align:center">W</span>
-    <span style="text-align:center">GD</span><span style="text-align:center">Pts</span></div>` +
-    rows.map((x,i)=>`<div class="tr ${i<4?'ucl':''} ${i>=17?'rel':''}">
-      <span class="pos">${String(i+1).padStart(2,'0')}</span>
-      <span class="tm">${crest(x.c,18)}<span>${esc(jp(x.c))}</span></span>
-      <span class="n">${x.pl}</span><span class="n">${x.w}</span>
-      <span class="n">${x.gd>0?'+':''}${x.gd}</span><span class="pts">${x.pts}</span></div>`).join('') + `</div>`;
+
+  /* Short / Full / Form の切替（公式と同じ） */
+  html += `<div class="seg">
+    <button data-tm="short" class="${tableMode==='short'?'on':''}">Short</button>
+    <button data-tm="full"  class="${tableMode==='full'?'on':''}">Full</button>
+    <button data-tm="form"  class="${tableMode==='form'?'on':''}">Form</button></div>`;
+
+  const zone = i => `${i<4?'ucl':''} ${i>=17?'rel':''}`;
+  const pos  = i => `<span class="pos">${String(i+1).padStart(2,'0')}</span>`;
+  const team = x => `<span class="tm">${crest(x.c,18)}<span>${esc(jp(x.c))}</span></span>`;
+
+  let body;
+  if(tableMode==='full'){
+    body = `<div class="tblscroll"><div class="tbl m-full">
+      <div class="th"><span style="text-align:center">Pos</span><span>Team</span>
+      <span style="text-align:center">Pl</span><span style="text-align:center">W</span>
+      <span style="text-align:center">D</span><span style="text-align:center">L</span>
+      <span style="text-align:center">GF</span><span style="text-align:center">GA</span>
+      <span style="text-align:center">GD</span><span style="text-align:center">Pts</span></div>` +
+      rows.map((x,i)=>`<div class="tr ${zone(i)}">${pos(i)}${team(x)}
+        <span class="n">${x.pl}</span><span class="n">${x.w}</span>
+        <span class="n">${x.d}</span><span class="n">${x.l}</span>
+        <span class="n">${x.gf}</span><span class="n">${x.ga}</span>
+        <span class="n">${x.gd>0?'+':''}${x.gd}</span>
+        <span class="pts">${x.pts}</span></div>`).join('') + `</div></div>`;
+  } else if(tableMode==='form'){
+    body = `<div class="tbl m-form">
+      <div class="th"><span style="text-align:center">Pos</span><span>Team</span>
+      <span style="text-align:right">Form</span></div>` +
+      rows.map((x,i)=>{
+        const f = formOf(x.c,5);
+        const pills = f.length
+          ? f.map(r=>`<span class="${r}">${r}</span>`).join('')
+          : `<span class="none">–</span>`;
+        return `<div class="tr ${zone(i)}">${pos(i)}${team(x)}
+          <span class="frm">${pills}</span></div>`;
+      }).join('') + `</div>`;
+  } else {
+    body = `<div class="tbl m-short">
+      <div class="th"><span style="text-align:center">Pos</span><span>Team</span>
+      <span style="text-align:center">Pl</span><span style="text-align:center">W</span>
+      <span style="text-align:center">GD</span><span style="text-align:center">Pts</span></div>` +
+      rows.map((x,i)=>`<div class="tr ${zone(i)}">${pos(i)}${team(x)}
+        <span class="n">${x.pl}</span><span class="n">${x.w}</span>
+        <span class="n">${x.gd>0?'+':''}${x.gd}</span>
+        <span class="pts">${x.pts}</span></div>`).join('') + `</div>`;
+  }
+  html += body;
   html += `<div class="legend"><span><i style="background:#00FF87"></i>CL出場圏</span>
     <span><i style="background:#E90052"></i>降格圏</span></div>`;
+  if(tableMode==='form') html += `<div class="legend" style="padding-top:6px">
+    <span>Form は直近5試合。右が最新</span></div>`;
   return html;
 }
 
@@ -1105,16 +1278,21 @@ function setLocalSide(type, who, v){
 function rulesFold(){
   return `<div style="height:18px"></div><details class="fold"><summary>ルール</summary><div class="fold-in">
     <b>賭け方</b>：各節、1人1試合を指名する（最大5試合）。指名された試合には全員が賭けられる。
-    3択のみ＝<b>ホーム勝ち / 引き分け / アウェイ勝ち</b>。レートは<b>1試合1,000ペリカ固定</b>。<br><br>
+    レートは<b>1試合1,000ペリカ固定</b>。<br><br>
+    <b>賭けの種類</b>：指名した人が3つから選ぶ。<br>
+    ・<b>3択</b>＝ホーム勝ち / 引き分け / アウェイ勝ち<br>
+    ・<b>ハンデ付き2択</b>＝「アーセナルが2点差以上で勝てば成立」みたいな条件を決めて、
+    成立するか / それ以外かの2択。必ずどっちかに決まるからノーゲームが起きにくい<br>
+    ・<b>点差多択</b>＝基準クラブを決めて「相手が同点以上 / 1点差 / 2点差以上…」を3〜5択で当てる。
+    当たりにくいぶん、当てたときの取り分がデカい<br><br>
     <b>精算</b>：外した人は当てた人それぞれに1,000ペリカ払う。
     例）1人外して3人的中 → 外した人は3,000ペリカ払い。
     全員同じ選択、または誰も当てられんかったらノーゲームで金は動かん。不参加も自由。<br><br>
     <b>締切</b>：キックオフ15分前。それまでは何回でも変更できる。<br><br>
-    <b>目隠し</b>：締切まで誰がどこに賭けたかは非公開。<b>Firebase上でも暗号化</b>されとるから、
-    管理人がコンソールを開いても中身は見えん。見えるのは投票数と自分の選択だけ。
-    締切が来たら自動で全公開＋人気メーターも開票される。<br><br>
+    <b>目隠し</b>：締切まで誰がどこに賭けたかは<b>完全非公開</b>。管理人も含めて誰にも見えん。
+    見えるのは投票数と自分の選択だけ。締切が来たら自動で全公開＋人気メーターも開票される。<br><br>
     <b>締切後の修正</b>：開票して不成立やった試合を成立させたい場合、
-    締切〜キックオフの15分間はFirebaseまたはアプリの「修正」ボタンで変更できる（管理人PINが要る）。<br><br>
+    締切〜キックオフの15分間だけ「修正」ボタンで変更できる（管理人PINが要る）。<br><br>
     <b>年間予想</b>：優勝クラブ（10,000）・トップ4（5,000）・降格3（5,000）・得点王（5,000）。
     開幕キックオフで一斉ロック。トップ4は<b>1〜4位を順番通り完全一致</b>、
     降格3は<b>3クラブ全的中（順不同）</b>した人だけが勝ち。的中0人なら全員ノーゲーム。<br><br>
@@ -1136,6 +1314,9 @@ function bind(){
   document.getElementById('meChip').onclick=async()=>{
     const w=await whoAmI(); if(w){ toast(`${w} として認証したで`); render(); }
   };
+  document.querySelectorAll('[data-tm]').forEach(b=>b.onclick=()=>{
+    tableMode=b.dataset.tm; render();
+  });
 
   /* 指名 */
   document.querySelectorAll('[data-nom]').forEach(b=>b.onclick=async()=>{
@@ -1145,8 +1326,18 @@ function bind(){
     const noms=nomsOf(f.gw);
     if(noms[me]){ toast('あんたはもうこの節で指名しとる'); return; }
     if(Object.values(noms).includes(key)){ toast('その試合はもう他の人が指名済みや'); return; }
-    if(!await ask(`${jp(f.h)} vs ${jp(f.a)} を第${f.gw}節の指名にする？\n全員がこの試合に賭けられるようになる`)) return;
-    db.ref(`${ROOT}/noms/gw${f.gw}/${me}`).set(key);
+    const cfg = await pickBetType(f);
+    if(!cfg) return;
+    state.bet = state.bet || {}; const prevCfg = state.bet[key];
+    state.bet[key] = cfg;
+    const optTxt = optionValues(key).map((v,i)=>`${i+1}. ${optLabel(key,f,v,true)}`).join('\n');
+    const ctTxt = condText(key,f);
+    if(prevCfg) state.bet[key]=prevCfg; else delete state.bet[key];
+    if(!await ask(`${jp(f.h)} vs ${jp(f.a)} を第${f.gw}節の指名にする？\n${ctTxt?ctTxt+'\n':''}\n${optTxt}\n\n全員がこの試合に賭けられるようになる`)) return;
+    db.ref().update({
+      [`${ROOT}/noms/gw${f.gw}/${me}`]: key,
+      [`${ROOT}/bet/${key}`]: { ...cfg, by: me }
+    });
     toast('指名した。みんな賭けられるで');
   });
 
@@ -1185,11 +1376,11 @@ function bind(){
   document.querySelectorAll('[data-ovr]').forEach(b=>b.onclick=async()=>{
     const key=b.dataset.ovr, p=b.dataset.p, f=byKey[key];
     if(!await verifyAdmin()) return;
-    const cur=((state.picks||{})[key]||{})[p]||'なし';
-    const label = s=>s==='H'?jp(f.h):s==='A'?jp(f.a):s==='D'?'引き分け':'不参加';
+    const cur=((state.picks||{})[key]||{})[p]||null;
+    const label = v => (v && v!=='X') ? optLabel(key, f, v, true) : '不参加';
     const next = await pickSide(f, p, cur);
     if(!next) return;
-    if(!await ask(`${p} の選択を\n${label(cur)} → ${label(next==='X'?null:next)}\nに変更する？`)) return;
+    if(!await ask(`${p} の選択を\n${label(cur)} → ${label(next)}\nに変更する？`)) return;
     if(next==='X') db.ref(`${ROOT}/picks/${key}/${p}`).remove();
     else db.ref(`${ROOT}/picks/${key}/${p}`).set(next);
     toast('修正した');
@@ -1273,14 +1464,79 @@ function bind(){
     toast('確定した');
   };
 }
+/* 指名するときに賭けの種類を決めるダイアログ */
+function pickBetType(f){
+  return new Promise(res=>{
+    const ov=document.createElement('div'); ov.className='ov';
+    ov.innerHTML=`<div class="dlg">
+      <p>賭けの種類を選ぶ</p>
+      <div class="sub">${esc(jp(f.h))} vs ${esc(jp(f.a))}</div>
+      <select class="dsel" id="bmode">
+        <option value="3way">3択（ホーム勝ち / 引き分け / アウェイ勝ち）</option>
+        <option value="hc">ハンデ付き2択</option>
+        <option value="md">点差多択</option>
+      </select>
+      <div id="bsub"></div>
+      <div class="bprev" id="bprev"></div>
+      <div class="dlg-btns"><button class="dlg-no">やめる</button><button class="dlg-yes">これで指名</button></div>
+    </div>`;
+    document.body.appendChild(ov);
+    const modeEl=ov.querySelector('#bmode'), sub=ov.querySelector('#bsub'), prev=ov.querySelector('#bprev');
+
+    const teamOpts = `<option value="H">${esc(jp(f.h))}（ホーム）</option><option value="A">${esc(jp(f.a))}（アウェイ）</option>`;
+    function drawSub(){
+      const m=modeEl.value;
+      if(m==='hc'){
+        sub.innerHTML=`<select class="dsel" id="bteam">${teamOpts}</select>
+          <select class="dsel" id="bmargin">
+            <option value="0">同点以上で成立</option>
+            <option value="1">1点差以上で成立</option>
+            <option value="2" selected>2点差以上で成立</option>
+            <option value="3">3点差以上で成立</option>
+            <option value="4">4点差以上で成立</option>
+          </select>`;
+      } else if(m==='md'){
+        sub.innerHTML=`<select class="dsel" id="bteam">${teamOpts}</select>
+          <select class="dsel" id="bsteps">
+            <option value="3">3択（同点+ / 1点差 / 2点差+）</option>
+            <option value="4">4択（同点+ / 1 / 2 / 3点差+）</option>
+            <option value="5">5択（同点+ / 1 / 2 / 3 / 4点差+）</option>
+          </select>`;
+      } else sub.innerHTML='';
+      sub.querySelectorAll('select').forEach(s=>s.onchange=drawPrev);
+      drawPrev();
+    }
+    function cfgNow(){
+      const m=modeEl.value;
+      if(m==='hc') return {mode:'hc',condTeam:sub.querySelector('#bteam').value,margin:Number(sub.querySelector('#bmargin').value)};
+      if(m==='md') return {mode:'md',condTeam:sub.querySelector('#bteam').value,steps:Number(sub.querySelector('#bsteps').value)};
+      return {mode:'3way'};
+    }
+    function drawPrev(){
+      const cfg=cfgNow();
+      const saved=(state.bet||{})[f.key];
+      state.bet=state.bet||{}; state.bet[f.key]=cfg;
+      const opts=optionValues(f.key).map(v=>optLabel(f.key,f,v,true));
+      const ct=condText(f.key,f);
+      if(saved) state.bet[f.key]=saved; else delete state.bet[f.key];
+      prev.innerHTML=`${ct?`<div class="bp-cond">${esc(ct)}</div>`:''}
+        <div class="bp-opts">${opts.map((o,i)=>`<span>${i+1}. ${esc(o)}</span>`).join('')}</div>`;
+    }
+    modeEl.onchange=drawSub;
+    drawSub();
+    ov.querySelector('.dlg-yes').onclick=()=>{ const c=cfgNow(); ov.remove(); res(c); };
+    ov.querySelector('.dlg-no').onclick=()=>{ ov.remove(); res(null); };
+    ov.onclick=e=>{ if(e.target===ov){ ov.remove(); res(null); } };
+  });
+}
+
 function pickSide(f, p, cur){
   return new Promise(res=>{
+    const opts = optionValues(f.key);
     const ov=document.createElement('div'); ov.className='ov';
     ov.innerHTML=`<div class="dlg"><p>${esc(p)} の選択を変える</p>
       <div class="who-chips">
-        <button class="who-chip" data-s="H">${esc(jp(f.h))}</button>
-        <button class="who-chip" data-s="D">引き分け</button>
-        <button class="who-chip" data-s="A">${esc(jp(f.a))}</button>
+        ${opts.map(v=>`<button class="who-chip" data-s="${v}">${esc(optLabel(f.key,f,v,true))}</button>`).join('')}
         <button class="who-chip" data-s="X">不参加にする</button>
       </div><div class="dlg-btns"><button class="dlg-no">やめる</button></div></div>`;
     document.body.appendChild(ov);
