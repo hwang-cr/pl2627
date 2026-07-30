@@ -1,0 +1,1364 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>PL賭けノート 2026/27</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --purple:#37003C; --purple-2:#5C2B62; --grey:#6B5B6E;
+  --line:#E9E2EC; --panel:#F7F4F8;
+  --pink:#E90052; --green:#00B96B; --green-lt:#00FF87; --cyan:#04F5FF;
+  --disp:'Poppins'; --body:'Poppins';
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:var(--body),'Noto Sans JP',sans-serif;background:#fff;color:var(--purple);padding-bottom:70px}
+.wrap{max-width:560px;margin:0 auto}
+button{font-family:var(--body),'Noto Sans JP',sans-serif}
+input,select{font-family:var(--body),'Noto Sans JP',sans-serif}
+
+/* ── app bar ── */
+.appbar{display:flex;align-items:center;gap:11px;padding:13px 15px;border-bottom:1px solid var(--line);background:#fff;position:sticky;top:0;z-index:30}
+.mark{width:34px;height:34px;flex:none;display:grid;place-items:center}
+.mark img{width:34px;height:34px;object-fit:contain}
+.mark svg{width:30px;height:30px;fill:var(--purple)}
+.brand{line-height:1.05}
+.brand b{display:block;font-family:var(--disp);font-weight:800;font-size:15px;letter-spacing:-.01em}
+.brand i{display:block;font-style:normal;font-size:9.5px;font-weight:600;color:var(--grey);letter-spacing:.02em;margin-top:1px}
+.appbar .sp{flex:1}
+.chip-me{font-size:11px;font-weight:700;padding:6px 12px;border-radius:20px;background:var(--panel);color:var(--purple);border:none;cursor:pointer}
+
+/* ── hero ── */
+.hero{background:linear-gradient(100deg,#8F00FF 0%,#4B5BFF 42%,#04F5FF 100%);padding:22px 18px 26px;color:#fff;position:relative;overflow:hidden}
+.hero::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(115deg,rgba(255,255,255,.07) 0 2px,transparent 2px 26px)}
+.hero .in{position:relative;z-index:2}
+.hero .eyebrow{font-size:10px;font-weight:700;letter-spacing:.2em;opacity:.85;margin-bottom:4px}
+.hero h1{font-family:var(--disp);font-size:34px;font-weight:800;letter-spacing:-.02em;line-height:1}
+.hero .sub{font-size:11.5px;font-weight:600;opacity:.9;margin-top:6px}
+.hero-g{position:relative;overflow:hidden;padding:22px 18px 26px;color:var(--purple);background:linear-gradient(100deg,#C8FF00 0%,#00FF87 52%,#00E4C4 100%)}
+.hero-g .chev{position:absolute;top:-30%;height:160%;width:52%;background:rgba(255,255,255,.16);transform:skewX(-22deg)}
+.hero-g .chev.c1{left:-16%} .hero-g .chev.c2{left:24%;background:rgba(255,255,255,.09)} .hero-g .chev.c3{left:66%;background:rgba(255,255,255,.13)}
+.hero-g .in{position:relative;z-index:2}
+.hero-g .eyebrow{font-size:10px;font-weight:800;letter-spacing:.2em;opacity:.72;margin-bottom:4px}
+.hero-g h1{font-family:var(--disp);font-size:32px;font-weight:800;letter-spacing:-.02em;line-height:1}
+.hero-g .sub{font-size:11.5px;font-weight:700;opacity:.78;margin-top:6px}
+
+/* ── tabs ── */
+.tabs{display:flex;background:var(--purple);padding:0 6px;position:sticky;top:61px;z-index:29}
+.tabs button{flex:1;font-size:12px;font-weight:600;color:rgba(255,255,255,.6);background:none;border:none;padding:13px 2px 11px;cursor:pointer;border-bottom:3px solid transparent}
+.tabs button.on{color:#fff;border-bottom-color:var(--green-lt)}
+
+/* ── matchweek bar ── */
+.mwbar{display:flex;align-items:center;gap:8px;padding:11px 14px;border-bottom:1px solid var(--line);background:#fff}
+.mwbar .arw{width:30px;height:30px;border-radius:50%;border:1px solid var(--line);background:#fff;color:var(--purple);font-size:14px;font-weight:700;cursor:pointer;flex:none}
+.mwbar .arw:disabled{opacity:.25}
+.mwbar .now{flex:1;text-align:center}
+.mwbar .now b{display:block;font-family:var(--disp);font-weight:700;font-size:14px}
+.mwbar .now i{display:block;font-style:normal;font-size:10px;color:var(--grey);font-weight:500;margin-top:1px}
+
+.sec{padding:16px 14px 4px}
+.sec h2{font-family:var(--disp);font-size:15px;font-weight:700;letter-spacing:-.01em}
+.sec p{font-size:11.5px;color:var(--grey);font-weight:500;margin-top:3px;line-height:1.6}
+.daterow{font-family:var(--disp);font-size:13.5px;font-weight:700;padding:14px 15px 7px}
+.divider{height:8px;background:var(--panel);margin-top:18px}
+.empty{margin:0 12px;text-align:center;color:var(--grey);font-size:12.5px;padding:26px 12px;border:1px dashed var(--line);border-radius:12px;line-height:1.6}
+.loading{text-align:center;padding:60px 0;color:var(--grey);font-size:13px}
+
+/* ── fixture card ── */
+.fx{background:#fff;border:1px solid var(--line);border-radius:12px;margin:0 12px 8px;overflow:hidden}
+.fxrow{display:grid;grid-template-columns:1fr 26px auto 26px 1fr;align-items:center;gap:8px;padding:13px 11px}
+.fxrow .tn{font-size:12px;font-weight:700;letter-spacing:-.01em;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fxrow .tn.h{text-align:right}
+.fxrow .ko{font-family:var(--disp);font-size:14.5px;font-weight:700;text-align:center}
+.crest{width:26px;height:26px;display:block;object-fit:contain}
+.fxfoot{border-top:1px solid var(--line);padding:8px 11px;display:flex;align-items:center;gap:8px;background:#FCFBFD;flex-wrap:wrap}
+.nombtn{font-size:11.5px;font-weight:700;padding:8px 14px;border-radius:20px;border:1.5px solid var(--purple);background:#fff;color:var(--purple);cursor:pointer}
+.nomtag{font-size:11px;font-weight:700;color:var(--grey)}
+.nomtag b{color:var(--purple)}
+.mini{font-size:10.5px;color:var(--grey);font-weight:600}
+
+/* ── bet ticket ── */
+.tk{border:1px solid var(--line);border-radius:14px;margin:0 12px 12px;overflow:hidden}
+.tk-top{background:var(--purple);color:#fff;padding:9px 12px;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.tk-top .who{font-size:11px;font-weight:700}
+.tk-top .who b{color:var(--green-lt)}
+.tk-top .sp{flex:1}
+.tk-top .dl{font-size:10.5px;font-weight:700;background:rgba(255,255,255,.16);padding:4px 10px;border-radius:20px}
+.tk-top .dl.shut{background:var(--pink)}
+.picks{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;padding:2px 11px 11px}
+.pk{border:1.5px solid var(--line);background:#fff;border-radius:11px;padding:10px 3px 8px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px}
+.pk .crest{width:24px;height:24px}
+.pk em{font-style:normal;font-size:10px;font-weight:700;color:var(--grey)}
+.pk .pct{font-family:var(--disp);font-size:11.5px;font-weight:700;color:var(--purple)}
+.pk.sel{border-color:var(--purple);background:var(--purple);box-shadow:0 3px 0 rgba(55,0,60,.15)}
+.pk.sel em{color:#fff} .pk.sel .pct{color:var(--green-lt)}
+.pk.dim{opacity:.42}
+.pk .dm{width:24px;height:24px;display:grid;place-items:center;font-family:var(--disp);font-weight:800;font-size:14px;color:var(--grey)}
+.pk.sel .dm{color:#fff}
+.vrow{display:flex;align-items:center;gap:8px;padding:8px 13px;border-top:1px solid var(--line);font-size:12px}
+.vrow .nm{flex:1;font-weight:700}
+.vrow .val{font-size:11px;font-weight:700;color:var(--grey)}
+.vrow .dot{width:8px;height:8px;border-radius:50%;background:var(--green);flex:none}
+.vrow .dot.no{background:#D9CFDD}
+.vrow .mk{width:18px;text-align:center;font-weight:800;font-size:13px}
+.mk.win{color:var(--green)} .mk.lose{color:var(--pink)}
+.vrow .ovr{font-size:9.5px;font-weight:700;color:var(--pink);background:#FDE9F0;border:none;border-radius:12px;padding:3px 8px;cursor:pointer}
+.blind{margin:9px 11px 0;font-size:11.5px;font-weight:600;color:var(--purple-2);background:var(--panel);border-radius:9px;padding:9px 11px;line-height:1.5}
+.meter{margin:9px 11px 0}
+.meter .bar{display:flex;height:7px;border-radius:4px;overflow:hidden;background:var(--line)}
+.meter .bar span{display:block;height:100%}
+.meter .lbl{display:flex;justify-content:space-between;margin-top:5px;font-size:10.5px;font-weight:700;color:var(--grey)}
+.settled{margin:9px 11px 0;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.score{font-family:var(--disp);font-size:13px;font-weight:800;background:var(--purple);color:#fff;padding:5px 12px;border-radius:6px}
+.score.void{background:var(--grey)}
+.moneyline{margin:8px 11px 0;font-size:11.5px;font-weight:600;color:var(--grey);line-height:1.7}
+.moneyline b{color:var(--purple)}
+.scin{margin:9px 11px 0;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.scin input{width:50px;padding:8px 0;text-align:center;border:1.5px solid var(--line);border-radius:8px;font-size:15px;font-weight:800;color:var(--purple)}
+.scin .dash{font-weight:800;color:var(--grey)}
+.scin .go{font-size:11.5px;font-weight:700;padding:8px 14px;border-radius:20px;border:1.5px solid var(--purple);background:var(--purple);color:#fff;cursor:pointer}
+
+/* ── league table ── */
+.tbl{margin:0 12px;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.th,.tr{display:grid;grid-template-columns:28px 1fr 24px 24px 30px 28px;align-items:center;gap:5px;padding:8px 10px}
+.th{font-size:9px;font-weight:700;color:var(--grey);letter-spacing:.05em;border-bottom:1px solid var(--line);background:#FCFBFD}
+.tr{border-bottom:1px solid var(--line);font-size:11.5px;position:relative}
+.tr:last-child{border-bottom:none}
+.tr .pos{font-family:var(--disp);font-weight:700;font-size:11.5px;color:var(--grey);text-align:center}
+.tr .tm{display:flex;align-items:center;gap:6px;min-width:0;font-weight:700}
+.tr .tm span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tr .crest{width:18px;height:18px;flex:none}
+.tr .n{text-align:center;color:var(--grey);font-variant-numeric:tabular-nums}
+.tr .pts{text-align:center;font-weight:800;font-variant-numeric:tabular-nums}
+.tr::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px}
+.tr.ucl::before{background:var(--green-lt)}
+.tr.rel::before{background:var(--pink)}
+.legend{display:flex;gap:14px;padding:9px 14px 0;font-size:10px;color:var(--grey);font-weight:600}
+.legend i{width:8px;height:8px;border-radius:2px;display:inline-block;margin-right:5px}
+
+/* ── score grid ── */
+.sg{margin:0 12px 8px;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.sgrow{display:grid;grid-template-columns:1fr 44px 10px 44px 1fr;align-items:center;gap:6px;padding:9px 10px;border-bottom:1px solid var(--line)}
+.sgrow:last-child{border-bottom:none}
+.sgrow .tn{font-size:11px;font-weight:700;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sgrow .tn.h{text-align:right}
+.sgrow input{width:100%;padding:7px 0;text-align:center;border:1.5px solid var(--line);border-radius:7px;font-size:14px;font-weight:800;color:var(--purple)}
+.sgrow .dash{text-align:center;font-weight:800;color:var(--grey);font-size:11px}
+.sgrow.done input{border-color:#CFE9DA;background:#F3FBF6}
+
+/* ── money standings ── */
+.mrow{display:flex;align-items:center;gap:9px;padding:12px 13px;border-bottom:1px solid var(--line)}
+.mrow:last-child{border-bottom:none}
+.mrow .rk{font-family:var(--disp);font-size:17px;font-weight:700;width:20px;color:var(--grey)}
+.mrow:first-child .rk{color:var(--purple)}
+.mrow .nm{flex:1;font-weight:700;font-size:13px}
+.mrow .rec{font-size:10.5px;color:var(--grey);font-weight:600}
+.mrow .amt{font-family:var(--disp);font-size:16px;font-weight:700;min-width:74px;text-align:right;font-variant-numeric:tabular-nums}
+.amt.up{color:var(--green)} .amt.dn{color:var(--pink)} .amt.ze{color:var(--grey)}
+.txrow{display:flex;align-items:center;gap:8px;padding:11px 13px;border-bottom:1px solid var(--line);font-size:12px;font-weight:700}
+.txrow:last-child{border-bottom:none}
+.txrow .ar{color:var(--pink);font-weight:800}
+.txrow .am{margin-left:auto;font-family:var(--disp);font-size:14px;font-weight:800}
+
+/* ── stat / mvp cards ── */
+.stc{margin:0 12px 9px;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.stc-t{font-family:var(--disp);font-size:12.5px;font-weight:700;padding:9px 12px 6px}
+.strow{display:flex;align-items:center;gap:8px;padding:7px 12px;border-top:1px solid var(--line);font-size:12px}
+.strow .rk{font-family:var(--disp);width:14px;color:var(--grey);font-weight:700}
+.strow .nm{flex:1;font-weight:700;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.strow .sub{font-size:10px;color:var(--grey);font-weight:600}
+.strow .big{font-family:var(--disp);font-size:16px;font-weight:700;min-width:42px;text-align:right}
+.badge-s{font-size:9.5px;font-weight:800;padding:2px 7px;border-radius:12px;white-space:nowrap}
+.badge-s.g{background:#E7F9F0;color:#00713F}
+.badge-s.r{background:#FDE9F0;color:#B00040}
+.mvp{margin:0 12px 8px;border-radius:12px;padding:11px 13px;display:flex;align-items:center;gap:10px;background:linear-gradient(100deg,#DFFF66,#00FF87 78%);color:var(--purple)}
+.mvp .tag{font-size:9px;font-weight:800;letter-spacing:.1em;background:var(--purple);color:var(--green-lt);padding:4px 8px;border-radius:20px;flex:none}
+.mvp .nm{flex:1;font-weight:800;font-size:14px;min-width:0}
+.mvp .amt{font-family:var(--disp);font-size:16px;font-weight:800}
+.mvp.none{background:var(--panel);color:var(--grey)}
+.mvp.none .tag{background:var(--grey);color:#fff}
+
+/* ── side bets ── */
+.side{margin:0 12px 9px;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.side-h{padding:10px 12px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--line)}
+.side-h b{font-family:var(--disp);font-size:12.5px;font-weight:700;flex:1}
+.stake{font-size:9.5px;font-weight:800;color:#fff;background:var(--pink);padding:3px 9px;border-radius:20px}
+.side-b{padding:10px 12px;font-size:11.5px;color:var(--grey);font-weight:600;line-height:1.6}
+.pickline{display:flex;align-items:center;gap:7px;padding:4px 0;color:var(--purple);font-weight:700;font-size:12px}
+.pickline .crest{width:20px;height:20px}
+.pickline .ord{font-family:var(--disp);font-weight:800;width:14px;color:var(--grey)}
+.clubgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(60px,1fr));gap:6px;margin-top:9px}
+.cbtn{border:1.5px solid var(--line);background:#fff;border-radius:9px;padding:7px 2px 5px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;position:relative}
+.cbtn .crest{width:22px;height:22px}
+.cbtn em{font-style:normal;font-size:8.5px;font-weight:700;color:var(--grey)}
+.cbtn.on{border-color:var(--purple);background:var(--panel)}
+.cbtn .num{position:absolute;top:-5px;right:-5px;width:17px;height:17px;border-radius:50%;background:var(--purple);color:#fff;font-family:var(--disp);font-size:10px;font-weight:800;display:grid;place-items:center}
+.sbtn{width:100%;margin-top:10px;padding:11px 0;border:none;border-radius:9px;background:var(--purple);color:#fff;font-weight:800;font-size:12.5px;cursor:pointer}
+.sbtn.ghost{background:#fff;border:1.5px solid var(--line);color:var(--grey);font-weight:700}
+.txtin{width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:9px;font-size:13px;font-weight:700;color:var(--purple);margin-top:8px}
+
+/* ── crown ── */
+.crown{margin:0 12px 12px;border-radius:14px;overflow:hidden;border:1px solid var(--line)}
+.crown-top{position:relative;overflow:hidden;padding:22px 16px 20px;text-align:center;color:var(--purple);background:linear-gradient(115deg,#C8FF00,#00FF87 60%,#00E4C4)}
+.crown-top .chev{position:absolute;top:-30%;height:160%;width:48%;background:rgba(255,255,255,.15);transform:skewX(-22deg)}
+.crown-top .chev.c1{left:-14%} .crown-top .chev.c2{left:34%;background:rgba(255,255,255,.09)}
+.crown-top .in{position:relative;z-index:2}
+.crown-top .eyebrow{font-size:9.5px;font-weight:800;letter-spacing:.18em;opacity:.7}
+.crown-top .big{font-family:var(--disp);font-size:26px;font-weight:800;letter-spacing:-.02em;margin-top:5px}
+.crown-top .amt{display:inline-block;margin-top:8px;font-family:var(--disp);font-size:14px;font-weight:800;background:var(--purple);color:var(--green-lt);padding:5px 14px;border-radius:20px}
+.crown-body{padding:10px 13px;font-size:11.5px;color:var(--grey);font-weight:600;line-height:1.7;background:#fff}
+.crown-body b{color:var(--purple)}
+
+/* ── fold / rules ── */
+.fold{border:1px solid var(--line);border-radius:12px;margin:0 12px 9px;overflow:hidden;background:#fff}
+.fold>summary{list-style:none;cursor:pointer;padding:12px 13px;font-family:var(--disp);font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px}
+.fold>summary::-webkit-details-marker{display:none}
+.fold>summary::before{content:'▸';color:var(--pink);font-size:11px}
+.fold[open]>summary::before{content:'▾'}
+.fold-in{padding:0 13px 13px;font-size:11.5px;color:var(--grey);line-height:1.85;font-weight:500}
+.fold-in b{color:var(--purple)}
+
+/* ── dialogs ── */
+.ov{position:fixed;inset:0;background:rgba(30,0,35,.55);display:flex;align-items:center;justify-content:center;z-index:90;padding:18px}
+.dlg{background:#fff;border-radius:14px;padding:18px 16px;max-width:330px;width:100%;box-shadow:0 8px 28px rgba(0,0,0,.28)}
+.dlg p{font-size:13.5px;font-weight:700;line-height:1.6;margin-bottom:14px;white-space:pre-line}
+.dlg .sub{font-size:11.5px;font-weight:600;color:var(--grey);margin-top:-8px;margin-bottom:12px}
+.dlg-btns{display:flex;gap:8px}
+.dlg-btns button{flex:1;padding:11px 0;border-radius:9px;font-weight:800;font-size:12.5px;cursor:pointer;border:none}
+.dlg-no{background:#fff;border:1.5px solid var(--line)!important;color:var(--grey)}
+.dlg-yes{background:var(--purple);color:#fff}
+.pin-in{width:100%;padding:12px;text-align:center;font-size:19px;font-weight:800;letter-spacing:.28em;border:1.5px solid var(--line);border-radius:9px;color:var(--purple);margin-bottom:12px}
+.who-chips{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-bottom:12px}
+.who-chip{font-size:12px;font-weight:700;padding:8px 13px;border-radius:20px;border:1.5px solid var(--line);background:#fff;color:var(--purple);cursor:pointer}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--purple);color:#fff;font-weight:700;font-size:12.5px;padding:11px 20px;border-radius:24px;opacity:0;transition:opacity .25s;pointer-events:none;z-index:95;max-width:88vw;text-align:center}
+.toast.show{opacity:1}
+.warnbar{margin:12px;background:#FDE9F0;color:#B00040;font-size:11.5px;font-weight:700;line-height:1.7;padding:11px 13px;border-radius:10px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="appbar">
+    <div class="mark" id="logoBox"></div>
+    <div class="brand"><b>賭けノート</b><i>PREMIER LEAGUE 2026/27</i></div>
+    <div class="sp"></div>
+    <button class="chip-me" id="meChip">誰？</button>
+  </div>
+
+  <div id="warn" style="display:none"></div>
+  <div id="loading" class="loading">帳簿を開いてる…</div>
+
+  <div id="app" style="display:none">
+    <div id="heroBox"></div>
+    <div class="tabs" id="tabs">
+      <button data-tab="match" class="on">試合</button>
+      <button data-tab="table">順位表</button>
+      <button data-tab="money">収支</button>
+      <button data-tab="season">年間予想</button>
+    </div>
+    <div id="view"></div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+<script>
+/* ══════════════════════════════════════════════════════════════
+   PL賭けノート 2026/27
+   ・賭けは3択（ホーム勝ち / 引き分け / アウェイ勝ち）のみ・1,000ペリカ固定
+   ・各節、1人1試合を指名。指名された試合に全員が賭ける
+   ・締切はキックオフ15分前。締切前はFirebase上でも暗号化されて見えん
+   ・締切後は自動で平文化され、Firebaseから直接修正できる
+   ══════════════════════════════════════════════════════════════ */
+
+/* ★★★ 新しいFirebaseプロジェクトの設定をここに貼る（wc2026とは別のを作る）★★★ */
+const firebaseConfig = {
+  apiKey: "AIzaSyAl0Iqj0OQLH61UxTFjoheOU5EXPmBTAm8",
+  authDomain: "plnote.firebaseapp.com",
+  databaseURL: "https://plnote-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "plnote",
+  storageBucket: "plnote.firebasestorage.app",
+  messagingSenderId: "99021468342",
+  appId: "1:99021468342:web:9b72c6828effa61963ec17"
+};
+const ROOT = 'plnote';               /* wc2026 の kakebo とは完全に分離 */
+const ADMIN = 'さんふぁん';
+const PLAYERS = ['りゅんで','さんふぁん','ふぁんさ','よんす','りき'];
+const STAKE = 1000;
+const CHAMP_STAKE = 10000;
+const SIDE_STAKE = 5000;
+const VAULT = 'plnote-2026-27-blind-vault';
+const DEADLINE_MS = 15*60*1000;      /* キックオフ15分前 */
+/* プレミアリーグ公式ロゴ（白背景用の紫ライオン）。
+   読み込みに失敗したら王冠マークに自動で落ちる */
+const PL_LOGO = 'https://logo.premierleague.com/img/lion-dark.svg';
+
+const CLUBS = {
+  ARS:{id:3,  jp:'アーセナル',        c1:'#EF0107', c2:'#FFFFFF', ink:'#fff'},
+  AVL:{id:7,  jp:'アストン・ヴィラ',   c1:'#670E36', c2:'#95BFE5', ink:'#fff'},
+  BOU:{id:91, jp:'ボーンマス',        c1:'#DA291C', c2:'#111111', ink:'#fff'},
+  BRE:{id:94, jp:'ブレントフォード',   c1:'#E30613', c2:'#FFFFFF', ink:'#fff'},
+  BHA:{id:36, jp:'ブライトン',        c1:'#0057B8', c2:'#FFFFFF', ink:'#fff'},
+  CHE:{id:8,  jp:'チェルシー',        c1:'#034694', c2:'#FFFFFF', ink:'#fff'},
+  COV:{id:9,  jp:'コヴェントリー',     c1:'#6CC0E8', c2:'#12294B', ink:'#0C2340'},
+  CRY:{id:31, jp:'クリスタル・パレス', c1:'#1B458F', c2:'#C4122E', ink:'#fff'},
+  EVE:{id:11, jp:'エヴァートン',      c1:'#003399', c2:'#FFFFFF', ink:'#fff'},
+  FUL:{id:54, jp:'フラム',           c1:'#FFFFFF', c2:'#111111', ink:'#111'},
+  HUL:{id:88, jp:'ハル',             c1:'#F5A12D', c2:'#111111', ink:'#3A2000'},
+  IPS:{id:40, jp:'イプスウィッチ',     c1:'#3A64A3', c2:'#FFFFFF', ink:'#fff'},
+  LEE:{id:2,  jp:'リーズ',            c1:'#FFCD00', c2:'#1D428A', ink:'#1D428A'},
+  LIV:{id:14, jp:'リヴァプール',      c1:'#C8102E', c2:'#00B2A9', ink:'#fff'},
+  MCI:{id:43, jp:'マンチェスター・C',  c1:'#6CABDD', c2:'#1C2C5B', ink:'#08214A'},
+  MUN:{id:1,  jp:'マンチェスター・U',  c1:'#DA291C', c2:'#FBE122', ink:'#fff'},
+  NEW:{id:4,  jp:'ニューカッスル',     c1:'#241F20', c2:'#FFFFFF', ink:'#fff'},
+  NFO:{id:17, jp:'フォレスト',        c1:'#DD0000', c2:'#FFFFFF', ink:'#fff'},
+  SUN:{id:56, jp:'サンダーランド',     c1:'#EB172B', c2:'#FFFFFF', ink:'#fff'},
+  TOT:{id:6,  jp:'スパーズ',          c1:'#132257', c2:'#FFFFFF', ink:'#fff'}
+};
+
+/* 全380試合：[節, キックオフ(UTCミリ秒), ホーム, アウェイ]
+   イギリス現地時間から夏時間/冬時間を判定して変換済み */
+const FIXTURES = '1,1787338800000,ARS,COV;1,1787398200000,HUL,MUN;1,1787407200000,EVE,CRY;1,1787407200000,IPS,SUN;1,1787407200000,NFO,LEE;1,1787416200000,BRE,TOT;1,1787490000000,BHA,AVL;1,1787490000000,MCI,BOU;1,1787499000000,NEW,LIV;1,1787598000000,FUL,CHE;2,1787943600000,CRY,MCI;2,1788003000000,LIV,NFO;2,1788012000000,BOU,EVE;2,1788012000000,COV,HUL;2,1788021000000,TOT,NEW;2,1788094800000,CHE,BHA;2,1788094800000,LEE,BRE;2,1788094800000,SUN,FUL;2,1788103800000,MUN,IPS;2,1788202800000,AVL,ARS;3,1788548400000,IPS,LIV;3,1788607800000,NEW,BOU;3,1788616800000,BRE,SUN;3,1788616800000,BHA,LEE;3,1788616800000,FUL,CRY;3,1788616800000,MCI,COV;3,1788616800000,NFO,TOT;3,1788625800000,HUL,AVL;3,1788699600000,EVE,MUN;3,1788708600000,ARS,CHE;4,1789221600000,BOU,BRE;4,1789221600000,AVL,NFO;4,1789221600000,CHE,HUL;4,1789221600000,CRY,IPS;4,1789221600000,LIV,FUL;4,1789230600000,TOT,EVE;4,1789239600000,SUN,ARS;4,1789304400000,COV,BHA;4,1789313400000,MUN,MCI;4,1789412400000,LEE,NEW;5,1789758000000,BRE,CHE;5,1789817400000,TOT,AVL;5,1789826400000,BHA,ARS;5,1789826400000,EVE,IPS;5,1789826400000,LEE,CRY;5,1789826400000,MCI,SUN;5,1789826400000,NEW,HUL;5,1789835400000,NFO,COV;5,1789909200000,BOU,LIV;5,1789918200000,FUL,MUN;6,1791640800000,ARS,LEE;6,1791640800000,AVL,BRE;6,1791640800000,CHE,BOU;6,1791640800000,COV,NEW;6,1791640800000,CRY,NFO;6,1791640800000,HUL,EVE;6,1791640800000,IPS,FUL;6,1791640800000,LIV,MCI;6,1791640800000,MUN,TOT;6,1791640800000,SUN,BHA;7,1792245600000,BOU,SUN;7,1792245600000,BRE,LIV;7,1792245600000,BHA,CRY;7,1792245600000,EVE,CHE;7,1792245600000,FUL,HUL;7,1792245600000,LEE,MUN;7,1792245600000,MCI,IPS;7,1792245600000,NEW,AVL;7,1792245600000,NFO,ARS;7,1792245600000,TOT,COV;8,1792850400000,ARS,EVE;8,1792850400000,AVL,MCI;8,1792850400000,CHE,TOT;8,1792850400000,COV,FUL;8,1792850400000,CRY,NEW;8,1792850400000,HUL,BRE;8,1792850400000,IPS,NFO;8,1792850400000,LIV,BHA;8,1792850400000,MUN,BOU;8,1792850400000,SUN,LEE;9,1793458800000,BOU,LEE;9,1793458800000,AVL,FUL;9,1793458800000,BRE,NFO;9,1793458800000,CHE,MUN;9,1793458800000,COV,SUN;9,1793458800000,HUL,IPS;9,1793458800000,LIV,ARS;9,1793458800000,MCI,BHA;9,1793458800000,NEW,EVE;9,1793458800000,TOT,CRY;10,1794063600000,ARS,HUL;10,1794063600000,BHA,BRE;10,1794063600000,CRY,LIV;10,1794063600000,EVE,COV;10,1794063600000,FUL,NEW;10,1794063600000,IPS,BOU;10,1794063600000,LEE,TOT;10,1794063600000,MUN,AVL;10,1794063600000,NFO,MCI;10,1794063600000,SUN,CHE;11,1795273200000,BOU,NFO;11,1795273200000,AVL,SUN;11,1795273200000,BRE,EVE;11,1795273200000,CHE,LEE;11,1795273200000,COV,CRY;11,1795273200000,HUL,BHA;11,1795273200000,LIV,MUN;11,1795273200000,MCI,FUL;11,1795273200000,NEW,ARS;11,1795273200000,TOT,IPS;12,1795878000000,ARS,MCI;12,1795878000000,BHA,NEW;12,1795878000000,CRY,HUL;12,1795878000000,EVE,LIV;12,1795878000000,FUL,BOU;12,1795878000000,IPS,AVL;12,1795878000000,LEE,COV;12,1795878000000,MUN,BRE;12,1795878000000,NFO,CHE;12,1795878000000,SUN,TOT;13,1796241600000,BOU,BHA;13,1796241600000,AVL,EVE;13,1796241600000,BRE,ARS;13,1796241600000,CHE,CRY;13,1796241600000,COV,IPS;13,1796241600000,HUL,NFO;13,1796241600000,LIV,SUN;13,1796241600000,MCI,LEE;13,1796241600000,NEW,MUN;13,1796241600000,TOT,FUL;14,1796482800000,BOU,HUL;14,1796482800000,AVL,CRY;14,1796482800000,BRE,MCI;14,1796482800000,CHE,LIV;14,1796482800000,EVE,FUL;14,1796482800000,LEE,IPS;14,1796482800000,MUN,COV;14,1796482800000,NEW,SUN;14,1796482800000,NFO,BHA;14,1796482800000,TOT,ARS;15,1797087600000,ARS,BOU;15,1797087600000,BHA,EVE;15,1797087600000,COV,AVL;15,1797087600000,CRY,MUN;15,1797087600000,FUL,BRE;15,1797087600000,HUL,TOT;15,1797087600000,IPS,NEW;15,1797087600000,LIV,LEE;15,1797087600000,MCI,CHE;15,1797087600000,SUN,NFO;16,1797692400000,BOU,COV;16,1797692400000,ARS,MUN;16,1797692400000,BRE,NEW;16,1797692400000,BHA,IPS;16,1797692400000,CHE,AVL;16,1797692400000,LEE,FUL;16,1797692400000,LIV,TOT;16,1797692400000,MCI,HUL;16,1797692400000,NFO,EVE;16,1797692400000,SUN,CRY;17,1798297200000,AVL,LEE;17,1798297200000,COV,CHE;17,1798297200000,CRY,ARS;17,1798297200000,EVE,SUN;17,1798297200000,FUL,BHA;17,1798297200000,HUL,LIV;17,1798297200000,IPS,BRE;17,1798297200000,MUN,NFO;17,1798297200000,NEW,MCI;17,1798297200000,TOT,BOU;18,1798660800000,AVL,LIV;18,1798660800000,COV,BRE;18,1798660800000,CRY,BOU;18,1798660800000,EVE,MCI;18,1798660800000,FUL,ARS;18,1798660800000,HUL,LEE;18,1798660800000,IPS,CHE;18,1798660800000,MUN,SUN;18,1798660800000,NEW,NFO;18,1798660800000,TOT,BHA;19,1798902000000,BOU,AVL;19,1798902000000,ARS,IPS;19,1798902000000,BRE,CRY;19,1798902000000,BHA,MUN;19,1798902000000,CHE,NEW;19,1798902000000,LEE,EVE;19,1798902000000,LIV,COV;19,1798902000000,MCI,TOT;19,1798902000000,NFO,FUL;19,1798902000000,SUN,HUL;20,1799265600000,ARS,BRE;20,1799265600000,BHA,BOU;20,1799265600000,CRY,CHE;20,1799265600000,EVE,AVL;20,1799265600000,FUL,TOT;20,1799265600000,IPS,COV;20,1799265600000,LEE,MCI;20,1799265600000,MUN,NEW;20,1799265600000,NFO,HUL;20,1799265600000,SUN,LIV;21,1800111600000,BOU,IPS;21,1800111600000,AVL,MUN;21,1800111600000,BRE,BHA;21,1800111600000,CHE,SUN;21,1800111600000,COV,EVE;21,1800111600000,HUL,ARS;21,1800111600000,LIV,CRY;21,1800111600000,MCI,NFO;21,1800111600000,NEW,FUL;21,1800111600000,TOT,LEE;22,1800716400000,ARS,NEW;22,1800716400000,BHA,MCI;22,1800716400000,CRY,TOT;22,1800716400000,EVE,BRE;22,1800716400000,FUL,AVL;22,1800716400000,IPS,HUL;22,1800716400000,LEE,CHE;22,1800716400000,MUN,LIV;22,1800716400000,NFO,BOU;22,1800716400000,SUN,COV;23,1801321200000,BOU,FUL;23,1801321200000,AVL,IPS;23,1801321200000,BRE,MUN;23,1801321200000,CHE,NFO;23,1801321200000,COV,LEE;23,1801321200000,HUL,CRY;23,1801321200000,LIV,EVE;23,1801321200000,MCI,ARS;23,1801321200000,NEW,BHA;23,1801321200000,TOT,SUN;24,1801926000000,ARS,LIV;24,1801926000000,BHA,HUL;24,1801926000000,CRY,COV;24,1801926000000,EVE,NEW;24,1801926000000,FUL,MCI;24,1801926000000,IPS,TOT;24,1801926000000,LEE,BOU;24,1801926000000,MUN,CHE;24,1801926000000,NFO,BRE;24,1801926000000,SUN,AVL;25,1802289600000,AVL,BOU;25,1802289600000,COV,LIV;25,1802289600000,CRY,BRE;25,1802289600000,EVE,LEE;25,1802289600000,FUL,NFO;25,1802289600000,HUL,SUN;25,1802289600000,IPS,ARS;25,1802289600000,MUN,BHA;25,1802289600000,NEW,CHE;25,1802289600000,TOT,MCI;26,1803135600000,BOU,CRY;26,1803135600000,ARS,FUL;26,1803135600000,BRE,COV;26,1803135600000,BHA,TOT;26,1803135600000,CHE,IPS;26,1803135600000,LEE,AVL;26,1803135600000,LIV,HUL;26,1803135600000,MCI,NEW;26,1803135600000,NFO,MUN;26,1803135600000,SUN,EVE;27,1803740400000,AVL,CHE;27,1803740400000,COV,BOU;27,1803740400000,CRY,SUN;27,1803740400000,EVE,NFO;27,1803740400000,FUL,LEE;27,1803740400000,HUL,MCI;27,1803740400000,IPS,BHA;27,1803740400000,MUN,ARS;27,1803740400000,NEW,BRE;27,1803740400000,TOT,LIV;28,1804104000000,BOU,TOT;28,1804104000000,ARS,CRY;28,1804104000000,BRE,IPS;28,1804104000000,BHA,FUL;28,1804104000000,CHE,COV;28,1804104000000,LEE,HUL;28,1804104000000,LIV,AVL;28,1804104000000,MCI,EVE;28,1804104000000,NFO,NEW;28,1804104000000,SUN,MUN;29,1804950000000,BOU,NEW;29,1804950000000,AVL,HUL;29,1804950000000,CHE,ARS;29,1804950000000,COV,MCI;29,1804950000000,CRY,FUL;29,1804950000000,LEE,BHA;29,1804950000000,LIV,IPS;29,1804950000000,MUN,EVE;29,1804950000000,SUN,BRE;29,1804950000000,TOT,NFO;30,1805554800000,ARS,SUN;30,1805554800000,BRE,BOU;30,1805554800000,BHA,COV;30,1805554800000,EVE,TOT;30,1805554800000,FUL,LIV;30,1805554800000,HUL,CHE;30,1805554800000,IPS,CRY;30,1805554800000,MCI,MUN;30,1805554800000,NEW,LEE;30,1805554800000,NFO,AVL;31,1807365600000,BOU,MCI;31,1807365600000,AVL,BHA;31,1807365600000,CHE,FUL;31,1807365600000,COV,ARS;31,1807365600000,CRY,EVE;31,1807365600000,LEE,NFO;31,1807365600000,LIV,NEW;31,1807365600000,MUN,HUL;31,1807365600000,SUN,IPS;31,1807365600000,TOT,BRE;32,1807970400000,ARS,AVL;32,1807970400000,BRE,LEE;32,1807970400000,BHA,CHE;32,1807970400000,EVE,BOU;32,1807970400000,FUL,SUN;32,1807970400000,HUL,COV;32,1807970400000,IPS,MUN;32,1807970400000,MCI,CRY;32,1807970400000,NEW,TOT;32,1807970400000,NFO,LIV;33,1808575200000,BOU,ARS;33,1808575200000,AVL,COV;33,1808575200000,BRE,FUL;33,1808575200000,CHE,MCI;33,1808575200000,EVE,BHA;33,1808575200000,LEE,LIV;33,1808575200000,MUN,CRY;33,1808575200000,NEW,IPS;33,1808575200000,NFO,SUN;33,1808575200000,TOT,HUL;34,1809180000000,ARS,TOT;34,1809180000000,BHA,NFO;34,1809180000000,COV,MUN;34,1809180000000,CRY,AVL;34,1809180000000,FUL,EVE;34,1809180000000,HUL,BOU;34,1809180000000,IPS,LEE;34,1809180000000,LIV,CHE;34,1809180000000,MCI,BRE;34,1809180000000,SUN,NEW;35,1809784800000,BOU,MUN;35,1809784800000,BRE,AVL;35,1809784800000,BHA,SUN;35,1809784800000,EVE,HUL;35,1809784800000,FUL,IPS;35,1809784800000,LEE,ARS;35,1809784800000,MCI,LIV;35,1809784800000,NEW,COV;35,1809784800000,NFO,CRY;35,1809784800000,TOT,CHE;36,1810389600000,ARS,NFO;36,1810389600000,AVL,NEW;36,1810389600000,CHE,EVE;36,1810389600000,COV,TOT;36,1810389600000,CRY,BHA;36,1810389600000,HUL,FUL;36,1810389600000,IPS,MCI;36,1810389600000,LIV,BRE;36,1810389600000,MUN,LEE;36,1810389600000,SUN,BOU;37,1811080800000,BOU,CHE;37,1811080800000,BRE,HUL;37,1811080800000,BHA,LIV;37,1811080800000,EVE,ARS;37,1811080800000,FUL,COV;37,1811080800000,LEE,SUN;37,1811080800000,MCI,AVL;37,1811080800000,NEW,CRY;37,1811080800000,NFO,IPS;37,1811080800000,TOT,MUN;38,1811689200000,ARS,BHA;38,1811689200000,AVL,TOT;38,1811689200000,CHE,BRE;38,1811689200000,COV,NFO;38,1811689200000,CRY,LEE;38,1811689200000,HUL,NEW;38,1811689200000,IPS,EVE;38,1811689200000,LIV,BOU;38,1811689200000,MUN,FUL;38,1811689200000,SUN,MCI'.split(';').map(s=>{
+  const p = s.split(',');
+  return { gw:+p[0], ko:+p[1], h:p[2], a:p[3], key:'m'+p[0]+'_'+p[2]+'_'+p[3] };
+});
+const GW_MAX = 38;
+const SEASON_LOCK = Math.min(...FIXTURES.filter(f=>f.gw===1).map(f=>f.ko));
+const byKey = {}; FIXTURES.forEach(f=>byKey[f.key]=f);
+const fxOf = gw => FIXTURES.filter(f=>f.gw===gw).sort((x,y)=>x.ko-y.ko);
+
+let state = null, db = null, curGw = 1, curTab = 'match';
+let sideDraft = {};   /* 年間予想の編集中の選択 */
+
+/* ── 小物 ── */
+const esc = s => String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const peri = n => Number(n).toLocaleString()+'ペリカ';
+const WD = ['日','月','火','水','木','金','土'];
+function jd(ms){ const d=new Date(ms+9*3600000); return {mo:d.getUTCMonth()+1,d:d.getUTCDate(),wd:WD[d.getUTCDay()],h:d.getUTCHours(),mi:d.getUTCMinutes(),y:d.getUTCFullYear()}; }
+const hhmm = ms => { const p=jd(ms); return String(p.h).padStart(2,'0')+':'+String(p.mi).padStart(2,'0'); };
+const dateJp = ms => { const p=jd(ms); return `${p.mo}月${p.d}日（${p.wd}）`; };
+const dayKey = ms => { const p=jd(ms); return `${p.y}-${p.mo}-${p.d}`; };
+function remain(ms){
+  if(ms<=0) return null;
+  const d=Math.floor(ms/86400000), h=Math.floor(ms%86400000/3600000), m=Math.floor(ms%3600000/60000);
+  if(d>0) return `${d}日${h}時間`;
+  return h>0 ? `${h}時間${m}分` : `${m}分`;
+}
+function toast(m){ const t=document.getElementById('toast'); t.textContent=m; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2200); }
+function showErr(html){
+  const w=document.getElementById('warn');
+  w.className='warnbar'; w.innerHTML=html; w.style.display='block';
+  document.getElementById('loading').style.display='none';
+}
+const deadlineOf = f => f.ko - DEADLINE_MS;
+const isLocked = f => Date.now() > deadlineOf(f);
+
+/* ── エンブレム（公式CDN、失敗したらモノグラム） ── */
+function monogram(code,size){
+  const c=CLUBS[code]; if(!c) return '';
+  const s=size||26;
+  return `<svg class="crest" viewBox="0 0 40 44" width="${s}" height="${s}" aria-label="${c.jp}">
+    <path d="M2 3h36v22c0 9-8 14.5-18 17C10 39.5 2 34 2 25V3Z" fill="${c.c1}" stroke="${c.c2}" stroke-width="2.5"/>
+    <text x="20" y="24" text-anchor="middle" font-family="Poppins,sans-serif" font-size="13" font-weight="800" fill="${c.ink}">${code}</text></svg>`;
+}
+window.monogram = monogram;
+function crest(code,size){
+  const c=CLUBS[code]; if(!c) return '';
+  const s=size||26;
+  return `<img class="crest" width="${s}" height="${s}" alt="${esc(c.jp)}" loading="lazy"
+    src="https://resources.premierleague.com/premierleague25/badges/${c.id}.svg"
+    onerror="this.outerHTML=monogram('${code}',${s})">`;
+}
+const jp = code => (CLUBS[code]||{}).jp || code;
+
+/* ══════ ダイアログ ══════ */
+function ask(msg){
+  return new Promise(res=>{
+    const ov=document.createElement('div'); ov.className='ov';
+    ov.innerHTML=`<div class="dlg"><p>${esc(msg)}</p><div class="dlg-btns">
+      <button class="dlg-no">やめる</button><button class="dlg-yes">OK</button></div></div>`;
+    document.body.appendChild(ov);
+    ov.querySelector('.dlg-yes').onclick=()=>{ov.remove();res(true)};
+    ov.querySelector('.dlg-no').onclick=()=>{ov.remove();res(false)};
+    ov.onclick=e=>{ if(e.target===ov){ov.remove();res(false)} };
+  });
+}
+function askPin(title,sub){
+  return new Promise(res=>{
+    const ov=document.createElement('div'); ov.className='ov';
+    ov.innerHTML=`<div class="dlg"><p>${esc(title)}</p><div class="sub">${esc(sub||'')}</div>
+      <input class="pin-in" type="password" inputmode="numeric" maxlength="8" placeholder="4〜8桁">
+      <div class="dlg-btns"><button class="dlg-no">やめる</button><button class="dlg-yes">OK</button></div></div>`;
+    document.body.appendChild(ov);
+    const i=ov.querySelector('.pin-in'); setTimeout(()=>i.focus(),60);
+    const done=v=>{ov.remove();res(v)};
+    ov.querySelector('.dlg-yes').onclick=()=>done(i.value.trim());
+    ov.querySelector('.dlg-no').onclick=()=>done(null);
+    i.addEventListener('keydown',e=>{ if(e.key==='Enter') done(i.value.trim()) });
+    ov.onclick=e=>{ if(e.target===ov) done(null) };
+  });
+}
+function pickWho(){
+  return new Promise(res=>{
+    const ov=document.createElement('div'); ov.className='ov';
+    ov.innerHTML=`<div class="dlg"><p>あんた誰や？</p>
+      <div class="who-chips">${PLAYERS.map(p=>`<button class="who-chip" data-p="${esc(p)}">${esc(p)}</button>`).join('')}</div>
+      <div class="dlg-btns"><button class="dlg-no">やめる</button></div></div>`;
+    document.body.appendChild(ov);
+    ov.querySelectorAll('[data-p]').forEach(b=>b.onclick=()=>{ov.remove();res(b.dataset.p)});
+    ov.querySelector('.dlg-no').onclick=()=>{ov.remove();res(null)};
+    ov.onclick=e=>{ if(e.target===ov){ov.remove();res(null)} };
+  });
+}
+
+/* ══════ PIN本人確認 ══════ */
+async function sha(t){
+  const d=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(ROOT+':'+t));
+  return [...new Uint8Array(d)].map(x=>x.toString(16).padStart(2,'0')).join('');
+}
+const getIds = () => { try{ return JSON.parse(localStorage.getItem(ROOT+'-ids')||'{}') }catch(e){ return {} } };
+const setId = (p,h) => { const m=getIds(); m[p]=h; localStorage.setItem(ROOT+'-ids',JSON.stringify(m)); };
+async function verify(p){
+  const stored = (state.pins||{})[p];
+  if(!stored){
+    const pin = await askPin(`${p} のPINを新規設定`,'これ以降この行を触るのに必要。覚えときや');
+    if(pin===null) return false;
+    if(!/^\d{4,8}$/.test(pin)){ toast('数字4〜8桁でな'); return false; }
+    const h = await sha(pin);
+    db.ref(`${ROOT}/pins/${p}`).set(h); setId(p,h);
+    toast(`${p} のPINを設定した`); return true;
+  }
+  if(getIds()[p]===stored) return true;
+  const pin = await askPin(`${p} のPINを入力`,'この端末は次から省略される');
+  if(pin===null) return false;
+  const h = await sha(pin);
+  if(h!==stored){ toast('PINがちゃうで🚫'); return false; }
+  setId(p,h); return true;
+}
+function meNow(){
+  const ids=getIds(), pins=state.pins||{};
+  const v = PLAYERS.filter(p=>pins[p] && ids[p]===pins[p]);
+  return v.length===1 ? v[0] : null;
+}
+async function whoAmI(){
+  const m = meNow(); if(m) return m;
+  const pick = await pickWho(); if(!pick) return null;
+  return (await verify(pick)) ? pick : null;
+}
+async function verifyAdmin(){
+  const stored = state.adminPin || null;
+  if(!stored){
+    const pin = await askPin(`管理人（${ADMIN}）PINを新規設定`,'投票用とは別の専用PIN');
+    if(pin===null) return false;
+    if(!/^\d{4,8}$/.test(pin)){ toast('数字4〜8桁でな'); return false; }
+    const h = await sha('admin:'+pin);
+    db.ref(`${ROOT}/adminPin`).set(h);
+    localStorage.setItem(ROOT+'-admin',h); toast('管理人PINを設定した'); return true;
+  }
+  if(localStorage.getItem(ROOT+'-admin')===stored) return true;
+  const pin = await askPin('管理人PINを入力',`${ADMIN} 本人確認`);
+  if(pin===null) return false;
+  const h = await sha('admin:'+pin);
+  if(h!==stored){ toast('管理人PINがちゃうで🚫'); return false; }
+  localStorage.setItem(ROOT+'-admin',h); return true;
+}
+
+/* ══════ 目隠し用の暗号化 ══════
+   締切前、Firebaseには意味不明な文字列だけが入る。
+   matchKey+名前を認証データに使うので、別の欄にコピペしても復号でけへん。
+   ※鍵はこのファイル内にあるので、ソースを読んでJSを書ける人には解ける。
+     狙いはFirebaseコンソールやDB直叩きでの覗き見を止めること */
+const b64 = b => btoa(String.fromCharCode(...new Uint8Array(b)));
+const unb64 = s => Uint8Array.from(atob(s), c=>c.charCodeAt(0));
+let _key = null;
+async function vaultKey(){
+  if(_key) return _key;
+  const raw = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(VAULT));
+  _key = await crypto.subtle.importKey('raw', raw, 'AES-GCM', false, ['encrypt','decrypt']);
+  return _key;
+}
+async function seal(slot, who, val){
+  const key = await vaultKey();
+  const iv = crypto.getRandomValues(new Uint8Array(12));
+  const aad = new TextEncoder().encode(slot+'|'+who);
+  const ct = await crypto.subtle.encrypt({name:'AES-GCM',iv,additionalData:aad}, key, new TextEncoder().encode(val));
+  return b64(iv)+'.'+b64(ct);
+}
+async function unseal(slot, who, blob){
+  try{
+    const key = await vaultKey();
+    const parts = String(blob).split('.');
+    if(parts.length!==2) return null;
+    const aad = new TextEncoder().encode(slot+'|'+who);
+    const pt = await crypto.subtle.decrypt({name:'AES-GCM',iv:unb64(parts[0]),additionalData:aad}, key, unb64(parts[1]));
+    return new TextDecoder().decode(pt);
+  }catch(e){ return null; }
+}
+
+/* ══════ 締切後の自動開示 ══════ */
+let revealing = false;
+async function autoReveal(){
+  if(revealing || !state) return;
+  revealing = true;
+  try{
+    const updates = {};
+    /* 試合の賭け */
+    const enc = state.enc || {}, picks = state.picks || {};
+    for(const key of Object.keys(enc)){
+      const f = byKey[key]; if(!f || !isLocked(f)) continue;
+      for(const who of Object.keys(enc[key]||{})){
+        if((picks[key]||{})[who]) continue;
+        const v = await unseal(key, who, enc[key][who]);
+        if(v && ['H','D','A'].includes(v)) updates[`${ROOT}/picks/${key}/${who}`] = v;
+      }
+      updates[`${ROOT}/enc/${key}`] = null;
+    }
+    /* 年間予想（開幕キックオフで一斉開示） */
+    if(Date.now() > SEASON_LOCK){
+      const se = (state.side||{});
+      for(const type of ['champion','top4','relegation','scorer']){
+        const e = (se[type]||{}).enc || {}, p = (se[type]||{}).picks || {};
+        for(const who of Object.keys(e)){
+          if(p[who] != null) continue;
+          const v = await unseal('side:'+type, who, e[who]);
+          if(v != null){
+            try{ updates[`${ROOT}/side/${type}/picks/${who}`] = JSON.parse(v); }catch(x){}
+          }
+        }
+        if(Object.keys(e).length) updates[`${ROOT}/side/${type}/enc`] = null;
+      }
+    }
+    if(Object.keys(updates).length) await db.ref().update(updates);
+  }catch(e){ /* 次回に持ち越し */ }
+  revealing = false;
+}
+
+/* ══════ 精算 ══════ */
+function scoreOf(key){ const s=(state.scores||{})[key]; return (s && s.h!=null && s.a!=null) ? s : null; }
+function resultOf(key){ const s=scoreOf(key); return s ? (s.h>s.a?'H':s.h<s.a?'A':'D') : null; }
+const nomsOf = gw => (state.noms||{})['gw'+gw] || {};
+function betMatches(){
+  const out=[];
+  Object.keys(state.noms||{}).forEach(g=>{
+    const gw = +String(g).replace('gw','');
+    Object.keys(state.noms[g]||{}).forEach(p=>{
+      const key = state.noms[g][p];
+      if(byKey[key]) out.push({ ...byKey[key], nomBy:p });
+    });
+  });
+  return out.sort((a,b)=>a.ko-b.ko);
+}
+function settleMatch(key){
+  const picks = (state.picks||{})[key] || {};
+  const res = resultOf(key);
+  const delta = {}; PLAYERS.forEach(p=>delta[p]=0);
+  if(!res) return { pending:true, delta, transfers:[], winners:[], losers:[] };
+  const pickers = PLAYERS.filter(p=>picks[p]);
+  const winners = pickers.filter(p=>picks[p]===res);
+  const losers  = pickers.filter(p=>picks[p]!==res);
+  if(!winners.length || !losers.length) return { void:true, delta, transfers:[], winners, losers };
+  const transfers=[];
+  losers.forEach(l=>winners.forEach(w=>{ delta[l]-=STAKE; delta[w]+=STAKE; transfers.push([l,w,STAKE]); }));
+  return { void:false, delta, transfers, winners, losers };
+}
+function sideEntries(type){
+  const s = (state.side||{})[type]||{};
+  return s.picks || {};
+}
+function actualOf(type){ return (state.actual||{})[type] || null; }
+const top4Hit = (pk,ac) => Array.isArray(pk)&&Array.isArray(ac)&&pk.length===4&&ac.length===4&&pk.every((c,i)=>c===ac[i]);
+const relHit  = (pk,ac) => Array.isArray(pk)&&Array.isArray(ac)&&pk.length===3&&ac.length===3&&
+                            new Set(pk).size===3&&[...pk].sort().join()===[...ac].sort().join();
+function settleSide(type){
+  const delta={}; PLAYERS.forEach(p=>delta[p]=0);
+  const ac = actualOf(type);
+  const entries = sideEntries(type);
+  const stake = type==='champion' ? CHAMP_STAKE : SIDE_STAKE;
+  if(!ac) return { pending:true, delta, winners:[] };
+  const parts = PLAYERS.filter(p=>entries[p]!=null);
+  const hit = pk => type==='top4' ? top4Hit(pk,ac)
+              : type==='relegation' ? relHit(pk,ac)
+              : String(pk).trim().toLowerCase()===String(ac).trim().toLowerCase();
+  const winners = parts.filter(p=>hit(entries[p]));
+  const losers  = parts.filter(p=>!hit(entries[p]));
+  if(!winners.length) return { void:true, delta, winners:[] };
+  const pool = losers.length*stake;
+  losers.forEach(l=>delta[l]-=stake);
+  const share = Math.floor(pool/winners.length);
+  let rem = pool - share*winners.length;
+  winners.forEach((w,i)=>{ delta[w] += share + (i===0?rem:0); });
+  return { void:false, delta, winners, stake };
+}
+function grandTotals(){
+  const totals={}, rec={}, st={};
+  PLAYERS.forEach(p=>{ totals[p]=0; rec[p]={w:0,l:0};
+    st[p]={hit:0,bet:0,cur:0,best:0,curL:0,worstL:0,joined:0,elig:0}; });
+  const ms = betMatches();
+  ms.forEach(f=>{
+    const picks=(state.picks||{})[f.key]||{};
+    const locked = isLocked(f);
+    if(locked){ PLAYERS.forEach(p=>{ st[p].elig++; if(picks[p]) st[p].joined++; }); }
+    const r = settleMatch(f.key);
+    if(r.pending) return;
+    if(!r.void){
+      PLAYERS.forEach(p=>{
+        if(!picks[p]) return;
+        st[p].bet++;
+        if(r.winners.includes(p)){ st[p].hit++; st[p].cur++; st[p].curL=0; if(st[p].cur>st[p].best) st[p].best=st[p].cur; rec[p].w++; }
+        else { st[p].cur=0; st[p].curL++; if(st[p].curL>st[p].worstL) st[p].worstL=st[p].curL; rec[p].l++; }
+      });
+    }
+    PLAYERS.forEach(p=>totals[p]+=r.delta[p]);
+  });
+  ['champion','top4','relegation','scorer'].forEach(type=>{
+    const r = settleSide(type);
+    if(r.pending||r.void) return;
+    PLAYERS.forEach(p=>totals[p]+=r.delta[p]);
+  });
+  return { totals, rec, st };
+}
+function gwNet(gw){
+  const net={}; PLAYERS.forEach(p=>net[p]=0);
+  betMatches().filter(f=>f.gw===gw).forEach(f=>{
+    const r=settleMatch(f.key);
+    if(r.pending||r.void) return;
+    PLAYERS.forEach(p=>net[p]+=r.delta[p]);
+  });
+  return net;
+}
+function gwMvp(gw){
+  const net=gwNet(gw);
+  let best=-Infinity; PLAYERS.forEach(p=>{ if(net[p]>best) best=net[p]; });
+  if(best<=0) return {mvp:null,tie:null,amt:best,net};
+  const top=PLAYERS.filter(p=>net[p]===best);
+  return top.length===1 ? {mvp:top[0],tie:null,amt:best,net} : {mvp:null,tie:top,amt:best,net};
+}
+function optimize(totals){
+  const cred=[],debt=[];
+  PLAYERS.forEach(p=>{ const v=Math.round(totals[p]||0);
+    if(v>0) cred.push({p,v}); else if(v<0) debt.push({p,v:-v}); });
+  cred.sort((a,b)=>b.v-a.v); debt.sort((a,b)=>b.v-a.v);
+  const tx=[]; let i=0,j=0;
+  while(i<debt.length&&j<cred.length){
+    const amt=Math.min(debt[i].v,cred[j].v);
+    if(amt>0) tx.push([debt[i].p,cred[j].p,amt]);
+    debt[i].v-=amt; cred[j].v-=amt;
+    if(debt[i].v===0) i++; if(cred[j].v===0) j++;
+  }
+  return tx;
+}
+function leagueTable(){
+  const T={};
+  Object.keys(CLUBS).forEach(c=>T[c]={c,pl:0,w:0,d:0,l:0,gf:0,ga:0,pts:0});
+  Object.keys(state.scores||{}).forEach(key=>{
+    const f=byKey[key], s=scoreOf(key);
+    if(!f||!s) return;
+    const H=T[f.h], A=T[f.a]; if(!H||!A) return;
+    H.pl++; A.pl++; H.gf+=s.h; H.ga+=s.a; A.gf+=s.a; A.ga+=s.h;
+    if(s.h>s.a){ H.w++; A.l++; H.pts+=3; }
+    else if(s.h<s.a){ A.w++; H.l++; A.pts+=3; }
+    else { H.d++; A.d++; H.pts++; A.pts++; }
+  });
+  return Object.values(T).map(x=>({...x,gd:x.gf-x.ga}))
+    .sort((x,y)=>y.pts-x.pts||y.gd-x.gd||y.gf-x.gf||jp(x.c).localeCompare(jp(y.c),'ja'));
+}
+
+/* ══════ 描画 ══════ */
+function currentGwGuess(){
+  const now=Date.now();
+  for(let g=1;g<=GW_MAX;g++){
+    const fs=fxOf(g);
+    if(fs.length && now < fs[fs.length-1].ko + 6*3600000) return g;
+  }
+  return GW_MAX;
+}
+function render(){
+  if(!state) return;
+  document.getElementById('meChip').textContent = meNow() || '誰？';
+  renderLogo();
+  renderHero();
+  document.querySelectorAll('#tabs button').forEach(b=>
+    b.classList.toggle('on', b.dataset.tab===curTab));
+  const v=document.getElementById('view');
+  if(curTab==='match') v.innerHTML = viewMatch();
+  else if(curTab==='table') v.innerHTML = viewTable();
+  else if(curTab==='money') v.innerHTML = viewMoney();
+  else v.innerHTML = viewSeason();
+  bind();
+}
+function renderLogo(){
+  const box=document.getElementById('logoBox');
+  box.innerHTML = PL_LOGO
+    ? `<img src="${PL_LOGO}" alt="Premier League" onerror="this.outerHTML=crownSVG()">`
+    : crownSVG();
+}
+function crownSVG(){
+  return `<svg viewBox="0 0 24 24" aria-label="Premier League"><path d="M12 2.6 14.1 7l4.8.6-3.5 3.3 1 4.7L12 13.3 7.6 15.6l1-4.7L5.1 7.6 9.9 7 12 2.6Z"/><path d="M4 18.4h16v2.2H4z"/></svg>`;
+}
+window.crownSVG = crownSVG;
+function renderHero(){
+  const box=document.getElementById('heroBox');
+  if(curTab==='season'){
+    const locked = Date.now()>SEASON_LOCK;
+    box.innerHTML = `<div class="hero-g"><div class="chev c1"></div><div class="chev c2"></div><div class="chev c3"></div>
+      <div class="in"><div class="eyebrow">SEASON-LONG BETS</div><h1>年間予想</h1>
+      <div class="sub">${locked?'開幕したのでロック済み・全公開':'開幕キックオフでロック・それまで変更自由'}</div></div></div>`;
+    return;
+  }
+  const fs=fxOf(curGw);
+  const sub = fs.length ? `${dateJp(fs[0].ko)} 〜 ${dateJp(fs[fs.length-1].ko)}・日本時間` : '';
+  box.innerHTML = `<div class="hero"><div class="in">
+    <div class="eyebrow">MATCHWEEK ${String(curGw).padStart(2,'0')}</div>
+    <h1>第${curGw}節</h1><div class="sub">${sub}</div></div></div>`;
+}
+
+function mwBar(extra){
+  const noms=nomsOf(curGw), n=Object.keys(noms).length;
+  return `<div class="mwbar">
+    <button class="arw" data-gw="${curGw-1}" ${curGw<=1?'disabled':''}>‹</button>
+    <div class="now"><b>MATCHWEEK ${curGw}</b><i>${extra||`指名 ${n}/${PLAYERS.length}`}</i></div>
+    <button class="arw" data-gw="${curGw+1}" ${curGw>=GW_MAX?'disabled':''}>›</button></div>`;
+}
+function fxLine(f){
+  return `<div class="fxrow">
+    <div class="tn h">${esc(jp(f.h))}</div>${crest(f.h)}
+    <div class="ko">${hhmm(f.ko)}</div>${crest(f.a)}
+    <div class="tn">${esc(jp(f.a))}</div></div>`;
+}
+
+/* ── 試合タブ ── */
+function viewMatch(){
+  const noms = nomsOf(curGw);
+  const taken = Object.values(noms);
+  const me = meNow();
+  const fs = fxOf(curGw);
+  let html = mwBar();
+
+  /* 指名済み＝賭けチケット */
+  const tickets = fs.filter(f=>taken.includes(f.key));
+  html += `<div class="sec"><h2>指名された試合</h2>
+    <p>各節1人1試合まで指名できる。指名された試合には全員が賭けられる。</p></div>`;
+  html += tickets.length
+    ? tickets.map(f=>ticket(f, Object.keys(noms).find(p=>noms[p]===f.key))).join('')
+    : `<div class="empty">まだ誰も指名してへん。<br>下の試合一覧から選んでや</div>`;
+
+  /* 全試合 */
+  const left = PLAYERS.filter(p=>!noms[p]);
+  html += `<div class="divider"></div><div class="sec"><h2>第${curGw}節 全試合</h2>
+    <p>${left.length ? `未指名：${left.map(esc).join('・')}` : '全員が指名済み'}</p></div>`;
+  let lastDay='';
+  fs.forEach(f=>{
+    const dk=dayKey(f.ko);
+    if(dk!==lastDay){ lastDay=dk; html+=`<div class="daterow">${dateJp(f.ko)}</div>`; }
+    const owner = Object.keys(noms).find(p=>noms[p]===f.key);
+    const locked = isLocked(f);
+    let foot;
+    if(owner) foot = `<span class="nomtag">指名済み — <b>${esc(owner)}</b></span>`;
+    else if(locked) foot = `<span class="mini">締切済み（指名でけへん）</span>`;
+    else if(me && noms[me]) foot = `<span class="mini">あんたはもう指名済み</span>`;
+    else foot = `<button class="nombtn" data-nom="${f.key}">この試合を指名する</button>
+      <span class="mini">締切まで ${remain(deadlineOf(f))||'—'}</span>`;
+    html += `<div class="fx">${fxLine(f)}<div class="fxfoot">${foot}</div></div>`;
+  });
+  return html;
+}
+function ticket(f, nomBy){
+  const locked = isLocked(f);
+  const sc = scoreOf(f.key);
+  const res = resultOf(f.key);
+  const picks = (state.picks||{})[f.key] || {};
+  const enc = (state.enc||{})[f.key] || {};
+  const me = meNow();
+  const r = settleMatch(f.key);
+
+  /* 締切前は暗号のまま。自分の選択だけ端末で復号して表示するため、
+     ローカルに控えを持っておく（Firebaseには平文を置かん） */
+  const mine = me ? localPick(f.key, me) : null;
+
+  const cnt = {H:0,D:0,A:0};
+  let voted = 0;
+  PLAYERS.forEach(p=>{
+    if(locked ? picks[p] : enc[p]) voted++;
+    if(locked && picks[p]) cnt[picks[p]]++;
+  });
+
+  const dl = sc
+    ? `<div class="dl shut">記帳済み</div>`
+    : locked ? `<div class="dl shut">締切済み・開票</div>`
+    : `<div class="dl">締切まで ${remain(deadlineOf(f))||'まもなく'}</div>`;
+
+  /* 3択ボタン */
+  const opt = (side, inner, label) => {
+    const on = locked ? (res===side) : (mine===side);
+    const dim = locked && res && res!==side;
+    const votes = locked ? `<span class="pct">${cnt[side]}票</span>` : '';
+    return `<button class="pk ${on?'sel':''} ${dim?'dim':''}" ${locked?'':`data-bet="${f.key}" data-side="${side}"`}>
+      ${inner}<em>${label}</em>${votes}</button>`;
+  };
+  const picksHtml = `<div class="picks">
+    ${opt('H', crest(f.h,24), 'ホーム勝ち')}
+    ${opt('D', `<div class="dm">引</div>`, '引き分け')}
+    ${opt('A', crest(f.a,24), 'アウェイ勝ち')}
+  </div>`;
+
+  /* メンバー行 */
+  const rows = PLAYERS.map(p=>{
+    if(locked){
+      const v = picks[p];
+      let mk = `<span class="mk">−</span>`;
+      if(v && res && !r.void) mk = r.winners.includes(p) ? `<span class="mk win">◎</span>` : `<span class="mk lose">✕</span>`;
+      const label = v ? (v==='H'?jp(f.h):v==='A'?jp(f.a):'引き分け') : '不参加';
+      const ovr = sc ? '' : `<button class="ovr" data-ovr="${f.key}" data-p="${esc(p)}">修正</button>`;
+      return `<div class="vrow">${mk}<div class="nm">${esc(p)}</div>
+        <div class="val">${esc(label)}</div>${ovr}</div>`;
+    }
+    const done = !!enc[p];
+    const label = (p===me && mine) ? (mine==='H'?jp(f.h):mine==='A'?jp(f.a):'引き分け')
+                : done ? '投票済み' : '未投票';
+    return `<div class="vrow"><div class="dot ${done?'':'no'}"></div>
+      <div class="nm">${esc(p)}</div><div class="val">${esc(label)}</div></div>`;
+  }).join('');
+
+  /* 開票後の人気メーター */
+  let extra = '';
+  if(locked && voted){
+    const t = voted||1;
+    extra += `<div class="meter"><div class="bar">
+      <span style="width:${cnt.H/t*100}%;background:${CLUBS[f.h].c1}"></span>
+      <span style="width:${cnt.D/t*100}%;background:#9A8FA0"></span>
+      <span style="width:${cnt.A/t*100}%;background:${CLUBS[f.a].c1}"></span></div>
+      <div class="lbl"><span>${esc(jp(f.h))} ${cnt.H}</span><span>引 ${cnt.D}</span><span>${esc(jp(f.a))} ${cnt.A}</span></div></div>`;
+  } else if(!locked){
+    extra += `<div class="blind">🔒 締切までは誰がどこに賭けたか非公開（Firebase上でも暗号化されとる）。見えるのは自分の選択と投票数だけ（${voted}/${PLAYERS.length}人）。</div>`;
+  }
+
+  /* 結果・精算 */
+  if(sc){
+    const lbl = res==='H'?`${jp(f.h)} 勝ち`:res==='A'?`${jp(f.a)} 勝ち`:'引き分け';
+    extra += `<div class="settled"><span class="score ${r.void?'void':''}">${sc.h} - ${sc.a}</span>
+      <span style="font-size:11.5px;font-weight:700;color:var(--grey)">${esc(lbl)}${r.void?'・ノーゲーム':''}</span></div>`;
+    if(!r.void){
+      const lines = r.losers.map(l=>`<b>${esc(l)}</b> → ${r.winners.map(esc).join('・')}：各 ${peri(STAKE)}`);
+      extra += `<div class="moneyline">${lines.join('<br>')}</div>`;
+    } else {
+      extra += `<div class="moneyline">対抗がおらんかったから金は動かん</div>`;
+    }
+  } else if(Date.now() > f.ko){
+    extra += `<div class="scin"><span style="font-size:11px;font-weight:700">${esc(jp(f.h))}</span>
+      <input type="number" min="0" inputmode="numeric" data-sh="${f.key}">
+      <span class="dash">−</span>
+      <input type="number" min="0" inputmode="numeric" data-sa="${f.key}">
+      <span style="font-size:11px;font-weight:700">${esc(jp(f.a))}</span>
+      <button class="go" data-sgo="${f.key}">記帳</button></div>`;
+  }
+
+  return `<div class="tk">
+    <div class="tk-top"><div class="who">指名：<b>${esc(nomBy||'?')}</b></div><div class="sp"></div>${dl}</div>
+    ${fxLine(f)}${picksHtml}${rows}${extra}
+    <div style="height:11px"></div></div>`;
+}
+/* 自分の選択の控え（端末内のみ。Firebaseには暗号文だけ） */
+const lpKey = () => ROOT+'-mypicks';
+function localPick(key, who){
+  try{ const m=JSON.parse(localStorage.getItem(lpKey())||'{}'); return (m[key]||{})[who]||null; }catch(e){ return null; }
+}
+function setLocalPick(key, who, v){
+  try{
+    const m=JSON.parse(localStorage.getItem(lpKey())||'{}');
+    m[key]=m[key]||{};
+    if(v) m[key][who]=v; else delete m[key][who];
+    localStorage.setItem(lpKey(), JSON.stringify(m));
+  }catch(e){}
+}
+
+/* ── 順位表タブ ── */
+function viewTable(){
+  const rows = leagueTable();
+  let html = mwBar('スコアを入れたら順位表に反映される');
+  html += `<div class="sec"><h2>第${curGw}節のスコア入力</h2>
+    <p>10試合ぜんぶ入れたら順位表が埋まる。指名された試合は賭けの精算にも使われる。</p></div>`;
+  html += `<div class="sg">` + fxOf(curGw).map(f=>{
+    const s = scoreOf(f.key);
+    return `<div class="sgrow ${s?'done':''}">
+      <div class="tn h">${esc(jp(f.h))}</div>
+      <input type="number" min="0" inputmode="numeric" data-gh="${f.key}" value="${s?s.h:''}">
+      <div class="dash">−</div>
+      <input type="number" min="0" inputmode="numeric" data-ga="${f.key}" value="${s?s.a:''}">
+      <div class="tn">${esc(jp(f.a))}</div></div>`;
+  }).join('') + `</div>`;
+  html += `<div style="padding:0 12px"><button class="sbtn" id="saveGrid">この節のスコアを保存</button></div>`;
+
+  html += `<div class="divider"></div><div class="sec"><h2>プレミアリーグ順位表</h2>
+    <p>入力済みスコアから自動計算</p></div>`;
+  html += `<div class="tbl">
+    <div class="th"><span style="text-align:center">Pos</span><span>Team</span>
+    <span style="text-align:center">Pl</span><span style="text-align:center">W</span>
+    <span style="text-align:center">GD</span><span style="text-align:center">Pts</span></div>` +
+    rows.map((x,i)=>`<div class="tr ${i<4?'ucl':''} ${i>=17?'rel':''}">
+      <span class="pos">${String(i+1).padStart(2,'0')}</span>
+      <span class="tm">${crest(x.c,18)}<span>${esc(jp(x.c))}</span></span>
+      <span class="n">${x.pl}</span><span class="n">${x.w}</span>
+      <span class="n">${x.gd>0?'+':''}${x.gd}</span><span class="pts">${x.pts}</span></div>`).join('') + `</div>`;
+  html += `<div class="legend"><span><i style="background:#00FF87"></i>CL出場圏</span>
+    <span><i style="background:#E90052"></i>降格圏</span></div>`;
+  return html;
+}
+
+/* ── 収支タブ ── */
+function viewMoney(){
+  const { totals, rec, st } = grandTotals();
+  const ranked = [...PLAYERS].sort((a,b)=>totals[b]-totals[a]);
+  let html = `<div class="sec"><h2>収支ランキング</h2>
+    <p>1試合 1,000ペリカ・年間予想も含む合計</p></div>`;
+  html += `<div class="tbl">` + ranked.map((p,i)=>{
+    const v=totals[p], cls=v>0?'up':v<0?'dn':'ze';
+    return `<div class="mrow"><span class="rk">${i+1}</span><span class="nm">${esc(p)}</span>
+      <span class="rec">${rec[p].w}勝${rec[p].l}敗</span>
+      <span class="amt ${cls}">${v>0?'+':''}${v.toLocaleString()}</span></div>`;
+  }).join('') + `</div>`;
+
+  /* 精算 */
+  const tx = optimize(totals);
+  html += `<div class="divider"></div><div class="sec"><h2>精算</h2>
+    <p>${tx.length ? `最小 ${tx.length}回の送金で全部チャラになる` : 'いまは動かす金なし'}</p></div>`;
+  if(tx.length){
+    html += `<div class="tbl">` + tx.map(([f,t,a])=>
+      `<div class="txrow"><span>${esc(f)}</span><span class="ar">→</span><span>${esc(t)}</span>
+       <span class="am">${a.toLocaleString()}</span></div>`).join('') + `</div>`;
+  }
+
+  /* 節MVP */
+  html += `<div class="divider"></div><div class="sec"><h2>節ごとMVP</h2>
+    <p>その節で一番稼いだ人</p></div>`;
+  let anyMvp=false, mvpHtml='';
+  for(let g=1;g<=GW_MAX;g++){
+    const played = betMatches().some(f=>f.gw===g && scoreOf(f.key));
+    if(!played) continue;
+    anyMvp=true;
+    const m=gwMvp(g);
+    if(m.mvp||m.tie){
+      const nm = m.mvp || m.tie.join('・');
+      mvpHtml += `<div class="mvp"><span class="tag">GW${g}</span>
+        <span class="nm">🏆 ${esc(nm)}</span><span class="amt">+${m.amt.toLocaleString()}</span></div>`;
+    } else {
+      mvpHtml += `<div class="mvp none"><span class="tag">GW${g}</span>
+        <span class="nm">該当者なし</span><span></span></div>`;
+    }
+  }
+  html += anyMvp ? mvpHtml : `<div class="empty">結果が入ったらMVPが出るで</div>`;
+
+  /* 戦績 */
+  html += `<div class="divider"></div><div class="sec"><h2>戦績スタッツ</h2><p></p></div>`;
+  const bet = PLAYERS.filter(p=>st[p].bet>0);
+  if(bet.length){
+    const hr=[...bet].sort((a,b)=>(st[b].hit/st[b].bet)-(st[a].hit/st[a].bet)||st[b].bet-st[a].bet);
+    html += `<div class="stc"><div class="stc-t">🎯 的中率</div>` + hr.map((p,i)=>{
+      const s=st[p], r=Math.round(s.hit/s.bet*100);
+      const fire = s.cur>=2 ? `<span class="badge-s g">🔥${s.cur}連勝中</span>` : '';
+      return `<div class="strow"><span class="rk">${i+1}</span><span class="nm">${esc(p)}</span>
+        <span class="sub">${s.hit}/${s.bet}</span><span class="big">${r}%</span>${fire}</div>`;
+    }).join('') + `</div>`;
+    const bs=Math.max(0,...PLAYERS.map(p=>st[p].best));
+    if(bs>=2){
+      const hold=PLAYERS.filter(p=>st[p].best===bs);
+      html += `<div class="stc"><div class="stc-t">⚡ 最高連勝</div>
+        <div class="strow"><span class="nm">${hold.map(esc).join('、')}</span><span class="big">${bs}</span></div></div>`;
+    }
+    const wl=Math.max(0,...PLAYERS.map(p=>st[p].worstL));
+    if(wl>=2){
+      const hold=PLAYERS.filter(p=>st[p].worstL===wl);
+      html += `<div class="stc"><div class="stc-t">🥶 最高連敗</div>
+        <div class="strow"><span class="nm">${hold.map(esc).join('、')}</span><span class="big">${wl}</span></div></div>`;
+    }
+  }
+  const el = PLAYERS.filter(p=>st[p].elig>0);
+  if(el.length){
+    const pr=[...el].sort((a,b)=>(st[b].joined/st[b].elig)-(st[a].joined/st[a].elig));
+    html += `<div class="stc"><div class="stc-t">🙋 参加率</div>` + pr.map((p,i)=>{
+      const s=st[p], r=Math.round(s.joined/s.elig*100);
+      const bd = r===100?`<span class="badge-s g">皆勤</span>` : r<50?`<span class="badge-s r">サボり魔</span>`:'';
+      return `<div class="strow"><span class="rk">${i+1}</span><span class="nm">${esc(p)}</span>
+        <span class="sub">${s.joined}/${s.elig}</span><span class="big">${r}%</span>${bd}</div>`;
+    }).join('') + `</div>`;
+  }
+
+  /* シーズン王者 */
+  const allDone = FIXTURES.every(f=>scoreOf(f.key));
+  if(allDone){
+    const champ=ranked[0], s=st[champ];
+    html += `<div class="divider"></div><div class="crown">
+      <div class="crown-top"><div class="chev c1"></div><div class="chev c2"></div>
+        <div class="in"><div class="eyebrow">2026/27 CHAMPION</div>
+        <div class="big">${esc(champ)}</div>
+        <div class="amt">${totals[champ]>0?'+':''}${totals[champ].toLocaleString()}ペリカ</div></div></div>
+      <div class="crown-body">38節を戦い抜いた年間王者。<br>
+        的中率 <b>${s.bet?Math.round(s.hit/s.bet*100):0}%</b> ／ 最高連勝 <b>${s.best}</b></div></div>`;
+  }
+  html += rulesFold();
+  return html;
+}
+
+/* ── 年間予想タブ ── */
+function viewSeason(){
+  const locked = Date.now() > SEASON_LOCK;
+  const me = meNow();
+  let html = '';
+  if(!locked){
+    html += `<div class="sec"><h2>締切まで ${remain(SEASON_LOCK-Date.now())||'まもなく'}</h2>
+      <p>開幕キックオフ（${dateJp(SEASON_LOCK)} ${hhmm(SEASON_LOCK)}）で一斉ロック。それまでは何回でも変更できる。</p></div>`;
+  }
+  html += sideCard('champion','優勝クラブ',CHAMP_STAKE,'的中した人が外した人から総取り。複数なら山分け。',1,locked,me);
+  html += sideCard('top4','CL出場圏（トップ4）',SIDE_STAKE,'<b style="color:var(--pink)">1位から4位まで順番通り</b>に当てた人だけが勝ち。',4,locked,me);
+  html += sideCard('relegation','降格3クラブ',SIDE_STAKE,'3クラブ<b style="color:var(--pink)">全部</b>当てた人だけが勝ち。順番は問わへん。',3,locked,me);
+  html += scorerCard(locked,me);
+  html += `<div class="divider"></div>`;
+  html += `<div class="sec"><h2>結果の確定（管理人）</h2>
+    <p>シーズン終盤に実際の結果を入れたら精算される</p></div>
+    <div style="padding:0 12px"><button class="sbtn ghost" id="setActual">実際の結果を入力する</button></div>`;
+  return html;
+}
+function sideCard(type, title, stake, desc, n, locked, me){
+  const entries = sideEntries(type);
+  const enc = ((state.side||{})[type]||{}).enc || {};
+  const ac = actualOf(type);
+  const r = settleSide(type);
+  let body = `<div class="side-b">${desc}`;
+
+  if(locked){
+    body += `<div style="margin-top:8px">`;
+    PLAYERS.forEach(p=>{
+      const v = entries[p];
+      if(v==null){ body += `<div class="pickline" style="color:var(--grey)">${esc(p)}：不参加</div>`; return; }
+      const arr = Array.isArray(v)?v:[v];
+      const hit = ac && !r.pending && r.winners.includes(p);
+      body += `<div class="pickline">${hit?'◎':''} ${esc(p)}：${arr.map((c,i)=>
+        (n>1&&type==='top4'?`<span class="ord">${i+1}</span>`:'')+crest(c,20)+esc(jp(c))).join(' ')}</div>`;
+    });
+    body += `</div>`;
+    if(ac){
+      body += `<div style="margin-top:8px;font-weight:700;color:var(--purple)">実際：${
+        (Array.isArray(ac)?ac:[ac]).map(c=>esc(jp(c))).join(' → ')}</div>`;
+      body += r.void ? `<div style="margin-top:5px">誰も当てられず全員ノーゲーム</div>`
+        : `<div style="margin-top:5px">的中：${r.winners.map(esc).join('・')}</div>`;
+    }
+  } else {
+    const draft = sideDraft[type] || (me && localSide(type,me)) || [];
+    body += `<div class="clubgrid">` + Object.keys(CLUBS)
+      .sort((a,b)=>jp(a).localeCompare(jp(b),'ja')).map(c=>{
+        const idx = draft.indexOf(c);
+        const num = idx>=0 && n>1 && type==='top4' ? `<span class="num">${idx+1}</span>` : '';
+        const on = idx>=0 ? 'on' : '';
+        return `<button class="cbtn ${on}" data-side-pick="${type}" data-c="${c}">${num}${crest(c,22)}<em>${c}</em></button>`;
+      }).join('') + `</div>`;
+    body += `<div style="margin-top:9px;font-weight:700;color:var(--purple)">
+      選択中（${draft.length}/${n}）：${draft.length?draft.map(c=>esc(jp(c))).join(' → '):'なし'}</div>`;
+    body += `<button class="sbtn" data-side-save="${type}" data-n="${n}">この内容で確定する</button>`;
+    const mine = me ? localSide(type,me) : null;
+    if(mine) body += `<div style="margin-top:7px;font-size:11px">🔒 提出済み：${mine.map(c=>esc(jp(c))).join(' → ')}（あんただけ見えとる）</div>`;
+    body += `<div style="margin-top:7px;font-size:11px">提出済み ${Object.keys(enc).length}/${PLAYERS.length}人</div>`;
+  }
+  body += `</div>`;
+  return `<div class="side"><div class="side-h"><b>${esc(title)}</b><span class="stake">${stake.toLocaleString()}</span></div>${body}</div>`;
+}
+function scorerCard(locked, me){
+  const entries = sideEntries('scorer');
+  const enc = ((state.side||{}).scorer||{}).enc || {};
+  const ac = actualOf('scorer');
+  const r = settleSide('scorer');
+  let body = `<div class="side-b">的中した人が総取り。複数なら山分け。選手名を入れてや。`;
+  if(locked){
+    body += `<div style="margin-top:8px">` + PLAYERS.map(p=>{
+      const v=entries[p];
+      if(v==null) return `<div class="pickline" style="color:var(--grey)">${esc(p)}：不参加</div>`;
+      const hit = ac && !r.pending && r.winners.includes(p);
+      return `<div class="pickline">${hit?'◎':''} ${esc(p)}：${esc(v)}</div>`;
+    }).join('') + `</div>`;
+    if(ac){
+      body += `<div style="margin-top:8px;font-weight:700;color:var(--purple)">実際：${esc(ac)}</div>`;
+      body += r.void?`<div style="margin-top:5px">誰も当てられず全員ノーゲーム</div>`
+        :`<div style="margin-top:5px">的中：${r.winners.map(esc).join('・')}</div>`;
+    }
+  } else {
+    const mine = me ? localSide('scorer',me) : null;
+    body += `<input class="txtin" id="scorerIn" placeholder="例：アーリング・ハーランド" value="${mine?esc(mine):''}">
+      <button class="sbtn" id="scorerSave">この内容で確定する</button>
+      <div style="margin-top:7px;font-size:11px">提出済み ${Object.keys(enc).length}/${PLAYERS.length}人</div>`;
+  }
+  body += `</div>`;
+  return `<div class="side"><div class="side-h"><b>得点王</b><span class="stake">${SIDE_STAKE.toLocaleString()}</span></div>${body}</div>`;
+}
+function localSide(type, who){
+  try{ const m=JSON.parse(localStorage.getItem(ROOT+'-myside')||'{}'); return (m[type]||{})[who]||null; }catch(e){ return null; }
+}
+function setLocalSide(type, who, v){
+  try{
+    const m=JSON.parse(localStorage.getItem(ROOT+'-myside')||'{}');
+    m[type]=m[type]||{}; m[type][who]=v;
+    localStorage.setItem(ROOT+'-myside', JSON.stringify(m));
+  }catch(e){}
+}
+
+function rulesFold(){
+  return `<div style="height:18px"></div><details class="fold"><summary>ルール</summary><div class="fold-in">
+    <b>賭け方</b>：各節、1人1試合を指名する（最大5試合）。指名された試合には全員が賭けられる。
+    3択のみ＝<b>ホーム勝ち / 引き分け / アウェイ勝ち</b>。レートは<b>1試合1,000ペリカ固定</b>。<br><br>
+    <b>精算</b>：外した人は当てた人それぞれに1,000ペリカ払う。
+    例）1人外して3人的中 → 外した人は3,000ペリカ払い。
+    全員同じ選択、または誰も当てられんかったらノーゲームで金は動かん。不参加も自由。<br><br>
+    <b>締切</b>：キックオフ15分前。それまでは何回でも変更できる。<br><br>
+    <b>目隠し</b>：締切まで誰がどこに賭けたかは非公開。<b>Firebase上でも暗号化</b>されとるから、
+    管理人がコンソールを開いても中身は見えん。見えるのは投票数と自分の選択だけ。
+    締切が来たら自動で全公開＋人気メーターも開票される。<br><br>
+    <b>締切後の修正</b>：開票して不成立やった試合を成立させたい場合、
+    締切〜キックオフの15分間はFirebaseまたはアプリの「修正」ボタンで変更できる（管理人PINが要る）。<br><br>
+    <b>年間予想</b>：優勝クラブ（10,000）・トップ4（5,000）・降格3（5,000）・得点王（5,000）。
+    開幕キックオフで一斉ロック。トップ4は<b>1〜4位を順番通り完全一致</b>、
+    降格3は<b>3クラブ全的中（順不同）</b>した人だけが勝ち。的中0人なら全員ノーゲーム。<br><br>
+    <b>PIN</b>：初めて自分の行を触るとき4〜8桁のPINを設定する。以降その行は本人しか触れん。
+    忘れたら管理人（${esc(ADMIN)}）にリセットしてもらえ。<br><br>
+    <b>順位表</b>：各節のスコアを10試合ぶん入れると自動で計算される。
+    指名された試合のスコアは賭けの精算にもそのまま使われる。
+  </div></details>`;
+}
+
+/* ══════ 操作 ══════ */
+function bind(){
+  document.querySelectorAll('[data-gw]').forEach(b=>b.onclick=()=>{
+    const g=+b.dataset.gw; if(g>=1&&g<=GW_MAX){ curGw=g; render(); window.scrollTo(0,0); }
+  });
+  document.querySelectorAll('#tabs button').forEach(b=>b.onclick=()=>{
+    curTab=b.dataset.tab; render(); window.scrollTo(0,0);
+  });
+  document.getElementById('meChip').onclick=async()=>{
+    const w=await whoAmI(); if(w){ toast(`${w} として認証したで`); render(); }
+  };
+
+  /* 指名 */
+  document.querySelectorAll('[data-nom]').forEach(b=>b.onclick=async()=>{
+    const key=b.dataset.nom, f=byKey[key];
+    if(!f || isLocked(f)){ toast('締切済みや'); return; }
+    const me=await whoAmI(); if(!me) return;
+    const noms=nomsOf(f.gw);
+    if(noms[me]){ toast('あんたはもうこの節で指名しとる'); return; }
+    if(Object.values(noms).includes(key)){ toast('その試合はもう他の人が指名済みや'); return; }
+    if(!await ask(`${jp(f.h)} vs ${jp(f.a)} を第${f.gw}節の指名にする？\n全員がこの試合に賭けられるようになる`)) return;
+    db.ref(`${ROOT}/noms/gw${f.gw}/${me}`).set(key);
+    toast('指名した。みんな賭けられるで');
+  });
+
+  /* 賭ける */
+  document.querySelectorAll('[data-bet]').forEach(b=>b.onclick=async()=>{
+    const key=b.dataset.bet, side=b.dataset.side, f=byKey[key];
+    if(!f || isLocked(f)){ toast('締切済み。もう変えられへん'); return; }
+    const me=await whoAmI(); if(!me) return;
+    const cur=localPick(key,me);
+    if(cur===side){
+      db.ref(`${ROOT}/enc/${key}/${me}`).remove();
+      setLocalPick(key,me,null); toast('取り消した');
+    }else{
+      const blob=await seal(key,me,side);
+      db.ref(`${ROOT}/enc/${key}/${me}`).set(blob);
+      setLocalPick(key,me,side);
+      toast(`賭けたで（締切まで非公開）`);
+    }
+    render();
+  });
+
+  /* スコア記帳（チケット内） */
+  document.querySelectorAll('[data-sgo]').forEach(b=>b.onclick=async()=>{
+    const key=b.dataset.sgo, f=byKey[key];
+    const h=parseInt(document.querySelector(`[data-sh="${key}"]`).value,10);
+    const a=parseInt(document.querySelector(`[data-sa="${key}"]`).value,10);
+    if(isNaN(h)||isNaN(a)||h<0||a<0){ toast('スコアを両方入れてや'); return; }
+    const res = h>a?`${jp(f.h)} 勝ち`:h<a?`${jp(f.a)} 勝ち`:'引き分け';
+    if(!await ask(`${jp(f.h)} ${h}-${a} ${jp(f.a)}\n→「${res}」で記帳する？`)) return;
+    const me=await whoAmI(); if(!me) return;
+    db.ref(`${ROOT}/scores/${key}`).set({h,a,by:me});
+    toast('記帳した');
+  });
+
+  /* 締切後の修正（管理人） */
+  document.querySelectorAll('[data-ovr]').forEach(b=>b.onclick=async()=>{
+    const key=b.dataset.ovr, p=b.dataset.p, f=byKey[key];
+    if(!await verifyAdmin()) return;
+    const cur=((state.picks||{})[key]||{})[p]||'なし';
+    const label = s=>s==='H'?jp(f.h):s==='A'?jp(f.a):s==='D'?'引き分け':'不参加';
+    const next = await pickSide(f, p, cur);
+    if(!next) return;
+    if(!await ask(`${p} の選択を\n${label(cur)} → ${label(next==='X'?null:next)}\nに変更する？`)) return;
+    if(next==='X') db.ref(`${ROOT}/picks/${key}/${p}`).remove();
+    else db.ref(`${ROOT}/picks/${key}/${p}`).set(next);
+    toast('修正した');
+  });
+
+  /* 順位表グリッド保存 */
+  const sg=document.getElementById('saveGrid');
+  if(sg) sg.onclick=async()=>{
+    const fs=fxOf(curGw), updates={};
+    let n=0, bad=false;
+    fs.forEach(f=>{
+      const he=document.querySelector(`[data-gh="${f.key}"]`);
+      const ae=document.querySelector(`[data-ga="${f.key}"]`);
+      const hv=he.value.trim(), av=ae.value.trim();
+      if(hv===''&&av===''){ return; }
+      const h=parseInt(hv,10), a=parseInt(av,10);
+      if(isNaN(h)||isNaN(a)||h<0||a<0){ bad=true; return; }
+      updates[`${ROOT}/scores/${f.key}`]={h,a}; n++;
+    });
+    if(bad){ toast('片方だけ空、みたいなんがあるで'); return; }
+    if(!n){ toast('入力がないで'); return; }
+    if(!await ask(`第${curGw}節の ${n}試合ぶんのスコアを保存する？\n指名された試合は賭けの精算にも反映される`)) return;
+    db.ref().update(updates);
+    toast(`${n}試合ぶん保存した`);
+  };
+
+  /* 年間予想：クラブ選択 */
+  document.querySelectorAll('[data-side-pick]').forEach(b=>b.onclick=()=>{
+    const type=b.dataset.sidePick, c=b.dataset.c;
+    const n = type==='champion'?1:type==='top4'?4:3;
+    const cur = sideDraft[type] ? [...sideDraft[type]] : [];
+    const i = cur.indexOf(c);
+    if(i>=0) cur.splice(i,1);
+    else { if(cur.length>=n){ toast(`${n}クラブまでやで`); return; } cur.push(c); }
+    sideDraft[type]=cur; render();
+  });
+  document.querySelectorAll('[data-side-save]').forEach(b=>b.onclick=async()=>{
+    const type=b.dataset.sideSave, n=+b.dataset.n;
+    const draft=sideDraft[type]||[];
+    if(draft.length!==n){ toast(`${n}クラブ選んでや（いま${draft.length}）`); return; }
+    const me=await whoAmI(); if(!me) return;
+    const label = type==='top4' ? draft.map((c,i)=>`${i+1}位 ${jp(c)}`).join('\n') : draft.map(c=>jp(c)).join('・');
+    if(!await ask(`この内容で確定する？\n\n${label}\n\n開幕までは何回でも変更できる`)) return;
+    const blob=await seal('side:'+type, me, JSON.stringify(draft));
+    db.ref(`${ROOT}/side/${type}/enc/${me}`).set(blob);
+    setLocalSide(type,me,draft);
+    delete sideDraft[type];
+    toast('提出したで（開幕まで非公開）'); render();
+  });
+  const ss=document.getElementById('scorerSave');
+  if(ss) ss.onclick=async()=>{
+    const v=(document.getElementById('scorerIn').value||'').trim().slice(0,40);
+    if(!v){ toast('選手名を入れてや'); return; }
+    const me=await whoAmI(); if(!me) return;
+    if(!await ask(`得点王予想を「${v}」で確定する？`)) return;
+    const blob=await seal('side:scorer', me, JSON.stringify(v));
+    db.ref(`${ROOT}/side/scorer/enc/${me}`).set(blob);
+    setLocalSide('scorer',me,v);
+    toast('提出したで'); render();
+  };
+
+  /* 実際の結果を入力（管理人） */
+  const sa=document.getElementById('setActual');
+  if(sa) sa.onclick=async()=>{
+    if(!await verifyAdmin()) return;
+    const t = await pickActualType();
+    if(!t) return;
+    if(t==='scorer'){
+      const v = await askText('実際の得点王は？','選手名');
+      if(!v) return;
+      db.ref(`${ROOT}/actual/scorer`).set(v); toast('確定した'); return;
+    }
+    const rows = leagueTable();
+    let arr;
+    if(t==='champion') arr=[rows[0].c];
+    else if(t==='top4') arr=rows.slice(0,4).map(x=>x.c);
+    else arr=rows.slice(17,20).map(x=>x.c);
+    const label = arr.map(c=>jp(c)).join(' → ');
+    if(!await ask(`いまの順位表から確定する？\n\n${label}\n\n全試合のスコアが入ってから押してな`)) return;
+    db.ref(`${ROOT}/actual/${t}`).set(t==='champion'?arr[0]:arr);
+    toast('確定した');
+  };
+}
+function pickSide(f, p, cur){
+  return new Promise(res=>{
+    const ov=document.createElement('div'); ov.className='ov';
+    ov.innerHTML=`<div class="dlg"><p>${esc(p)} の選択を変える</p>
+      <div class="who-chips">
+        <button class="who-chip" data-s="H">${esc(jp(f.h))}</button>
+        <button class="who-chip" data-s="D">引き分け</button>
+        <button class="who-chip" data-s="A">${esc(jp(f.a))}</button>
+        <button class="who-chip" data-s="X">不参加にする</button>
+      </div><div class="dlg-btns"><button class="dlg-no">やめる</button></div></div>`;
+    document.body.appendChild(ov);
+    ov.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{ov.remove();res(b.dataset.s)});
+    ov.querySelector('.dlg-no').onclick=()=>{ov.remove();res(null)};
+    ov.onclick=e=>{ if(e.target===ov){ov.remove();res(null)} };
+  });
+}
+function pickActualType(){
+  return new Promise(res=>{
+    const ov=document.createElement('div'); ov.className='ov';
+    ov.innerHTML=`<div class="dlg"><p>どれを確定する？</p>
+      <div class="who-chips">
+        <button class="who-chip" data-t="champion">優勝クラブ</button>
+        <button class="who-chip" data-t="top4">トップ4</button>
+        <button class="who-chip" data-t="relegation">降格3</button>
+        <button class="who-chip" data-t="scorer">得点王</button>
+      </div><div class="dlg-btns"><button class="dlg-no">やめる</button></div></div>`;
+    document.body.appendChild(ov);
+    ov.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{ov.remove();res(b.dataset.t)});
+    ov.querySelector('.dlg-no').onclick=()=>{ov.remove();res(null)};
+    ov.onclick=e=>{ if(e.target===ov){ov.remove();res(null)} };
+  });
+}
+function askText(title, ph){
+  return new Promise(res=>{
+    const ov=document.createElement('div'); ov.className='ov';
+    ov.innerHTML=`<div class="dlg"><p>${esc(title)}</p>
+      <input class="txtin" style="margin-top:0" placeholder="${esc(ph||'')}">
+      <div class="dlg-btns"><button class="dlg-no">やめる</button><button class="dlg-yes">OK</button></div></div>`;
+    document.body.appendChild(ov);
+    const i=ov.querySelector('input'); setTimeout(()=>i.focus(),60);
+    ov.querySelector('.dlg-yes').onclick=()=>{const v=i.value.trim();ov.remove();res(v||null)};
+    ov.querySelector('.dlg-no').onclick=()=>{ov.remove();res(null)};
+    ov.onclick=e=>{ if(e.target===ov){ov.remove();res(null)} };
+  });
+}
+
+/* ══════ 起動 ══════ */
+(function init(){
+  if(!firebaseConfig.apiKey || !firebaseConfig.databaseURL){
+    showErr('まだFirebaseの設定が入ってへん。<br>新しいプロジェクトを作って、ファイル冒頭の <b>firebaseConfig</b> に貼り付けてや。');
+    return;
+  }
+  try{
+    firebase.initializeApp(firebaseConfig);
+    db = firebase.database();
+  }catch(e){ showErr('Firebase設定がおかしいかも：'+esc(e.message)); return; }
+
+  curGw = currentGwGuess();
+  let seeded=false;
+  db.ref(ROOT).on('value', async snap=>{
+    const v = snap.val();
+    if(v===null){
+      if(!seeded){ seeded=true; db.ref(ROOT).set({ players:PLAYERS, created:Date.now() }); }
+      return;
+    }
+    state = v;
+    document.getElementById('loading').style.display='none';
+    document.getElementById('app').style.display='block';
+    await autoReveal();
+    const ae=document.activeElement;
+    if(ae && (ae.tagName==='INPUT')) return;   /* 入力中は再描画で消さん */
+    render();
+  }, err=>{
+    showErr('データベースに接続できへん：'+esc(err.message)+
+      '<br>Realtime Databaseのルールが read/write とも true になってるか確認してや。');
+  });
+
+  /* カウントダウン更新＋締切到来で自動開示 */
+  setInterval(async()=>{
+    if(!state) return;
+    await autoReveal();
+    const ae=document.activeElement;
+    if(ae && ae.tagName==='INPUT') return;
+    render();
+  }, 30000);
+})();
+</script>
+</body>
+</html>
