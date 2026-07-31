@@ -45,9 +45,9 @@ input,select{font-family:var(--body),'Noto Sans JP',sans-serif}
   border-radius:50%;background:var(--panel);overflow:visible}
 .av-i{width:100%;height:100%;border-radius:50%;object-fit:cover;display:block}
 .av-t{font-family:var(--disp);font-weight:800;color:var(--grey);line-height:1}
-.av-b{position:absolute;right:-3px;bottom:-3px;line-height:0;background:#fff;border-radius:50%;padding:1px;
+.av-b{position:absolute;right:-2px;bottom:-2px;line-height:0;background:#fff;border-radius:50%;padding:1px;
   box-shadow:0 0 0 1px #fff}
-.av-b .crest{display:block}
+.av-b .crest{display:block;width:100%;height:100%}
 .hero .mw{display:flex;align-items:baseline;gap:9px;margin-top:3px}
 .hero .mw b{font-family:var(--disp);font-size:54px;font-weight:800;letter-spacing:-.045em;line-height:.86}
 .hero .mw i{font-style:normal;font-family:var(--disp);font-size:19px;font-weight:700;
@@ -969,8 +969,9 @@ function avatar(p, size){
   const inner = url
     ? `<img class="av-i" src="${esc(url)}" alt="${esc(p)}">`
     : `<span class="av-t" style="font-size:${Math.round(s*0.46)}px">${esc(String(p||'?').slice(0,1))}</span>`;
+  const bs = Math.max(9, Math.round(s*0.40));
   const badge = (c && CLUBS[c])
-    ? `<span class="av-b">${crest(c, Math.max(10, Math.round(s*0.46)))}</span>` : '';
+    ? `<span class="av-b" style="width:${bs}px;height:${bs}px">${crest(c, bs)}</span>` : '';
   return `<span class="av" style="width:${s}px;height:${s}px">${inner}${badge}</span>`;
 }
 
@@ -1173,8 +1174,7 @@ function renderHero(){
   const box=document.getElementById('heroBox');
   if(curTab==='sound'){
     box.innerHTML = `<div class="hero"><div class="in">
-      <div class="eyebrow">BASQUE 31</div><h1>テーマ</h1>
-      <div class="sub">みんなのテーマ曲と、優勝画面で鳴るやつ</div></div></div>`;
+      <div class="eyebrow">BASQUE 31</div><h1>テーマ</h1></div></div>`;
     return;
   }
   if(curTab==='season'){
