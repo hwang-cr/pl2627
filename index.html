@@ -752,7 +752,6 @@ function meMenu(me){
     <div class="who-chips">
       <button class="who-chip" data-mm="icon">📷 アイコンを変える</button>
       ${icons[me] ? `<button class="who-chip" data-mm="clear">アイコンを消す</button>` : ''}
-      ${seasonLocked ? '' : `<button class="who-chip" data-mm="fav">⚽ 注目クラブを選ぶ</button>`}
       <button class="who-chip" data-mm="switch">別の人に切り替える</button>
     </div><div class="dlg-btns"><button class="dlg-no">閉じる</button></div></div>`;
   document.body.appendChild(ov);
@@ -760,8 +759,6 @@ function meMenu(me){
   ov.querySelector('[data-mm="icon"]').onclick = ()=>{ close(); applyIcon(chooseImage()); };
   const cl = ov.querySelector('[data-mm="clear"]');
   if(cl) cl.onclick = ()=>{ close(); clearIcon(); };
-  const fv = ov.querySelector('[data-mm="fav"]');
-  if(fv) fv.onclick = ()=>{ close(); changeFav(); };
   ov.querySelector('[data-mm="switch"]').onclick = async()=>{
     close();
     const m = getIds(); delete m[me];
@@ -811,12 +808,11 @@ function toggleTheme(){
 document.addEventListener('visibilitychange', ()=>{
   if(document.hidden && themeAudio && !themeAudio.paused) themeAudio.pause();
 });
-function themePlayer(note){
+function themePlayer(){
   return `<div class="thbox">
     <button class="thbtn" data-thbtn>▶ テーマを鳴らす</button>
     <div class="thbar"><span data-thbar></span></div>
-    <div class="thmeta"><span data-thtime>0:00 / 2:00</span><span>${esc(THEME_CREDIT)}</span></div>
-    ${note?`<div style="margin-top:8px;font-size:11px;color:var(--grey);line-height:1.6">${note}</div>`:''}
+    <div class="thmeta"><span data-thtime>0:00 / 4:23</span><span>${esc(THEME_CREDIT)}</span></div>
   </div>`;
 }
 
@@ -1114,6 +1110,34 @@ function currentGwGuess(){
   }
   return GW_MAX;
 }
+/* 30秒ごとの更新で「画面を作り直すべきか」を判断するための署名。
+   締切をまたいだ／キックオフした／年間予想がロックされた、みたいな
+   表示が変わる瞬間だけ値が変わる */
+function timeSig(){
+  const now = Date.now();
+  let locked = 0, kicked = 0;
+  betMatches().forEach(f=>{ if(now>deadlineOf(f)) locked++; if(now>f.ko) kicked++; });
+  return (now>SEASON_LOCK?'S':'-')+(now>KICKOFF_1ST?'K':'-')+':'+locked+':'+kicked;
+}
+let lastSig = null;
+
+/* 数字だけ書き換える。画面は作り直さんからスクロール位置も飛ばん */
+function tickText(){
+  if(curTab==='match' && Date.now()<KICKOFF_1ST) renderHero();
+  document.querySelectorAll('[data-tdl]').forEach(el=>{
+    const f = byKey[el.dataset.tdl]; if(!f) return;
+    const r = remain(deadlineOf(f)-Date.now());
+    if(r) el.textContent = '締切まで '+r;
+  });
+  document.querySelectorAll('[data-fdl]').forEach(el=>{
+    const f = byKey[el.dataset.fdl]; if(!f) return;
+    const r = remain(deadlineOf(f)-Date.now());
+    if(r) el.textContent = '締切まで '+r;
+  });
+  const sh = document.querySelector('[data-sdl]');
+  if(sh) sh.textContent = '締切まで '+(remain(SEASON_LOCK-Date.now())||'まもなく');
+}
+
 function render(){
   if(!state) return;
   const meChip = document.getElementById('meChip');
@@ -1132,6 +1156,7 @@ function render(){
   else if(curTab==='money') v.innerHTML = viewMoney();
   else if(curTab==='sound') v.innerHTML = viewSound();
   else v.innerHTML = viewSeason();
+  lastSig = timeSig();
   bind();
 }
 function renderLogo(){
@@ -1161,8 +1186,8 @@ function renderHero(){
   }
   const fs=fxOf(curGw);
   const sub = fs.length ? `${dateJp(fs[0].ko)} 〜 ${dateJp(fs[fs.length-1].ko)}・日本時間` : '';
-  /* 開幕前だけカウントダウンに差し替える。キックオフ過ぎたら勝手にいつもの表示に戻る */
-  if(Date.now() < KICKOFF_1ST){ box.innerHTML = heroCountdown(); return; }
+  /* 開幕カウントダウンは試合タブだけ。他のタブでは邪魔になる */
+  if(curTab==='match' && Date.now() < KICKOFF_1ST){ box.innerHTML = heroCountdown(); return; }
   box.innerHTML = `<div class="hero"><div class="in">
     <div class="eyebrow">MATCHWEEK</div>
     <div class="mw"><b>${String(curGw).padStart(2,'0')}</b><i>/${GW_MAX}</i></div>
@@ -1244,7 +1269,7 @@ function viewMatch(){
     else if(locked) foot = `<span class="mini">締切済み（指名でけへん）</span>`;
     else if(me && noms[me]) foot = `<span class="mini">あんたはもう指名済み</span>`;
     else foot = `<button class="nombtn" data-nom="${f.key}">この試合を指名する</button>
-      <span class="mini">締切まで ${remain(deadlineOf(f)-Date.now())||'—'}</span>`;
+      <span class="mini" data-fdl="${f.key}">締切まで ${remain(deadlineOf(f)-Date.now())||'—'}</span>`;
     html += `<div class="fx">${fxLine(f)}<div class="fxfoot">${foot}</div></div>`;
   });
   return html;
@@ -1273,7 +1298,7 @@ function ticket(f, nomBy){
   const dl = sc
     ? `<div class="dl shut">記帳済み</div>`
     : locked ? `<div class="dl shut">締切済み・開票</div>`
-    : `<div class="dl">締切まで ${remain(deadlineOf(f)-Date.now())||'まもなく'}</div>`;
+    : `<div class="dl" data-tdl="${f.key}">締切まで ${remain(deadlineOf(f)-Date.now())||'まもなく'}</div>`;
 
   /* 条件行（3択のときは出さん） */
   const ct = condText(f.key, f);
@@ -1587,22 +1612,15 @@ function viewMoney(){
 /* ── テーマタブ ── */
 function viewSound(){
   let html = `<div class="sec"><h2>${esc(CREW)}のテーマ曲</h2>
-    <p>${esc(CREW_SONG_TITLE)}<br>
-    市販の曲やからアプリには入れてへん。YouTubeの公式プレイヤーで流す</p></div>`;
+    <p>${esc(CREW_SONG_TITLE)}</p></div>`;
   html += `<div class="ytwrap"><iframe loading="lazy"
     src="https://www.youtube-nocookie.com/embed/${esc(CREW_SONG_YT)}"
     title="${esc(CREW_SONG_TITLE)}"
     allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
     allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>`;
 
-  html += `<div class="divider"></div><div class="sec"><h2>優勝画面のテーマ</h2>
-    <p>380試合ぜんぶ入って年間王者が決まったとき、収支タブの一番下で鳴るやつ。<br>
-    ここでは先に聴ける</p></div>`;
-  html += themePlayer('自動では鳴らへん。ボタンを押したときだけや。<br>他のアプリに移ったら自動で止まる。');
-
-  html += `<div class="divider"></div><div class="sec"><h2>クレジット</h2>
-    <p>${esc(THEME_CREDIT)}<br>
-    NCS（NoCopyrightSounds）の楽曲を、クレジット表記の条件で使わせてもろてる</p></div>`;
+  html += `<div class="divider"></div><div class="sec"><h2>プレミアリーグテーマ曲</h2><p></p></div>`;
+  html += themePlayer();
   html += `<div style="height:20px"></div>`;
   return html;
 }
@@ -1613,7 +1631,7 @@ function viewSeason(){
   const me = meNow();
   let html = '';
   if(!locked){
-    html += `<div class="sec"><h2>締切まで ${remain(SEASON_LOCK-Date.now())||'まもなく'}</h2>
+    html += `<div class="sec"><h2 data-sdl>締切まで ${remain(SEASON_LOCK-Date.now())||'まもなく'}</h2>
       <p>移籍期間が締まった翌日（${dateJp(SEASON_LOCK)} ${hhmm(SEASON_LOCK)}）で一斉ロック。それまでは何回でも変更できる。<br>
       <b style="color:var(--pink)">※このときには第2節まで終わっとる</b>。移籍を全部見てから決められるかわりに、序盤の結果も見えた状態や</p></div>`;
   }
@@ -1621,6 +1639,9 @@ function viewSeason(){
   html += sideCard('top4','CL出場圏（トップ4）',SIDE_STAKE,'<b style="color:var(--pink)">1位から4位まで順番通り</b>に当てた人だけが勝ち。',4,locked,me);
   html += sideCard('relegation','降格3クラブ',SIDE_STAKE,'3クラブ<b style="color:var(--pink)">全部</b>当てた人だけが勝ち。順番は問わへん。',3,locked,me);
   html += scorerCard(locked,me);
+  html += `<div class="divider"></div><div class="sec"><h2>注目クラブ</h2>
+    <p>賭けやない。今季どこを追いかけるかの表明や</p></div>`;
+  html += favCard(me);
   html += `<div class="divider"></div>`;
   html += `<div class="sec"><h2>結果の確定（管理人）</h2>
     <p>シーズン終盤に実際の結果を入れたら精算される</p></div>
@@ -1706,6 +1727,23 @@ function scorerCard(locked, me){
   return `<div class="side"><div class="side-h"><b>得点王</b><span class="stake">${SIDE_STAKE.toLocaleString()}</span></div>${body}</div>`;
 }
 
+/* 注目クラブ：金は動かん。年間予想と同じ日にロック・かぶりOK */
+function favCard(me){
+  const locked = Date.now() > SEASON_LOCK;
+  const fav = state.fav || {};
+  let body = `<div class="side-b">金は動かん、ただのキャラ付け。かぶってもOK。`;
+  body += `<div style="margin-top:8px">` + PLAYERS.map(p=>{
+    const c = fav[p];
+    return (c && CLUBS[c])
+      ? `<div class="pickline">${esc(p)}：${crest(c,20)}${esc(jp(c))}</div>`
+      : `<div class="pickline" style="color:var(--grey)">${esc(p)}：未選択</div>`;
+  }).join('') + `</div>`;
+  if(!locked) body += `<button class="sbtn" id="favPick">注目クラブを選ぶ</button>`;
+  body += `</div>`;
+  return `<div class="side"><div class="side-h"><b>注目クラブ</b>
+    <span class="stake" style="background:var(--grey)">賭けなし</span></div>${body}</div>`;
+}
+
 function localSide(type, who){
   try{ const m=JSON.parse(localStorage.getItem(ROOT+'-myside')||'{}'); return (m[type]||{})[who]||null; }catch(e){ return null; }
 }
@@ -1763,6 +1801,8 @@ function bind(){
     b.classList.toggle('on', on);
     b.onclick = ()=>toggleTheme();
   });
+  const fp=document.getElementById('favPick');
+  if(fp) fp.onclick=()=>changeFav();
   document.querySelectorAll('[data-gw]').forEach(b=>b.onclick=()=>{
     const g=+b.dataset.gw; if(g>=1&&g<=GW_MAX){ curGw=g; render(); window.scrollTo(0,0); }
   });
@@ -2112,13 +2152,15 @@ function askText(title, ph){
     if(state) render();
   }, ()=>{ icons = {}; });
 
-  /* カウントダウン更新＋締切到来で自動開示 */
+  /* 30秒ごと。誰も触ってなくても締切が来たら自動開票させるために回しとる。
+     ただし普段は数字だけ書き換えて、表示が変わる瞬間だけ画面を作り直す */
   setInterval(async()=>{
     if(!state) return;
     await autoReveal();
     const ae=document.activeElement;
     if(ae && ae.tagName==='INPUT') return;
-    render();
+    if(timeSig() !== lastSig) render();   /* 締切をまたいだ・キックオフした */
+    else tickText();                      /* いつもはこっち */
   }, 30000);
 })();
 </script>
