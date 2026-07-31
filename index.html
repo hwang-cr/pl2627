@@ -6,7 +6,7 @@
 <title>バスク31 PL賭けノート 2026/27</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Dela+Gothic+One&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
 :root{
   --purple:#37003C; --purple-2:#5C2B62; --grey:#6B5B6E;
@@ -21,16 +21,24 @@ button{font-family:var(--body),'Noto Sans JP',sans-serif}
 input,select{font-family:var(--body),'Noto Sans JP',sans-serif}
 
 /* ── app bar ── */
-.appbar{display:flex;align-items:center;gap:9px;padding:12px 14px;border-bottom:1px solid var(--line);background:#fff;position:sticky;top:0;z-index:30}
-.mark{width:42px;height:42px;flex:none;display:grid;place-items:center}
-.mark img{width:42px;height:42px;object-fit:contain}
-.mark svg{width:34px;height:34px;fill:var(--purple)}
+.appbar{display:flex;align-items:center;gap:8px;padding:11px 13px;border-bottom:1px solid var(--line);background:#fff;position:sticky;top:0;z-index:30}
+.mark{width:50px;height:50px;flex:none;display:grid;place-items:center}
+.mark img{width:50px;height:50px;object-fit:contain}
+.mark svg{width:42px;height:42px;fill:var(--purple)}
 .brand{min-width:0}
-.brand b{display:block;font-family:var(--disp);font-weight:800;font-size:17px;letter-spacing:-.035em;line-height:1;white-space:nowrap}
+.brand b{display:block;font-family:var(--disp);font-weight:800;font-size:16.5px;letter-spacing:-.035em;line-height:1;white-space:nowrap}
+.brand i{display:block;font-style:normal;font-family:var(--disp);font-size:10px;font-weight:700;
+  color:var(--grey);letter-spacing:.08em;margin-top:3px}
+.appbar .sp{flex:1;min-width:4px}
+.crew{font-family:'Dela Gothic One',var(--disp),'Noto Sans JP',sans-serif;font-size:11.5px;
+  color:var(--green-lt);background:linear-gradient(100deg,#37003C,#6A2F72);
+  padding:6px 11px;border-radius:20px;white-space:nowrap;flex:none;letter-spacing:.01em}
+.chip-me{display:grid;place-items:center;width:32px;height:32px;padding:0;flex:none;
+  border-radius:50%;background:var(--panel);border:none;cursor:pointer}
+.chip-me.none{width:auto;height:auto;padding:7px 12px;border-radius:20px;
+  font-size:11px;font-weight:700;color:var(--purple)}
 .appbar .sp{flex:1}
-.season{font-family:var(--disp);font-size:11px;font-weight:800;color:var(--grey);letter-spacing:.02em}
-.chip-me{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;padding:5px 11px 5px 6px;border-radius:20px;background:var(--panel);color:var(--purple);border:none;cursor:pointer}
-.chip-me.none{padding:6px 12px}
+.season{display:none}
 
 /* ── メンバーアイコン（丸写真＋注目クラブのエンブレム） ── */
 .av{position:relative;display:inline-flex;flex:none;align-items:center;justify-content:center;
@@ -40,9 +48,33 @@ input,select{font-family:var(--body),'Noto Sans JP',sans-serif}
 .av-b{position:absolute;right:-3px;bottom:-3px;line-height:0;background:#fff;border-radius:50%;padding:1px;
   box-shadow:0 0 0 1px #fff}
 .av-b .crest{display:block}
-.eyebrow .crew{display:inline-block;margin-left:7px;padding:2px 8px;border-radius:20px;
-  background:rgba(255,255,255,.24);letter-spacing:.06em;font-weight:800}
-.hero-g .eyebrow .crew{background:rgba(55,0,60,.13)}
+.hero .mw{display:flex;align-items:baseline;gap:9px;margin-top:3px}
+.hero .mw b{font-family:var(--disp);font-size:54px;font-weight:800;letter-spacing:-.045em;line-height:.86}
+.hero .mw i{font-style:normal;font-family:var(--disp);font-size:19px;font-weight:700;
+  opacity:.5;letter-spacing:-.02em}
+
+/* ── 開幕カウントダウン（開幕までの間だけ出る） ── */
+.cdnum{display:flex;align-items:baseline;gap:4px;margin-top:4px;flex-wrap:wrap}
+.cdnum b{font-family:var(--disp);font-size:50px;font-weight:800;letter-spacing:-.045em;line-height:.9}
+.cdnum i{font-style:normal;font-size:15px;font-weight:700;opacity:.8;margin-right:8px}
+.cdko{font-family:var(--disp);font-size:12px;font-weight:700;letter-spacing:.08em;margin-top:8px;opacity:.9}
+.cdtodo{margin-top:11px;background:rgba(255,255,255,.17);border-radius:10px;padding:9px 11px;
+  font-size:11.5px;font-weight:700;line-height:1.65}
+.cdtodo b{font-family:var(--disp);font-size:13px}
+.cdtodo .yet{display:block;margin-top:3px;opacity:.92}
+
+/* ── テーマ曲プレイヤー ── */
+.thbox{margin:0 12px 10px;border:1px solid var(--line);border-radius:12px;padding:12px}
+.thbtn{width:100%;padding:13px 0;border:none;border-radius:10px;background:var(--purple);color:#fff;
+  font-weight:800;font-size:13px;cursor:pointer}
+.thbtn.on{background:var(--pink)}
+.thbar{height:6px;border-radius:3px;background:var(--line);overflow:hidden;margin-top:10px}
+.thbar span{display:block;height:100%;width:0;background:linear-gradient(90deg,#00FF87,#04F5FF);border-radius:3px}
+.thmeta{display:flex;justify-content:space-between;gap:8px;margin-top:7px;font-size:10.5px;
+  font-weight:600;color:var(--grey)}
+.thmeta a{color:var(--grey)}
+.ytwrap{margin:0 12px 10px;border-radius:12px;overflow:hidden;background:#000;aspect-ratio:16/9}
+.ytwrap iframe{width:100%;height:100%;border:0;display:block}
 
 /* ── league table mode switch ── */
 .seg{display:flex;margin:0 12px 10px;background:var(--panel);border-radius:10px;padding:3px;gap:2px}
@@ -72,8 +104,8 @@ input,select{font-family:var(--body),'Noto Sans JP',sans-serif}
 .hero-g .sub{font-size:11.5px;font-weight:700;opacity:.78;margin-top:6px}
 
 /* ── tabs ── */
-.tabs{display:flex;background:var(--purple);padding:0 6px;position:sticky;top:66px;z-index:29}
-.tabs button{flex:1;font-size:12px;font-weight:600;color:rgba(255,255,255,.6);background:none;border:none;padding:13px 2px 11px;cursor:pointer;border-bottom:3px solid transparent}
+.tabs{display:flex;background:var(--purple);padding:0 6px;position:sticky;top:72px;z-index:29}
+.tabs button{flex:1;font-size:11px;font-weight:600;color:rgba(255,255,255,.6);background:none;border:none;padding:13px 1px 11px;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap}
 .tabs button.on{color:#fff;border-bottom-color:var(--green-lt)}
 
 /* ── matchweek bar ── */
@@ -291,10 +323,10 @@ input,select{font-family:var(--body),'Noto Sans JP',sans-serif}
 <div class="wrap">
   <div class="appbar">
     <div class="mark" id="logoBox"></div>
-    <div class="brand"><b>Premier League</b></div>
+    <div class="brand"><b>Premier League</b><i>2026/27</i></div>
     <div class="sp"></div>
-    <span class="season">26/27</span>
-    <button class="chip-me" id="meChip">誰？</button>
+    <span class="crew" id="crewTag">バスク31</span>
+    <button class="chip-me none" id="meChip">誰？</button>
   </div>
 
   <div id="warn" style="display:none"></div>
@@ -307,6 +339,7 @@ input,select{font-family:var(--body),'Noto Sans JP',sans-serif}
       <button data-tab="table">順位表</button>
       <button data-tab="money">収支</button>
       <button data-tab="season">年間予想</button>
+      <button data-tab="sound">テーマ</button>
     </div>
     <div id="view"></div>
   </div>
@@ -339,6 +372,13 @@ const ROOT = 'plnote';               /* wc2026 の kakebo とは完全に分離 
    写真を混ぜると毎回そのぶん通信が増える。分けとけば写真が変わったときだけ流れる */
 const ICONS = 'plnote_icons';
 const CREW = 'バスク31';
+/* champion画面で鳴らすやつ。index.html と同じ階層に置く */
+const THEME_FILE  = 'theme-champion.mp3';
+const THEME_CREDIT= 'Razihel - Love U [NCS Release] / ncs.io';
+/* バスク31のテーマ曲。市販曲やからファイルは置かん。YouTubeの公式埋め込みで流す。
+   別の動画にしたかったら、このIDだけ差し替えたらええ */
+const CREW_SONG_YT    = 'f71YSjMZbl8';
+const CREW_SONG_TITLE = 'D.O「悪党の詩」';
 const ICON_PX = 96;                  /* 正方形に切って縮めるサイズ */
 const ICON_MAX = 60000;              /* dataURLの上限（超えたら画質を落として再圧縮） */
 const ADMIN = 'さんふぁん';
@@ -408,7 +448,12 @@ const FIXTURES = '1,1787338800000,ARS,COV;1,1787398200000,HUL,MUN;1,178740720000
   return { gw:+p[0], ko:+p[1], h:p[2], a:p[3], key:'m'+p[0]+'_'+p[2]+'_'+p[3] };
 });
 const GW_MAX = 38;
-const SEASON_LOCK = Math.min(...FIXTURES.filter(f=>f.gw===1).map(f=>f.ko));
+/* 年間予想の締切。移籍期間の締め（2026/9/1 23:00 BST ＝ 日本時間 9/2 07:00）の
+   きっちり1日後 ＝ 2026/9/3（木）07:00 JST。
+   ここを変えるだけで締切を動かせる（開幕キックオフに戻すなら
+   Math.min(...FIXTURES.filter(f=>f.gw===1).map(f=>f.ko)) にする） */
+const SEASON_LOCK = Date.UTC(2026, 8, 2, 22, 0, 0);
+const KICKOFF_1ST = Math.min(...FIXTURES.filter(f=>f.gw===1).map(f=>f.ko));
 const byKey = {}; FIXTURES.forEach(f=>byKey[f.key]=f);
 const fxOf = gw => FIXTURES.filter(f=>f.gw===gw).sort((x,y)=>x.ko-y.ko);
 
@@ -624,6 +669,166 @@ function squareDataURL(file, px){
     };
     fr.readAsDataURL(file);
   });
+}
+
+/* ⚠️ chooseImage() は必ずタップ直後に「同期で」呼ぶこと。
+   await を1個でも挟んでから呼ぶと、iOSが操作の起点を見失ってピッカーを開かへん。
+   やから「先にファイルを選ばせて、本人確認はそのあと」の順にしてある */
+function chooseImage(){
+  return new Promise(res=>{
+    const inp = document.createElement('input');
+    inp.type = 'file'; inp.accept = 'image/*';
+    inp.style.cssText = 'position:fixed;left:-9999px;top:0;opacity:0';
+    document.body.appendChild(inp);
+    let done = false;
+    const finish = v => { if(done) return; done=true; setTimeout(()=>inp.remove(),0); res(v); };
+    inp.addEventListener('change', ()=>finish(inp.files && inp.files[0] ? inp.files[0] : null));
+    inp.addEventListener('cancel', ()=>finish(null));
+    /* 保険：ピッカーから戻って一定時間 change が来んかったら諦める。
+       HEICの変換待ちがあるので長めに取ってある */
+    window.addEventListener('focus', ()=>{
+      setTimeout(()=>{ if(!done && !(inp.files && inp.files.length)) finish(null); }, 10000);
+    }, {once:true});
+    inp.click();
+  });
+}
+async function applyIcon(filePromise){
+  const file = await filePromise;
+  if(!file) return;
+  if(file.type && !/^image\//.test(file.type)){ toast('画像ファイルを選んでや'); return; }
+  const me = await whoAmI(); if(!me) return;
+  toast('縮めとる…');
+  let url;
+  try{ url = await squareDataURL(file, ICON_PX); }
+  catch(e){ toast('この画像あかんかった：'+(e.message||'')); return; }
+  const kb = Math.round(url.length/1024);
+  if(!await ask(`${me} のアイコンにする？（約${kb}KB）\n\nリンクを知ってる人はみんな見える`)) return;
+  try{
+    await db.ref(`${ICONS}/${me}`).set(url);
+    icons[me] = url;
+    toast('アイコン変えたで'); render();
+  }catch(e){ toast('保存でけへんかった：'+(e.message||'')); }
+}
+async function clearIcon(){
+  const me = await whoAmI(); if(!me) return;
+  if(!icons[me]){ toast('まだ設定してへんで'); return; }
+  if(!await ask(`${me} のアイコンを消す？`)) return;
+  await db.ref(`${ICONS}/${me}`).remove();
+  delete icons[me];
+  toast('消したで'); render();
+}
+/* 注目クラブを選ぶダイアログ */
+function pickFavClub(cur){
+  return new Promise(res=>{
+    const ov = document.createElement('div'); ov.className='ov';
+    const grid = Object.keys(CLUBS).sort((a,b)=>jp(a).localeCompare(jp(b),'ja')).map(c=>
+      `<button class="cbtn ${cur===c?'on':''}" data-fc="${c}">${crest(c,22)}<em>${c}</em></button>`).join('');
+    ov.innerHTML = `<div class="dlg"><p>注目クラブを選ぶ</p>
+      <div class="sub">金は動かん。かぶってもOK</div>
+      <div class="clubgrid" style="margin-top:0;max-height:44vh;overflow-y:auto">${grid}</div>
+      <div class="dlg-btns" style="margin-top:12px"><button class="dlg-no">やめる</button></div></div>`;
+    document.body.appendChild(ov);
+    ov.querySelectorAll('[data-fc]').forEach(b=>b.onclick=()=>{ ov.remove(); res(b.dataset.fc); });
+    ov.querySelector('.dlg-no').onclick=()=>{ ov.remove(); res(null); };
+    ov.onclick=e=>{ if(e.target===ov){ ov.remove(); res(null); } };
+  });
+}
+async function changeFav(){
+  if(Date.now()>SEASON_LOCK){ toast('もうロックされとる'); return; }
+  const me = await whoAmI(); if(!me) return;
+  const c = await pickFavClub(favOf(me));
+  if(!c || !CLUBS[c]) return;
+  if(!await ask(`注目クラブを「${jp(c)}」にする？\n${dateJp(SEASON_LOCK)} ${hhmm(SEASON_LOCK)} までは何回でも変えられる`)) return;
+  await db.ref(`${ROOT}/fav/${me}`).set(c);
+  toast('決めたで'); render();
+}
+/* ヘッダーの丸アイコンを押したときのメニュー */
+function meMenu(me){
+  const seasonLocked = Date.now()>SEASON_LOCK;
+  const cur = favOf(me);
+  const ov = document.createElement('div'); ov.className='ov';
+  ov.innerHTML = `<div class="dlg"><p>${esc(me)}</p>
+    <div class="sub">注目クラブ：${cur&&CLUBS[cur]?esc(jp(cur)):'未選択'}${seasonLocked?'（ロック済み）':''}</div>
+    <div class="who-chips">
+      <button class="who-chip" data-mm="icon">📷 アイコンを変える</button>
+      ${icons[me] ? `<button class="who-chip" data-mm="clear">アイコンを消す</button>` : ''}
+      ${seasonLocked ? '' : `<button class="who-chip" data-mm="fav">⚽ 注目クラブを選ぶ</button>`}
+      <button class="who-chip" data-mm="switch">別の人に切り替える</button>
+    </div><div class="dlg-btns"><button class="dlg-no">閉じる</button></div></div>`;
+  document.body.appendChild(ov);
+  const close = ()=>ov.remove();
+  ov.querySelector('[data-mm="icon"]').onclick = ()=>{ close(); applyIcon(chooseImage()); };
+  const cl = ov.querySelector('[data-mm="clear"]');
+  if(cl) cl.onclick = ()=>{ close(); clearIcon(); };
+  const fv = ov.querySelector('[data-mm="fav"]');
+  if(fv) fv.onclick = ()=>{ close(); changeFav(); };
+  ov.querySelector('[data-mm="switch"]').onclick = async()=>{
+    close();
+    const m = getIds(); delete m[me];
+    localStorage.setItem(ROOT+'-ids', JSON.stringify(m));
+    const w = await whoAmI();
+    if(w) toast(`${w} として認証したで`);
+    render();
+  };
+  ov.querySelector('.dlg-no').onclick = close;
+  ov.onclick = e=>{ if(e.target===ov) close(); };
+}
+
+/* ══════ テーマ曲プレイヤー ══════
+   自動再生は絶対に鳴らん（ブラウザが止める）。ボタンを押したときだけ再生する */
+let themeAudio = null;
+const fmtSec = s => { s=Math.max(0,Math.floor(s||0)); return Math.floor(s/60)+':'+String(s%60).padStart(2,'0'); };
+function themeEl(){
+  if(themeAudio) return themeAudio;
+  themeAudio = new Audio();
+  themeAudio.preload = 'none';          /* 押すまで一切ダウンロードせえへん */
+  themeAudio.src = THEME_FILE;
+  const sync = ()=>{
+    document.querySelectorAll('[data-thbtn]').forEach(b=>{
+      const on = themeAudio && !themeAudio.paused;
+      b.textContent = on ? '⏸ 止める' : '▶ テーマを鳴らす';
+      b.classList.toggle('on', on);
+    });
+  };
+  themeAudio.addEventListener('timeupdate', ()=>{
+    const d = themeAudio.duration || 0;
+    document.querySelectorAll('[data-thbar]').forEach(el=>{
+      el.style.width = d ? (themeAudio.currentTime/d*100)+'%' : '0';
+    });
+    document.querySelectorAll('[data-thtime]').forEach(el=>{
+      el.textContent = fmtSec(themeAudio.currentTime)+' / '+fmtSec(d);
+    });
+  });
+  ['play','pause','ended'].forEach(ev=>themeAudio.addEventListener(ev, sync));
+  themeAudio.addEventListener('error', ()=>toast('音源が見つからん。theme-champion.mp3 を置いたか確認してや'));
+  return themeAudio;
+}
+function toggleTheme(){
+  const a = themeEl();
+  if(a.paused){ a.play().catch(()=>toast('再生でけへんかった')); }
+  else a.pause();
+}
+document.addEventListener('visibilitychange', ()=>{
+  if(document.hidden && themeAudio && !themeAudio.paused) themeAudio.pause();
+});
+function themePlayer(note){
+  return `<div class="thbox">
+    <button class="thbtn" data-thbtn>▶ テーマを鳴らす</button>
+    <div class="thbar"><span data-thbar></span></div>
+    <div class="thmeta"><span data-thtime>0:00 / 2:00</span><span>${esc(THEME_CREDIT)}</span></div>
+    ${note?`<div style="margin-top:8px;font-size:11px;color:var(--grey);line-height:1.6">${note}</div>`:''}
+  </div>`;
+}
+
+/* 年間予想を4種とも出した人／まだの人 */
+function seasonSubmitted(){
+  const se = state.side || {};
+  const types = ['champion','top4','relegation','scorer'];
+  const done = PLAYERS.filter(p => types.every(t=>{
+    const s = se[t] || {};
+    return (s.enc && s.enc[p]!=null) || (s.picks && s.picks[p]!=null);
+  }));
+  return { done, left: PLAYERS.filter(p=>!done.includes(p)) };
 }
 
 /* ══════ 締切後の自動開示 ══════ */
@@ -913,8 +1118,10 @@ function render(){
   if(!state) return;
   const meChip = document.getElementById('meChip');
   const meNm = meNow();
-  meChip.innerHTML = meNm ? `${avatar(meNm,18)}<span>${esc(meNm)}</span>` : '誰？';
+  meChip.innerHTML = meNm ? avatar(meNm,32) : '誰？';
   meChip.classList.toggle('none', !meNm);
+  const ct = document.getElementById('crewTag');
+  if(ct) ct.textContent = CREW;
   renderLogo();
   renderHero();
   document.querySelectorAll('#tabs button').forEach(b=>
@@ -923,6 +1130,7 @@ function render(){
   if(curTab==='match') v.innerHTML = viewMatch();
   else if(curTab==='table') v.innerHTML = viewTable();
   else if(curTab==='money') v.innerHTML = viewMoney();
+  else if(curTab==='sound') v.innerHTML = viewSound();
   else v.innerHTML = viewSeason();
   bind();
 }
@@ -938,18 +1146,56 @@ function crownSVG(){
 window.crownSVG = crownSVG;
 function renderHero(){
   const box=document.getElementById('heroBox');
+  if(curTab==='sound'){
+    box.innerHTML = `<div class="hero"><div class="in">
+      <div class="eyebrow">BASQUE 31</div><h1>テーマ</h1>
+      <div class="sub">みんなのテーマ曲と、優勝画面で鳴るやつ</div></div></div>`;
+    return;
+  }
   if(curTab==='season'){
     const locked = Date.now()>SEASON_LOCK;
     box.innerHTML = `<div class="hero-g"><div class="chev c1"></div><div class="chev c2"></div><div class="chev c3"></div>
-      <div class="in"><div class="eyebrow">SEASON-LONG BETS<span class="crew">${esc(CREW)}</span></div><h1>年間予想</h1>
-      <div class="sub">${locked?'開幕したのでロック済み・全公開':'開幕キックオフでロック・それまで変更自由'}</div></div></div>`;
+      <div class="in"><div class="eyebrow">SEASON-LONG BETS</div><h1>年間予想</h1>
+      <div class="sub">${locked?'締切が来たのでロック済み・全公開':'移籍期間の翌日でロック・それまで変更自由'}</div></div></div>`;
     return;
   }
   const fs=fxOf(curGw);
   const sub = fs.length ? `${dateJp(fs[0].ko)} 〜 ${dateJp(fs[fs.length-1].ko)}・日本時間` : '';
+  /* 開幕前だけカウントダウンに差し替える。キックオフ過ぎたら勝手にいつもの表示に戻る */
+  if(Date.now() < KICKOFF_1ST){ box.innerHTML = heroCountdown(); return; }
   box.innerHTML = `<div class="hero"><div class="in">
-    <div class="eyebrow">MATCHWEEK ${String(curGw).padStart(2,'0')}<span class="crew">${esc(CREW)}</span></div>
-    <h1>第${curGw}節</h1><div class="sub">${sub}</div></div></div>`;
+    <div class="eyebrow">MATCHWEEK</div>
+    <div class="mw"><b>${String(curGw).padStart(2,'0')}</b><i>/${GW_MAX}</i></div>
+    <div class="sub">${sub}</div></div></div>`;
+}
+
+/* 開幕までのカウントダウン。年間予想の提出状況も一緒に出す */
+function heroCountdown(){
+  const left = KICKOFF_1ST - Date.now();
+  const d = Math.floor(left/86400000);
+  const h = Math.floor(left%86400000/3600000);
+  const mi = Math.floor(left%3600000/60000);
+  let big, eyebrow;
+  if(d >= 1){
+    eyebrow = '⚡ 開幕まで';
+    big = `<b>${d}</b><i>日</i><b>${h}</b><i>時間</i>`;
+  } else if(h >= 1){
+    eyebrow = '⚡ まもなく開幕';
+    big = `<b>${h}</b><i>時間</i><b>${mi}</b><i>分</i>`;
+  } else {
+    eyebrow = '🔥 本日開幕';
+    big = `<b>${mi}</b><i>分</i>`;
+  }
+  const ss = seasonSubmitted();
+  const todo = `<div class="cdtodo">年間予想 提出 <b>${ss.done.length}/${PLAYERS.length}人</b>
+    ${ss.left.length ? `<span class="yet">⚠️ まだの人：${ss.left.map(esc).join('・')}</span>`
+                     : `<span class="yet">✅ 全員そろった</span>`}
+    <span class="yet" style="opacity:.75">締切は ${dateJp(SEASON_LOCK)} ${hhmm(SEASON_LOCK)}（移籍期間の翌日）</span></div>`;
+  return `<div class="hero"><div class="in">
+    <div class="eyebrow">${eyebrow}</div>
+    <div class="cdnum">${big}</div>
+    <div class="cdko">${dateJp(KICKOFF_1ST)} ${hhmm(KICKOFF_1ST)} KICK OFF</div>
+    ${todo}</div></div>`;
 }
 
 function mwBar(extra){
@@ -1323,8 +1569,41 @@ function viewMoney(){
         <div class="amt">${totals[champ]>0?'+':''}${totals[champ].toLocaleString()}ペリカ</div></div></div>
       <div class="crown-body">38節を戦い抜いた年間王者。<br>
         的中率 <b>${s.bet?Math.round(s.hit/s.bet*100):0}%</b> ／ 最高連勝 <b>${s.best}</b></div></div>`;
+    html += themePlayer();
   }
+  /* メンバー一覧（アイコンと注目クラブの置き場） */
+  html += `<div class="divider"></div><div class="sec"><h2>メンバー</h2>
+    <p>アイコンと注目クラブは右上の丸アイコンから変えられる</p></div>`;
+  html += `<div class="tbl">` + PLAYERS.map(p=>{
+    const c = favOf(p);
+    return `<div class="mrow">${avatar(p,30)}<span class="nm">${esc(p)}</span>
+      <span class="rec">${c&&CLUBS[c] ? esc(jp(c)) : '注目クラブ未選択'}</span></div>`;
+  }).join('') + `</div>`;
+
   html += rulesFold();
+  return html;
+}
+
+/* ── テーマタブ ── */
+function viewSound(){
+  let html = `<div class="sec"><h2>${esc(CREW)}のテーマ曲</h2>
+    <p>${esc(CREW_SONG_TITLE)}<br>
+    市販の曲やからアプリには入れてへん。YouTubeの公式プレイヤーで流す</p></div>`;
+  html += `<div class="ytwrap"><iframe loading="lazy"
+    src="https://www.youtube-nocookie.com/embed/${esc(CREW_SONG_YT)}"
+    title="${esc(CREW_SONG_TITLE)}"
+    allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>`;
+
+  html += `<div class="divider"></div><div class="sec"><h2>優勝画面のテーマ</h2>
+    <p>380試合ぜんぶ入って年間王者が決まったとき、収支タブの一番下で鳴るやつ。<br>
+    ここでは先に聴ける</p></div>`;
+  html += themePlayer('自動では鳴らへん。ボタンを押したときだけや。<br>他のアプリに移ったら自動で止まる。');
+
+  html += `<div class="divider"></div><div class="sec"><h2>クレジット</h2>
+    <p>${esc(THEME_CREDIT)}<br>
+    NCS（NoCopyrightSounds）の楽曲を、クレジット表記の条件で使わせてもろてる</p></div>`;
+  html += `<div style="height:20px"></div>`;
   return html;
 }
 
@@ -1335,16 +1614,13 @@ function viewSeason(){
   let html = '';
   if(!locked){
     html += `<div class="sec"><h2>締切まで ${remain(SEASON_LOCK-Date.now())||'まもなく'}</h2>
-      <p>開幕キックオフ（${dateJp(SEASON_LOCK)} ${hhmm(SEASON_LOCK)}）で一斉ロック。それまでは何回でも変更できる。</p></div>`;
+      <p>移籍期間が締まった翌日（${dateJp(SEASON_LOCK)} ${hhmm(SEASON_LOCK)}）で一斉ロック。それまでは何回でも変更できる。<br>
+      <b style="color:var(--pink)">※このときには第2節まで終わっとる</b>。移籍を全部見てから決められるかわりに、序盤の結果も見えた状態や</p></div>`;
   }
   html += sideCard('champion','優勝クラブ',CHAMP_STAKE,'的中した人が外した人から総取り。複数なら山分け。',1,locked,me);
   html += sideCard('top4','CL出場圏（トップ4）',SIDE_STAKE,'<b style="color:var(--pink)">1位から4位まで順番通り</b>に当てた人だけが勝ち。',4,locked,me);
   html += sideCard('relegation','降格3クラブ',SIDE_STAKE,'3クラブ<b style="color:var(--pink)">全部</b>当てた人だけが勝ち。順番は問わへん。',3,locked,me);
   html += scorerCard(locked,me);
-  html += `<div class="divider"></div><div class="sec"><h2>プロフィール</h2>
-    <p>賭けやない。${esc(CREW)}の中での自己紹介や</p></div>`;
-  html += iconCard(me);
-  html += favCard(me);
   html += `<div class="divider"></div>`;
   html += `<div class="sec"><h2>結果の確定（管理人）</h2>
     <p>シーズン終盤に実際の結果を入れたら精算される</p></div>
@@ -1430,46 +1706,6 @@ function scorerCard(locked, me){
   return `<div class="side"><div class="side-h"><b>得点王</b><span class="stake">${SIDE_STAKE.toLocaleString()}</span></div>${body}</div>`;
 }
 
-/* アイコン写真：いつでも変更OK。金にも賭けにも関係せえへん */
-function iconCard(me){
-  let body = `<div class="side-b">正方形に切って${ICON_PX}pxに縮めて保存する。いつでも変えられる。`;
-  body += `<div style="margin-top:8px">` + PLAYERS.map(p=>
-    `<div class="pickline">${avatar(p,30)}<span>${esc(p)}</span>${
-      icons[p] ? '' : `<span style="color:var(--grey);font-weight:600;font-size:11px">未設定</span>`}</div>`
-  ).join('') + `</div>`;
-  body += `<button class="sbtn" id="iconPick">${me?esc(me)+' の':''}写真を選ぶ</button>`;
-  if(me && icons[me]) body += `<button class="sbtn ghost" id="iconClear">自分のアイコンを消す</button>`;
-  body += `<div style="margin-top:8px;font-size:11px;color:var(--grey);line-height:1.6">
-    ※リンクを知ってる人はみんな見える。顔出しするかは自己判断でな</div>`;
-  body += `</div>`;
-  return `<div class="side"><div class="side-h"><b>アイコン</b>
-    <span class="stake" style="background:var(--grey)">いつでも変更OK</span></div>${body}</div>`;
-}
-
-/* 注目クラブ：金は動かん。開幕でロック・かぶりOK */
-function favCard(me){
-  const locked = Date.now() > SEASON_LOCK;
-  const fav = state.fav || {};
-  let body = `<div class="side-b">金は動かん、ただのキャラ付け。かぶってもOK。開幕キックオフでロックされる。`;
-  body += `<div style="margin-top:8px">` + PLAYERS.map(p=>{
-    const c = fav[p];
-    return (c && CLUBS[c])
-      ? `<div class="pickline">${esc(p)}：${crest(c,20)}${esc(jp(c))}</div>`
-      : `<div class="pickline" style="color:var(--grey)">${esc(p)}：未選択</div>`;
-  }).join('') + `</div>`;
-  if(!locked){
-    const draft = (sideDraft.fav!=null) ? sideDraft.fav : (me ? fav[me] : null);
-    body += `<div class="clubgrid">` + Object.keys(CLUBS)
-      .sort((a,b)=>jp(a).localeCompare(jp(b),'ja')).map(c=>
-        `<button class="cbtn ${draft===c?'on':''}" data-fav="${c}">${crest(c,22)}<em>${c}</em></button>`
-      ).join('') + `</div>`;
-    body += `<div style="margin-top:9px;font-weight:700;color:var(--purple)">選択中：${draft?esc(jp(draft)):'なし'}</div>`;
-    body += `<button class="sbtn" id="favSave">この内容で確定する</button>`;
-  }
-  body += `</div>`;
-  return `<div class="side"><div class="side-h"><b>注目クラブ</b>
-    <span class="stake" style="background:var(--grey)">賭けなし</span></div>${body}</div>`;
-}
 function localSide(type, who){
   try{ const m=JSON.parse(localStorage.getItem(ROOT+'-myside')||'{}'); return (m[type]||{})[who]||null; }catch(e){ return null; }
 }
@@ -1504,11 +1740,13 @@ function rulesFold(){
     修正したら<b>誰の何をどう変えたかが全員に見える履歴として試合カードに残る</b>。
     アプリからは消せへん。<br><br>
     <b>年間予想</b>：優勝クラブ（10,000）・トップ4（5,000）・降格3（5,000）・得点王（5,000）。
-    開幕キックオフで一斉ロック。トップ4は<b>1〜4位を順番通り完全一致</b>、
+    <b>移籍期間が締まった翌日</b>（9月3日 07:00 日本時間）で一斉ロック。
+    移籍が全部終わってから決められるが、そのときには第2節まで消化済みや。トップ4は<b>1〜4位を順番通り完全一致</b>、
     降格3は<b>3クラブ全的中（順不同）</b>した人だけが勝ち。的中0人なら全員ノーゲーム。
     得点王は候補リストからタップで選ぶ。おらんかったら手入力でもええ。<br><br>
-    <b>注目クラブ</b>：金は動かん。今季追いかけるクラブを1つ選ぶだけ。
-    かぶってもOK、開幕キックオフでロック。選んだら名前の横にエンブレムが出る。<br><br>
+    <b>注目クラブ・アイコン</b>：右上の丸アイコンを押したら変えられる。金は動かん。
+    注目クラブはかぶってもOKで、年間予想と同じ日にロック。
+    設定したら名前の横にアイコンとエンブレムが出る。<br><br>
     <b>PIN</b>：初めて自分の行を触るとき4〜8桁のPINを設定する。以降その行は本人しか触れん。
     忘れたら管理人（${esc(ADMIN)}）にリセットしてもらえ。<br><br>
     <b>順位表</b>：各節のスコアを10試合ぶん入れると自動で計算される。
@@ -1518,14 +1756,23 @@ function rulesFold(){
 
 /* ══════ 操作 ══════ */
 function bind(){
+  /* テーマ曲：タップ直後に再生（await を挟まん） */
+  document.querySelectorAll('[data-thbtn]').forEach(b=>{
+    const on = !!(themeAudio && !themeAudio.paused);
+    b.textContent = on ? '⏸ 止める' : '▶ テーマを鳴らす';
+    b.classList.toggle('on', on);
+    b.onclick = ()=>toggleTheme();
+  });
   document.querySelectorAll('[data-gw]').forEach(b=>b.onclick=()=>{
     const g=+b.dataset.gw; if(g>=1&&g<=GW_MAX){ curGw=g; render(); window.scrollTo(0,0); }
   });
   document.querySelectorAll('#tabs button').forEach(b=>b.onclick=()=>{
     curTab=b.dataset.tab; render(); window.scrollTo(0,0);
   });
-  document.getElementById('meChip').onclick=async()=>{
-    const w=await whoAmI(); if(w){ toast(`${w} として認証したで`); render(); }
+  document.getElementById('meChip').onclick=()=>{
+    const me=meNow();
+    if(me){ meMenu(me); return; }
+    whoAmI().then(w=>{ if(w){ toast(`${w} として認証したで`); render(); } });
   };
   document.querySelectorAll('[data-tm]').forEach(b=>b.onclick=()=>{
     tableMode=b.dataset.tm; render();
@@ -1678,51 +1925,6 @@ function bind(){
     render();
   });
 
-  /* アイコン写真 */
-  const ip=document.getElementById('iconPick');
-  if(ip) ip.onclick=async()=>{
-    const me=await whoAmI(); if(!me) return;
-    const file=await chooseImage();
-    if(!file) return;
-    if(!/^image\//.test(file.type||'')){ toast('画像ファイルを選んでや'); return; }
-    toast('縮めとる…');
-    let url;
-    try{ url=await squareDataURL(file, ICON_PX); }
-    catch(e){ toast('この画像あかんかった：'+(e.message||'')); return; }
-    const kb=Math.round(url.length/1024);
-    if(!await ask(`${me} のアイコンにする？（約${kb}KB）\n\nリンクを知ってる人はみんな見える`)) return;
-    try{
-      await db.ref(`${ICONS}/${me}`).set(url);
-      icons[me]=url;
-      toast('アイコン変えたで'); render();
-    }catch(e){ toast('保存でけへんかった：'+(e.message||'')); }
-  };
-  const ic=document.getElementById('iconClear');
-  if(ic) ic.onclick=async()=>{
-    const me=await whoAmI(); if(!me) return;
-    if(!icons[me]){ toast('まだ設定してへんで'); return; }
-    if(!await ask(`${me} のアイコンを消す？`)) return;
-    await db.ref(`${ICONS}/${me}`).remove();
-    delete icons[me];
-    toast('消したで'); render();
-  };
-
-  /* 注目クラブ */
-  document.querySelectorAll('[data-fav]').forEach(b=>b.onclick=()=>{
-    sideDraft.fav = (sideDraft.fav===b.dataset.fav) ? '' : b.dataset.fav;
-    render();
-  });
-  const fs2=document.getElementById('favSave');
-  if(fs2) fs2.onclick=async()=>{
-    if(Date.now()>SEASON_LOCK){ toast('開幕したからもうロックされとる'); return; }
-    const c = sideDraft.fav;
-    if(!c || !CLUBS[c]){ toast('クラブを選んでや'); return; }
-    const me=await whoAmI(); if(!me) return;
-    if(!await ask(`注目クラブを「${jp(c)}」にする？\n開幕までは何回でも変えられる`)) return;
-    db.ref(`${ROOT}/fav/${me}`).set(c);
-    delete sideDraft.fav;
-    toast('決めたで'); render();
-  };
 
   const ss=document.getElementById('scorerSave');
   if(ss) ss.onclick=async()=>{
