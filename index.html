@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>PL賭けノート 2026/27</title>
+<title>バスク31 PL賭けノート 2026/27</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -21,14 +21,28 @@ button{font-family:var(--body),'Noto Sans JP',sans-serif}
 input,select{font-family:var(--body),'Noto Sans JP',sans-serif}
 
 /* ── app bar ── */
-.appbar{display:flex;align-items:center;gap:11px;padding:13px 15px;border-bottom:1px solid var(--line);background:#fff;position:sticky;top:0;z-index:30}
-.mark{width:54px;height:54px;flex:none;display:grid;place-items:center}
-.mark img{width:54px;height:54px;object-fit:contain}
-.mark svg{width:46px;height:46px;fill:var(--purple)}
-.brand b{display:block;font-family:var(--disp);font-weight:800;font-size:22px;letter-spacing:-.03em;line-height:.96}
+.appbar{display:flex;align-items:center;gap:9px;padding:12px 14px;border-bottom:1px solid var(--line);background:#fff;position:sticky;top:0;z-index:30}
+.mark{width:42px;height:42px;flex:none;display:grid;place-items:center}
+.mark img{width:42px;height:42px;object-fit:contain}
+.mark svg{width:34px;height:34px;fill:var(--purple)}
+.brand{min-width:0}
+.brand b{display:block;font-family:var(--disp);font-weight:800;font-size:17px;letter-spacing:-.035em;line-height:1;white-space:nowrap}
 .appbar .sp{flex:1}
 .season{font-family:var(--disp);font-size:11px;font-weight:800;color:var(--grey);letter-spacing:.02em}
-.chip-me{font-size:11px;font-weight:700;padding:6px 12px;border-radius:20px;background:var(--panel);color:var(--purple);border:none;cursor:pointer}
+.chip-me{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;padding:5px 11px 5px 6px;border-radius:20px;background:var(--panel);color:var(--purple);border:none;cursor:pointer}
+.chip-me.none{padding:6px 12px}
+
+/* ── メンバーアイコン（丸写真＋注目クラブのエンブレム） ── */
+.av{position:relative;display:inline-flex;flex:none;align-items:center;justify-content:center;
+  border-radius:50%;background:var(--panel);overflow:visible}
+.av-i{width:100%;height:100%;border-radius:50%;object-fit:cover;display:block}
+.av-t{font-family:var(--disp);font-weight:800;color:var(--grey);line-height:1}
+.av-b{position:absolute;right:-3px;bottom:-3px;line-height:0;background:#fff;border-radius:50%;padding:1px;
+  box-shadow:0 0 0 1px #fff}
+.av-b .crest{display:block}
+.eyebrow .crew{display:inline-block;margin-left:7px;padding:2px 8px;border-radius:20px;
+  background:rgba(255,255,255,.24);letter-spacing:.06em;font-weight:800}
+.hero-g .eyebrow .crew{background:rgba(55,0,60,.13)}
 
 /* ── league table mode switch ── */
 .seg{display:flex;margin:0 12px 10px;background:var(--panel);border-radius:10px;padding:3px;gap:2px}
@@ -58,7 +72,7 @@ input,select{font-family:var(--body),'Noto Sans JP',sans-serif}
 .hero-g .sub{font-size:11.5px;font-weight:700;opacity:.78;margin-top:6px}
 
 /* ── tabs ── */
-.tabs{display:flex;background:var(--purple);padding:0 6px;position:sticky;top:61px;z-index:29}
+.tabs{display:flex;background:var(--purple);padding:0 6px;position:sticky;top:66px;z-index:29}
 .tabs button{flex:1;font-size:12px;font-weight:600;color:rgba(255,255,255,.6);background:none;border:none;padding:13px 2px 11px;cursor:pointer;border-bottom:3px solid transparent}
 .tabs button.on{color:#fff;border-bottom-color:var(--green-lt)}
 
@@ -117,7 +131,17 @@ input,select{font-family:var(--body),'Noto Sans JP',sans-serif}
 .pk.sel em{color:#fff} .pk.sel .pct{color:var(--green-lt)}
 .pk.dim{opacity:.42}
 .pk .dm{width:24px;height:24px;display:grid;place-items:center;font-family:var(--disp);font-weight:800;font-size:14px;color:var(--grey)}
+.pk .dm.txt{font-size:9px;letter-spacing:.06em}
 .pk.sel .dm{color:#fff}
+.nomctl{font-size:10.5px;font-weight:700;color:#fff;background:rgba(255,255,255,.18);border:none;border-radius:14px;padding:4px 11px;cursor:pointer}
+.ovlog{margin:9px 11px 0;background:#FDE9F0;border-radius:9px;padding:8px 11px;font-size:10.5px;font-weight:600;color:#B00040;line-height:1.65}
+.ovlog b{font-weight:800}
+.favc{width:16px;height:16px;flex:none;vertical-align:-3px}
+.plgrid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:9px;max-height:290px;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-right:2px}
+.pbtn{display:flex;align-items:center;gap:6px;border:1.5px solid var(--line);background:#fff;border-radius:9px;padding:7px 8px;cursor:pointer;text-align:left;min-width:0}
+.pbtn .crest{width:18px;height:18px;flex:none}
+.pbtn em{font-style:normal;font-size:10.5px;font-weight:700;color:var(--purple);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pbtn.on{border-color:var(--purple);background:var(--panel)}
 .vrow{display:flex;align-items:center;gap:8px;padding:8px 13px;border-top:1px solid var(--line);font-size:12px}
 .vrow .nm{flex:1;font-weight:700}
 .vrow .val{font-size:11px;font-weight:700;color:var(--grey)}
@@ -267,7 +291,7 @@ input,select{font-family:var(--body),'Noto Sans JP',sans-serif}
 <div class="wrap">
   <div class="appbar">
     <div class="mark" id="logoBox"></div>
-    <div class="brand"><b>Premier<br>League</b></div>
+    <div class="brand"><b>Premier League</b></div>
     <div class="sp"></div>
     <span class="season">26/27</span>
     <button class="chip-me" id="meChip">誰？</button>
@@ -294,7 +318,7 @@ input,select{font-family:var(--body),'Noto Sans JP',sans-serif}
 <script>
 /* ══════════════════════════════════════════════════════════════
    PL賭けノート 2026/27
-   ・賭けは3択（ホーム勝ち / 引き分け / アウェイ勝ち）のみ・1,000ペリカ固定
+   ・賭けは3択（ホーム勝ち / ドロー / アウェイ勝ち）のみ・1,000ペリカ固定
    ・各節、1人1試合を指名。指名された試合に全員が賭ける
    ・締切はキックオフ15分前。締切前はFirebase上でも暗号化されて見えん
    ・締切後は自動で平文化され、Firebaseから直接修正できる
@@ -311,6 +335,12 @@ const firebaseConfig = {
   appId: "1:99021468342:web:9b72c6828effa61963ec17"
 };
 const ROOT = 'plnote';               /* wc2026 の kakebo とは完全に分離 */
+/* アイコンは別ノード。plnote 本体は賭けるたびに丸ごと降ってくるから、
+   写真を混ぜると毎回そのぶん通信が増える。分けとけば写真が変わったときだけ流れる */
+const ICONS = 'plnote_icons';
+const CREW = 'バスク31';
+const ICON_PX = 96;                  /* 正方形に切って縮めるサイズ */
+const ICON_MAX = 60000;              /* dataURLの上限（超えたら画質を落として再圧縮） */
 const ADMIN = 'さんふぁん';
 const PLAYERS = ['りゅんで','さんふぁん','ふぁんさ','よんす','りき'];
 const STAKE = 1000;
@@ -345,6 +375,32 @@ const CLUBS = {
   TOT:{id:6,  jp:'スパーズ',          c1:'#132257', c2:'#FFFFFF', ink:'#fff'}
 };
 
+/* 得点王予想の候補リスト。[クラブコード, 選手名]
+   ※移籍で変わるから、ズレたらここを直すだけでええ。
+     リストに無い選手は下の手入力欄からいつでも出せる */
+const SCORERS = [
+  ['ARS','ヴィクトル・ギョケレシュ'],['ARS','ブカヨ・サカ'],['ARS','カイ・ハヴァーツ'],
+  ['ARS','ガブリエル・マルティネッリ'],['ARS','エベレチ・エゼ'],
+  ['AVL','オリー・ワトキンス'],['AVL','モーガン・ロジャーズ'],
+  ['BOU','アントワーン・セメンヨ'],['BOU','エヴァニウソン'],
+  ['BRE','イゴール・チアゴ'],['BRE','ケヴィン・シャーデ'],
+  ['BHA','ダニー・ウェルベック'],['BHA','ジョルジニオ・ラター'],['BHA','三笘薫'],
+  ['CHE','コール・パーマー'],['CHE','ジョアン・ペドロ'],['CHE','リアム・デラップ'],['CHE','ニコラ・ジャクソン'],
+  ['COV','ハジ・ライト'],
+  ['CRY','ジャン=フィリップ・マテタ'],['CRY','エディ・エンケティア'],['CRY','イスマイラ・サール'],
+  ['EVE','ベト'],['EVE','ジャック・グリーリッシュ'],
+  ['FUL','ロドリゴ・ムニス'],['FUL','ラウール・ヒメネス'],
+  ['IPS','ジョージ・ヒルシ'],['IPS','ジャック・クラーク'],
+  ['LEE','ジョエル・ピルー'],['LEE','ダニエル・ジェームズ'],
+  ['LIV','モハメド・サラー'],['LIV','アレクサンダー・イサク'],['LIV','ユーゴ・エキティケ'],['LIV','コーディ・ガクポ'],
+  ['MCI','アーリング・ハーランド'],['MCI','オマル・マルムシュ'],['MCI','フィル・フォーデン'],['MCI','ジェレミー・ドク'],
+  ['MUN','ブライアン・エンベウモ'],['MUN','マテウス・クーニャ'],['MUN','ベンヤミン・シェシュコ'],['MUN','ブルーノ・フェルナンデス'],
+  ['NEW','アンソニー・ゴードン'],['NEW','ニック・ヴォルテマーデ'],['NEW','ハーヴェイ・バーンズ'],
+  ['NFO','クリス・ウッド'],['NFO','モーガン・ギブス=ホワイト'],['NFO','タイウォ・アウォニイ'],
+  ['SUN','ウィルソン・イシドール'],['SUN','エリエゼル・マイェンダ'],
+  ['TOT','ドミニク・ソランケ'],['TOT','ヒシャルリソン'],['TOT','ブレナン・ジョンソン'],['TOT','モハメド・クドゥス']
+];
+
 /* 全380試合：[節, キックオフ(UTCミリ秒), ホーム, アウェイ]
    イギリス現地時間から夏時間/冬時間を判定して変換済み */
 const FIXTURES = '1,1787338800000,ARS,COV;1,1787398200000,HUL,MUN;1,1787407200000,EVE,CRY;1,1787407200000,IPS,SUN;1,1787407200000,NFO,LEE;1,1787416200000,BRE,TOT;1,1787490000000,BHA,AVL;1,1787490000000,MCI,BOU;1,1787499000000,NEW,LIV;1,1787598000000,FUL,CHE;2,1787943600000,CRY,MCI;2,1788003000000,LIV,NFO;2,1788012000000,BOU,EVE;2,1788012000000,COV,HUL;2,1788021000000,TOT,NEW;2,1788094800000,CHE,BHA;2,1788094800000,LEE,BRE;2,1788094800000,SUN,FUL;2,1788103800000,MUN,IPS;2,1788202800000,AVL,ARS;3,1788548400000,IPS,LIV;3,1788607800000,NEW,BOU;3,1788616800000,BRE,SUN;3,1788616800000,BHA,LEE;3,1788616800000,FUL,CRY;3,1788616800000,MCI,COV;3,1788616800000,NFO,TOT;3,1788625800000,HUL,AVL;3,1788699600000,EVE,MUN;3,1788708600000,ARS,CHE;4,1789221600000,BOU,BRE;4,1789221600000,AVL,NFO;4,1789221600000,CHE,HUL;4,1789221600000,CRY,IPS;4,1789221600000,LIV,FUL;4,1789230600000,TOT,EVE;4,1789239600000,SUN,ARS;4,1789304400000,COV,BHA;4,1789313400000,MUN,MCI;4,1789412400000,LEE,NEW;5,1789758000000,BRE,CHE;5,1789817400000,TOT,AVL;5,1789826400000,BHA,ARS;5,1789826400000,EVE,IPS;5,1789826400000,LEE,CRY;5,1789826400000,MCI,SUN;5,1789826400000,NEW,HUL;5,1789835400000,NFO,COV;5,1789909200000,BOU,LIV;5,1789918200000,FUL,MUN;6,1791640800000,ARS,LEE;6,1791640800000,AVL,BRE;6,1791640800000,CHE,BOU;6,1791640800000,COV,NEW;6,1791640800000,CRY,NFO;6,1791640800000,HUL,EVE;6,1791640800000,IPS,FUL;6,1791640800000,LIV,MCI;6,1791640800000,MUN,TOT;6,1791640800000,SUN,BHA;7,1792245600000,BOU,SUN;7,1792245600000,BRE,LIV;7,1792245600000,BHA,CRY;7,1792245600000,EVE,CHE;7,1792245600000,FUL,HUL;7,1792245600000,LEE,MUN;7,1792245600000,MCI,IPS;7,1792245600000,NEW,AVL;7,1792245600000,NFO,ARS;7,1792245600000,TOT,COV;8,1792850400000,ARS,EVE;8,1792850400000,AVL,MCI;8,1792850400000,CHE,TOT;8,1792850400000,COV,FUL;8,1792850400000,CRY,NEW;8,1792850400000,HUL,BRE;8,1792850400000,IPS,NFO;8,1792850400000,LIV,BHA;8,1792850400000,MUN,BOU;8,1792850400000,SUN,LEE;9,1793458800000,BOU,LEE;9,1793458800000,AVL,FUL;9,1793458800000,BRE,NFO;9,1793458800000,CHE,MUN;9,1793458800000,COV,SUN;9,1793458800000,HUL,IPS;9,1793458800000,LIV,ARS;9,1793458800000,MCI,BHA;9,1793458800000,NEW,EVE;9,1793458800000,TOT,CRY;10,1794063600000,ARS,HUL;10,1794063600000,BHA,BRE;10,1794063600000,CRY,LIV;10,1794063600000,EVE,COV;10,1794063600000,FUL,NEW;10,1794063600000,IPS,BOU;10,1794063600000,LEE,TOT;10,1794063600000,MUN,AVL;10,1794063600000,NFO,MCI;10,1794063600000,SUN,CHE;11,1795273200000,BOU,NFO;11,1795273200000,AVL,SUN;11,1795273200000,BRE,EVE;11,1795273200000,CHE,LEE;11,1795273200000,COV,CRY;11,1795273200000,HUL,BHA;11,1795273200000,LIV,MUN;11,1795273200000,MCI,FUL;11,1795273200000,NEW,ARS;11,1795273200000,TOT,IPS;12,1795878000000,ARS,MCI;12,1795878000000,BHA,NEW;12,1795878000000,CRY,HUL;12,1795878000000,EVE,LIV;12,1795878000000,FUL,BOU;12,1795878000000,IPS,AVL;12,1795878000000,LEE,COV;12,1795878000000,MUN,BRE;12,1795878000000,NFO,CHE;12,1795878000000,SUN,TOT;13,1796241600000,BOU,BHA;13,1796241600000,AVL,EVE;13,1796241600000,BRE,ARS;13,1796241600000,CHE,CRY;13,1796241600000,COV,IPS;13,1796241600000,HUL,NFO;13,1796241600000,LIV,SUN;13,1796241600000,MCI,LEE;13,1796241600000,NEW,MUN;13,1796241600000,TOT,FUL;14,1796482800000,BOU,HUL;14,1796482800000,AVL,CRY;14,1796482800000,BRE,MCI;14,1796482800000,CHE,LIV;14,1796482800000,EVE,FUL;14,1796482800000,LEE,IPS;14,1796482800000,MUN,COV;14,1796482800000,NEW,SUN;14,1796482800000,NFO,BHA;14,1796482800000,TOT,ARS;15,1797087600000,ARS,BOU;15,1797087600000,BHA,EVE;15,1797087600000,COV,AVL;15,1797087600000,CRY,MUN;15,1797087600000,FUL,BRE;15,1797087600000,HUL,TOT;15,1797087600000,IPS,NEW;15,1797087600000,LIV,LEE;15,1797087600000,MCI,CHE;15,1797087600000,SUN,NFO;16,1797692400000,BOU,COV;16,1797692400000,ARS,MUN;16,1797692400000,BRE,NEW;16,1797692400000,BHA,IPS;16,1797692400000,CHE,AVL;16,1797692400000,LEE,FUL;16,1797692400000,LIV,TOT;16,1797692400000,MCI,HUL;16,1797692400000,NFO,EVE;16,1797692400000,SUN,CRY;17,1798297200000,AVL,LEE;17,1798297200000,COV,CHE;17,1798297200000,CRY,ARS;17,1798297200000,EVE,SUN;17,1798297200000,FUL,BHA;17,1798297200000,HUL,LIV;17,1798297200000,IPS,BRE;17,1798297200000,MUN,NFO;17,1798297200000,NEW,MCI;17,1798297200000,TOT,BOU;18,1798660800000,AVL,LIV;18,1798660800000,COV,BRE;18,1798660800000,CRY,BOU;18,1798660800000,EVE,MCI;18,1798660800000,FUL,ARS;18,1798660800000,HUL,LEE;18,1798660800000,IPS,CHE;18,1798660800000,MUN,SUN;18,1798660800000,NEW,NFO;18,1798660800000,TOT,BHA;19,1798902000000,BOU,AVL;19,1798902000000,ARS,IPS;19,1798902000000,BRE,CRY;19,1798902000000,BHA,MUN;19,1798902000000,CHE,NEW;19,1798902000000,LEE,EVE;19,1798902000000,LIV,COV;19,1798902000000,MCI,TOT;19,1798902000000,NFO,FUL;19,1798902000000,SUN,HUL;20,1799265600000,ARS,BRE;20,1799265600000,BHA,BOU;20,1799265600000,CRY,CHE;20,1799265600000,EVE,AVL;20,1799265600000,FUL,TOT;20,1799265600000,IPS,COV;20,1799265600000,LEE,MCI;20,1799265600000,MUN,NEW;20,1799265600000,NFO,HUL;20,1799265600000,SUN,LIV;21,1800111600000,BOU,IPS;21,1800111600000,AVL,MUN;21,1800111600000,BRE,BHA;21,1800111600000,CHE,SUN;21,1800111600000,COV,EVE;21,1800111600000,HUL,ARS;21,1800111600000,LIV,CRY;21,1800111600000,MCI,NFO;21,1800111600000,NEW,FUL;21,1800111600000,TOT,LEE;22,1800716400000,ARS,NEW;22,1800716400000,BHA,MCI;22,1800716400000,CRY,TOT;22,1800716400000,EVE,BRE;22,1800716400000,FUL,AVL;22,1800716400000,IPS,HUL;22,1800716400000,LEE,CHE;22,1800716400000,MUN,LIV;22,1800716400000,NFO,BOU;22,1800716400000,SUN,COV;23,1801321200000,BOU,FUL;23,1801321200000,AVL,IPS;23,1801321200000,BRE,MUN;23,1801321200000,CHE,NFO;23,1801321200000,COV,LEE;23,1801321200000,HUL,CRY;23,1801321200000,LIV,EVE;23,1801321200000,MCI,ARS;23,1801321200000,NEW,BHA;23,1801321200000,TOT,SUN;24,1801926000000,ARS,LIV;24,1801926000000,BHA,HUL;24,1801926000000,CRY,COV;24,1801926000000,EVE,NEW;24,1801926000000,FUL,MCI;24,1801926000000,IPS,TOT;24,1801926000000,LEE,BOU;24,1801926000000,MUN,CHE;24,1801926000000,NFO,BRE;24,1801926000000,SUN,AVL;25,1802289600000,AVL,BOU;25,1802289600000,COV,LIV;25,1802289600000,CRY,BRE;25,1802289600000,EVE,LEE;25,1802289600000,FUL,NFO;25,1802289600000,HUL,SUN;25,1802289600000,IPS,ARS;25,1802289600000,MUN,BHA;25,1802289600000,NEW,CHE;25,1802289600000,TOT,MCI;26,1803135600000,BOU,CRY;26,1803135600000,ARS,FUL;26,1803135600000,BRE,COV;26,1803135600000,BHA,TOT;26,1803135600000,CHE,IPS;26,1803135600000,LEE,AVL;26,1803135600000,LIV,HUL;26,1803135600000,MCI,NEW;26,1803135600000,NFO,MUN;26,1803135600000,SUN,EVE;27,1803740400000,AVL,CHE;27,1803740400000,COV,BOU;27,1803740400000,CRY,SUN;27,1803740400000,EVE,NFO;27,1803740400000,FUL,LEE;27,1803740400000,HUL,MCI;27,1803740400000,IPS,BHA;27,1803740400000,MUN,ARS;27,1803740400000,NEW,BRE;27,1803740400000,TOT,LIV;28,1804104000000,BOU,TOT;28,1804104000000,ARS,CRY;28,1804104000000,BRE,IPS;28,1804104000000,BHA,FUL;28,1804104000000,CHE,COV;28,1804104000000,LEE,HUL;28,1804104000000,LIV,AVL;28,1804104000000,MCI,EVE;28,1804104000000,NFO,NEW;28,1804104000000,SUN,MUN;29,1804950000000,BOU,NEW;29,1804950000000,AVL,HUL;29,1804950000000,CHE,ARS;29,1804950000000,COV,MCI;29,1804950000000,CRY,FUL;29,1804950000000,LEE,BHA;29,1804950000000,LIV,IPS;29,1804950000000,MUN,EVE;29,1804950000000,SUN,BRE;29,1804950000000,TOT,NFO;30,1805554800000,ARS,SUN;30,1805554800000,BRE,BOU;30,1805554800000,BHA,COV;30,1805554800000,EVE,TOT;30,1805554800000,FUL,LIV;30,1805554800000,HUL,CHE;30,1805554800000,IPS,CRY;30,1805554800000,MCI,MUN;30,1805554800000,NEW,LEE;30,1805554800000,NFO,AVL;31,1807365600000,BOU,MCI;31,1807365600000,AVL,BHA;31,1807365600000,CHE,FUL;31,1807365600000,COV,ARS;31,1807365600000,CRY,EVE;31,1807365600000,LEE,NFO;31,1807365600000,LIV,NEW;31,1807365600000,MUN,HUL;31,1807365600000,SUN,IPS;31,1807365600000,TOT,BRE;32,1807970400000,ARS,AVL;32,1807970400000,BRE,LEE;32,1807970400000,BHA,CHE;32,1807970400000,EVE,BOU;32,1807970400000,FUL,SUN;32,1807970400000,HUL,COV;32,1807970400000,IPS,MUN;32,1807970400000,MCI,CRY;32,1807970400000,NEW,TOT;32,1807970400000,NFO,LIV;33,1808575200000,BOU,ARS;33,1808575200000,AVL,COV;33,1808575200000,BRE,FUL;33,1808575200000,CHE,MCI;33,1808575200000,EVE,BHA;33,1808575200000,LEE,LIV;33,1808575200000,MUN,CRY;33,1808575200000,NEW,IPS;33,1808575200000,NFO,SUN;33,1808575200000,TOT,HUL;34,1809180000000,ARS,TOT;34,1809180000000,BHA,NFO;34,1809180000000,COV,MUN;34,1809180000000,CRY,AVL;34,1809180000000,FUL,EVE;34,1809180000000,HUL,BOU;34,1809180000000,IPS,LEE;34,1809180000000,LIV,CHE;34,1809180000000,MCI,BRE;34,1809180000000,SUN,NEW;35,1809784800000,BOU,MUN;35,1809784800000,BRE,AVL;35,1809784800000,BHA,SUN;35,1809784800000,EVE,HUL;35,1809784800000,FUL,IPS;35,1809784800000,LEE,ARS;35,1809784800000,MCI,LIV;35,1809784800000,NEW,COV;35,1809784800000,NFO,CRY;35,1809784800000,TOT,CHE;36,1810389600000,ARS,NFO;36,1810389600000,AVL,NEW;36,1810389600000,CHE,EVE;36,1810389600000,COV,TOT;36,1810389600000,CRY,BHA;36,1810389600000,HUL,FUL;36,1810389600000,IPS,MCI;36,1810389600000,LIV,BRE;36,1810389600000,MUN,LEE;36,1810389600000,SUN,BOU;37,1811080800000,BOU,CHE;37,1811080800000,BRE,HUL;37,1811080800000,BHA,LIV;37,1811080800000,EVE,ARS;37,1811080800000,FUL,COV;37,1811080800000,LEE,SUN;37,1811080800000,MCI,AVL;37,1811080800000,NEW,CRY;37,1811080800000,NFO,IPS;37,1811080800000,TOT,MUN;38,1811689200000,ARS,BHA;38,1811689200000,AVL,TOT;38,1811689200000,CHE,BRE;38,1811689200000,COV,NFO;38,1811689200000,CRY,LEE;38,1811689200000,HUL,NEW;38,1811689200000,IPS,EVE;38,1811689200000,LIV,BOU;38,1811689200000,MUN,FUL;38,1811689200000,SUN,MCI'.split(';').map(s=>{
@@ -357,6 +413,7 @@ const byKey = {}; FIXTURES.forEach(f=>byKey[f.key]=f);
 const fxOf = gw => FIXTURES.filter(f=>f.gw===gw).sort((x,y)=>x.ko-y.ko);
 
 let state = null, db = null, curGw = 1, curTab = 'match', tableMode = 'short';
+let icons = {};       /* {名前: dataURL} 別ノードから読む */
 let sideDraft = {};   /* 年間予想の編集中の選択 */
 
 /* ── 小物 ── */
@@ -524,6 +581,51 @@ async function unseal(slot, who, blob){
   }catch(e){ return null; }
 }
 
+/* ══════ アイコン写真 ══════
+   端末側で正方形に切って96pxに縮めてJPEG化してから送る。
+   でかい写真をそのまま上げることは無い */
+function chooseImage(){
+  return new Promise(res=>{
+    const inp = document.createElement('input');
+    inp.type = 'file'; inp.accept = 'image/*';
+    inp.style.position='fixed'; inp.style.left='-9999px';
+    document.body.appendChild(inp);
+    let done = false;
+    const finish = v => { if(done) return; done=true; inp.remove(); res(v); };
+    inp.onchange = () => finish(inp.files && inp.files[0] ? inp.files[0] : null);
+    /* キャンセルされたら onchange が飛ばん端末があるので保険 */
+    window.addEventListener('focus', ()=>setTimeout(()=>finish(null), 1500), {once:true});
+    inp.click();
+  });
+}
+function squareDataURL(file, px){
+  return new Promise((res,rej)=>{
+    const fr = new FileReader();
+    fr.onerror = ()=>rej(new Error('ファイル読めへんかった'));
+    fr.onload = ()=>{
+      const img = new Image();
+      img.onerror = ()=>rej(new Error('画像として読めへんかった'));
+      img.onload = ()=>{
+        try{
+          const size = px || ICON_PX;
+          const cv = document.createElement('canvas');
+          cv.width = size; cv.height = size;
+          const g = cv.getContext('2d');
+          g.fillStyle = '#fff'; g.fillRect(0,0,size,size);
+          const m = Math.min(img.width, img.height);     /* 短辺で中央を正方形に切る */
+          g.drawImage(img, (img.width-m)/2, (img.height-m)/2, m, m, 0, 0, size, size);
+          let q = 0.8, out = cv.toDataURL('image/jpeg', q);
+          while(out.length > ICON_MAX && q > 0.3){ q -= 0.15; out = cv.toDataURL('image/jpeg', q); }
+          if(out.length > ICON_MAX) return rej(new Error('圧縮しても大きすぎる'));
+          res(out);
+        }catch(e){ rej(e); }
+      };
+      img.src = fr.result;
+    };
+    fr.readAsDataURL(file);
+  });
+}
+
 /* ══════ 締切後の自動開示 ══════ */
 let revealing = false;
 async function autoReveal(){
@@ -566,7 +668,7 @@ async function autoReveal(){
 function scoreOf(key){ const s=(state.scores||{})[key]; return (s && s.h!=null && s.a!=null) ? s : null; }
 
 /* ── 賭けの種類 ──
-   3way : ホーム勝ち / 引き分け / アウェイ勝ち
+   3way : ホーム勝ち / ドロー / アウェイ勝ち
    hc   : ハンデ付き2択。condTeam が margin 点差以上で勝てば condTeam 側の勝ち
           （margin=0 は「同点以上」）
    md   : 点差多択。①相手が同点以上 ②〜ちょうどN点差 ③最後は N-1 点差以上 */
@@ -629,7 +731,7 @@ function optLabel(key, f, v, long){
     if(k===n) return long ? `${F} ${n-1}点差以上` : `${F}${n-1}点差+`;
     return long ? `${F} ${k-1}点差ちょうど` : `${F}${k-1}点差`;
   }
-  return v==='H' ? jp(f.h) : v==='A' ? jp(f.a) : '引き分け';
+  return v==='H' ? jp(f.h) : v==='A' ? jp(f.a) : 'ドロー';
 }
 /* 条件文（チケット上部に出す1行） */
 function condText(key, f){
@@ -653,6 +755,24 @@ function optCrestCode(key, f, v){
   if(cfg.mode==='md') return null;
   return v==='H' ? f.h : v==='A' ? f.a : null;
 }
+/* 注目クラブ（金は動かん・開幕でロック・かぶりOK） */
+const favOf = p => (state.fav||{})[p] || null;
+const favIcon = p => { const c=favOf(p); return (c && CLUBS[c]) ? crest(c,16) : ''; };
+
+/* メンバーアイコン：丸写真＋右下に注目クラブのエンブレム。
+   写真が無かったら頭文字の丸で代用 */
+function avatar(p, size){
+  const s = size || 22;
+  const url = icons[p];
+  const c = favOf(p);
+  const inner = url
+    ? `<img class="av-i" src="${esc(url)}" alt="${esc(p)}">`
+    : `<span class="av-t" style="font-size:${Math.round(s*0.46)}px">${esc(String(p||'?').slice(0,1))}</span>`;
+  const badge = (c && CLUBS[c])
+    ? `<span class="av-b">${crest(c, Math.max(10, Math.round(s*0.46)))}</span>` : '';
+  return `<span class="av" style="width:${s}px;height:${s}px">${inner}${badge}</span>`;
+}
+
 const nomsOf = gw => (state.noms||{})['gw'+gw] || {};
 function betMatches(){
   const out=[];
@@ -791,7 +911,10 @@ function currentGwGuess(){
 }
 function render(){
   if(!state) return;
-  document.getElementById('meChip').textContent = meNow() || '誰？';
+  const meChip = document.getElementById('meChip');
+  const meNm = meNow();
+  meChip.innerHTML = meNm ? `${avatar(meNm,18)}<span>${esc(meNm)}</span>` : '誰？';
+  meChip.classList.toggle('none', !meNm);
   renderLogo();
   renderHero();
   document.querySelectorAll('#tabs button').forEach(b=>
@@ -818,14 +941,14 @@ function renderHero(){
   if(curTab==='season'){
     const locked = Date.now()>SEASON_LOCK;
     box.innerHTML = `<div class="hero-g"><div class="chev c1"></div><div class="chev c2"></div><div class="chev c3"></div>
-      <div class="in"><div class="eyebrow">SEASON-LONG BETS</div><h1>年間予想</h1>
+      <div class="in"><div class="eyebrow">SEASON-LONG BETS<span class="crew">${esc(CREW)}</span></div><h1>年間予想</h1>
       <div class="sub">${locked?'開幕したのでロック済み・全公開':'開幕キックオフでロック・それまで変更自由'}</div></div></div>`;
     return;
   }
   const fs=fxOf(curGw);
   const sub = fs.length ? `${dateJp(fs[0].ko)} 〜 ${dateJp(fs[fs.length-1].ko)}・日本時間` : '';
   box.innerHTML = `<div class="hero"><div class="in">
-    <div class="eyebrow">MATCHWEEK ${String(curGw).padStart(2,'0')}</div>
+    <div class="eyebrow">MATCHWEEK ${String(curGw).padStart(2,'0')}<span class="crew">${esc(CREW)}</span></div>
     <h1>第${curGw}節</h1><div class="sub">${sub}</div></div></div>`;
 }
 
@@ -917,8 +1040,10 @@ function ticket(f, nomBy){
       const dim = locked && res && res!==v;
       const votes = locked ? `<span class="pct">${cnt[v]}票</span>` : '';
       const cc = optCrestCode(f.key, f, v);
+      const bm = betCfg(f.key).mode;
       const icon = cc ? crest(cc,24)
-        : `<div class="dm">${betCfg(f.key).mode==='3way' ? '引' : (betCfg(f.key).mode==='hc' ? '×' : v)}</div>`;
+        : bm==='3way' ? `<div class="dm txt">DRAW</div>`
+        : `<div class="dm">${bm==='hc' ? '×' : v}</div>`;
       return `<button class="pk ${on?'sel':''} ${dim?'dim':''}" ${locked?'':`data-bet="${f.key}" data-side="${v}"`}>
         ${icon}<em>${esc(optLabel(f.key,f,v))}</em>${votes}</button>`;
     }).join('') + `</div>`;
@@ -931,14 +1056,22 @@ function ticket(f, nomBy){
       if(v && res && !r.void) mk = r.winners.includes(p) ? `<span class="mk win">◎</span>` : `<span class="mk lose">✕</span>`;
       const label = v ? optLabel(f.key,f,v,true) : '不参加';
       const ovr = sc ? '' : `<button class="ovr" data-ovr="${f.key}" data-p="${esc(p)}">修正</button>`;
-      return `<div class="vrow">${mk}<div class="nm">${esc(p)}</div>
+      return `<div class="vrow">${mk}${avatar(p,20)}<div class="nm">${esc(p)}</div>
         <div class="val">${esc(label)}</div>${ovr}</div>`;
     }
     const done = !!enc[p];
-    const label = (p===me && mine) ? optLabel(f.key,f,mine,true) : done ? '投票済み' : '未投票';
-    return `<div class="vrow"><div class="dot ${done?'':'no'}"></div>
+    const label = (p===me && mine && done) ? optLabel(f.key,f,mine,true) : done ? '投票済み' : '未投票';
+    return `<div class="vrow"><div class="dot ${done?'':'no'}"></div>${avatar(p,20)}
       <div class="nm">${esc(p)}</div><div class="val">${esc(label)}</div></div>`;
   }).join('');
+
+  /* 管理人の修正履歴（全員に見える・アプリからは消せへん） */
+  const ovList = Object.values((state.ovr||{})[f.key]||{}).sort((a,b)=>(a.at||0)-(b.at||0));
+  const ovHtml = ovList.length
+    ? `<div class="ovlog">⚠️ <b>管理人が修正した記録</b><br>` + ovList.map(o=>
+        `${esc(o.p||'?')}：${esc(o.from||'?')} → <b>${esc(o.to||'?')}</b>　<span style="opacity:.75">${o.at?dateJp(o.at)+' '+hhmm(o.at):''}</span>`
+      ).join('<br>') + `</div>`
+    : '';
 
   /* 開票後の人気メーター */
   const METER_COLORS = ['#37003C','#9A8FA0','#1F5276','#6B4FA0','#B0533A'];
@@ -953,7 +1086,7 @@ function ticket(f, nomBy){
     const lbls = opts.map(v=>`<span>${esc(optLabel(f.key,f,v))} ${cnt[v]}</span>`).join('');
     extra += `<div class="meter"><div class="bar">${bars}</div><div class="lbl">${lbls}</div></div>`;
   } else if(!locked){
-    extra += `<div class="blind">🔒 締切までは誰がどこに賭けたか<b>完全非公開</b>。管理人も含めて誰にも見えん。見えるのは自分の選択と投票数だけ（${voted}/${PLAYERS.length}人）。</div>`;
+    extra += `<div class="blind">🔒 締切までは誰がどこに賭けたか<b>完全非公開</b>。見えるのは自分の選択と投票数だけ（${voted}/${PLAYERS.length}人）。</div>`;
   }
 
   /* 結果・精算 */
@@ -975,10 +1108,14 @@ function ticket(f, nomBy){
       <button class="go" data-sgo="${f.key}">記帳</button></div>`;
   }
 
+  /* 指名した本人だけ、締切前なら指名を取り消して選び直せる */
+  const nomCtl = (!locked && me && nomBy && me===nomBy)
+    ? `<button class="nomctl" data-nomdel="${f.key}">指名を変える</button>` : '';
+
   return `<div class="tk">
     <div class="tk-top"><div class="who">指名：<b>${esc(nomBy||'?')}</b></div>
-      <span class="rate">${STAKE.toLocaleString()}ペリカ</span><div class="sp"></div>${dl}</div>
-    ${fxLine(f)}${condLine}${picksHtml}${rows}${extra}
+      <span class="rate">${STAKE.toLocaleString()}ペリカ</span>${nomCtl}<div class="sp"></div>${dl}</div>
+    ${fxLine(f)}${condLine}${picksHtml}${rows}${ovHtml}${extra}
     <div style="height:11px"></div></div>`;
 }
 /* 自分の選択の控え（端末内のみ。Firebaseには暗号文だけ） */
@@ -992,6 +1129,22 @@ function setLocalPick(key, who, v){
     m[key]=m[key]||{};
     if(v) m[key][who]=v; else delete m[key][who];
     localStorage.setItem(lpKey(), JSON.stringify(m));
+  }catch(e){}
+}
+
+/* 指名が取り消された試合の控えは端末からも消す（幽霊表示を防ぐ） */
+function pruneLocalPicks(){
+  try{
+    const m = JSON.parse(localStorage.getItem(lpKey())||'{}');
+    const live = new Set(betMatches().map(f=>f.key));
+    let changed = false;
+    Object.keys(m).forEach(k=>{
+      if(!live.has(k)){ delete m[k]; changed=true; return; }
+      Object.keys(m[k]||{}).forEach(w=>{
+        if(!validPick(k, m[k][w])){ delete m[k][w]; changed=true; }
+      });
+    });
+    if(changed) localStorage.setItem(lpKey(), JSON.stringify(m));
   }catch(e){}
 }
 
@@ -1089,7 +1242,7 @@ function viewMoney(){
     <p>1試合 1,000ペリカ・年間予想も含む合計</p></div>`;
   html += `<div class="tbl">` + ranked.map((p,i)=>{
     const v=totals[p], cls=v>0?'up':v<0?'dn':'ze';
-    return `<div class="mrow"><span class="rk">${i+1}</span><span class="nm">${esc(p)}</span>
+    return `<div class="mrow"><span class="rk">${i+1}</span>${avatar(p,24)}<span class="nm">${esc(p)}</span>
       <span class="rec">${rec[p].w}勝${rec[p].l}敗</span>
       <span class="amt ${cls}">${v>0?'+':''}${v.toLocaleString()}</span></div>`;
   }).join('') + `</div>`;
@@ -1188,6 +1341,10 @@ function viewSeason(){
   html += sideCard('top4','CL出場圏（トップ4）',SIDE_STAKE,'<b style="color:var(--pink)">1位から4位まで順番通り</b>に当てた人だけが勝ち。',4,locked,me);
   html += sideCard('relegation','降格3クラブ',SIDE_STAKE,'3クラブ<b style="color:var(--pink)">全部</b>当てた人だけが勝ち。順番は問わへん。',3,locked,me);
   html += scorerCard(locked,me);
+  html += `<div class="divider"></div><div class="sec"><h2>プロフィール</h2>
+    <p>賭けやない。${esc(CREW)}の中での自己紹介や</p></div>`;
+  html += iconCard(me);
+  html += favCard(me);
   html += `<div class="divider"></div>`;
   html += `<div class="sec"><h2>結果の確定（管理人）</h2>
     <p>シーズン終盤に実際の結果を入れたら精算される</p></div>
@@ -1257,12 +1414,61 @@ function scorerCard(locked, me){
     }
   } else {
     const mine = me ? localSide('scorer',me) : null;
-    body += `<input class="txtin" id="scorerIn" placeholder="例：アーリング・ハーランド" value="${mine?esc(mine):''}">
-      <button class="sbtn" id="scorerSave">この内容で確定する</button>
-      <div style="margin-top:7px;font-size:11px">提出済み ${Object.keys(enc).length}/${PLAYERS.length}人</div>`;
+    const draft = (sideDraft.scorer!=null) ? sideDraft.scorer : (mine||'');
+    const inList = SCORERS.some(s=>s[1]===draft);
+    body += `<div class="plgrid">` + SCORERS.map(([c,n])=>
+      `<button class="pbtn ${draft===n?'on':''}" data-scorer="${esc(n)}">${crest(c,18)}<em>${esc(n)}</em></button>`
+    ).join('') + `</div>`;
+    body += `<div style="margin-top:9px;font-weight:700;color:var(--purple)">選択中：${draft?esc(draft):'なし'}</div>`;
+    body += `<input class="txtin" id="scorerIn" placeholder="リストにおらん選手はここに手入力"
+      value="${(draft && !inList) ? esc(draft) : ''}">
+      <button class="sbtn" id="scorerSave">この内容で確定する</button>`;
+    if(mine) body += `<div style="margin-top:7px;font-size:11px">🔒 提出済み：${esc(mine)}（あんただけ見えとる）</div>`;
+    body += `<div style="margin-top:7px;font-size:11px">提出済み ${Object.keys(enc).length}/${PLAYERS.length}人</div>`;
   }
   body += `</div>`;
   return `<div class="side"><div class="side-h"><b>得点王</b><span class="stake">${SIDE_STAKE.toLocaleString()}</span></div>${body}</div>`;
+}
+
+/* アイコン写真：いつでも変更OK。金にも賭けにも関係せえへん */
+function iconCard(me){
+  let body = `<div class="side-b">正方形に切って${ICON_PX}pxに縮めて保存する。いつでも変えられる。`;
+  body += `<div style="margin-top:8px">` + PLAYERS.map(p=>
+    `<div class="pickline">${avatar(p,30)}<span>${esc(p)}</span>${
+      icons[p] ? '' : `<span style="color:var(--grey);font-weight:600;font-size:11px">未設定</span>`}</div>`
+  ).join('') + `</div>`;
+  body += `<button class="sbtn" id="iconPick">${me?esc(me)+' の':''}写真を選ぶ</button>`;
+  if(me && icons[me]) body += `<button class="sbtn ghost" id="iconClear">自分のアイコンを消す</button>`;
+  body += `<div style="margin-top:8px;font-size:11px;color:var(--grey);line-height:1.6">
+    ※リンクを知ってる人はみんな見える。顔出しするかは自己判断でな</div>`;
+  body += `</div>`;
+  return `<div class="side"><div class="side-h"><b>アイコン</b>
+    <span class="stake" style="background:var(--grey)">いつでも変更OK</span></div>${body}</div>`;
+}
+
+/* 注目クラブ：金は動かん。開幕でロック・かぶりOK */
+function favCard(me){
+  const locked = Date.now() > SEASON_LOCK;
+  const fav = state.fav || {};
+  let body = `<div class="side-b">金は動かん、ただのキャラ付け。かぶってもOK。開幕キックオフでロックされる。`;
+  body += `<div style="margin-top:8px">` + PLAYERS.map(p=>{
+    const c = fav[p];
+    return (c && CLUBS[c])
+      ? `<div class="pickline">${esc(p)}：${crest(c,20)}${esc(jp(c))}</div>`
+      : `<div class="pickline" style="color:var(--grey)">${esc(p)}：未選択</div>`;
+  }).join('') + `</div>`;
+  if(!locked){
+    const draft = (sideDraft.fav!=null) ? sideDraft.fav : (me ? fav[me] : null);
+    body += `<div class="clubgrid">` + Object.keys(CLUBS)
+      .sort((a,b)=>jp(a).localeCompare(jp(b),'ja')).map(c=>
+        `<button class="cbtn ${draft===c?'on':''}" data-fav="${c}">${crest(c,22)}<em>${c}</em></button>`
+      ).join('') + `</div>`;
+    body += `<div style="margin-top:9px;font-weight:700;color:var(--purple)">選択中：${draft?esc(jp(draft)):'なし'}</div>`;
+    body += `<button class="sbtn" id="favSave">この内容で確定する</button>`;
+  }
+  body += `</div>`;
+  return `<div class="side"><div class="side-h"><b>注目クラブ</b>
+    <span class="stake" style="background:var(--grey)">賭けなし</span></div>${body}</div>`;
 }
 function localSide(type, who){
   try{ const m=JSON.parse(localStorage.getItem(ROOT+'-myside')||'{}'); return (m[type]||{})[who]||null; }catch(e){ return null; }
@@ -1280,7 +1486,7 @@ function rulesFold(){
     <b>賭け方</b>：各節、1人1試合を指名する（最大5試合）。指名された試合には全員が賭けられる。
     レートは<b>1試合1,000ペリカ固定</b>。<br><br>
     <b>賭けの種類</b>：指名した人が3つから選ぶ。<br>
-    ・<b>3択</b>＝ホーム勝ち / 引き分け / アウェイ勝ち<br>
+    ・<b>3択</b>＝ホーム勝ち / ドロー / アウェイ勝ち<br>
     ・<b>ハンデ付き2択</b>＝「アーセナルが2点差以上で勝てば成立」みたいな条件を決めて、
     成立するか / それ以外かの2択。必ずどっちかに決まるからノーゲームが起きにくい<br>
     ・<b>点差多択</b>＝基準クラブを決めて「相手が同点以上 / 1点差 / 2点差以上…」を3〜5択で当てる。
@@ -1289,13 +1495,20 @@ function rulesFold(){
     例）1人外して3人的中 → 外した人は3,000ペリカ払い。
     全員同じ選択、または誰も当てられんかったらノーゲームで金は動かん。不参加も自由。<br><br>
     <b>締切</b>：キックオフ15分前。それまでは何回でも変更できる。<br><br>
-    <b>目隠し</b>：締切まで誰がどこに賭けたかは<b>完全非公開</b>。管理人も含めて誰にも見えん。
+    <b>指名の変更</b>：指名した本人だけが、締切前なら「指名を変える」で取り消して選び直せる。
+    そのときその試合に入っとった投票は<b>全部消える</b>。締切後は取り消しも変更もでけへん。<br><br>
+    <b>目隠し</b>：締切まで誰がどこに賭けたかは<b>完全非公開</b>。
     見えるのは投票数と自分の選択だけ。締切が来たら自動で全公開＋人気メーターも開票される。<br><br>
     <b>締切後の修正</b>：開票して不成立やった試合を成立させたい場合、
-    締切〜キックオフの15分間だけ「修正」ボタンで変更できる（管理人PINが要る）。<br><br>
+    締切〜キックオフの15分間だけ「修正」ボタンで変更できる（管理人PINが要る）。
+    修正したら<b>誰の何をどう変えたかが全員に見える履歴として試合カードに残る</b>。
+    アプリからは消せへん。<br><br>
     <b>年間予想</b>：優勝クラブ（10,000）・トップ4（5,000）・降格3（5,000）・得点王（5,000）。
     開幕キックオフで一斉ロック。トップ4は<b>1〜4位を順番通り完全一致</b>、
-    降格3は<b>3クラブ全的中（順不同）</b>した人だけが勝ち。的中0人なら全員ノーゲーム。<br><br>
+    降格3は<b>3クラブ全的中（順不同）</b>した人だけが勝ち。的中0人なら全員ノーゲーム。
+    得点王は候補リストからタップで選ぶ。おらんかったら手入力でもええ。<br><br>
+    <b>注目クラブ</b>：金は動かん。今季追いかけるクラブを1つ選ぶだけ。
+    かぶってもOK、開幕キックオフでロック。選んだら名前の横にエンブレムが出る。<br><br>
     <b>PIN</b>：初めて自分の行を触るとき4〜8桁のPINを設定する。以降その行は本人しか触れん。
     忘れたら管理人（${esc(ADMIN)}）にリセットしてもらえ。<br><br>
     <b>順位表</b>：各節のスコアを10試合ぶん入れると自動で計算される。
@@ -1365,7 +1578,7 @@ function bind(){
     const h=parseInt(document.querySelector(`[data-sh="${key}"]`).value,10);
     const a=parseInt(document.querySelector(`[data-sa="${key}"]`).value,10);
     if(isNaN(h)||isNaN(a)||h<0||a<0){ toast('スコアを両方入れてや'); return; }
-    const res = h>a?`${jp(f.h)} 勝ち`:h<a?`${jp(f.a)} 勝ち`:'引き分け';
+    const res = h>a?`${jp(f.h)} 勝ち`:h<a?`${jp(f.a)} 勝ち`:'ドロー';
     if(!await ask(`${jp(f.h)} ${h}-${a} ${jp(f.a)}\n→「${res}」で記帳する？`)) return;
     const me=await whoAmI(); if(!me) return;
     db.ref(`${ROOT}/scores/${key}`).set({h,a,by:me});
@@ -1380,10 +1593,39 @@ function bind(){
     const label = v => (v && v!=='X') ? optLabel(key, f, v, true) : '不参加';
     const next = await pickSide(f, p, cur);
     if(!next) return;
-    if(!await ask(`${p} の選択を\n${label(cur)} → ${label(next)}\nに変更する？`)) return;
-    if(next==='X') db.ref(`${ROOT}/picks/${key}/${p}`).remove();
-    else db.ref(`${ROOT}/picks/${key}/${p}`).set(next);
-    toast('修正した');
+    if(next===(cur||'X')){ toast('中身が変わってへんで'); return; }
+    if(!await ask(`${p} の選択を\n${label(cur)} → ${label(next)}\nに変更する？\n\n※この修正は全員に見える履歴として残る`)) return;
+    const at = Date.now();
+    db.ref().update({
+      [`${ROOT}/picks/${key}/${p}`]: next==='X' ? null : next,
+      [`${ROOT}/ovr/${key}/o${at}`]: { p, from: label(cur), to: label(next), at }
+    });
+    toast('修正した（履歴に残したで）');
+  });
+
+  /* 指名の取り消し（指名した本人・締切前だけ） */
+  document.querySelectorAll('[data-nomdel]').forEach(b=>b.onclick=async()=>{
+    const key=b.dataset.nomdel, f=byKey[key];
+    if(!f || isLocked(f)){ toast('締切済み。もう変えられへん'); return; }
+    const noms=nomsOf(f.gw);
+    const owner=Object.keys(noms).find(p=>noms[p]===key);
+    const me=await whoAmI(); if(!me) return;
+    if(me!==owner){ toast('指名した本人しか変えられへんで'); return; }
+    if(isLocked(f)){ toast('締切済み。もう変えられへん'); return; }
+    const n = Object.keys((state.enc||{})[key]||{}).length
+            + Object.keys((state.picks||{})[key]||{}).length;
+    if(!await ask(`${jp(f.h)} vs ${jp(f.a)} の指名を取り消す？\n\n`+
+      `入っとる投票 ${n}件は全部消える（戻せへん）\n`+
+      `取り消したら、この節の別の試合をもう一回指名できる`)) return;
+    await db.ref().update({
+      [`${ROOT}/noms/gw${f.gw}/${me}`]: null,
+      [`${ROOT}/bet/${key}`]: null,
+      [`${ROOT}/enc/${key}`]: null,
+      [`${ROOT}/picks/${key}`]: null,
+      [`${ROOT}/ovr/${key}`]: null
+    });
+    PLAYERS.forEach(p=>setLocalPick(key,p,null));
+    toast('指名を取り消した。下から選び直してや');
   });
 
   /* 順位表グリッド保存 */
@@ -1430,15 +1672,69 @@ function bind(){
     delete sideDraft[type];
     toast('提出したで（開幕まで非公開）'); render();
   });
+  /* 得点王：候補リストからタップで選ぶ */
+  document.querySelectorAll('[data-scorer]').forEach(b=>b.onclick=()=>{
+    sideDraft.scorer = (sideDraft.scorer===b.dataset.scorer) ? '' : b.dataset.scorer;
+    render();
+  });
+
+  /* アイコン写真 */
+  const ip=document.getElementById('iconPick');
+  if(ip) ip.onclick=async()=>{
+    const me=await whoAmI(); if(!me) return;
+    const file=await chooseImage();
+    if(!file) return;
+    if(!/^image\//.test(file.type||'')){ toast('画像ファイルを選んでや'); return; }
+    toast('縮めとる…');
+    let url;
+    try{ url=await squareDataURL(file, ICON_PX); }
+    catch(e){ toast('この画像あかんかった：'+(e.message||'')); return; }
+    const kb=Math.round(url.length/1024);
+    if(!await ask(`${me} のアイコンにする？（約${kb}KB）\n\nリンクを知ってる人はみんな見える`)) return;
+    try{
+      await db.ref(`${ICONS}/${me}`).set(url);
+      icons[me]=url;
+      toast('アイコン変えたで'); render();
+    }catch(e){ toast('保存でけへんかった：'+(e.message||'')); }
+  };
+  const ic=document.getElementById('iconClear');
+  if(ic) ic.onclick=async()=>{
+    const me=await whoAmI(); if(!me) return;
+    if(!icons[me]){ toast('まだ設定してへんで'); return; }
+    if(!await ask(`${me} のアイコンを消す？`)) return;
+    await db.ref(`${ICONS}/${me}`).remove();
+    delete icons[me];
+    toast('消したで'); render();
+  };
+
+  /* 注目クラブ */
+  document.querySelectorAll('[data-fav]').forEach(b=>b.onclick=()=>{
+    sideDraft.fav = (sideDraft.fav===b.dataset.fav) ? '' : b.dataset.fav;
+    render();
+  });
+  const fs2=document.getElementById('favSave');
+  if(fs2) fs2.onclick=async()=>{
+    if(Date.now()>SEASON_LOCK){ toast('開幕したからもうロックされとる'); return; }
+    const c = sideDraft.fav;
+    if(!c || !CLUBS[c]){ toast('クラブを選んでや'); return; }
+    const me=await whoAmI(); if(!me) return;
+    if(!await ask(`注目クラブを「${jp(c)}」にする？\n開幕までは何回でも変えられる`)) return;
+    db.ref(`${ROOT}/fav/${me}`).set(c);
+    delete sideDraft.fav;
+    toast('決めたで'); render();
+  };
+
   const ss=document.getElementById('scorerSave');
   if(ss) ss.onclick=async()=>{
-    const v=(document.getElementById('scorerIn').value||'').trim().slice(0,40);
-    if(!v){ toast('選手名を入れてや'); return; }
+    const typed=(document.getElementById('scorerIn').value||'').trim().slice(0,40);
+    const v = typed || (sideDraft.scorer||'').trim();
+    if(!v){ toast('リストから選ぶか、手入力してや'); return; }
     const me=await whoAmI(); if(!me) return;
     if(!await ask(`得点王予想を「${v}」で確定する？`)) return;
     const blob=await seal('side:scorer', me, JSON.stringify(v));
     db.ref(`${ROOT}/side/scorer/enc/${me}`).set(blob);
     setLocalSide('scorer',me,v);
+    delete sideDraft.scorer;
     toast('提出したで'); render();
   };
 
@@ -1472,7 +1768,7 @@ function pickBetType(f){
       <p>賭けの種類を選ぶ</p>
       <div class="sub">${esc(jp(f.h))} vs ${esc(jp(f.a))}</div>
       <select class="dsel" id="bmode">
-        <option value="3way">3択（ホーム勝ち / 引き分け / アウェイ勝ち）</option>
+        <option value="3way">3択（ホーム勝ち / ドロー / アウェイ勝ち）</option>
         <option value="hc">ハンデ付き2択</option>
         <option value="md">点差多択</option>
       </select>
@@ -1597,6 +1893,7 @@ function askText(title, ph){
     state = v;
     document.getElementById('loading').style.display='none';
     document.getElementById('app').style.display='block';
+    pruneLocalPicks();
     await autoReveal();
     const ae=document.activeElement;
     if(ae && (ae.tagName==='INPUT')) return;   /* 入力中は再描画で消さん */
@@ -1605,6 +1902,13 @@ function askText(title, ph){
     showErr('データベースに接続できへん：'+esc(err.message)+
       '<br>Realtime Databaseのルールが read/write とも true になってるか確認してや。');
   });
+
+  /* アイコンは別ノードで購読。写真が変わったときだけ流れるから、
+     賭けるたびの通信は今までと変わらん */
+  db.ref(ICONS).on('value', snap=>{
+    icons = snap.val() || {};
+    if(state) render();
+  }, ()=>{ icons = {}; });
 
   /* カウントダウン更新＋締切到来で自動開示 */
   setInterval(async()=>{
