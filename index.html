@@ -21,10 +21,10 @@ button{font-family:var(--body),'Noto Sans JP',sans-serif}
 input,select{font-family:var(--body),'Noto Sans JP',sans-serif}
 
 /* ── app bar ── */
-.appbar{display:flex;align-items:center;gap:8px;padding:11px 13px;border-bottom:1px solid var(--line);background:#fff;position:sticky;top:0;z-index:30}
-.mark{width:50px;height:50px;flex:none;display:grid;place-items:center}
-.mark img{width:50px;height:50px;object-fit:contain}
-.mark svg{width:42px;height:42px;fill:var(--purple)}
+.appbar{display:flex;align-items:center;gap:8px;padding:10px 12px;border-bottom:1px solid var(--line);background:#fff;position:sticky;top:0;z-index:30}
+.mark{width:60px;height:60px;flex:none;display:grid;place-items:center}
+.mark img{width:60px;height:60px;object-fit:contain}
+.mark svg{width:50px;height:50px;fill:var(--purple)}
 .brand{min-width:0}
 .brand b{display:block;font-family:var(--disp);font-weight:800;font-size:16.5px;letter-spacing:-.035em;line-height:1;white-space:nowrap}
 .brand i{display:block;font-style:normal;font-family:var(--disp);font-size:10px;font-weight:700;
@@ -110,7 +110,7 @@ input,select{font-family:var(--body),'Noto Sans JP',sans-serif}
 .hero-g .sub{font-size:11.5px;font-weight:700;opacity:.78;margin-top:6px}
 
 /* ── tabs ── */
-.tabs{display:flex;background:var(--purple);padding:0 6px;position:sticky;top:72px;z-index:29}
+.tabs{display:flex;background:var(--purple);padding:0 6px;position:sticky;top:80px;z-index:29}
 .tabs button{flex:1;font-size:11px;font-weight:600;color:rgba(255,255,255,.6);background:none;border:none;padding:13px 1px 11px;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap}
 .tabs button.on{color:#fff;border-bottom-color:var(--green-lt)}
 
@@ -1755,8 +1755,12 @@ function sideCard(type, title, stake, desc, n, locked, me){
         }).join('') + `</div>`;
       body += `<div style="margin-top:9px;font-weight:700;color:var(--purple)">
         選択中（${draft.length}/${n}）：${draft.length?draft.map(c=>esc(jp(c))).join(' → '):'なし'}</div>`;
+      if(draft.length) body += `<button class="sbtn ghost2" data-side-clear="${type}">選択を全部消す</button>`;
       body += `<button class="sbtn" data-side-save="${type}" data-n="${n}">この内容で確定する</button>`;
-      if(mine) body += `<button class="sbtn ghost2" data-side-cancel="${type}">やめる（前のままにする）</button>`;
+      if(mine){
+        body += `<button class="sbtn ghost2" data-side-cancel="${type}">やめる（前のままにする）</button>`;
+        body += `<button class="sbtn ghost2" data-side-drop="${type}">提出を取り消す（不参加に戻す）</button>`;
+      }
       body += `<div style="margin-top:7px;font-size:11px">提出済み ${Object.keys(enc).length}/${PLAYERS.length}人</div>`;
     }
   }
@@ -1792,9 +1796,13 @@ function scorerCard(locked, me){
       ).join('') + `</div>`;
       body += `<div style="margin-top:9px;font-weight:700;color:var(--purple)">選択中：${draft?esc(draft):'なし'}</div>`;
       body += `<input class="txtin" id="scorerIn" placeholder="リストにおらん選手はここに手入力"
-        value="${(draft && !inList) ? esc(draft) : ''}">
-        <button class="sbtn" id="scorerSave">この内容で確定する</button>`;
-      if(mine) body += `<button class="sbtn ghost2" data-side-cancel="scorer">やめる（前のままにする）</button>`;
+        value="${(draft && !inList) ? esc(draft) : ''}">`;
+      if(draft) body += `<button class="sbtn ghost2" data-side-clear="scorer">選択を消す</button>`;
+      body += `<button class="sbtn" id="scorerSave">この内容で確定する</button>`;
+      if(mine){
+        body += `<button class="sbtn ghost2" data-side-cancel="scorer">やめる（前のままにする）</button>`;
+        body += `<button class="sbtn ghost2" data-side-drop="scorer">提出を取り消す（不参加に戻す）</button>`;
+      }
       body += `<div style="margin-top:7px;font-size:11px">提出済み ${Object.keys(enc).length}/${PLAYERS.length}人</div>`;
     }
   }
@@ -1876,7 +1884,8 @@ function localSide(type, who){
 function setLocalSide(type, who, v){
   try{
     const m=JSON.parse(localStorage.getItem(ROOT+'-myside')||'{}');
-    m[type]=m[type]||{}; m[type][who]=v;
+    m[type]=m[type]||{};
+    if(v==null) delete m[type][who]; else m[type][who]=v;   /* null は取り消し */
     localStorage.setItem(ROOT+'-myside', JSON.stringify(m));
   }catch(e){}
 }
@@ -2072,7 +2081,10 @@ function bind(){
   document.querySelectorAll('[data-side-pick]').forEach(b=>b.onclick=()=>{
     const type=b.dataset.sidePick, c=b.dataset.c;
     const n = type==='champion'?1:type==='top4'?4:3;
-    const cur = sideDraft[type] ? [...sideDraft[type]] : [];
+    const me = meNow();
+    /* 編集中は前回の提出内容を土台にする。ここを拾わんと毎回選び直しになる */
+    const base = sideDraft[type] || (me && localSide(type,me)) || [];
+    const cur = [...base];
     const i = cur.indexOf(c);
     if(i>=0) cur.splice(i,1);
     else { if(cur.length>=n){ toast(`${n}クラブまでやで`); return; } cur.push(c); }
@@ -2104,6 +2116,25 @@ function bind(){
     delete sideDraft[t+'_edit'];
     delete sideDraft[t];
     toast('前のままにしたで'); render();
+  });
+
+  /* 選択を全部消す（編集中の下書きだけ空にする。提出内容はまだ触らん） */
+  document.querySelectorAll('[data-side-clear]').forEach(b=>b.onclick=()=>{
+    const t=b.dataset.sideClear;
+    sideDraft[t] = (t==='scorer') ? '' : [];
+    sideDraft[t+'_edit']=true;
+    render();
+  });
+  /* 提出そのものを取り消して不参加に戻す */
+  document.querySelectorAll('[data-side-drop]').forEach(b=>b.onclick=async()=>{
+    const t=b.dataset.sideDrop;
+    if(Date.now()>SEASON_LOCK){ toast('もうロックされとる'); return; }
+    const me=await whoAmI(); if(!me) return;
+    if(!await ask(`この予想の提出を取り消す？\n\n不参加に戻る（金も動かん）\n${dateJp(SEASON_LOCK)} ${hhmm(SEASON_LOCK)} までなら出し直せる`)) return;
+    await db.ref(`${ROOT}/side/${t}/enc/${me}`).remove();
+    setLocalSide(t, me, null);
+    delete sideDraft[t]; delete sideDraft[t+'_edit'];
+    toast('提出を取り消した'); render();
   });
 
   /* 得点王：候補リストからタップで選ぶ */
