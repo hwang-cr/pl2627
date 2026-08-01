@@ -48,6 +48,12 @@ input,select{font-family:var(--body),'Noto Sans JP',sans-serif}
 .av-b{position:absolute;right:-2px;bottom:-2px;line-height:0;background:#fff;border-radius:50%;padding:1px;
   box-shadow:0 0 0 1px #fff}
 .av-b .crest{display:block;width:100%;height:100%}
+/* アイコンを大きく見るやつ */
+.avbig{display:grid;place-items:center;gap:12px}
+.avbig .ph{width:200px;height:200px;border-radius:50%;object-fit:cover;background:var(--panel);display:block}
+.avbig .ph-t{width:200px;height:200px;border-radius:50%;background:var(--panel);display:grid;place-items:center;
+  font-family:var(--disp);font-size:84px;font-weight:800;color:var(--grey)}
+.avbig .who{font-size:16px;font-weight:800;color:var(--purple);display:flex;align-items:center;gap:7px}
 .hero .mw{display:flex;align-items:baseline;gap:9px;margin-top:3px}
 .hero .mw b{font-family:var(--disp);font-size:54px;font-weight:800;letter-spacing:-.045em;line-height:.86}
 .hero .mw i{font-style:normal;font-family:var(--disp);font-size:19px;font-weight:700;
@@ -174,6 +180,43 @@ input,select{font-family:var(--body),'Noto Sans JP',sans-serif}
 .pbtn .crest{width:18px;height:18px;flex:none}
 .pbtn em{font-style:normal;font-size:10.5px;font-weight:700;color:var(--purple);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .pbtn.on{border-color:var(--purple);background:var(--panel)}
+
+/* ── 提出済みの中身を大きく見せるカード ── */
+.done-card{margin-top:9px;border:1.5px solid var(--purple);border-radius:11px;overflow:hidden}
+.done-h{display:flex;align-items:center;gap:7px;padding:8px 11px;background:var(--panel);
+  font-size:11px;font-weight:800;color:var(--purple)}
+.done-h .sp{flex:1}
+.done-row{display:flex;align-items:center;gap:9px;padding:9px 12px;border-top:1px solid var(--line)}
+.done-row .ord{width:19px;height:19px;flex:none;border-radius:50%;background:var(--purple);color:#fff;
+  font-family:var(--disp);font-size:10.5px;font-weight:800;display:grid;place-items:center}
+.done-row .nm{flex:1;font-size:13.5px;font-weight:700;min-width:0;overflow:hidden;
+  text-overflow:ellipsis;white-space:nowrap}
+.done-row.hit{background:#EAFBF2}
+.done-row.hit .nm{color:#0A7B47}
+.done-row.miss{opacity:.42}
+.done-row .mk{font-size:12px;font-weight:800}
+.done-row .mk.o{color:#0A7B47}
+.sbtn.ghost2{background:#fff;color:var(--purple);border:1.5px solid var(--line);margin-top:8px}
+
+/* ── 締切後の全員公開 ── */
+.rv{border:1px solid var(--line);border-radius:11px;margin-top:9px;overflow:hidden}
+.rv-p{display:flex;align-items:center;gap:8px;padding:8px 11px;background:var(--panel);
+  font-size:12.5px;font-weight:800;color:var(--purple);border-top:1px solid var(--line)}
+.rv:first-child .rv-p,.rv .rv-p:first-child{border-top:none}
+.rv-p .sp{flex:1}
+.rv-p .res{font-size:10.5px;font-weight:800;padding:2px 8px;border-radius:12px}
+.rv-p .res.o{background:#D8F6E6;color:#0A7B47}
+.rv-p .res.x{background:var(--panel2,#F2F2F5);color:var(--grey)}
+.rv-list{display:flex;flex-wrap:wrap;gap:5px;padding:9px 11px}
+.rv-item{display:flex;align-items:center;gap:5px;border:1px solid var(--line);border-radius:8px;
+  padding:5px 8px;font-size:11.5px;font-weight:700;background:#fff}
+.rv-item .ord{font-family:var(--disp);font-size:10px;font-weight:800;color:var(--grey)}
+.rv-item.hit{border-color:#0A7B47;background:#EAFBF2;color:#0A7B47}
+.rv-item.hit .ord{color:#0A7B47}
+.rv-item.miss{opacity:.4}
+.rv-none{padding:9px 11px;font-size:12px;color:var(--grey);font-weight:600}
+.rv-actual{margin-top:10px;padding:9px 11px;border-radius:10px;background:var(--panel);
+  font-size:12px;font-weight:700;color:var(--purple);line-height:1.7}
 .vrow{display:flex;align-items:center;gap:8px;padding:8px 13px;border-top:1px solid var(--line);font-size:12px}
 .vrow .nm{flex:1;font-weight:700}
 .vrow .val{font-size:11px;font-weight:700;color:var(--grey)}
@@ -960,9 +1003,35 @@ function optCrestCode(key, f, v){
 const favOf = p => (state.fav||{})[p] || null;
 const favIcon = p => { const c=favOf(p); return (c && CLUBS[c]) ? crest(c,16) : ''; };
 
+/* アイコンを大きく見る。自分のときは変更メニューへの導線も出す */
+function avBig(p){
+  const url = icons[p];
+  const c = favOf(p);
+  const me = meNow();
+  const ov = document.createElement('div'); ov.className='ov';
+  const pic = url
+    ? `<img class="ph" src="${esc(url)}" alt="${esc(p)}">`
+    : `<div class="ph-t">${esc(String(p||'?').slice(0,1))}</div>`;
+  const club = (c && CLUBS[c])
+    ? `<div class="who">${crest(c,22)}${esc(jp(c))}</div>`
+    : `<div class="who" style="color:var(--grey);font-weight:600">注目クラブ未選択</div>`;
+  ov.innerHTML = `<div class="dlg"><div class="avbig">${pic}
+      <div class="who">${esc(p)}</div>${club}</div>
+    <div class="dlg-btns" style="margin-top:14px">
+      ${p===me ? `<button class="dlg-no" data-avedit>変える</button>` : ''}
+      <button class="dlg-no" data-avclose>閉じる</button>
+    </div></div>`;
+  document.body.appendChild(ov);
+  const close = ()=>ov.remove();
+  const ed = ov.querySelector('[data-avedit]');
+  if(ed) ed.onclick = ()=>{ close(); meMenu(p); };
+  ov.querySelector('[data-avclose]').onclick = close;
+  ov.onclick = e=>{ if(e.target===ov) close(); };
+}
+
 /* メンバーアイコン：丸写真＋右下に注目クラブのエンブレム。
    写真が無かったら頭文字の丸で代用 */
-function avatar(p, size){
+function avatar(p, size, tap){
   const s = size || 22;
   const url = icons[p];
   const c = favOf(p);
@@ -972,7 +1041,9 @@ function avatar(p, size){
   const bs = Math.max(9, Math.round(s*0.40));
   const badge = (c && CLUBS[c])
     ? `<span class="av-b" style="width:${bs}px;height:${bs}px">${crest(c, bs)}</span>` : '';
-  return `<span class="av" style="width:${s}px;height:${s}px">${inner}${badge}</span>`;
+  const t = tap ? ` data-avtap="${esc(p)}" style="width:${s}px;height:${s}px;cursor:pointer"`
+                : ` style="width:${s}px;height:${s}px"`;
+  return `<span class="av"${t}>${inner}${badge}</span>`;
 }
 
 const nomsOf = gw => (state.noms||{})['gw'+gw] || {};
@@ -1436,7 +1507,7 @@ function viewTable(){
   const rows = leagueTable();
   let html = mwBar('スコアを入れたら順位表に反映される');
   html += `<div class="sec"><h2>第${curGw}節のスコア入力</h2>
-    <p>10試合ぜんぶ入れたら順位表が埋まる。指名された試合は賭けの精算にも使われる。</p></div>`;
+    <p>1試合ずつでも保存できる。延期になった試合は空欄のままでOK、後日入れ直したらええ。</p></div>`;
   html += `<div class="sg">` + fxOf(curGw).map(f=>{
     const s = scoreOf(f.key);
     return `<div class="sgrow ${s?'done':''}">
@@ -1446,7 +1517,7 @@ function viewTable(){
       <input type="number" min="0" inputmode="numeric" data-ga="${f.key}" value="${s?s.a:''}">
       ${crest(f.a,20)}<div class="tn">${esc(jp(f.a))}</div></div>`;
   }).join('') + `</div>`;
-  html += `<div style="padding:0 12px"><button class="sbtn" id="saveGrid">この節のスコアを保存</button></div>`;
+  html += `<div style="padding:0 12px"><button class="sbtn" id="saveGrid">入力したスコアを保存</button></div>`;
 
   html += `<div class="divider"></div><div class="sec"><h2>プレミアリーグ順位表</h2>
     <p>入力済みスコアから自動計算</p></div>`;
@@ -1513,7 +1584,7 @@ function viewMoney(){
     <p>1試合 1,000ペリカ・年間予想も含む合計</p></div>`;
   html += `<div class="tbl">` + ranked.map((p,i)=>{
     const v=totals[p], cls=v>0?'up':v<0?'dn':'ze';
-    return `<div class="mrow"><span class="rk">${i+1}</span>${avatar(p,24)}<span class="nm">${esc(p)}</span>
+    return `<div class="mrow"><span class="rk">${i+1}</span>${avatar(p,24,true)}<span class="nm">${esc(p)}</span>
       <span class="rec">${rec[p].w}勝${rec[p].l}敗</span>
       <span class="amt ${cls}">${v>0?'+':''}${v.toLocaleString()}</span></div>`;
   }).join('') + `</div>`;
@@ -1598,10 +1669,10 @@ function viewMoney(){
   }
   /* メンバー一覧（アイコンと注目クラブの置き場） */
   html += `<div class="divider"></div><div class="sec"><h2>メンバー</h2>
-    <p>アイコンと注目クラブは右上の丸アイコンから変えられる</p></div>`;
+    <p>アイコンは右上の丸アイコン、注目クラブは年間予想タブから変えられる</p></div>`;
   html += `<div class="tbl">` + PLAYERS.map(p=>{
     const c = favOf(p);
-    return `<div class="mrow">${avatar(p,30)}<span class="nm">${esc(p)}</span>
+    return `<div class="mrow">${avatar(p,30,true)}<span class="nm">${esc(p)}</span>
       <span class="rec">${c&&CLUBS[c] ? esc(jp(c)) : '注目クラブ未選択'}</span></div>`;
   }).join('') + `</div>`;
 
@@ -1656,37 +1727,38 @@ function sideCard(type, title, stake, desc, n, locked, me){
   let body = `<div class="side-b">${desc}`;
 
   if(locked){
-    body += `<div style="margin-top:8px">`;
-    PLAYERS.forEach(p=>{
-      const v = entries[p];
-      if(v==null){ body += `<div class="pickline" style="color:var(--grey)">${esc(p)}：不参加</div>`; return; }
-      const arr = Array.isArray(v)?v:[v];
-      const hit = ac && !r.pending && r.winners.includes(p);
-      body += `<div class="pickline">${hit?'◎':''} ${esc(p)}：${arr.map((c,i)=>
-        (n>1&&type==='top4'?`<span class="ord">${i+1}</span>`:'')+crest(c,20)+esc(jp(c))).join(' ')}</div>`;
-    });
-    body += `</div>`;
+    body += revealList(entries, {actual: ac, winners: r.winners, ordered: type==='top4'});
     if(ac){
-      body += `<div style="margin-top:8px;font-weight:700;color:var(--purple)">実際：${
-        (Array.isArray(ac)?ac:[ac]).map(c=>esc(jp(c))).join(' → ')}</div>`;
-      body += r.void ? `<div style="margin-top:5px">誰も当てられず全員ノーゲーム</div>`
-        : `<div style="margin-top:5px">的中：${r.winners.map(esc).join('・')}</div>`;
+      const acArr = Array.isArray(ac)?ac:[ac];
+      body += `<div class="rv-actual">実際：${acArr.map((c,i)=>
+        (type==='top4'?`${i+1}位 `:'')+esc(jp(c))).join(type==='top4'?' / ':'・')}<br>${
+        r.void ? '誰も当てられず全員ノーゲーム' : '的中：'+r.winners.map(esc).join('・')}</div>`;
+    } else {
+      body += `<div class="rv-actual">結果が入ったら答え合わせされる</div>`;
     }
   } else {
-    const draft = sideDraft[type] || (me && localSide(type,me)) || [];
-    body += `<div class="clubgrid">` + Object.keys(CLUBS)
-      .sort((a,b)=>jp(a).localeCompare(jp(b),'ja')).map(c=>{
-        const idx = draft.indexOf(c);
-        const num = idx>=0 && n>1 && type==='top4' ? `<span class="num">${idx+1}</span>` : '';
-        const on = idx>=0 ? 'on' : '';
-        return `<button class="cbtn ${on}" data-side-pick="${type}" data-c="${c}">${num}${crest(c,22)}<em>${c}</em></button>`;
-      }).join('') + `</div>`;
-    body += `<div style="margin-top:9px;font-weight:700;color:var(--purple)">
-      選択中（${draft.length}/${n}）：${draft.length?draft.map(c=>esc(jp(c))).join(' → '):'なし'}</div>`;
-    body += `<button class="sbtn" data-side-save="${type}" data-n="${n}">この内容で確定する</button>`;
     const mine = me ? localSide(type,me) : null;
-    if(mine) body += `<div style="margin-top:7px;font-size:11px">🔒 提出済み：${mine.map(c=>esc(jp(c))).join(' → ')}（あんただけ見えとる）</div>`;
-    body += `<div style="margin-top:7px;font-size:11px">提出済み ${Object.keys(enc).length}/${PLAYERS.length}人</div>`;
+    const editing = !!sideDraft[type+'_edit'];
+    /* 提出済みで編集モードやないなら、選んだ中身をカードで見せる */
+    if(mine && !editing){
+      body += doneCard(mine, {ordered: type==='top4'});
+      body += `<button class="sbtn ghost2" data-side-edit="${type}">変更する</button>`;
+      body += `<div style="margin-top:7px;font-size:11px">提出済み ${Object.keys(enc).length}/${PLAYERS.length}人</div>`;
+    } else {
+      const draft = sideDraft[type] || mine || [];
+      body += `<div class="clubgrid">` + Object.keys(CLUBS)
+        .sort((a,b)=>jp(a).localeCompare(jp(b),'ja')).map(c=>{
+          const idx = draft.indexOf(c);
+          const num = idx>=0 && n>1 && type==='top4' ? `<span class="num">${idx+1}</span>` : '';
+          const on = idx>=0 ? 'on' : '';
+          return `<button class="cbtn ${on}" data-side-pick="${type}" data-c="${c}">${num}${crest(c,22)}<em>${c}</em></button>`;
+        }).join('') + `</div>`;
+      body += `<div style="margin-top:9px;font-weight:700;color:var(--purple)">
+        選択中（${draft.length}/${n}）：${draft.length?draft.map(c=>esc(jp(c))).join(' → '):'なし'}</div>`;
+      body += `<button class="sbtn" data-side-save="${type}" data-n="${n}">この内容で確定する</button>`;
+      if(mine) body += `<button class="sbtn ghost2" data-side-cancel="${type}">やめる（前のままにする）</button>`;
+      body += `<div style="margin-top:7px;font-size:11px">提出済み ${Object.keys(enc).length}/${PLAYERS.length}人</div>`;
+    }
   }
   body += `</div>`;
   return `<div class="side"><div class="side-h"><b>${esc(title)}</b><span class="stake">${stake.toLocaleString()}</span></div>${body}</div>`;
@@ -1698,30 +1770,33 @@ function scorerCard(locked, me){
   const r = settleSide('scorer');
   let body = `<div class="side-b">的中した人が総取り。複数なら山分け。選手名を入れてや。`;
   if(locked){
-    body += `<div style="margin-top:8px">` + PLAYERS.map(p=>{
-      const v=entries[p];
-      if(v==null) return `<div class="pickline" style="color:var(--grey)">${esc(p)}：不参加</div>`;
-      const hit = ac && !r.pending && r.winners.includes(p);
-      return `<div class="pickline">${hit?'◎':''} ${esc(p)}：${esc(v)}</div>`;
-    }).join('') + `</div>`;
+    body += revealList(entries, {actual: ac, winners: r.winners, club:false});
     if(ac){
-      body += `<div style="margin-top:8px;font-weight:700;color:var(--purple)">実際：${esc(ac)}</div>`;
-      body += r.void?`<div style="margin-top:5px">誰も当てられず全員ノーゲーム</div>`
-        :`<div style="margin-top:5px">的中：${r.winners.map(esc).join('・')}</div>`;
+      body += `<div class="rv-actual">実際：${esc(ac)}<br>${
+        r.void ? '誰も当てられず全員ノーゲーム' : '的中：'+r.winners.map(esc).join('・')}</div>`;
+    } else {
+      body += `<div class="rv-actual">結果が入ったら答え合わせされる</div>`;
     }
   } else {
     const mine = me ? localSide('scorer',me) : null;
-    const draft = (sideDraft.scorer!=null) ? sideDraft.scorer : (mine||'');
-    const inList = SCORERS.some(s=>s[1]===draft);
-    body += `<div class="plgrid">` + SCORERS.map(([c,n])=>
-      `<button class="pbtn ${draft===n?'on':''}" data-scorer="${esc(n)}">${crest(c,18)}<em>${esc(n)}</em></button>`
-    ).join('') + `</div>`;
-    body += `<div style="margin-top:9px;font-weight:700;color:var(--purple)">選択中：${draft?esc(draft):'なし'}</div>`;
-    body += `<input class="txtin" id="scorerIn" placeholder="リストにおらん選手はここに手入力"
-      value="${(draft && !inList) ? esc(draft) : ''}">
-      <button class="sbtn" id="scorerSave">この内容で確定する</button>`;
-    if(mine) body += `<div style="margin-top:7px;font-size:11px">🔒 提出済み：${esc(mine)}（あんただけ見えとる）</div>`;
-    body += `<div style="margin-top:7px;font-size:11px">提出済み ${Object.keys(enc).length}/${PLAYERS.length}人</div>`;
+    const editing = !!sideDraft.scorer_edit;
+    if(mine && !editing){
+      body += doneCard(mine, {club:false});
+      body += `<button class="sbtn ghost2" data-side-edit="scorer">変更する</button>`;
+      body += `<div style="margin-top:7px;font-size:11px">提出済み ${Object.keys(enc).length}/${PLAYERS.length}人</div>`;
+    } else {
+      const draft = (sideDraft.scorer!=null) ? sideDraft.scorer : (mine||'');
+      const inList = SCORERS.some(s=>s[1]===draft);
+      body += `<div class="plgrid">` + SCORERS.map(([c,n])=>
+        `<button class="pbtn ${draft===n?'on':''}" data-scorer="${esc(n)}">${crest(c,18)}<em>${esc(n)}</em></button>`
+      ).join('') + `</div>`;
+      body += `<div style="margin-top:9px;font-weight:700;color:var(--purple)">選択中：${draft?esc(draft):'なし'}</div>`;
+      body += `<input class="txtin" id="scorerIn" placeholder="リストにおらん選手はここに手入力"
+        value="${(draft && !inList) ? esc(draft) : ''}">
+        <button class="sbtn" id="scorerSave">この内容で確定する</button>`;
+      if(mine) body += `<button class="sbtn ghost2" data-side-cancel="scorer">やめる（前のままにする）</button>`;
+      body += `<div style="margin-top:7px;font-size:11px">提出済み ${Object.keys(enc).length}/${PLAYERS.length}人</div>`;
+    }
   }
   body += `</div>`;
   return `<div class="side"><div class="side-h"><b>得点王</b><span class="stake">${SIDE_STAKE.toLocaleString()}</span></div>${body}</div>`;
@@ -1742,6 +1817,57 @@ function favCard(me){
   body += `</div>`;
   return `<div class="side"><div class="side-h"><b>注目クラブ</b>
     <span class="stake" style="background:var(--grey)">賭けなし</span></div>${body}</div>`;
+}
+
+/* 提出済みの中身を大きく出すカード。締切前は自分のぶんだけ、
+   結果が入っとったら当たり外れも色で出す */
+function doneCard(vals, opts){
+  const o = opts || {};
+  const ac = o.actual ? (Array.isArray(o.actual)?o.actual:[o.actual]) : null;
+  const arr = Array.isArray(vals)?vals:[vals];
+  const rows = arr.map((v,i)=>{
+    const isClub = o.club!==false;
+    const label = isClub ? jp(v) : v;
+    let cls='', mk='';
+    if(ac){
+      /* トップ4は「順番も合っとるか」、それ以外は「含まれとるか」で判定 */
+      const hit = o.ordered ? (ac[i]===v) : ac.includes(v);
+      cls = hit ? 'hit' : 'miss';
+      mk = hit ? `<span class="mk o">◎</span>` : `<span class="mk">✕</span>`;
+    }
+    return `<div class="done-row ${cls}">
+      ${o.ordered?`<span class="ord">${i+1}</span>`:''}
+      ${isClub?crest(v,22):''}
+      <span class="nm">${esc(label)}</span>${mk}</div>`;
+  }).join('');
+  return `<div class="done-card">
+    <div class="done-h">🔒 ${esc(o.head||'提出済み')}<div class="sp"></div>
+      <span style="font-weight:600;color:var(--grey)">${esc(o.note||'あんただけ見えとる')}</span></div>
+    ${rows}</div>`;
+}
+
+/* 締切後：全員ぶんを並べる */
+function revealList(entries, opts){
+  const o = opts || {};
+  const ac = o.actual ? (Array.isArray(o.actual)?o.actual:[o.actual]) : null;
+  return `<div class="rv">` + PLAYERS.map(p=>{
+    const v = entries[p];
+    const badge = (ac && v!=null)
+      ? ((o.winners||[]).includes(p) ? `<span class="res o">的中</span>`
+                                     : `<span class="res x">はずれ</span>`)
+      : '';
+    const head = `<div class="rv-p">${avatar(p,22)}<span>${esc(p)}</span><div class="sp"></div>${badge}</div>`;
+    if(v==null) return head + `<div class="rv-none">不参加</div>`;
+    const arr = Array.isArray(v)?v:[v];
+    const items = arr.map((x,i)=>{
+      const isClub = o.club!==false;
+      let cls='';
+      if(ac) cls = (o.ordered ? ac[i]===x : ac.includes(x)) ? 'hit' : 'miss';
+      return `<span class="rv-item ${cls}">${o.ordered?`<span class="ord">${i+1}</span>`:''}${
+        isClub?crest(x,16):''}${esc(isClub?jp(x):x)}</span>`;
+    }).join('');
+    return head + `<div class="rv-list">${items}</div>`;
+  }).join('') + `</div>`;
 }
 
 function localSide(type, who){
@@ -1778,22 +1904,28 @@ function rulesFold(){
     修正したら<b>誰の何をどう変えたかが全員に見える履歴として試合カードに残る</b>。
     アプリからは消せへん。<br><br>
     <b>年間予想</b>：優勝クラブ（10,000）・トップ4（5,000）・降格3（5,000）・得点王（5,000）。
-    <b>移籍期間が締まった翌日</b>（9月3日 07:00 日本時間）で一斉ロック。
+    <b>移籍期間が締まった翌日</b>（${dateJp(SEASON_LOCK)} ${hhmm(SEASON_LOCK)} 日本時間）で一斉ロック。
     移籍が全部終わってから決められるが、そのときには第2節まで消化済みや。トップ4は<b>1〜4位を順番通り完全一致</b>、
     降格3は<b>3クラブ全的中（順不同）</b>した人だけが勝ち。的中0人なら全員ノーゲーム。
     得点王は候補リストからタップで選ぶ。おらんかったら手入力でもええ。<br><br>
-    <b>注目クラブ・アイコン</b>：右上の丸アイコンを押したら変えられる。金は動かん。
-    注目クラブはかぶってもOKで、年間予想と同じ日にロック。
-    設定したら名前の横にアイコンとエンブレムが出る。<br><br>
+    <b>注目クラブ</b>：年間予想タブの一番下で選ぶ。金は動かん、ただのキャラ付けや。
+    かぶってもOKで、年間予想と同じ日にロック。<br><br>
+    <b>アイコン</b>：右上の丸アイコンを押したら写真を変えられる。いつでも変更OK。
+    設定したら名前の横にアイコンと、注目クラブのエンブレムが出る。<br><br>
     <b>PIN</b>：初めて自分の行を触るとき4〜8桁のPINを設定する。以降その行は本人しか触れん。
     忘れたら管理人（${esc(ADMIN)}）にリセットしてもらえ。<br><br>
-    <b>順位表</b>：各節のスコアを10試合ぶん入れると自動で計算される。
+    <b>順位表</b>：入れたスコアから自動で計算される。1試合ずつ保存してもええから、
+    延期があったらその試合だけ後で入れたらええ。
     指名された試合のスコアは賭けの精算にもそのまま使われる。
   </div></details>`;
 }
 
 /* ══════ 操作 ══════ */
 function bind(){
+  /* アイコンをタップしたら大きく見れる */
+  document.querySelectorAll('[data-avtap]').forEach(el=>{
+    el.onclick = e=>{ e.stopPropagation(); avBig(el.dataset.avtap); };
+  });
   /* テーマ曲：タップ直後に再生（await を挟まん） */
   document.querySelectorAll('[data-thbtn]').forEach(b=>{
     const on = !!(themeAudio && !themeAudio.paused);
@@ -1952,13 +2084,28 @@ function bind(){
     if(draft.length!==n){ toast(`${n}クラブ選んでや（いま${draft.length}）`); return; }
     const me=await whoAmI(); if(!me) return;
     const label = type==='top4' ? draft.map((c,i)=>`${i+1}位 ${jp(c)}`).join('\n') : draft.map(c=>jp(c)).join('・');
-    if(!await ask(`この内容で確定する？\n\n${label}\n\n開幕までは何回でも変更できる`)) return;
+    if(!await ask(`この内容で確定する？\n\n${label}\n\n${dateJp(SEASON_LOCK)} ${hhmm(SEASON_LOCK)} までは何回でも変更できる`)) return;
     const blob=await seal('side:'+type, me, JSON.stringify(draft));
     db.ref(`${ROOT}/side/${type}/enc/${me}`).set(blob);
     setLocalSide(type,me,draft);
     delete sideDraft[type];
-    toast('提出したで（開幕まで非公開）'); render();
+    delete sideDraft[type+'_edit'];
+    toast('提出したで（締切まで非公開）'); render();
   });
+  /* 提出済みを変更する / やめる */
+  document.querySelectorAll('[data-side-edit]').forEach(b=>b.onclick=()=>{
+    const t=b.dataset.sideEdit;
+    sideDraft[t+'_edit']=true;
+    delete sideDraft[t];        /* 前回の内容から編集を始める */
+    render();
+  });
+  document.querySelectorAll('[data-side-cancel]').forEach(b=>b.onclick=()=>{
+    const t=b.dataset.sideCancel;
+    delete sideDraft[t+'_edit'];
+    delete sideDraft[t];
+    toast('前のままにしたで'); render();
+  });
+
   /* 得点王：候補リストからタップで選ぶ */
   document.querySelectorAll('[data-scorer]').forEach(b=>b.onclick=()=>{
     sideDraft.scorer = (sideDraft.scorer===b.dataset.scorer) ? '' : b.dataset.scorer;
@@ -1977,6 +2124,7 @@ function bind(){
     db.ref(`${ROOT}/side/scorer/enc/${me}`).set(blob);
     setLocalSide('scorer',me,v);
     delete sideDraft.scorer;
+    delete sideDraft.scorer_edit;
     toast('提出したで'); render();
   };
 
