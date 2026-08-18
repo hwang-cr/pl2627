@@ -11,7 +11,7 @@
 :root{
   --purple:#37003C; --purple-2:#5C2B62; --grey:#6B5B6E;
   --line:#E9E2EC; --panel:#F7F4F8;
-  --pink:#E90052; --green:#00B96B; --green-lt:#00FF87; --cyan:#04F5FF;
+  --pink:#E90052; --green:#00B96B; --green-lt:#00FF87; --cyan:#04F5FF; --navy:#1F5276;
   --disp:'Poppins'; --body:'Poppins';
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
@@ -134,13 +134,9 @@ input,select{font-family:var(--body),'Noto Sans JP',sans-serif}
 .fx{background:#fff;border:1px solid var(--line);border-radius:12px;margin:0 12px 8px;overflow:hidden}
 .fxrow{display:grid;grid-template-columns:1fr 26px auto 26px 1fr;align-items:center;gap:8px;padding:13px 11px 7px}
 .fxvenue{font-family:var(--disp);font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--grey);text-align:center;padding:0 11px 11px;opacity:.7;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.fxderby{text-align:center;padding:1px 11px 5px;line-height:1}
-.fxderby span{font-family:var(--disp);font-size:8.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--pink);position:relative;display:inline-block;padding:0 13px}
-.fxderby span::before,.fxderby span::after{content:'';position:absolute;top:50%;width:8px;height:1px;background:currentColor;opacity:.45}
-.fxderby span::before{left:0} .fxderby span::after{right:0}
-.fxderby.r3 span{color:var(--pink)}
-.fxderby.r2 span{color:var(--purple-2)}
-.fxderby.r1 span{color:var(--grey);opacity:.85}
+.fxwrap{position:relative}
+.fxwrap.der .fxrow{padding-top:24px}
+.fxderby{position:absolute;top:0;right:0;background:var(--navy);color:#fff;font-family:var(--disp);font-size:8.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px 4px 12px;border-radius:0 0 0 10px;z-index:1}
 .fxrow .tn{font-size:12px;font-weight:700;letter-spacing:-.01em;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .fxrow .tn.h{text-align:right}
 .fxrow .ko{font-family:var(--disp);font-size:14.5px;font-weight:700;text-align:center}
@@ -211,6 +207,17 @@ input,select{font-family:var(--body),'Noto Sans JP',sans-serif}
 .done-row .mk.o{color:#0A7B47}
 .sbtn.ghost2{background:#fff;color:var(--purple);border:1.5px solid var(--line);margin-top:8px}
 /* ── ひとことメモ ── */
+.nnote{margin:9px 11px 0;background:#EEF3F8;border:1px solid #C9DBE9;border-left:3px solid var(--navy);
+  border-radius:10px;padding:9px 11px;display:flex;align-items:flex-start;gap:9px;
+  font-size:12px;font-weight:600;line-height:1.6;color:var(--purple)}
+.nnote .tx{flex:1;min-width:0;word-break:break-word}
+.nnote .ed{flex:none;font-size:10px;font-weight:700;color:var(--grey);background:#fff;
+  border:1px solid var(--line);border-radius:7px;padding:3px 8px;cursor:pointer}
+.nnoteadd{display:flex;gap:7px;margin:9px 11px 0}
+.nnoteadd input{flex:1;min-width:0;padding:9px 11px;border:1.5px solid #C9DBE9;border-radius:9px;
+  font-family:inherit;font-size:12px;font-weight:600;background:#EEF3F8;color:var(--purple)}
+.nnoteadd button{flex:none;padding:0 14px;border:none;border-radius:9px;background:var(--navy);
+  color:#fff;font-size:11.5px;font-weight:700;cursor:pointer}
 .cmt{margin:9px 11px 0;background:var(--panel);border-radius:10px;padding:9px 11px;
   font-size:12.5px;font-weight:600;color:var(--purple);line-height:1.6;
   display:flex;align-items:flex-start;gap:8px}
@@ -299,6 +306,18 @@ input,select{font-family:var(--body),'Noto Sans JP',sans-serif}
 
 /* ── money standings ── */
 .mrow{display:flex;align-items:center;gap:9px;padding:12px 13px;border-bottom:1px solid var(--line)}
+.mrow.mrow-b{align-items:flex-start}
+.mrow .mtx{flex:1;min-width:0}
+.mrow .bi{display:block;font-size:11px;font-weight:600;color:var(--grey);line-height:1.55;margin-top:3px;word-break:break-word}
+.mrow.mrow-b .rec{padding-top:2px;flex:none}
+.bio{margin-top:12px;background:var(--panel);border-radius:10px;padding:10px 12px;font-size:12.5px;
+  font-weight:600;line-height:1.65;color:var(--purple);word-break:break-word}
+.bio.empty{color:var(--grey);font-weight:500}
+.dlg-sub{font-size:11.5px;color:var(--grey);font-weight:600;margin-top:-8px;line-height:1.5}
+.dlg-ta{width:100%;margin:11px 0 4px;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;
+  font-family:inherit;font-size:13px;font-weight:600;line-height:1.6;color:var(--purple);
+  background:#fff;resize:none;-webkit-appearance:none}
+.dlg-ta:focus{outline:2px solid var(--navy);outline-offset:1px}
 .mrow:last-child{border-bottom:none}
 .mrow .rk{font-family:var(--disp);font-size:17px;font-weight:700;width:20px;color:var(--grey)}
 .mrow:first-child .rk{color:var(--purple)}
@@ -393,8 +412,8 @@ input,select{font-family:var(--body),'Noto Sans JP',sans-serif}
 .cx-halo{fill:none;stroke-width:1.4;opacity:0;transition:opacity .18s}
 .cx-halo.on{opacity:.9}
 .cx-lb{font-family:var(--disp);font-size:8px;font-weight:700;letter-spacing:.08em;
-  fill:#2B2F36;opacity:0;transition:opacity .18s;pointer-events:none}
-.cx-lb.on{opacity:1}
+  fill:#2B2F36;opacity:.42;transition:opacity .18s,font-size .18s;pointer-events:none}
+.cx-lb.on{opacity:1;font-size:9px}
 .cx-leg{display:flex;gap:6px;padding:11px 12px 13px;justify-content:center;flex-wrap:wrap;background:#fff}
 .cx-leg button{font-family:inherit;font-size:10.5px;font-weight:700;color:#7A8089;
   background:transparent;border:1px solid currentColor;border-radius:20px;
@@ -442,7 +461,9 @@ input,select{font-family:var(--body),'Noto Sans JP',sans-serif}
 .cx-fans{margin:6px 15px 12px;background:var(--panel);border-radius:11px;padding:11px 13px;
   font-size:12.5px;font-weight:700;color:var(--purple);line-height:1.6}
 .cx-fans span{font-family:var(--disp);font-size:9px;letter-spacing:.12em;color:var(--grey);display:block;margin-bottom:3px}
-.cx-rival{margin:0 15px 18px;background:var(--panel);border-radius:11px;padding:11px 13px;
+.cx-rival{margin:0 15px 7px;}
+.cx-rival:last-child{margin-bottom:18px;}
+.cx-rival{background:var(--panel);border-radius:11px;padding:11px 13px;
   display:flex;align-items:center;gap:10px}
 .cx-rival img{width:26px;height:26px;flex:none;object-fit:contain}
 .cx-rival .t{flex:1;min-width:0}
@@ -681,6 +702,22 @@ function ask(msg){
     ov.querySelector('.dlg-yes').onclick=()=>{ov.remove();res(true)};
     ov.querySelector('.dlg-no').onclick=()=>{ov.remove();res(false)};
     ov.onclick=e=>{ if(e.target===ov){ov.remove();res(false)} };
+  });
+}
+/* 複数行の入力ダイアログ。OKで文字列、キャンセルで null */
+function askText(title, sub, cur, max){
+  return new Promise(res=>{
+    const ov=document.createElement('div'); ov.className='ov';
+    ov.innerHTML=`<div class="dlg"><p>${esc(title)}</p>
+      <p class="dlg-sub">${esc(sub||'')}</p>
+      <textarea class="dlg-ta" rows="3" maxlength="${max||100}">${esc(cur||'')}</textarea>
+      <div class="dlg-btns"><button class="dlg-no">やめる</button><button class="dlg-yes">保存</button></div></div>`;
+    document.body.appendChild(ov);
+    const ta=ov.querySelector('.dlg-ta');
+    setTimeout(()=>ta.focus(),50);
+    ov.querySelector('.dlg-yes').onclick=()=>{const v=ta.value;ov.remove();res(v)};
+    ov.querySelector('.dlg-no').onclick=()=>{ov.remove();res(null)};
+    ov.onclick=e=>{ if(e.target===ov){ov.remove();res(null)} };
   });
 }
 function askPin(title,sub){
@@ -1141,18 +1178,37 @@ function avBig(p){
   const club = (c && CLUBS[c])
     ? `<div class="who">${crest(c,22)}${esc(jp(c))}</div>`
     : `<div class="who" style="color:var(--grey);font-weight:600">注目クラブ未選択</div>`;
+  const bio = (state.bio||{})[p];
+  const bioBlock = bio
+    ? `<div class="bio">${esc(bio)}</div>`
+    : (p===me ? `<div class="bio empty">まだ自己紹介が無い。「メモを書く」から書けるで</div>` : '');
   ov.innerHTML = `<div class="dlg"><div class="avbig">${pic}
       <div class="who">${esc(p)}</div>${club}</div>
+    ${bioBlock}
     <div class="dlg-btns" style="margin-top:14px">
-      ${p===me ? `<button class="dlg-no" data-avedit>変える</button>` : ''}
+      ${p===me ? `<button class="dlg-no" data-biedit>メモを書く</button>` : ''}
+      ${p===me ? `<button class="dlg-no" data-avedit>写真を変える</button>` : ''}
       <button class="dlg-no" data-avclose>閉じる</button>
     </div></div>`;
   document.body.appendChild(ov);
   const close = ()=>ov.remove();
   const ed = ov.querySelector('[data-avedit]');
   if(ed) ed.onclick = ()=>{ close(); meMenu(p); };
+  const be = ov.querySelector('[data-biedit]');
+  if(be) be.onclick = ()=>{ close(); editBio(p); };
   ov.querySelector('[data-avclose]').onclick = close;
   ov.onclick = e=>{ if(e.target===ov) close(); };
+}
+/* 自己紹介メモ。本人だけが書ける（PIN確認あり） */
+async function editBio(p){
+  const cur = (state.bio||{})[p] || '';
+  const v = await askText(`${p} の自己紹介`, 'リヴァプールファン歴15年、みたいな一言。空にしたら消えるで', cur, 100);
+  if(v===null) return;
+  if(!await verify(p)) return;
+  const t = v.trim().slice(0,100);
+  if(!t){ await db.ref(`${ROOT}/bio/${p}`).remove(); toast('自己紹介を消した'); return; }
+  await db.ref(`${ROOT}/bio/${p}`).set(t);
+  toast('自己紹介を保存した');
 }
 
 /* メンバーアイコン：丸写真＋右下に注目クラブのエンブレム。
@@ -1453,11 +1509,14 @@ function mwBar(extra){
     <button class="arw" data-gw="${curGw+1}" ${curGw>=GW_MAX?'disabled':''}>›</button></div>`;
 }
 function fxLine(f){
-  return `<div class="fxrow">
+  const d = derbyOf(f);
+  return `<div class="fxwrap${d?' der':''}">
+    ${d?`<div class="fxderby">${esc(d.en)}</div>`:''}
+    <div class="fxrow">
     <div class="tn h">${esc(jp(f.h))}</div>${crest(f.h)}
     <div class="ko">${hhmm(f.ko)}</div>${crest(f.a)}
     <div class="tn">${esc(jp(f.a))}</div></div>
-    ${derbyLine(f)}${venueLine(f)}`;
+    ${venueLine(f)}</div>`;
 }
 /* この対戦がダービーか判定。extra入りの枠（ウェストロンドン等）は3クラブ総当たりが対象。
    複数該当したら格の高いほう */
@@ -1640,8 +1699,25 @@ function ticket(f, nomBy){
   return `<div class="tk">
     <div class="tk-top"><div class="who">指名：<b>${esc(nomBy||'?')}</b></div>
       <span class="rate">${STAKE.toLocaleString()}ペリカ</span>${nomCtl}<div class="sp"></div>${dl}</div>
-    ${fxLine(f)}${condLine}${picksHtml}${rows}${ovHtml}${extra}
+    ${fxLine(f)}${condLine}${nomNote(f, nomBy, me)}${picksHtml}${rows}${ovHtml}${extra}
     <div style="height:11px"></div></div>`;
+}
+/* 指名した本人の試合前コメント。全員が読める。キックオフまでは何回でも直せる */
+function nomNote(f, nomBy, me){
+  const txt = (state.note||{})[f.key];
+  const mine = !!(me && nomBy && me===nomBy);
+  const open = Date.now() < f.ko;   /* キックオフで固定 */
+  if(txt){
+    const ed = (mine && open)
+      ? `<button class="ed" data-noteedit="${f.key}">直す</button>` : '';
+    return `<div class="nnote">${avatar(nomBy,24)}<div class="tx">${esc(txt)}</div>${ed}</div>`;
+  }
+  if(mine && open){
+    return `<div class="nnoteadd">
+      <input data-notein="${f.key}" maxlength="120" placeholder="なんでこの試合を選んだか、注目選手など">
+      <button data-notego="${f.key}">投稿</button></div>`;
+  }
+  return '';
 }
 /* 自分の選択の控え（端末内のみ。Firebaseには暗号文だけ） */
 const lpKey = () => ROOT+'-mypicks';
@@ -1861,10 +1937,13 @@ function viewMoney(){
   }
   /* メンバー一覧（アイコンと注目クラブの置き場） */
   html += `<div class="divider"></div><div class="sec"><h2>メンバー</h2>
-    <p>アイコンは右上の丸アイコン、注目クラブは年間予想タブから変えられる</p></div>`;
+    <p>自己紹介はアイコンをタップして本人が書ける。写真は右上の丸アイコン、注目クラブは年間予想タブから</p></div>`;
   html += `<div class="tbl">` + PLAYERS.map(p=>{
     const c = favOf(p);
-    return `<div class="mrow">${avatar(p,30,true)}<span class="nm">${esc(p)}</span>
+    const bio = (state.bio||{})[p];
+    return `<div class="mrow mrow-b">${avatar(p,30,true)}
+      <div class="mtx"><span class="nm">${esc(p)}</span>
+      ${bio?`<span class="bi">${esc(bio)}</span>`:''}</div>
       <span class="rec">${c&&CLUBS[c] ? esc(jp(c)) : '注目クラブ未選択'}</span></div>`;
   }).join('') + `</div>`;
 
@@ -1898,11 +1977,11 @@ const CX_PHOTO = {
   SUN:{url:'img/sun.webp', credit:''},
   TOT:{url:'img/tot.webp', credit:''}
 };
-const CX_CLUB = {"ARS":{"id":3,"jp":"アーセナル","en":"Arsenal","cityJp":"ロンドン北部","stJp":"エミレーツ","stEn":"Emirates Stadium","cap":60704,"founded":1886,"nickJp":"ガナーズ","nickEn":"The Gunners","titles":14,"story":["兵器工場の労働者が作ったクラブや。名前の「ガナーズ（砲手）」も、エンブレムの大砲もそこから来とる。","2003/04シーズンに38試合を無敗で駆け抜けて優勝した。1試合も負けずにリーグを獲ったのは近代サッカーでこのチームだけで、いまも「インヴィンシブルズ（無敵艦隊）」と呼ばれる。","その後22年も優勝から遠ざかって、3年連続2位という生殺しを味わったあと、2025/26でようやく戴冠した。長い我慢の末やっただけに、あの年の喜びようは異常やった。"],"fans":"もとは労働者階級のクラブやったが、いまのロンドン北部は地価が高く、客層は中流以上が中心。世界中にファンがおる。"},"AVL":{"id":7,"jp":"アストン・ヴィラ","en":"Aston Villa","cityJp":"バーミンガム","stJp":"ヴィラ・パーク","stEn":"Villa Park","cap":42788,"founded":1874,"nickJp":"ヴィランズ","nickEn":"The Villans","titles":7,"story":["教会のクリケット部の若者が「冬にやることないから」と始めたクラブ。1888年に世界初のサッカーリーグを作った創設メンバーの一つで、その発案者もヴィラの人間やった。つまりリーグ戦という仕組み自体がこのクラブから生まれとる。","1982年には欧州王者にもなっとる。ただそれ以降は長い低迷期があって、2016年から3年は2部にも落ちた。","ヴィラ・パークはFAカップ準決勝の会場として100回以上使われた、イングランドで最も由緒あるスタジアムのひとつや。"],"fans":"工業都市バーミンガムの労働者階級が土台。同じ街のバーミンガム・シティとの因縁は激しい。"},"BOU":{"id":91,"jp":"ボーンマス","en":"AFC Bournemouth","cityJp":"ボーンマス","stJp":"ヴァイタリティ","stEn":"Vitality Stadium","cap":11464,"founded":1899,"nickJp":"チェリーズ","nickEn":"The Cherries","titles":0,"story":["収容1万1千。プレミアで断トツに小さい。相手の巨大スタジアムと並べると、規模の差が笑えるレベルや。","2008年には経営破綻して勝ち点を剥奪され、4部で最下位付近まで沈んだ。あと一歩でクラブが消えるとこやった。そこから7年で1部に上がってきた。","当時の選手やった若者がそのまま監督になって昇格させたっちゅう筋書きも含めて、イングランドサッカーで一番おとぎ話に近い成り上がりや。"],"fans":"海辺の保養地で、街自体は裕福な引退世代が多い。ただクラブを支えとるのは地元の常連で、規模が小さいぶん距離が近い。"},"BRE":{"id":94,"jp":"ブレントフォード","en":"Brentford","cityJp":"ロンドン西部","stJp":"Gtechコミュニティ","stEn":"Gtech Community Stadium","cap":17250,"founded":1889,"nickJp":"ザ・ビーズ","nickEn":"The Bees","titles":0,"story":["2020年まで使っとった旧本拠地グリフィン・パークは「四隅すべてにパブがある」世界唯一のスタジアムとして有名やった。","オーナーはギャンブルの世界で数理モデルを作っとった人物で、そのやり方をそのままクラブ経営に持ち込んだ。データで割安な選手を買って高く売るのを繰り返し、金をかけずに1部へ上がってきた。","74年ぶりの1部復帰やった。予算はリーグ最下位クラスやのに毎年しぶとく残っとる。"],"fans":"ロンドン西部の地元密着型。派手さはなく、玄人好みの堅実なクラブとして通っとる。"},"BHA":{"id":36,"jp":"ブライトン","en":"Brighton & Hove Albion","cityJp":"ブライトン","stJp":"アメックス","stEn":"American Express Stadium","cap":31876,"founded":1901,"nickJp":"シーガルズ","nickEn":"The Seagulls","titles":0,"story":["1990年代後半、本拠地を売られてホームを失った。2年間、110km離れた他所の街のスタジアムを間借りして「ホームゲーム」をやっとった時期がある。その後も陸上競技場を借りて10年以上しのいだ。","2011年にようやく自前のスタジアムができて、そこから一気に駆け上がった。ここもデータ分析で有名なオーナーで、無名の選手を発掘しては巨額で売る手法が完成しとる。","三笘薫が一躍名を上げたのもこのクラブや。"],"fans":"海辺のリベラルな街で、イギリスでも指折りに多様性のある土地柄。応援も陽気で気楽な空気がある。"},"CHE":{"id":8,"jp":"チェルシー","en":"Chelsea","cityJp":"ロンドン西部","stJp":"スタンフォード・ブリッジ","stEn":"Stamford Bridge","cap":41837,"founded":1905,"nickJp":"ザ・ブルーズ","nickEn":"The Blues","titles":6,"story":["普通は「クラブができてスタジアムを建てる」が、ここは逆や。先にスタジアムがあって、借り手を探したが断られたので、オーナーが自分でクラブを作った。","2003年にロシアの富豪が買収してから世界が変わった。それまで100年近く優勝2回だったのが、20年で欧州王者2回を含む黄金期に入った。金でサッカーを買えることを証明した最初の例とも言われる。","近年は若手を大量に買い集める方針に振り切っとって、賛否が激しい。"],"fans":"ロンドンでも屈指の高級住宅街が地元。成金クラブと揶揄されがちやが、買収前から通う昔ながらの層も根強い。"},"COV":{"id":9,"jp":"コヴェントリー","en":"Coventry City","cityJp":"コヴェントリー","stJp":"CBSアリーナ","stEn":"Coventry Building Society Arena","cap":32609,"founded":1883,"nickJp":"スカイ・ブルーズ","nickEn":"The Sky Blues","titles":0,"story":["1987年のFAカップ優勝が唯一の大タイトル。この年トッテナムを延長で倒した試合は、番狂わせの名作として今も語られる。","2000年代に入って転落し、スタジアムの権利をめぐる争いから、一時は本拠地を持てず40km以上離れた他所の街で「ホームゲーム」をやる羽目になった。ファンにとっては屈辱の時代やった。","英国の自動車産業の中心地で、第二次大戦の空襲で街が壊滅した過去を持つ。復興の象徴として大聖堂の廃墟が残されとる。"],"fans":"自動車工場の街らしい労働者階級。長い流浪の時代を耐えた層が中心で、忍耐強さが服着て歩いとるようなファンや。"},"CRY":{"id":31,"jp":"クリスタル・パレス","en":"Crystal Palace","cityJp":"ロンドン南部","stJp":"セルハースト・パーク","stEn":"Selhurst Park","cap":26255,"founded":1905,"nickJp":"イーグルス","nickEn":"The Eagles","titles":0,"story":["スタジアムの一角にある熱狂的なサポーター集団が、発煙筒と旗と絶叫でプレミア屈指の雰囲気を作っとる。設備は古いが、行って一番楽しいスタジアムに毎年名前が挙がる。","2025年のFAカップでついに初のメジャータイトルを獲った。120年待った初優勝や。","クラブ名は、19世紀の万国博覧会で建てられたガラスの宮殿から来とる。その建物はとうに焼失しとるが、名前だけがサッカークラブとして残った。"],"fans":"ロンドン南部の多様な労働者階級。地元色が非常に強く、よそ者のオーナーには容赦がない。"},"EVE":{"id":11,"jp":"エヴァートン","en":"Everton","cityJp":"リヴァプール","stJp":"ヒル・ディキンソン","stEn":"Hill Dickinson Stadium","cap":52769,"founded":1878,"nickJp":"トフィーズ","nickEn":"The Toffees","titles":9,"story":["1部優勝9回。イングランドで4番目に多い。ただ最後の優勝は1987年で、以来ずっと待たされとる。","もともとアンフィールドを本拠地にしとったが、家賃で揉めて出ていった。残された空のスタジアムを埋めるために新しく作られたクラブが、リヴァプールFCや。つまり宿敵は自分たちの置き土産から生まれた。","2025年に132年使ったグディソン・パークを離れ、河沿いの新スタジアムへ移った。"],"fans":"徹底して地元。リヴァプールFCが世界的なブランドになった一方で、こっちは「街の本当のクラブ」を自認しとる。"},"FUL":{"id":54,"jp":"フラム","en":"Fulham","cityJp":"ロンドン西部","stJp":"クレイヴン・コテージ","stEn":"Craven Cottage","cap":25700,"founded":1879,"nickJp":"コテージャーズ","nickEn":"The Cottagers","titles":0,"story":["ロンドン最古のサッカークラブ。テムズ川のほとりに建つスタジアムには、ピッチの隅に本物の小屋が建っとる。1905年に建てられて今も現役で、選手の家族がそこから試合を観る。","プレミアで唯一、川沿いを歩いて通えるスタジアムでもある。","雰囲気が穏やかすぎて「世界一フレンドリーなクラブ」と言われる。相手チームの好プレーにも拍手が起きる。"],"fans":"高級住宅街が地元で、客層は中流から富裕層。政治家や作家、俳優のファンが多いことでも知られる。"},"HUL":{"id":88,"jp":"ハル","en":"Hull City","cityJp":"ハル","stJp":"MKM","stEn":"MKM Stadium","cap":25586,"founded":1904,"nickJp":"タイガース","nickEn":"The Tigers","titles":0,"story":["創設から100年以上、1部に上がれんかった。ようやく初昇格したのが2008年で、イングランドの大都市としては最も長く最高峰と無縁やったクラブや。","黒と黄色の縦縞から「タイガース」。","北海に面した港町で、かつては漁業で栄えた。街ではサッカーよりラグビーリーグの方が長く人気で、いまも二大ラグビークラブと客を分け合っとる。"],"fans":"漁師町の労働者階級。よそから注目されることが少なく、その分だけ内輪の結束が固い。"},"IPS":{"id":40,"jp":"イプスウィッチ","en":"Ipswich Town","cityJp":"イプスウィッチ","stJp":"ポートマン・ロード","stEn":"Portman Road","cap":30300,"founded":1878,"nickJp":"トラクター・ボーイズ","nickEn":"The Tractor Boys","titles":1,"story":["1962年に1部優勝。このとき指揮しとった監督が、4年後にイングランド代表を率いてワールドカップを制した。つまり英国唯一の世界一を作った男は、この田舎クラブ出身や。","その後を継いだ監督も名将となり、1981年にUEFAカップを獲った。人口14万の町のクラブが欧州のカップを掲げた。","「トラクター・ボーイズ」の愛称は、周りが一面の農地であることから来とる。相手サポーターの揶揄やったのを、自分たちで気に入って名乗るようになった。"],"fans":"農業地帯の穏やかな地元密着。周囲に競合クラブがほぼ無いので、州ぐるみで応援しとる。"},"LEE":{"id":2,"jp":"リーズ","en":"Leeds United","cityJp":"リーズ","stJp":"エランド・ロード","stEn":"Elland Road","cap":37890,"founded":1919,"nickJp":"ザ・ホワイツ","nickEn":"The Whites","titles":3,"story":["1970年代、勝つためなら手段を選ばん徹底したやり方で黄金期を築いた。強かったが同時に英国中から嫌われ、その敵役の記憶がいまも残っとる。","2004年に1部から落ちてから、財政崩壊で3部まで転落した。それでも観客動員はずっと上位で、2部時代でも3万人が入り続けた。","「マーチング・オン・トゥゲザー」の大合唱はプレミアでも屈指の迫力や。"],"fans":"ヨークシャーの労働者階級。愛憎の激しさが名物で、敵を作ることを恐れん気質がある。"},"LIV":{"id":14,"jp":"リヴァプール","en":"Liverpool","cityJp":"リヴァプール","stJp":"アンフィールド","stEn":"Anfield","cap":61276,"founded":1892,"nickJp":"ザ・レッズ","nickEn":"The Reds","titles":20,"story":["1部優勝20回、欧州王者6回。イングランドで最も成功したクラブの一つや。","試合前にスタンド全体で歌われる「ユール・ネヴァー・ウォーク・アローン」は、サッカーで最も有名な光景のひとつ。もとはミュージカルの曲で、地元バンドのヒットをきっかけにファンが歌い始めた。","1989年に96人（後に97人）のファンが圧死する事故が起き、警察の責任が認められるまで四半世紀かかった。この闘いはクラブと街の在り方そのものを決定づけとる。"],"fans":"港湾労働者の街で、反体制的な気質が濃い。中央政府や大手メディアへの不信が根強く、それがクラブの結束にもなっとる。"},"MCI":{"id":43,"jp":"マンチェスター・C","en":"Manchester City","cityJp":"マンチェスター","stJp":"エティハド","stEn":"Etihad Stadium","cap":55097,"founded":1880,"nickJp":"シティズンズ","nickEn":"The Citizens","titles":10,"story":["1998年には3部まで落ちとった。同じ街のユナイテッドが世界を制覇しとる横で、笑い者になりながら耐えた時期が長い。","2008年にアブダビの王族に買収されて一変。潤沢な資金と緻密な強化で、2010年代後半から史上最強と言われる時代を築いた。","本拠地はもともと2002年のコモンウェルスゲームズ用に建てられた陸上競技場を改装したもの。"],"fans":"マンチェスターの労働者階級で、地元率はユナイテッドより高い。長い暗黒時代を知る層が中心で、自虐的なユーモアが名物や。"},"MUN":{"id":1,"jp":"マンチェスター・U","en":"Manchester United","cityJp":"マンチェスター","stJp":"オールド・トラフォード","stEn":"Old Trafford","cap":74140,"founded":1878,"nickJp":"レッド・デビルズ","nickEn":"The Red Devils","titles":20,"story":["1958年、遠征帰りの飛行機がミュンヘンで墜落し、若き主力8人が亡くなった。生き残った監督がゼロからチームを作り直し、10年後に欧州王者になった。この物語がクラブの根幹にある。","1986年から27年間、ひとりの監督が指揮を執り13回優勝した。ここまで長い天下は二度と起きんと言われとる。","ただその監督が去ってからは低迷が続き、収容7万4千の「夢の劇場」で不満の声が響く年が長い。"],"fans":"世界で最もファンが多いクラブのひとつ。地元と海外の温度差が大きく、それ自体が内輪でネタにされる。"},"NEW":{"id":4,"jp":"ニューカッスル","en":"Newcastle United","cityJp":"ニューカッスル","stJp":"セント・ジェームズ・パーク","stEn":"St James' Park","cap":52409,"founded":1892,"nickJp":"マグパイズ","nickEn":"The Magpies","titles":4,"story":["最後のリーグ優勝は1927年。約100年勝てとらんのに、5万人が毎試合埋まる。","スタジアムが街の中心の丘の上にあって、どこを歩いても見える。街とクラブの距離が英国で一番近いと言われる所以や。","2021年にサウジアラビアの政府系ファンドに買収され、資金力の面で一気に上位へ食い込んできた。"],"fans":"徹底した労働者階級。真冬でも上半身裸で応援する連中がおるので有名。優勝を知らん世代しかおらんのに熱量だけは異常。"},"NFO":{"id":17,"jp":"フォレスト","en":"Nottingham Forest","cityJp":"ノッティンガム","stJp":"シティ・グラウンド","stEn":"City Ground","cap":30404,"founded":1865,"nickJp":"トリッキー・トゥリーズ","nickEn":"The Tricky Trees","titles":1,"story":["1865年創設で、プレミア勢では最古。","1970年代後半、毒舌で知られる型破りな監督が2部からチームを引き上げ、昇格2年目にリーグ優勝。その翌年から欧州王者を2連覇した。人口30万の地方都市のクラブが欧州の頂点に立った唯一の例で、いまも「不可能を証明したクラブ」として語られる。","トレント川のほとりにあるスタジアムからは、川を挟んだ向かいに宿敵ノッツ・カウンティのホームが見える。世界で最も近いダービーのひとつや。"],"fans":"炭鉱と工場の気風が残る労働者階級。栄光が古すぎて、逆に神話として語り継がれとる。"},"SUN":{"id":56,"jp":"サンダーランド","en":"Sunderland","cityJp":"サンダーランド","stJp":"スタジアム・オブ・ライト","stEn":"Stadium of Light","cap":49000,"founded":1879,"nickJp":"ブラック・キャッツ","nickEn":"The Black Cats","titles":6,"story":["1部優勝6回の古豪やのに、2018年には3部まで落ちた。","そのどん底を追った配信ドキュメンタリーが世界的に当たり、負け続ける姿を見た海外のファンが逆に増えるという珍現象が起きた。","造船と炭鉱で栄えた街で、クラブは街そのもの。3部の試合でも3万人が入り続けた。スタジアムの名前は、閉山した炭鉱の坑口に灯っとったランプから来とる。"],"fans":"徹底して労働者階級。ニューカッスルとの因縁は英国屈指で、同じ地方やのに口も利かん。"},"TOT":{"id":6,"jp":"スパーズ","en":"Tottenham Hotspur","cityJp":"ロンドン北部","stJp":"トッテナム・ホットスパー","stEn":"Tottenham Hotspur Stadium","cap":62850,"founded":1882,"nickJp":"スパーズ","nickEn":"Spurs","titles":2,"story":["1961年に20世紀で初めてリーグとFAカップの二冠を達成した。当時は不可能と言われとった記録や。","2019年に完成した新スタジアムは欧州で最も設備の整ったスタジアムと言われる。ピッチが丸ごとスライドして下に収納され、その下からアメフト用の人工芝が出てくる仕掛けまである。","「勇気を持って挑む者が勝つ」がクラブの標語。ただ近年はタイトルに手が届きそうで届かん年が続き、それ自体がネタにされとる。"],"fans":"ロンドン北部の地元層に加え、歴史的にユダヤ系コミュニティとの結びつきが強い。アーセナルとの北ロンドン・ダービーは街を二分する。"}};
+const CX_CLUB = {"ARS":{"id":3,"jp":"アーセナル","en":"Arsenal","cityJp":"ロンドン北部","stJp":"エミレーツ","stEn":"Emirates Stadium","cap":60704,"founded":1886,"nickJp":"ガナーズ","nickEn":"The Gunners","titles":14,"story":["兵器工場の労働者が作ったクラブや。名前の「ガナーズ（砲手）」も、エンブレムの大砲もそこから来とる。","2003/04シーズンに38試合を無敗で駆け抜けて優勝した。1試合も負けずにリーグを獲ったのは近代サッカーでこのチームだけで、いまも「インヴィンシブルズ（無敵艦隊）」と呼ばれる。","その後22年も優勝から遠ざかって、3年連続2位という生殺しを味わったあと、2025/26でようやく戴冠した。長い我慢の末やっただけに、あの年の喜びようは異常やった。"],"fans":"もとは労働者階級のクラブやったが、いまのロンドン北部は地価が高く、客層は中流以上が中心。世界中にファンがおる。"},"AVL":{"id":7,"jp":"アストン・ヴィラ","en":"Aston Villa","cityJp":"バーミンガム","stJp":"ヴィラ・パーク","stEn":"Villa Park","cap":42788,"founded":1874,"nickJp":"ヴィランズ","nickEn":"The Villans","titles":7,"story":["教会のクリケット部の若者が「冬にやることないから」と始めたクラブ。1888年に世界初のサッカーリーグを作った創設メンバーの一つで、その発案者もヴィラの人間やった。つまりリーグ戦という仕組み自体がこのクラブから生まれとる。","1982年には欧州王者にもなっとる。ただそれ以降は長い低迷期があって、2016年から3年は2部にも落ちた。","ヴィラ・パークはFAカップ準決勝の会場として100回以上使われた、イングランドで最も由緒あるスタジアムのひとつや。"],"fans":"工業都市バーミンガムの労働者階級が土台。同じ街のバーミンガム・シティとの因縁は激しい。"},"BOU":{"id":91,"jp":"ボーンマス","en":"AFC Bournemouth","cityJp":"ボーンマス","stJp":"ヴァイタリティ","stEn":"Vitality Stadium","cap":11464,"founded":1899,"nickJp":"チェリーズ","nickEn":"The Cherries","titles":0,"story":["収容1万1千。プレミアで断トツに小さい。相手の巨大スタジアムと並べると、規模の差が笑えるレベルや。","2008年には経営破綻して勝ち点を剥奪され、4部で最下位付近まで沈んだ。あと一歩でクラブが消えるとこやった。そこから7年で1部に上がってきた。","当時の選手やった若者がそのまま監督になって昇格させたっちゅう筋書きも含めて、イングランドサッカーで一番おとぎ話に近い成り上がりや。"],"fans":"海辺の保養地で、街自体は裕福な引退世代が多い。ただクラブを支えとるのは地元の常連で、規模が小さいぶん距離が近い。"},"BRE":{"id":94,"jp":"ブレントフォード","en":"Brentford","cityJp":"ロンドン西部","stJp":"Gtechコミュニティ","stEn":"Gtech Community Stadium","cap":17250,"founded":1889,"nickJp":"ザ・ビーズ","nickEn":"The Bees","titles":0,"story":["2020年まで使っとった旧本拠地グリフィン・パークは「四隅すべてにパブがある」世界唯一のスタジアムとして有名やった。","オーナーはギャンブルの世界で数理モデルを作っとった人物で、そのやり方をそのままクラブ経営に持ち込んだ。データで割安な選手を買って高く売るのを繰り返し、金をかけずに1部へ上がってきた。","74年ぶりの1部復帰やった。予算はリーグ最下位クラスやのに毎年しぶとく残っとる。"],"fans":"ロンドン西部の地元密着型。派手さはなく、玄人好みの堅実なクラブとして通っとる。"},"BHA":{"id":36,"jp":"ブライトン","en":"Brighton & Hove Albion","cityJp":"ブライトン","stJp":"アメックス","stEn":"American Express Stadium","cap":31876,"founded":1901,"nickJp":"シーガルズ","nickEn":"The Seagulls","titles":0,"story":["1990年代後半、本拠地を売られてホームを失った。2年間、110km離れた他所の街のスタジアムを間借りして「ホームゲーム」をやっとった時期がある。その後も陸上競技場を借りて10年以上しのいだ。","2011年にようやく自前のスタジアムができて、そこから一気に駆け上がった。ここもデータ分析で有名なオーナーで、無名の選手を発掘しては巨額で売る手法が完成しとる。","三笘薫が一躍名を上げたのもこのクラブや。"],"fans":"海辺のリベラルな街で、イギリスでも指折りに多様性のある土地柄。応援も陽気で気楽な空気がある。"},"CHE":{"id":8,"jp":"チェルシー","en":"Chelsea","cityJp":"ロンドン西部","stJp":"スタンフォード・ブリッジ","stEn":"Stamford Bridge","cap":41837,"founded":1905,"nickJp":"ザ・ブルーズ","nickEn":"The Blues","titles":6,"story":["普通は「クラブができてスタジアムを建てる」が、ここは逆や。先にスタジアムがあって、借り手を探したが断られたので、オーナーが自分でクラブを作った。","2003年にロシアの富豪が買収してから世界が変わった。それまで100年近く優勝2回だったのが、20年で欧州王者2回を含む黄金期に入った。金でサッカーを買えることを証明した最初の例とも言われる。","近年は若手を大量に買い集める方針に振り切っとって、賛否が激しい。"],"fans":"ロンドンでも屈指の高級住宅街が地元。成金クラブと揶揄されがちやが、買収前から通う昔ながらの層も根強い。"},"COV":{"id":9,"jp":"コヴェントリー","en":"Coventry City","cityJp":"コヴェントリー","stJp":"CBSアリーナ","stEn":"Coventry Building Society Arena","cap":32609,"founded":1883,"nickJp":"スカイ・ブルーズ","nickEn":"The Sky Blues","titles":0,"story":["1987年のFAカップ優勝が唯一の大タイトル。この年トッテナムを延長で倒した試合は、番狂わせの名作として今も語られる。","2000年代に入って転落し、スタジアムの権利をめぐる争いから、一時は本拠地を持てず40km以上離れた他所の街で「ホームゲーム」をやる羽目になった。ファンにとっては屈辱の時代やった。","英国の自動車産業の中心地で、第二次大戦の空襲で街が壊滅した過去を持つ。復興の象徴として大聖堂の廃墟が残されとる。"],"fans":"自動車工場の街らしい労働者階級。長い流浪の時代を耐えた層が中心で、忍耐強さが服着て歩いとるようなファンや。"},"CRY":{"id":31,"jp":"クリスタル・パレス","en":"Crystal Palace","cityJp":"ロンドン南部","stJp":"セルハースト・パーク","stEn":"Selhurst Park","cap":26255,"founded":1905,"nickJp":"イーグルス","nickEn":"The Eagles","titles":0,"story":["スタジアムの一角にある熱狂的なサポーター集団が、発煙筒と旗と絶叫でプレミア屈指の雰囲気を作っとる。設備は古いが、行って一番楽しいスタジアムに毎年名前が挙がる。","2025年のFAカップでついに初のメジャータイトルを獲った。120年待った初優勝や。","クラブ名は、19世紀の万国博覧会で建てられたガラスの宮殿から来とる。その建物はとうに焼失しとるが、名前だけがサッカークラブとして残った。"],"fans":"ロンドン南部の多様な労働者階級。地元色が非常に強く、よそ者のオーナーには容赦がない。"},"EVE":{"id":11,"jp":"エヴァートン","en":"Everton","cityJp":"リヴァプール","stJp":"ヒル・ディキンソン","stEn":"Hill Dickinson Stadium","cap":52769,"founded":1878,"nickJp":"トフィーズ","nickEn":"The Toffees","titles":9,"story":["1部優勝9回。イングランドで4番目に多い。ただ最後の優勝は1987年で、以来ずっと待たされとる。","もともとアンフィールドを本拠地にしとったが、家賃で揉めて出ていった。残された空のスタジアムを埋めるために新しく作られたクラブが、リヴァプールFCや。つまり宿敵は自分たちの置き土産から生まれた。","2025年に133年使ったグディソン・パークを離れ、河沿いの新スタジアムへ移った。"],"fans":"徹底して地元。リヴァプールFCが世界的なブランドになった一方で、こっちは「街の本当のクラブ」を自認しとる。"},"FUL":{"id":54,"jp":"フラム","en":"Fulham","cityJp":"ロンドン西部","stJp":"クレイヴン・コテージ","stEn":"Craven Cottage","cap":25700,"founded":1879,"nickJp":"コテージャーズ","nickEn":"The Cottagers","titles":0,"story":["ロンドン最古のサッカークラブ。テムズ川のほとりに建つスタジアムには、ピッチの隅に本物の小屋が建っとる。1905年に建てられて今も現役で、選手の家族がそこから試合を観る。","プレミアで唯一、川沿いを歩いて通えるスタジアムでもある。","雰囲気が穏やかすぎて「世界一フレンドリーなクラブ」と言われる。相手チームの好プレーにも拍手が起きる。"],"fans":"高級住宅街が地元で、客層は中流から富裕層。政治家や作家、俳優のファンが多いことでも知られる。"},"HUL":{"id":88,"jp":"ハル","en":"Hull City","cityJp":"ハル","stJp":"MKM","stEn":"MKM Stadium","cap":25586,"founded":1904,"nickJp":"タイガース","nickEn":"The Tigers","titles":0,"story":["創設から100年以上、1部に上がれんかった。ようやく初昇格したのが2008年で、イングランドの大都市としては最も長く最高峰と無縁やったクラブや。","黒と黄色の縦縞から「タイガース」。","北海に面した港町で、かつては漁業で栄えた。街ではサッカーよりラグビーリーグの方が長く人気で、いまも二大ラグビークラブと客を分け合っとる。"],"fans":"漁師町の労働者階級。よそから注目されることが少なく、その分だけ内輪の結束が固い。"},"IPS":{"id":40,"jp":"イプスウィッチ","en":"Ipswich Town","cityJp":"イプスウィッチ","stJp":"ポートマン・ロード","stEn":"Portman Road","cap":30300,"founded":1878,"nickJp":"トラクター・ボーイズ","nickEn":"The Tractor Boys","titles":1,"story":["1962年に1部優勝。このとき指揮しとった監督が、4年後にイングランド代表を率いてワールドカップを制した。つまり英国唯一の世界一を作った男は、この田舎クラブ出身や。","その後を継いだ監督も名将となり、1981年にUEFAカップを獲った。人口14万の町のクラブが欧州のカップを掲げた。","「トラクター・ボーイズ」の愛称は、周りが一面の農地であることから来とる。相手サポーターの揶揄やったのを、自分たちで気に入って名乗るようになった。"],"fans":"農業地帯の穏やかな地元密着。周囲に競合クラブがほぼ無いので、州ぐるみで応援しとる。"},"LEE":{"id":2,"jp":"リーズ","en":"Leeds United","cityJp":"リーズ","stJp":"エランド・ロード","stEn":"Elland Road","cap":37890,"founded":1919,"nickJp":"ザ・ホワイツ","nickEn":"The Whites","titles":3,"story":["1970年代、勝つためなら手段を選ばん徹底したやり方で黄金期を築いた。強かったが同時に英国中から嫌われ、その敵役の記憶がいまも残っとる。","2004年に1部から落ちてから、財政崩壊で3部まで転落した。それでも観客動員はずっと上位で、2部時代でも3万人が入り続けた。","「マーチング・オン・トゥゲザー」の大合唱はプレミアでも屈指の迫力や。"],"fans":"ヨークシャーの労働者階級。愛憎の激しさが名物で、敵を作ることを恐れん気質がある。"},"LIV":{"id":14,"jp":"リヴァプール","en":"Liverpool","cityJp":"リヴァプール","stJp":"アンフィールド","stEn":"Anfield","cap":61276,"founded":1892,"nickJp":"ザ・レッズ","nickEn":"The Reds","titles":20,"story":["1部優勝20回、欧州王者6回。イングランドで最も成功したクラブの一つや。","試合前にスタンド全体で歌われる「ユール・ネヴァー・ウォーク・アローン」は、サッカーで最も有名な光景のひとつ。もとはミュージカルの曲で、地元バンドのヒットをきっかけにファンが歌い始めた。","1989年に96人（後に97人）のファンが圧死する事故が起き、警察の責任が認められるまで四半世紀かかった。この闘いはクラブと街の在り方そのものを決定づけとる。"],"fans":"港湾労働者の街で、反体制的な気質が濃い。中央政府や大手メディアへの不信が根強く、それがクラブの結束にもなっとる。"},"MCI":{"id":43,"jp":"マンチェスター・C","en":"Manchester City","cityJp":"マンチェスター","stJp":"エティハド","stEn":"Etihad Stadium","cap":55097,"founded":1880,"nickJp":"シティズンズ","nickEn":"The Citizens","titles":10,"story":["1998年には3部まで落ちとった。同じ街のユナイテッドが世界を制覇しとる横で、笑い者になりながら耐えた時期が長い。","2008年にアブダビの王族に買収されて一変。潤沢な資金と緻密な強化で、2010年代後半から史上最強と言われる時代を築いた。","本拠地はもともと2002年のコモンウェルスゲームズ用に建てられた陸上競技場を改装したもの。"],"fans":"マンチェスターの労働者階級で、地元率はユナイテッドより高い。長い暗黒時代を知る層が中心で、自虐的なユーモアが名物や。"},"MUN":{"id":1,"jp":"マンチェスター・U","en":"Manchester United","cityJp":"マンチェスター","stJp":"オールド・トラフォード","stEn":"Old Trafford","cap":74140,"founded":1878,"nickJp":"レッド・デビルズ","nickEn":"The Red Devils","titles":20,"story":["1958年、遠征帰りの飛行機がミュンヘンで墜落し、若き主力8人が亡くなった。生き残った監督がゼロからチームを作り直し、10年後に欧州王者になった。この物語がクラブの根幹にある。","1986年から27年間、ひとりの監督が指揮を執り13回優勝した。ここまで長い天下は二度と起きんと言われとる。","ただその監督が去ってからは低迷が続き、収容7万4千の「夢の劇場」で不満の声が響く年が長い。"],"fans":"世界で最もファンが多いクラブのひとつ。地元と海外の温度差が大きく、それ自体が内輪でネタにされる。"},"NEW":{"id":4,"jp":"ニューカッスル","en":"Newcastle United","cityJp":"ニューカッスル","stJp":"セント・ジェームズ・パーク","stEn":"St James' Park","cap":52409,"founded":1892,"nickJp":"マグパイズ","nickEn":"The Magpies","titles":4,"story":["最後のリーグ優勝は1927年。約100年勝てとらんのに、5万人が毎試合埋まる。","スタジアムが街の中心の丘の上にあって、どこを歩いても見える。街とクラブの距離が英国で一番近いと言われる所以や。","2021年にサウジアラビアの政府系ファンドに買収され、資金力の面で一気に上位へ食い込んできた。2025年にはリーグカップを獲り、70年続いた国内無冠にようやく終止符を打った。"],"fans":"徹底した労働者階級。真冬でも上半身裸で応援する連中がおるので有名。優勝を知らん世代しかおらんのに熱量だけは異常。"},"NFO":{"id":17,"jp":"フォレスト","en":"Nottingham Forest","cityJp":"ノッティンガム","stJp":"シティ・グラウンド","stEn":"City Ground","cap":30404,"founded":1865,"nickJp":"トリッキー・トゥリーズ","nickEn":"The Tricky Trees","titles":1,"story":["1865年創設で、プレミア勢では最古。","1970年代後半、毒舌で知られる型破りな監督が2部からチームを引き上げ、昇格2年目にリーグ優勝。その翌年から欧州王者を2連覇した。人口30万の地方都市のクラブが欧州の頂点に立った唯一の例で、いまも「不可能を証明したクラブ」として語られる。","トレント川のほとりにあるスタジアムからは、川を挟んだ向かいに宿敵ノッツ・カウンティのホームが見える。世界で最も近いダービーのひとつや。"],"fans":"炭鉱と工場の気風が残る労働者階級。栄光が古すぎて、逆に神話として語り継がれとる。"},"SUN":{"id":56,"jp":"サンダーランド","en":"Sunderland","cityJp":"サンダーランド","stJp":"スタジアム・オブ・ライト","stEn":"Stadium of Light","cap":49000,"founded":1879,"nickJp":"ブラック・キャッツ","nickEn":"The Black Cats","titles":6,"story":["1部優勝6回の古豪やのに、2018年には3部まで落ちた。","そのどん底を追った配信ドキュメンタリーが世界的に当たり、負け続ける姿を見た海外のファンが逆に増えるという珍現象が起きた。","造船と炭鉱で栄えた街で、クラブは街そのもの。3部の試合でも3万人が入り続けた。スタジアムの名前は、閉山した炭鉱の坑口に灯っとったランプから来とる。"],"fans":"徹底して労働者階級。ニューカッスルとの因縁は英国屈指で、同じ地方やのに口も利かん。"},"TOT":{"id":6,"jp":"スパーズ","en":"Tottenham Hotspur","cityJp":"ロンドン北部","stJp":"トッテナム・ホットスパー","stEn":"Tottenham Hotspur Stadium","cap":62850,"founded":1882,"nickJp":"スパーズ","nickEn":"Spurs","titles":2,"story":["1961年に20世紀で初めてリーグとFAカップの二冠を達成した。当時は不可能と言われとった記録や。","2019年に完成した新スタジアムは欧州で最も設備の整ったスタジアムと言われる。ピッチが丸ごとスライドして下に収納され、その下からアメフト用の人工芝が出てくる仕掛けまである。","「勇気を持って挑む者が勝つ」がクラブの標語。長らく無冠をネタにされてきたが、2025年にヨーロッパリーグを制して17年ぶりのタイトルを獲った。"],"fans":"ロンドン北部の地元層に加え、歴史的にユダヤ系コミュニティとの結びつきが強い。アーセナルとの北ロンドン・ダービーは街を二分する。"}};
 const CX_CITY = [{"jp":"ロンドン","en":"London","x":219.2,"y":277.2,"n":6,"clubs":["ARS","CHE","CRY","FUL","TOT","BRE"],"reg":"london"},{"jp":"マンチェスター","en":"Manchester","x":138.8,"y":154.1,"n":2,"clubs":["MCI","MUN"],"reg":"north"},{"jp":"リヴァプール","en":"Liverpool","x":110.9,"y":158.6,"n":2,"clubs":["LIV","EVE"],"reg":"north"},{"jp":"バーミンガム","en":"Birmingham","x":149.8,"y":215.2,"n":1,"clubs":["AVL"],"reg":"mid"},{"jp":"コヴェントリー","en":"Coventry","x":169.2,"y":221.9,"n":1,"clubs":["COV"],"reg":"mid"},{"jp":"ボーンマス","en":"Bournemouth","x":152.7,"y":326.2,"n":1,"clubs":["BOU"],"reg":"south"},{"jp":"ブライトン","en":"Brighton","x":218.2,"y":319.6,"n":1,"clubs":["BHA"],"reg":"south"},{"jp":"ハル","en":"Hull","x":211.3,"y":137.5,"n":1,"clubs":["HUL"],"reg":"north"},{"jp":"イプスウィッチ","en":"Ipswich","x":267.9,"y":242.7,"n":1,"clubs":["IPS"],"reg":"south"},{"jp":"リーズ","en":"Leeds","x":165.2,"y":134.1,"n":1,"clubs":["LEE"],"reg":"north"},{"jp":"ニューカッスル","en":"Newcastle","x":157.9,"y":58.3,"n":1,"clubs":["NEW"],"reg":"north"},{"jp":"ノッティンガム","en":"Nottingham","x":180.1,"y":186.9,"n":1,"clubs":["NFO"],"reg":"mid"},{"jp":"サンダーランド","en":"Sunderland","x":176.3,"y":67.4,"n":1,"clubs":["SUN"],"reg":"north"}];
 const CX_REGION = {"north":{"jp":"北部","en":"THE NORTH","col":"#04F5FF","note":"産業革命の街。労働者階級の気風が濃い"},"mid":{"jp":"中部","en":"THE MIDLANDS","col":"#FFB100","note":"工業地帯。古豪が多い"},"london":{"jp":"ロンドン","en":"LONDON","col":"#00FF87","note":"20クラブ中6つが集中する"},"south":{"jp":"南部・東部","en":"SOUTH & EAST","col":"#FF4D8D","note":"海辺と農村。穏やかな土地柄"}};
 const CX_REGOF = {"NEW":"north","SUN":"north","LIV":"north","EVE":"north","MCI":"north","MUN":"north","LEE":"north","HUL":"north","AVL":"mid","COV":"mid","NFO":"mid","ARS":"london","CHE":"london","CRY":"london","FUL":"london","TOT":"london","BRE":"london","BOU":"south","BHA":"south","IPS":"south"};
-const CX_DERBY = [{"id":"nw","rank":3,"jp":"ノース・ウェスト・ダービー","en":"North West Derby","a":"LIV","b":"MUN","story":["イングランドで最も成功した2クラブの対決。1部優勝はどちらも20回で並んどって、この数字を奪い合うこと自体が争いの中身になっとる。","発端はサッカーやない。19世紀末、マンチェスターが内陸まで運河を掘って、船がリヴァプールの港を素通りできるようにした。港湾労働で食うとった街から仕事を奪う工事やった。この経済的な恨みが、そのままサッカーに持ち込まれた。","同じ街やないのにダービーと呼ばれるのはそのためで、地理やなく歴史が対立を作った例や。"]},{"id":"mer","rank":3,"jp":"マージーサイド・ダービー","en":"Merseyside Derby","a":"LIV","b":"EVE","story":["同じ街の2クラブ。しかも成り立ちが直結しとる。もともとエヴァートンがアンフィールドを使っとったが、家賃で揉めて出ていった。空いたスタジアムを埋めるために作られたのがリヴァプールFCや。つまり宿敵は自分たちが残した空き家から生まれた。","家族の中で応援先が割れるのが当たり前で、「フレンドリー・ダービー」と呼ばれた時期もあった。","ただ実際のピッチ上は逆で、プレミアリーグの歴史で最も退場者が出ているカードとして知られとる。仲がええのはスタンドだけや。"]},{"id":"nl","rank":3,"jp":"ノース・ロンドン・ダービー","en":"North London Derby","a":"ARS","b":"TOT","story":["1913年、アーセナルがロンドン南部から引っ越してきて、スパーズの目と鼻の先に本拠地を構えた。地元からすれば完全な侵略やった。","恨みが決定的になったのは1919年。リーグ再開のときに1部の枠が増えたんやが、成績では下やったアーセナルが選ばれ、スパーズは落とされた。裏で手が回ったと今も言われとって、100年経っても蒸し返される。","街を二分する対立で、同じ地下鉄の路線沿いに両クラブのスタジアムがある。"]},{"id":"man","rank":2,"jp":"マンチェスター・ダービー","en":"Manchester Derby","a":"MCI","b":"MUN","story":["同じ街の2クラブ。長らくユナイテッドが圧倒的に格上で、シティは「地元の負け組」として扱われてきた。1998年にはシティが3部まで落ちとる。","2008年の買収でシティが一変してから力関係がひっくり返り、2010年代後半は完全に立場が逆転した。","長い格差の記憶があるぶん、シティ側の喜び方とユナイテッド側の屈辱の深さが釣り合っとらんのがこのダービーの味や。"]},{"id":"tw","rank":3,"jp":"タイン・ウェア・ダービー","en":"Tyne-Wear Derby","a":"NEW","b":"SUN","story":["ニューカッスルとサンダーランド。車で40分ほどしか離れとらん隣街同士や。","対立の根は17世紀の内戦にまで遡ると言われる。石炭の積出港をどちらが握るかで争った歴史があり、産業の恨みがそのまま残っとる。","同じ地方に属しながら互いを完全に別物として扱い、口も利かん。今季サンダーランドが昇格してきたことで、久しぶりにこのカードが復活した。"]},{"id":"roses","rank":2,"jp":"ローゼズ・ダービー","en":"Roses Rivalry","a":"LEE","b":"MUN","story":["ヨークシャー対ランカシャー。15世紀の薔薇戦争で争った2つの地方の代理戦争や。白薔薇のヨークシャー（リーズ）と赤薔薇のランカシャー（マンチェスター）。","1960〜70年代、両者がリーグの頂点を争ったことで一気に燃え上がった。街同士も産業で競合しとった。","リーズが長く下部リーグにおったせいで、この対戦は何年も実現してへんかった。今季ようやく戻ってきた一戦や。"]},{"id":"m23","rank":2,"jp":"M23ダービー","en":"M23 Derby","a":"BHA","b":"CRY","story":["ブライトンとクリスタル・パレス。直線で60km以上離れとって、間に他のクラブもある。地理だけ見たらダービーになる理由がない。","1970年代、両者が昇格を争って何度も直接対決した時期に、両クラブの監督同士が公然といがみ合ったのが発端や。その険悪さがサポーターに伝染して、そのまま50年続いとる。","高速道路M23で結ばれとることから、この名前で呼ばれる。「なんでこの2つが？」と英国内でも言われるが、当人たちは本気や。"]},{"id":"wl","rank":1,"jp":"ウェスト・ロンドン・ダービー","en":"West London Derby","a":"CHE","b":"FUL","extra":["BRE"],"story":["チェルシー、フラム、ブレントフォードが狭い範囲にひしめく。特にチェルシーとフラムのスタジアムは3kmも離れとらん。","規模と金の差が大きく、他のダービーほど対等な憎しみにはならん。ただ地元の意地としては十分に熱い。","ブレントフォードが上がってきたことで、この地域の対戦が増えた。"]},{"id":"york","rank":1,"jp":"ヨークシャー・ダービー","en":"Yorkshire Derby","a":"LEE","b":"HUL","story":["同じヨークシャー州のクラブ同士。リーズが内陸の工業都市、ハルが海沿いの港町で、性格はだいぶ違う。","リーズにとっては数あるヨークシャー勢のひとつという位置づけやが、ハル側にとっては州最大のクラブに挑む一戦や。","両者が同時に1部におること自体が久しぶりで、今季は貴重な組み合わせになる。"]},{"id":"mid","rank":1,"jp":"ミッドランズ・ダービー","en":"Midlands Derby","a":"AVL","b":"COV","extra":["NFO"],"story":["イングランド中部のクラブ同士の対戦。アストン・ヴィラ、コヴェントリー、ノッティンガム・フォレストが該当する。","それぞれ本来の宿敵（ヴィラならバーミンガム・シティ、コヴェントリーならレスター、フォレストならダービー・カウンティ）が今季1部におらんため、中部勢同士の対戦が代わりの見せ場になる。","工業地帯として競合してきた土地柄で、地域の序列を巡る意識は根強い。"]},{"id":"sc","rank":1,"jp":"サウス・コースト・ダービー","en":"South Coast Derby","a":"BOU","b":"BHA","story":["イングランド南海岸のクラブ同士。ボーンマスとブライトンで、海沿いを東西に150kmほど離れとる。","本来この地域の主役はサウサンプトンとポーツマスで、両者の対立は英国屈指の激しさやったが、今季はどちらも1部におらん。","そのぶん、南部を代表する立場を巡る対戦としての意味が出てきた。"]}];
+const CX_DERBY = [{"id":"nw","rank":3,"jp":"ノース・ウェスト・ダービー","en":"North West Derby","a":"LIV","b":"MUN","story":["イングランドで最も成功した2クラブの対決。1部優勝はどちらも20回で並んどって、この数字を奪い合うこと自体が争いの中身になっとる。","発端はサッカーやない。19世紀末、マンチェスターが内陸まで運河を掘って、船がリヴァプールの港を素通りできるようにした。港湾労働で食うとった街から仕事を奪う工事やった。この経済的な恨みが、そのままサッカーに持ち込まれた。","同じ街やないのにダービーと呼ばれるのはそのためで、地理やなく歴史が対立を作った例や。"]},{"id":"mer","rank":3,"jp":"マージーサイド・ダービー","en":"Merseyside Derby","a":"LIV","b":"EVE","story":["同じ街の2クラブ。しかも成り立ちが直結しとる。もともとエヴァートンがアンフィールドを使っとったが、家賃で揉めて出ていった。空いたスタジアムを埋めるために作られたのがリヴァプールFCや。つまり宿敵は自分たちが残した空き家から生まれた。","家族の中で応援先が割れるのが当たり前で、「フレンドリー・ダービー」と呼ばれた時期もあった。","ただ実際のピッチ上は逆で、プレミアリーグの歴史で最も退場者が出ているカードとして知られとる。仲がええのはスタンドだけや。"]},{"id":"nl","rank":3,"jp":"ノース・ロンドン・ダービー","en":"North London Derby","a":"ARS","b":"TOT","story":["1913年、アーセナルがロンドン南部から引っ越してきて、スパーズの目と鼻の先に本拠地を構えた。地元からすれば完全な侵略やった。","恨みが決定的になったのは1919年。リーグ再開のときに1部の枠が増えたんやが、成績では下やったアーセナルが選ばれ、スパーズは落とされた。裏で手が回ったと今も言われとって、100年経っても蒸し返される。","街を二分する対立で、両クラブのスタジアムは6kmほどしか離れとらん。"]},{"id":"man","rank":2,"jp":"マンチェスター・ダービー","en":"Manchester Derby","a":"MCI","b":"MUN","story":["同じ街の2クラブ。長らくユナイテッドが圧倒的に格上で、シティは「地元の負け組」として扱われてきた。1998年にはシティが3部まで落ちとる。","2008年の買収でシティが一変してから力関係がひっくり返り、2010年代後半は完全に立場が逆転した。","長い格差の記憶があるぶん、シティ側の喜び方とユナイテッド側の屈辱の深さが釣り合っとらんのがこのダービーの味や。"]},{"id":"tw","rank":3,"jp":"タイン・ウェア・ダービー","en":"Tyne-Wear Derby","a":"NEW","b":"SUN","story":["ニューカッスルとサンダーランド。車で40分ほどしか離れとらん隣街同士や。","対立の根は17世紀の内戦にまで遡ると言われる。石炭の積出港をどちらが握るかで争った歴史があり、産業の恨みがそのまま残っとる。","同じ地方に属しながら互いを完全に別物として扱い、口も利かん。サンダーランドが昨季から1部に戻ったことで、長い中断を経てこのカードが復活しとる。"]},{"id":"roses","rank":2,"jp":"ローゼズ・ダービー","en":"Roses Rivalry","a":"LEE","b":"MUN","story":["ヨークシャー対ランカシャー。15世紀の薔薇戦争で争った2つの地方の代理戦争や。白薔薇のヨークシャー（リーズ）と赤薔薇のランカシャー（マンチェスター）。","1960〜70年代、両者がリーグの頂点を争ったことで一気に燃え上がった。街同士も産業で競合しとった。","リーズが2部に落ちとった間は途切れとったが、昨季1部に戻って再開した一戦や。"]},{"id":"m23","rank":2,"jp":"M23ダービー","en":"M23 Derby","a":"BHA","b":"CRY","story":["ブライトンとクリスタル・パレス。直線で60km以上離れとって、間に他のクラブもある。地理だけ見たらダービーになる理由がない。","1970年代、両者が昇格を争って何度も直接対決した時期に、両クラブの監督同士が公然といがみ合ったのが発端や。その険悪さがサポーターに伝染して、そのまま50年続いとる。","高速道路M23で結ばれとることから、この名前で呼ばれる。「なんでこの2つが？」と英国内でも言われるが、当人たちは本気や。"]},{"id":"wl","rank":1,"jp":"ウェスト・ロンドン・ダービー","en":"West London Derby","a":"CHE","b":"FUL","extra":["BRE"],"story":["チェルシー、フラム、ブレントフォードが狭い範囲にひしめく。特にチェルシーとフラムのスタジアムは3kmも離れとらん。","規模と金の差が大きく、他のダービーほど対等な憎しみにはならん。ただ地元の意地としては十分に熱い。","ブレントフォードが上がってきたことで、この地域の対戦が増えた。"]},{"id":"york","rank":1,"jp":"ヨークシャー・ダービー","en":"Yorkshire Derby","a":"LEE","b":"HUL","story":["同じヨークシャー州のクラブ同士。リーズが内陸の工業都市、ハルが海沿いの港町で、性格はだいぶ違う。","リーズにとっては数あるヨークシャー勢のひとつという位置づけやが、ハル側にとっては州最大のクラブに挑む一戦や。","両者が同時に1部におること自体が久しぶりで、今季は貴重な組み合わせになる。"]},{"id":"mid","rank":1,"jp":"ミッドランズ・ダービー","en":"Midlands Derby","a":"AVL","b":"COV","extra":["NFO"],"story":["イングランド中部のクラブ同士の対戦。アストン・ヴィラ、コヴェントリー、ノッティンガム・フォレストが該当する。","それぞれ本来の宿敵（ヴィラならバーミンガム・シティ、コヴェントリーならレスター、フォレストならダービー・カウンティ）が今季1部におらんため、中部勢同士の対戦が代わりの見せ場になる。","工業地帯として競合してきた土地柄で、地域の序列を巡る意識は根強い。"]},{"id":"sc","rank":1,"jp":"サウス・コースト・ダービー","en":"South Coast Derby","a":"BOU","b":"BHA","story":["イングランド南海岸のクラブ同士。ボーンマスとブライトンで、海沿いを東西に150kmほど離れとる。","本来この地域の主役はサウサンプトンとポーツマスで、両者の対立は英国屈指の激しさやったが、今季はどちらも1部におらん。","そのぶん、南部を代表する立場を巡る対戦としての意味が出てきた。"]}];
 const CX_PATH = "M122.7 270.0L119.9 272.6L110.9 275.2L99.0 284.5L88.8 283.0L81.1 275.2L76.3 271.9L63.2 273.3L65.5 269.6L68.7 267.6L61.7 266.2L57.5 262.6L49.4 262.8L37.9 269.7L29.4 264.8L27.8 262.6L26.6 255.0L24.2 253.9L30.8 246.7L38.7 243.7L57.6 234.1L66.5 226.1L72.9 212.6L70.3 211.6L69.1 208.4L70.6 202.5L67.7 195.2L68.3 189.3L58.6 190.5L50.0 195.6L46.3 196.1L46.3 193.7L47.9 190.8L56.8 183.2L62.0 175.0L68.0 170.3L79.3 165.1L85.6 165.5L93.8 162.7L97.8 162.3L106.4 167.8L103.8 159.4L107.6 157.4L113.2 165.0L115.3 165.8L119.7 164.7L113.4 162.2L107.6 152.0L107.9 147.5L113.0 138.3L108.9 135.8L109.1 127.6L113.9 124.1L116.0 113.1L115.2 110.5L110.4 111.0L106.0 113.8L103.8 113.7L97.9 107.3L88.5 92.5L87.7 86.4L92.5 73.4L100.0 65.1L108.7 62.1L93.7 61.5L89.2 62.6L85.1 65.9L80.4 67.3L73.7 73.0L67.0 73.1L64.3 69.4L62.5 68.9L52.5 74.4L41.1 68.9L38.3 73.5L37.5 78.6L33.0 74.2L29.0 68.1L27.7 64.4L27.7 60.2L29.7 58.5L32.0 60.0L35.5 49.9L44.8 33.0L46.4 28.0L44.6 22.0L38.3 15.7L39.0 4.7L40.8 1.3L50.0 0.7L40.1 -6.3L41.7 -13.0L37.0 -4.9L30.7 -2.3L29.9 0.3L26.7 1.3L25.5 4.0L24.8 -3.2L25.8 -7.3L34.2 -17.7L19.6 -4.3L18.2 -1.5L20.0 7.7L19.5 11.2L13.0 35.0L9.6 38.9L6.5 38.4L5.0 36.6L8.3 20.3L15.0 9.2L12.4 9.8L10.6 8.5L11.0 -6.5L13.0 -11.5L13.9 -18.8L19.3 -35.2L21.7 -37.8L22.3 -41.7L27.0 -50.4L9.3 -36.3L1.3 -38.1L-1.5 -41.0L-2.7 -46.2L-6.0 -46.3L-8.8 -47.9L-5.1 -50.8L0.9 -51.8L6.5 -56.3L1.4 -59.5L6.2 -63.0L11.7 -71.9L12.9 -80.0L9.2 -86.3L4.0 -89.1L3.1 -92.7L5.4 -96.6L12.1 -99.6L8.4 -101.2L5.9 -105.6L7.8 -114.0L11.1 -120.4L21.0 -120.2L23.2 -122.0L28.2 -120.4L18.5 -132.2L20.8 -136.8L21.4 -142.7L33.8 -144.3L31.1 -149.5L31.6 -160.3L33.5 -163.2L37.1 -164.6L41.5 -163.6L45.0 -159.6L53.5 -163.3L55.7 -159.9L65.0 -162.7L92.9 -166.4L100.3 -168.4L108.1 -167.4L106.0 -160.1L105.9 -153.4L102.0 -147.9L72.5 -125.3L70.9 -118.6L77.6 -116.5L69.2 -107.8L67.0 -101.5L72.6 -101.7L94.8 -109.7L98.9 -109.8L108.7 -107.4L115.6 -108.6L138.8 -108.0L145.2 -109.3L149.6 -107.7L153.2 -103.7L156.4 -95.1L147.3 -81.7L144.7 -71.9L138.3 -57.0L131.8 -48.7L129.1 -42.8L122.3 -35.2L118.7 -33.3L108.3 -31.1L98.3 -25.8L114.5 -28.0L123.4 -23.0L122.5 -19.0L119.0 -15.7L110.9 -15.2L103.4 -8.1L96.4 -4.9L83.7 -7.1L80.2 -9.0L87.0 -4.1L108.3 -0.1L116.3 -4.8L125.3 -4.8L142.5 2.9L154.5 17.3L161.2 23.7L170.0 57.6L177.2 77.7L180.2 80.8L198.6 90.2L210.0 104.3L220.8 114.2L218.1 116.6L216.2 120.3L219.9 130.0L228.5 146.1L225.5 144.1L221.2 143.9L213.7 138.1L206.5 139.4L199.0 138.8L205.7 140.7L212.9 140.9L228.9 154.8L234.4 163.1L237.5 174.0L235.3 179.0L225.8 189.9L234.6 196.0L238.6 194.9L245.3 186.1L250.8 185.5L264.2 186.6L276.5 190.7L287.0 199.3L289.2 204.1L290.4 217.1L283.3 240.9L277.7 246.8L274.0 249.1L270.9 248.2L272.5 256.1L269.2 258.7L265.8 259.8L260.3 258.4L252.6 263.2L258.2 265.7L259.3 268.4L257.9 273.1L254.5 275.3L243.3 277.5L240.1 279.7L244.1 278.5L246.8 279.6L250.1 284.7L257.9 286.3L271.8 285.3L277.8 286.1L277.2 297.5L275.9 299.1L263.8 305.8L260.5 313.4L253.4 312.9L250.1 315.9L235.5 322.8L231.8 323.6L216.3 320.3L206.9 320.6L194.2 323.5L181.1 318.5L175.3 317.7L170.3 315.2L173.4 320.0L166.4 324.5L153.2 326.6L146.9 325.9L149.5 332.0L146.7 333.5L134.8 331.4L133.1 331.8L131.7 333.7L127.3 332.8L118.6 327.1L113.9 326.1L110.1 326.5L94.8 331.7L91.6 337.0L88.0 351.1L84.3 356.2L80.0 356.9L64.7 346.6L60.9 348.8L53.0 349.9L44.5 353.0L33.8 361.1L29.7 368.7L25.6 369.8L21.9 366.0L17.7 364.6L10.6 368.0L9.3 366.3L9.2 363.0L12.5 358.9L21.2 355.8L28.8 347.8L34.0 340.2L38.2 337.9L39.4 334.8L50.0 322.7L52.3 310.2L60.9 307.1L65.0 297.0L78.1 294.4L87.0 294.5L95.9 296.5L104.9 295.9L108.5 293.2L114.6 283.5L131.7 262.6L122.7 270.0ZM-12.1 116.1L-15.3 115.7L-19.1 117.8L-28.5 118.0L-28.4 111.4L-29.2 110.1L-34.3 108.3L-39.3 98.3L-43.7 96.1L-49.4 102.9L-47.7 106.7L-54.1 113.4L-55.3 114.1L-57.4 113.0L-64.7 112.7L-67.5 110.0L-74.2 108.2L-75.4 103.9L-84.3 95.8L-85.3 93.3L-81.4 89.6L-70.4 84.6L-70.1 83.3L-75.4 80.1L-76.4 78.1L-74.9 76.9L-69.8 77.3L-62.7 73.7L-58.9 66.9L-56.1 57.5L-50.1 53.5L-48.6 55.8L-45.6 56.3L-42.9 54.2L-39.7 47.8L-30.3 47.2L-21.8 44.3L-8.7 45.7L-5.1 50.2L-3.2 57.4L1.1 64.5L7.0 70.7L7.2 74.4L0.7 78.9L0.9 81.6L6.1 79.7L12.1 80.2L14.1 83.0L16.3 90.4L15.8 94.1L12.6 89.6L8.7 87.4L9.6 91.8L9.2 97.9L13.0 98.5L11.1 104.6L2.8 107.0L-1.5 116.1L-4.5 118.5L-8.3 118.0L-12.1 116.1ZM-11.3 -150.5L-16.2 -139.7L-18.0 -139.4L-19.8 -136.7L-24.8 -133.7L-20.3 -133.7L-19.1 -132.6L-19.9 -129.2L-29.8 -122.3L-34.0 -117.1L-36.2 -117.1L-40.1 -112.3L-42.3 -113.0L-44.9 -116.2L-36.3 -123.1L-44.0 -128.1L-41.2 -131.1L-45.2 -133.9L-45.1 -139.3L-42.2 -142.1L-37.4 -139.3L-31.4 -139.7L-33.3 -146.6L-12.8 -159.2L-11.2 -155.0L-11.3 -150.5ZM-9.2 -97.0L-10.1 -91.0L-9.0 -85.1L-6.4 -83.2L0.7 -81.9L7.4 -82.3L8.7 -81.2L7.7 -77.9L-1.9 -68.4L-4.3 -68.8L-5.1 -78.1L-9.9 -76.9L-16.1 -78.1L-20.6 -85.9L-29.5 -88.2L-32.8 -93.1L-30.6 -96.4L-28.2 -95.6L-25.9 -97.2L-27.2 -100.6L-18.1 -103.1L-17.4 -107.1L-15.4 -107.4L-13.2 -106.1L-10.1 -102.0L-9.2 -97.0ZM174.4 -286.1L175.2 -281.8L177.1 -282.9L180.1 -278.7L184.1 -280.4L178.5 -253.1L174.8 -245.1L172.6 -247.1L175.6 -259.8L175.0 -262.2L173.8 -264.4L167.8 -263.5L167.1 -266.5L161.8 -267.4L160.8 -270.3L167.2 -270.9L171.9 -273.5L169.0 -281.9L164.4 -283.5L170.4 -290.0L172.3 -290.7L174.6 -290.6L174.4 -286.1Z";
 const CX_STAR = n => '★'.repeat(n) + '☆'.repeat(3-n);
 let cxFilter = null, cxCity = 0;
@@ -1960,8 +2039,11 @@ function cxDrawMap(){
     const pin = el('circle',{class:'cx-pin',cx:c.x,cy:c.y,r:R});
     pin.style.fill=col; pin.dataset.reg=c.reg;
     pin.addEventListener('click',()=>cxShowCity(i)); g.appendChild(pin);
-    const lb = el('text',{class:'cx-lb',x:c.x<235?c.x+R+4.5:c.x-R-4.5,y:c.y+3,
-      'text-anchor':c.x<235?'start':'end'});
+    /* 隣接都市とラベルが重なるとこは左側に逃がす */
+    const LEFT = {'Liverpool':1,'Birmingham':1,'Newcastle':1};
+    const toLeft = LEFT[c.en] ? true : (c.x >= 235);
+    const lb = el('text',{class:'cx-lb',x: toLeft ? c.x-R-4.5 : c.x+R+4.5, y:c.y+3,
+      'text-anchor': toLeft ? 'end' : 'start'});
     lb.textContent=c.en.toUpperCase(); lb.dataset.l=i; gl.appendChild(lb);
   });
   document.getElementById('cxLeg').innerHTML = Object.keys(CX_REGION).map(k=>
@@ -2013,17 +2095,19 @@ function cxOpen(k){
     rival = `<div class="cx-rival"><div class="t"><div class="k">DERBY</div>
       <div class="v" style="color:var(--grey)">今季は該当なし<small>宿敵が1部におらん</small></div></div></div>`;
   }else{
-    const d = ds[0];
-    const others = [d.a,d.b].concat(d.extra||[]).filter(x=>x!==k);
-    if(others.length > 1){
-      /* 3クラブ以上が同じ枠に入るダービーは相手が一意に決まらんから、名前だけ見せる */
-      rival = `<div class="cx-rival"><div class="t"><div class="k">DERBY</div>
-        <div class="v">${esc(d.jp)}<small>${others.map(x=>esc(jp(x))).join('・')}　<span class="cx-stars">${CX_STAR(d.rank)}</span></small></div></div></div>`;
-    }else{
+    /* 該当するダービーを全部出す（格の高い順）。宿敵が複数おるクラブは全員ぶん並ぶ */
+    rival = ds.map((d,i)=>{
+      const others = [d.a,d.b].concat(d.extra||[]).filter(x=>x!==k);
+      const head = i===0 ? `<div class="k">DERBY</div>` : '';
+      if(others.length > 1){
+        /* 3クラブ以上が同じ枠に入るダービーは相手が一意に決まらんから、名前だけ見せる */
+        return `<div class="cx-rival"><div class="t">${head}
+          <div class="v">${esc(d.jp)}<small>${others.map(x=>esc(jp(x))).join('・')}　<span class="cx-stars">${CX_STAR(d.rank)}</span></small></div></div></div>`;
+      }
       const opp = others[0];
-      rival = `<div class="cx-rival">${crest(opp,26)}<div class="t"><div class="k">DERBY</div>
+      return `<div class="cx-rival">${crest(opp,26)}<div class="t">${head}
         <div class="v">宿敵：${esc(jp(opp))}<small>${esc(d.jp)}　<span class="cx-stars">${CX_STAR(d.rank)}</span></small></div></div></div>`;
-    }
+    }).join('');
   }
   const ov = document.createElement('div'); ov.className='cx-ov';
   ov.innerHTML = `<div class="cx-sheet">
@@ -2453,6 +2537,29 @@ function bind(){
   });
 
   /* ひとことメモ */
+  /* 試合前コメント：指名した本人だけ。キックオフまで直せる */
+  document.querySelectorAll('[data-notego]').forEach(b=>b.onclick=async()=>{
+    const key=b.dataset.notego, f=byKey[key];
+    if(!f || Date.now()>=f.ko){ toast('キックオフ済み。もう書けへん'); return; }
+    const el=document.querySelector(`[data-notein="${key}"]`);
+    const v=(el && el.value||'').trim().slice(0,120);
+    if(!v){ toast('ひとこと入れてや'); return; }
+    const noms = nomsOf(f.gw);
+    const nomBy = Object.keys(noms).find(p=>noms[p]===key);
+    if(!nomBy){ toast('指名がないで'); return; }
+    if(!await verify(nomBy)) return;
+    db.ref(`${ROOT}/note/${key}`).set(v);
+    toast('コメント投稿した');
+  });
+  document.querySelectorAll('[data-noteedit]').forEach(b=>b.onclick=async()=>{
+    const key=b.dataset.noteedit, f=byKey[key];
+    if(!f || Date.now()>=f.ko){ toast('キックオフ済み。もう直せん'); return; }
+    const cur=(state.note||{})[key]||'';
+    if(!await ask(`このコメントを消して書き直す？\n\n「${cur}」`)) return;
+    db.ref(`${ROOT}/note/${key}`).remove();
+    toast('消したで。書き直してや');
+  });
+
   document.querySelectorAll('[data-cmtgo]').forEach(b=>b.onclick=()=>{
     const key=b.dataset.cmtgo;
     const el=document.querySelector(`[data-cmtin="${key}"]`);
