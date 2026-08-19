@@ -111,13 +111,16 @@ input,select{font-family:var(--body),'Noto Sans JP',sans-serif}
 
 /* ── tabs ── */
 .tabwrap{position:sticky;top:80px;z-index:29}
+#view{background:#fff;min-height:60vh}
 .tabwrap::after{content:'';position:absolute;top:0;right:0;bottom:0;width:26px;pointer-events:none;
   background:linear-gradient(90deg,rgba(55,0,60,0),var(--purple))}
-.tabs{display:flex;background:var(--purple);padding:0 6px;
+.tabs{display:flex;background:var(--purple);padding:8px 6px 0;
   overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none}
 .tabs::-webkit-scrollbar{display:none}
-.tabs button{flex:0 0 auto;min-width:22vw;font-size:13.5px;font-weight:600;color:rgba(255,255,255,.6);background:none;border:none;padding:15px 12px 13px;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap}
-.tabs button.on{color:#fff;border-bottom-color:var(--green-lt)}
+.tabs button{flex:0 0 auto;min-width:22vw;font-size:13.5px;font-weight:600;
+  color:rgba(255,255,255,.6);background:none;border:none;cursor:pointer;white-space:nowrap;
+  padding:12px 12px 13px;margin:0 1px;border-radius:12px 12px 0 0;transition:background .15s,color .15s}
+.tabs button.on{background:#fff;color:var(--purple);font-weight:800}
 
 /* ── matchweek bar ── */
 .mwbar{display:flex;align-items:center;gap:8px;padding:11px 14px;border-bottom:1px solid var(--line);background:#fff}
@@ -531,6 +534,7 @@ input,select{font-family:var(--body),'Noto Sans JP',sans-serif}
       <button data-tab="season">年間予想</button>
       <button data-tab="club">クラブ</button>
       <button data-tab="sound">テーマ</button>
+      <button data-tab="members">メンバー</button>
       <button data-tab="rules">ルール</button>
     </div>
     </div>
@@ -1451,6 +1455,7 @@ function render(){
   else if(curTab==='money') v.innerHTML = viewMoney();
   else if(curTab==='club'){ v.innerHTML = viewClub(); }
   else if(curTab==='sound') v.innerHTML = viewSound();
+  else if(curTab==='members') v.innerHTML = viewMembers();
   else if(curTab==='rules') v.innerHTML = viewRules();
   else v.innerHTML = viewSeason();
   lastSig = timeSig();
@@ -1967,8 +1972,12 @@ function viewMoney(){
         的中率 <b>${s.bet?Math.round(s.hit/s.bet*100):0}%</b> ／ 最高連勝 <b>${s.best}</b></div></div>`;
     html += themePlayer();
   }
-  /* メンバー一覧（アイコンと注目クラブの置き場） */
-  html += `<div class="divider"></div><div class="sec"><h2>メンバー</h2>
+  return html;
+}
+
+/* ── メンバータブ ── */
+function viewMembers(){
+  let html = `<div class="sec"><h2>メンバー</h2>
     <p>自己紹介はアイコンをタップして本人が書ける。写真は右上の丸アイコン、注目クラブは年間予想タブから</p></div>`;
   html += `<div class="tbl">` + PLAYERS.map(p=>{
     const c = favOf(p);
@@ -1978,7 +1987,6 @@ function viewMoney(){
       ${bio?`<span class="bi">${esc(bio)}</span>`:''}</div>
       <span class="rec">${c&&CLUBS[c] ? esc(jp(c)) : '注目クラブ未選択'}</span></div>`;
   }).join('') + `</div>`;
-
   return html;
 }
 
