@@ -679,7 +679,7 @@ const KICKOFF_1ST = Math.min(...FIXTURES.filter(f=>f.gw===1).map(f=>f.ko));
 const byKey = {}; FIXTURES.forEach(f=>byKey[f.key]=f);
 const fxOf = gw => FIXTURES.filter(f=>f.gw===gw).sort((x,y)=>x.ko-y.ko);
 
-let state = null, db = null, curGw = 1, curTab = 'match', tableMode = 'short';
+let state = null, db = null, curGw = 1, curTab = 'match', tableMode = 'short', lastScrolledTab = null;
 let icons = {};       /* {名前: dataURL} 別ノードから読む */
 let sideDraft = {};   /* 年間予想の編集中の選択 */
 
@@ -1456,9 +1456,13 @@ function render(){
   renderHero();
   document.querySelectorAll('#tabs button').forEach(b=>
     b.classList.toggle('on', b.dataset.tab===curTab));
-  /* 選んだタブが画面外にあったら見える位置まで寄せる */
-  const onTab = document.querySelector('#tabs button.on');
-  if(onTab && onTab.scrollIntoView) onTab.scrollIntoView({inline:'nearest',block:'nearest'});
+  /* 選んだタブが画面外にあったら見える位置まで寄せる。
+     再描画のたびに走るとスクロールが暴れるので、タブが変わったときだけ */
+  if(lastScrolledTab !== curTab){
+    lastScrolledTab = curTab;
+    const onTab = document.querySelector('#tabs button.on');
+    if(onTab && onTab.scrollIntoView) onTab.scrollIntoView({inline:'nearest',block:'nearest'});
+  }
   const v=document.getElementById('view');
   if(curTab==='match') v.innerHTML = viewMatch();
   else if(curTab==='table') v.innerHTML = viewTable();
@@ -1742,11 +1746,11 @@ function ticket(f, nomBy){
     ${fxLine(f)}${condLine}${nomNote(f, nomBy, me)}${picksHtml}${rows}${ovHtml}${extra}
     <div style="height:11px"></div></div>`;
 }
-/* 指名した本人の試合前コメント。全員が読める。キックオフまでは何回でも直せる */
+/* 指名した本人の試合前コメント。全員が読める。賭けの締切までは何回でも直せる */
 function nomNote(f, nomBy, me){
   const txt = (state.note||{})[f.key];
   const mine = !!(me && nomBy && me===nomBy);
-  const open = Date.now() < f.ko;   /* キックオフで固定 */
+  const open = !isLocked(f);   /* 賭けの締切（KO15分前）で固定。開票後に書き換えさせん */
   if(txt){
     const ed = (mine && open)
       ? `<button class="ed" data-noteedit="${f.key}">直す</button>` : '';
@@ -1761,13 +1765,32 @@ function nomNote(f, nomBy, me){
   if(mine && open){
     return `<div class="nnoteadd">
       <textarea data-notein="${f.key}" rows="3" maxlength="300"
-        placeholder="なんでこの試合を選んだか、注目選手、見どころなど（300字まで・改行OK）"></textarea>
+        placeholder="なんでこの試合を選んだか、注目選手、見どころなど（300字まで・改行OK。締切まで直せる）"></textarea>
       <button data-notego="${f.key}">投稿</button></div>`;
   }
   return '';
 }
 /* 自分の選択の控え（端末内のみ。Firebaseには暗号文だけ） */
 const lpKey = () => ROOT+'-mypicks';
+/* 自分の賭けの控えをFirebaseの暗号データから作り直す。
+   控えは端末ごとに別なので、アプリとブラウザで食い違うことがある。
+   本物はFirebase側なので、毎回そっちに合わせて上書きする */
+async function syncMyPicks(){
+  const me = meNow(); if(!me || !state) return;
+  const enc = state.enc || {}, picks = state.picks || {};
+  for(const key of Object.keys(byKey)){
+    let truth = (picks[key]||{})[me] || null;       /* 開示済みならそのまま */
+    if(truth == null){
+      const blob = (enc[key]||{})[me];
+      if(blob){
+        const v = await unseal(key, me, blob);
+        if(v && validPick(key, v)) truth = v;
+      }
+    }
+    if(localPick(key, me) !== truth) setLocalPick(key, me, truth);
+  }
+}
+
 function localPick(key, who){
   try{ const m=JSON.parse(localStorage.getItem(lpKey())||'{}'); return (m[key]||{})[who]||null; }catch(e){ return null; }
 }
@@ -2475,6 +2498,11 @@ function viewRules(){
     かぶってもOKで、年間予想と同じ日にロック。<br><br>
     <b>アイコン</b>：右上の丸アイコンを押したら写真を変えられる。いつでも変更OK。
     設定したら名前の横にアイコンと、注目クラブのエンブレムが出る。<br><br>
+    <b>試合前コメント</b>：指名した本人だけが書ける（300字）。全員が読めて、
+    <b>賭けの締切まで</b>は何回でも直せる。締切で開票されるから、
+    みんなの賭けを見てから書き換えるのは無理や。<br><br>
+    <b>自己紹介</b>：メンバータブでアイコンをタップしたら本人が書ける（100字）。
+    名前の下に吹き出しで出る。<br><br>
     <b>PIN</b>：初めて自分の行を触るとき4〜8桁のPINを設定する。以降その行は本人しか触れん。
     忘れたら管理人（${esc(ADMIN)}）にリセットしてもらえ。<br><br>
     <b>順位表</b>：入れたスコアから自動で計算される。1試合ずつ保存してもええから、
@@ -2586,10 +2614,10 @@ function bind(){
   });
 
   /* ひとことメモ */
-  /* 試合前コメント：指名した本人だけ。キックオフまで直せる */
+  /* 試合前コメント：指名した本人だけ。賭けの締切まで直せる */
   document.querySelectorAll('[data-notego]').forEach(b=>b.onclick=async()=>{
     const key=b.dataset.notego, f=byKey[key];
-    if(!f || Date.now()>=f.ko){ toast('キックオフ済み。もう書けへん'); return; }
+    if(!f || isLocked(f)){ toast('締切済み。もう書けへん'); return; }
     const el=document.querySelector(`[data-notein="${key}"]`);
     const v=(el && el.value||'').trim().slice(0,300);
     if(!v){ toast('ひとこと入れてや'); return; }
@@ -2602,11 +2630,19 @@ function bind(){
   });
   document.querySelectorAll('[data-noteedit]').forEach(b=>b.onclick=async()=>{
     const key=b.dataset.noteedit, f=byKey[key];
-    if(!f || Date.now()>=f.ko){ toast('キックオフ済み。もう直せん'); return; }
+    if(!f || isLocked(f)){ toast('締切済み。もう直せん'); return; }
+    const noms = nomsOf(f.gw);
+    const nomBy = Object.keys(noms).find(p=>noms[p]===key);
+    if(!nomBy){ toast('指名がないで'); return; }
     const cur=(state.note||{})[key]||'';
-    if(!await ask(`このコメントを消して書き直す？\n\n「${cur}」`)) return;
-    db.ref(`${ROOT}/note/${key}`).remove();
-    toast('消したで。書き直してや');
+    /* 今の文章を入れた状態で開く。消してから打ち直させると長文がしんどい */
+    const v = await askText('試合前コメントを直す','空にして保存したら消えるで', cur, 300);
+    if(v===null) return;
+    if(!await verify(nomBy)) return;
+    const t=v.trim().slice(0,300);
+    if(!t){ db.ref(`${ROOT}/note/${key}`).remove(); toast('コメントを消した'); return; }
+    db.ref(`${ROOT}/note/${key}`).set(t);
+    toast('コメントを直した');
   });
 
   /* 長い試合前コメントの開閉 */
@@ -2628,9 +2664,12 @@ function bind(){
   document.querySelectorAll('[data-cmtedit]').forEach(b=>b.onclick=async()=>{
     const key=b.dataset.cmtedit;
     const cur=(state.cmt||{})[key]||'';
-    if(!await ask(`このメモを消して書き直す？\n\n「${cur}」`)) return;
-    db.ref(`${ROOT}/cmt/${key}`).remove();
-    toast('消したで。書き直してや');
+    const v = await askText('試合後メモを直す','空にして保存したら消えるで', cur, 60);
+    if(v===null) return;
+    const t=v.trim().slice(0,60);
+    if(!t){ db.ref(`${ROOT}/cmt/${key}`).remove(); toast('メモを消した'); return; }
+    db.ref(`${ROOT}/cmt/${key}`).set(t);
+    toast('メモを直した');
   });
 
   /* 指名の取り消し（指名した本人・締切前だけ） */
@@ -2645,14 +2684,16 @@ function bind(){
     const n = Object.keys((state.enc||{})[key]||{}).length
             + Object.keys((state.picks||{})[key]||{}).length;
     if(!await ask(`${jp(f.h)} vs ${jp(f.a)} の指名を取り消す？\n\n`+
-      `入っとる投票 ${n}件は全部消える（戻せへん）\n`+
+      `入っとる投票 ${n}件とコメントは全部消える（戻せへん）\n`+
       `取り消したら、この節の別の試合をもう一回指名できる`)) return;
     await db.ref().update({
       [`${ROOT}/noms/gw${f.gw}/${me}`]: null,
       [`${ROOT}/bet/${key}`]: null,
       [`${ROOT}/enc/${key}`]: null,
       [`${ROOT}/picks/${key}`]: null,
-      [`${ROOT}/ovr/${key}`]: null
+      [`${ROOT}/ovr/${key}`]: null,
+      [`${ROOT}/note/${key}`]: null,
+      [`${ROOT}/cmt/${key}`]: null
     });
     PLAYERS.forEach(p=>setLocalPick(key,p,null));
     toast('指名を取り消した。下から選び直してや');
@@ -2945,8 +2986,9 @@ function askText(title, ph){
     document.getElementById('app').style.display='block';
     pruneLocalPicks();
     await autoReveal();
+    await syncMyPicks();
     const ae=document.activeElement;
-    if(ae && (ae.tagName==='INPUT')) return;   /* 入力中は再描画で消さん */
+    if(ae && (ae.tagName==='INPUT' || ae.tagName==='TEXTAREA')) return;   /* 入力中は再描画で消さん */
     render();
   }, err=>{
     showErr('データベースに接続できへん：'+esc(err.message)+
@@ -2966,7 +3008,7 @@ function askText(title, ph){
     if(!state) return;
     await autoReveal();
     const ae=document.activeElement;
-    if(ae && ae.tagName==='INPUT') return;
+    if(ae && (ae.tagName==='INPUT' || ae.tagName==='TEXTAREA')) return;
     if(timeSig() !== lastSig) render();   /* 締切をまたいだ・キックオフした */
     else tickText();                      /* いつもはこっち */
   }, 30000);
