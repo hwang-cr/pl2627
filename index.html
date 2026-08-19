@@ -117,7 +117,7 @@ input,select{font-family:var(--body),'Noto Sans JP',sans-serif}
 .tabs{display:flex;background:var(--purple);padding:8px 6px 0;
   overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;scrollbar-width:none}
 .tabs::-webkit-scrollbar{display:none}
-.tabs button{flex:0 0 auto;min-width:22vw;font-size:13.5px;font-weight:600;
+.tabs button{flex:0 0 auto;min-width:22vw;font-size:12.5px;font-weight:600;
   color:rgba(255,255,255,.6);background:none;border:none;cursor:pointer;white-space:nowrap;
   padding:12px 12px 13px;margin:0 1px;border-radius:12px 12px 0 0;transition:background .15s,color .15s}
 .tabs button.on{background:#fff;color:var(--purple);font-weight:800}
@@ -131,7 +131,9 @@ input,select{font-family:var(--body),'Noto Sans JP',sans-serif}
 .mwbar .now i{display:block;font-style:normal;font-size:10px;color:var(--grey);font-weight:500;margin-top:1px}
 
 .sec{padding:16px 14px 4px}
-.sec h2{font-family:var(--disp);font-size:15px;font-weight:700;letter-spacing:-.01em}
+.sec h2{font-size:20px;font-weight:900;letter-spacing:-.02em;line-height:1.25}
+.sec h2 .kick{display:block;font-family:var(--disp);font-size:9.5px;font-weight:700;
+  letter-spacing:.22em;color:var(--green);margin-bottom:3px}
 .sec p{font-size:11.5px;color:var(--grey);font-weight:500;margin-top:3px;line-height:1.6}
 .daterow{font-family:var(--disp);font-size:13.5px;font-weight:700;padding:14px 15px 7px}
 .divider{height:8px;background:var(--panel);margin-top:18px}
@@ -1578,7 +1580,7 @@ function viewMatch(){
 
   /* 指名済み＝賭けチケット */
   const tickets = fs.filter(f=>taken.includes(f.key));
-  html += `<div class="sec"><h2>指名された試合</h2>
+  html += `<div class="sec"><h2><span class="kick">NOMINATED</span>指名された試合</h2>
     <p>各節1人1試合まで指名できる。指名した人が賭けの種類も決める。<br>
     3択 / ハンデ付き2択 / 点差多択・<b style="color:var(--purple)">1試合 ${STAKE.toLocaleString()}ペリカ固定</b></p></div>`;
   html += tickets.length
@@ -1587,7 +1589,7 @@ function viewMatch(){
 
   /* 全試合 */
   const left = PLAYERS.filter(p=>!noms[p]);
-  html += `<div class="divider"></div><div class="sec"><h2>第${curGw}節 全試合</h2>
+  html += `<div class="divider"></div><div class="sec"><h2><span class="kick">ALL FIXTURES</span>第${curGw}節 全試合</h2>
     <p>${left.length ? `未指名：${left.map(esc).join('・')}` : '全員が指名済み'}<br>
     <span style="color:var(--grey)">指名はキックオフ<b>24時間前</b>まで。それ以降は指名も変更もでけへん</span></p></div>`;
   let lastDay='';
@@ -1802,7 +1804,7 @@ function formOf(code, n){
 function viewTable(){
   const rows = leagueTable();
   let html = mwBar('スコアを入れたら順位表に反映される');
-  html += `<div class="sec"><h2>第${curGw}節のスコア入力</h2>
+  html += `<div class="sec"><h2><span class="kick">SCORE ENTRY</span>第${curGw}節のスコア入力</h2>
     <p>1試合ずつでも保存できる。延期になった試合は空欄のままでOK、後日入れ直したらええ。</p></div>`;
   html += `<div class="sg">` + fxOf(curGw).map(f=>{
     const s = scoreOf(f.key);
@@ -1815,7 +1817,7 @@ function viewTable(){
   }).join('') + `</div>`;
   html += `<div style="padding:0 12px"><button class="sbtn" id="saveGrid">入力したスコアを保存</button></div>`;
 
-  html += `<div class="divider"></div><div class="sec"><h2>プレミアリーグ順位表</h2>
+  html += `<div class="divider"></div><div class="sec"><h2><span class="kick">LEAGUE TABLE</span>プレミアリーグ順位表</h2>
     <p>入力済みスコアから自動計算</p></div>`;
 
   /* Short / Full / Form の切替（公式と同じ） */
@@ -1876,7 +1878,7 @@ function viewTable(){
 function viewMoney(){
   const { totals, rec, st } = grandTotals();
   const ranked = [...PLAYERS].sort((a,b)=>totals[b]-totals[a]);
-  let html = `<div class="sec"><h2>収支ランキング</h2>
+  let html = `<div class="sec"><h2><span class="kick">BALANCE</span>収支ランキング</h2>
     <p>1試合 1,000ペリカ・年間予想も含む合計</p></div>`;
   html += `<div class="tbl">` + ranked.map((p,i)=>{
     const v=totals[p], cls=v>0?'up':v<0?'dn':'ze';
@@ -1886,7 +1888,7 @@ function viewMoney(){
   }).join('') + `</div>`;
 
   /* 戦績 */
-  html += `<div class="divider"></div><div class="sec"><h2>戦績スタッツ</h2><p></p></div>`;
+  html += `<div class="divider"></div><div class="sec"><h2><span class="kick">STATS</span>戦績スタッツ</h2><p></p></div>`;
   const bet = PLAYERS.filter(p=>st[p].bet>0);
   if(bet.length){
     const hr=[...bet].sort((a,b)=>(st[b].hit/st[b].bet)-(st[a].hit/st[a].bet)||st[b].bet-st[a].bet);
@@ -1931,7 +1933,7 @@ function viewMoney(){
   }
 
   /* MVP：獲得数ランキング → 節ごとの一覧 */
-  html += `<div class="divider"></div><div class="sec"><h2>MVP</h2>
+  html += `<div class="divider"></div><div class="sec"><h2><span class="kick">MATCHWEEK MVP</span>節ごとのMVP</h2>
     <p>その節で一番稼いだ人がMVP。取った回数を競う</p></div>`;
   const mv = PLAYERS.filter(p=>st[p].mvp>0).sort((a,b)=>st[b].mvp-st[a].mvp);
   if(mv.length){
@@ -1977,7 +1979,7 @@ function viewMoney(){
 
 /* ── メンバータブ ── */
 function viewMembers(){
-  let html = `<div class="sec"><h2>メンバー</h2>
+  let html = `<div class="sec"><h2><span class="kick">MEMBERS</span>メンバー</h2>
     <p>自己紹介はアイコンをタップして本人が書ける。写真は右上の丸アイコン、注目クラブは年間予想タブから</p></div>`;
   html += `<div class="tbl">` + PLAYERS.map(p=>{
     const c = favOf(p);
@@ -2044,7 +2046,7 @@ function viewClub(){
     <g id="cxDots"></g><g id="cxLabels"></g></svg>
     <div class="cx-leg" id="cxLeg"></div></div>
     <div class="cx-cityout" id="cxCityOut"></div><div id="cxByReg"></div>`;
-  html += `<div class="divider"></div><div class="sec"><h2>ダービー</h2>
+  html += `<div class="divider"></div><div class="sec"><h2><span class="kick">DERBIES</span>ダービー</h2>
     <p>★の数は対立の格。公式な「三大」の決まりは無いから、広く別格とされとる4つを★★★にしてある</p></div>`;
   const RN = {3:['別格','イングランドを代表する対戦'],2:['激しい','歴史の重みがある一戦'],1:['地域の一戦','地元の意地がかかる']};
   [3,2,1].forEach(r=>{
@@ -2174,7 +2176,7 @@ function cxOpen(k){
 
 /* ── テーマタブ ── */
 function viewSound(){
-  let html = `<div class="sec"><h2>${esc(CREW)}のテーマ曲</h2>
+  let html = `<div class="sec"><h2><span class="kick">CREW ANTHEM</span>${esc(CREW)}のテーマ曲</h2>
     <p>${esc(CREW_SONG_TITLE)}</p></div>`;
   html += `<div class="ytwrap"><iframe loading="lazy"
     src="https://www.youtube-nocookie.com/embed/${esc(CREW_SONG_YT)}"
@@ -2182,7 +2184,7 @@ function viewSound(){
     allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
     allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>`;
 
-  html += `<div class="divider"></div><div class="sec"><h2>プレミアリーグテーマ曲</h2><p></p></div>`;
+  html += `<div class="divider"></div><div class="sec"><h2><span class="kick">PREMIER LEAGUE ANTHEM</span>プレミアリーグテーマ曲</h2><p></p></div>`;
   html += themePlayer();
   html += `<div style="height:20px"></div>`;
   return html;
@@ -2203,11 +2205,11 @@ function viewSeason(){
   html += sideCard('relegation','降格3クラブ',SIDE_STAKE,'3クラブ<b style="color:var(--pink)">全部</b>当てた人だけが勝ち。順番は問わへん。',3,locked,me);
   html += scorerCard(locked,me);
   html += sackCard(locked,me);
-  html += `<div class="divider"></div><div class="sec"><h2>注目クラブ</h2>
+  html += `<div class="divider"></div><div class="sec"><h2><span class="kick">MY CLUB</span>注目クラブ</h2>
     <p>賭けやない。今季どこを追いかけるかの表明や</p></div>`;
   html += favCard(me);
   html += `<div class="divider"></div>`;
-  html += `<div class="sec"><h2>結果の確定（管理人）</h2>
+  html += `<div class="sec"><h2><span class="kick">SETTLE RESULTS</span>結果の確定（管理人）</h2>
     <p>シーズン終盤に実際の結果を入れたら精算される</p></div>
     <div style="padding:0 12px"><button class="sbtn ghost" id="setActual">実際の結果を入力する</button></div>`;
   return html;
@@ -2430,7 +2432,7 @@ function setLocalSide(type, who, v){
 }
 
 function viewRules(){
-  return `<div class="sec"><h2>ルール</h2></div><div class="rulebox">
+  return `<div class="sec"><h2><span class="kick">RULES</span>ルール</h2></div><div class="rulebox">
     <b>賭け方</b>：各節、1人1試合を指名する（最大5試合）。指名された試合には全員が賭けられる。
     レートは<b>1試合1,000ペリカ固定</b>。<br><br>
     <b>賭けの種類</b>：指名した人が3つから選ぶ。<br>
