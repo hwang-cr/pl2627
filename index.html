@@ -200,6 +200,8 @@ input,select{font-family:var(--body),'Noto Sans JP',sans-serif}
 .pk.sel .dm{color:#fff}
 .nomctl{font-size:10.5px;font-weight:700;color:#fff;background:rgba(255,255,255,.18);border:none;border-radius:14px;padding:4px 11px;cursor:pointer}
 .nomctl.adm{background:rgba(233,0,82,.85)}
+.grantnote{display:inline-block;margin-top:5px;color:#B00040;font-weight:700}
+.nombtn.late{border-color:var(--pink);color:var(--pink)}
 .alog{margin:0 12px 18px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
 .alog .r{display:flex;gap:9px;align-items:baseline;padding:9px 12px;border-bottom:1px solid var(--line);font-size:11.5px;line-height:1.6}
 .alog .r:last-child{border-bottom:none}
@@ -715,6 +717,10 @@ const isLocked = f => Date.now() > deadlineOf(f);
 /* 指名まわりの締切。賭けより早く閉まる */
 const nomDeadlineOf = f => f.ko - NOM_LOCK_MS;
 const nomOpen = f => Date.now() < nomDeadlineOf(f);
+/* 管理人が渡した特例枠。渡された人はその節だけ、指名の締切を過ぎた試合も選べる。
+   賭けの締切（KO15分前）を過ぎた試合は対象外 */
+const hasGrant = (gw, p) => !!p && !!((state.grant||{})['gw'+gw]||{})[p];
+const nomOpenFor = (f, p) => nomOpen(f) || (hasGrant(f.gw, p) && !isLocked(f));
 
 /* ── エンブレム（公式CDN、失敗したらモノグラム） ── */
 function monogram(code,size){
@@ -1608,9 +1614,11 @@ function viewMatch(){
 
   /* 全試合 */
   const left = PLAYERS.filter(p=>!noms[p]);
+  const grantMe = hasGrant(curGw, me);
   html += `<div class="divider"></div><div class="sec"><h2><span class="kick">ALL FIXTURES</span>第${curGw}節 全試合</h2>
     <p>${left.length ? `未指名：${left.map(esc).join('・')}` : '全員が指名済み'}<br>
-    <span style="color:var(--grey)">指名はキックオフ<b>24時間前</b>まで。それ以降は指名も変更もでけへん</span></p></div>`;
+    <span style="color:var(--grey)">指名はキックオフ<b>24時間前</b>まで。それ以降は指名も変更もでけへん</span>
+    ${grantMe ? `<br><span class="grantnote">🎫 管理人から<b>特例枠</b>をもらっとる。締切を過ぎた試合も選べる（賭けの締切前まで）</span>` : ''}</p></div>`;
   let lastDay='';
   fs.forEach(f=>{
     const dk=dayKey(f.ko);
@@ -1619,13 +1627,15 @@ function viewMatch(){
     let foot;
     if(owner){
       foot = `<span class="nomtag on">${avatar(owner,20)}<b>${esc(owner)}</b> が指名済み</span>`;
-    } else if(!nomOpen(f)){
+    } else if(!nomOpenFor(f, me)){
       foot = `<span class="mini">指名の締切ずみ（KO24時間前）</span>`;
     } else if(me && noms[me]){
       foot = `<span class="mini" data-fdl="${f.key}">指名の締切まで ${remain(nomDeadlineOf(f)-Date.now())||'—'}</span>`;
     } else {
-      foot = `<button class="nombtn" data-nom="${f.key}">この試合を指名する</button>
-        <span class="mini" data-fdl="${f.key}">指名の締切まで ${remain(nomDeadlineOf(f)-Date.now())||'—'}</span>`;
+      const late = !nomOpen(f);   /* 締切後で、特例枠で出とる状態 */
+      foot = `<button class="nombtn${late?' late':''}" data-nom="${f.key}">この試合を指名する</button>
+        <span class="mini">${late ? '特例枠で指名できる（締切後）'
+          : '指名の締切まで '+(remain(nomDeadlineOf(f)-Date.now())||'—')}</span>`;
     }
     html += `<div class="fx${owner?' taken':''}">${fxLine(f)}<div class="fxfoot">${foot}</div></div>`;
   });
@@ -2044,7 +2054,9 @@ function adminLog(){
     const f = byKey[x.key];
     const m = f ? `${jp(f.h)} vs ${jp(f.a)}` : x.key;
     const body = x.act==='nomforce'
-      ? `第${x.gw}節・<b>${esc(x.who)}</b> の指名を解除（${m}／投票${x.votes||0}件も削除）`
+      ? `第${x.gw}節・<b>${esc(x.who)}</b> の指名を解除（${m}／投票${x.votes||0}件も削除）＋特例枠を付与`
+      : x.act==='grantuse'
+      ? `第${x.gw}節・<b>${esc(x.who)}</b> が特例枠で指名（${m}）`
       : esc(x.act);
     return `<div class="r"><span class="t">${stamp(x.at)}</span><span class="x">${body}</span></div>`;
   }).join('') + `</div>`;
@@ -2536,8 +2548,9 @@ function viewRules(){
     <b>自己紹介</b>：メンバータブでアイコンをタップしたら本人が書ける（100字）。
     名前の下に吹き出しで出る。<br><br>
     <b>指名の締切後の特例</b>：どうしても変えたいときは管理人（${esc(ADMIN)}）に頼む。
-    賭けの締切前なら解除できる。ただし<b>解除したことはメンバータブのログに残る</b>し、
-    入っとる投票とコメントは全部消える。<br><br>
+    賭けの締切前なら解除できて、そのとき<b>特例枠</b>がもらえる。枠があるうちは
+    <b>締切を過ぎた試合も自分で選び直せる</b>（賭けの締切前まで）。枠は1回使ったら消える。
+    解除も、枠を使った指名も<b>メンバータブのログに残る</b>。入っとる投票とコメントは全部消える。<br><br>
     <b>PIN</b>：初めて自分の行を触るとき4〜8桁のPINを設定する。以降その行は本人しか触れん。
     忘れたら管理人（${esc(ADMIN)}）にリセットしてもらえ。<br><br>
     <b>順位表</b>：入れたスコアから自動で計算される。1試合ずつ保存してもええから、
@@ -2579,8 +2592,10 @@ function bind(){
   /* 指名 */
   document.querySelectorAll('[data-nom]').forEach(b=>b.onclick=async()=>{
     const key=b.dataset.nom, f=byKey[key];
-    if(!f || !nomOpen(f)){ toast('指名の締切ずみ（KO24時間前まで）'); return; }
+    if(!f){ return; }
     const me=await whoAmI(); if(!me) return;
+    const viaGrant = !nomOpen(f);
+    if(!nomOpenFor(f, me)){ toast('指名の締切ずみ（KO24時間前まで）'); return; }
     const noms=nomsOf(f.gw);
     if(noms[me]){ toast('あんたはもうこの節で指名しとる'); return; }
     if(Object.values(noms).includes(key)){ toast('その試合はもう他の人が指名済みや'); return; }
@@ -2592,11 +2607,18 @@ function bind(){
     const ctTxt = condText(key,f);
     if(prevCfg) state.bet[key]=prevCfg; else delete state.bet[key];
     if(!await ask(`${jp(f.h)} vs ${jp(f.a)} を第${f.gw}節の指名にする？\n${ctTxt?ctTxt+'\n':''}\n${optTxt}\n\n全員がこの試合に賭けられるようになる`)) return;
-    db.ref().update({
+    const up = {
       [`${ROOT}/noms/gw${f.gw}/${me}`]: key,
       [`${ROOT}/bet/${key}`]: { ...cfg, by: me }
-    });
-    toast('指名した。みんな賭けられるで');
+    };
+    if(viaGrant){
+      /* 枠は1回使ったら消す。使ったこともログに残す */
+      const at = Date.now();
+      up[`${ROOT}/grant/gw${f.gw}/${me}`] = null;
+      up[`${ROOT}/alog/a${at}`] = { at, act:'grantuse', gw:f.gw, key, who:me };
+    }
+    db.ref().update(up);
+    toast(viaGrant ? '特例枠で指名した。みんな賭けられるで' : '指名した。みんな賭けられるで');
   });
 
   /* 賭ける */
@@ -2722,11 +2744,13 @@ function bind(){
     if(!await ask(`【管理人の特例】第${f.gw}節・${esc(owner)} の指名を解除する？\n\n`+
       `${jp(f.h)} vs ${jp(f.a)}\n`+
       `入っとる投票 ${n}件とコメントは全部消える（戻せへん）\n`+
+      `${esc(owner)} には特例枠が付いて、締切を過ぎた試合も選び直せるようになる\n`+
       `解除したことは全員に見えるログに残る`)) return;
     if(!await verifyAdmin()) return;
     const at = Date.now();
     await db.ref().update({
       [`${ROOT}/noms/gw${f.gw}/${owner}`]: null,
+      [`${ROOT}/grant/gw${f.gw}/${owner}`]: at,
       [`${ROOT}/bet/${key}`]: null,
       [`${ROOT}/enc/${key}`]: null,
       [`${ROOT}/picks/${key}`]: null,
@@ -2736,7 +2760,7 @@ function bind(){
       [`${ROOT}/alog/a${at}`]: { at, act:'nomforce', gw:f.gw, key, who:owner, votes:n }
     });
     PLAYERS.forEach(p=>setLocalPick(key,p,null));
-    toast(`${owner} の指名を解除した（ログに残したで）`);
+    toast(`${owner} の指名を解除＋特例枠を渡した`);
   });
 
   document.querySelectorAll('[data-nomdel]').forEach(b=>b.onclick=async()=>{
