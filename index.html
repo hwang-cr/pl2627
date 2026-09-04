@@ -199,6 +199,13 @@ input,select{font-family:var(--body),'Noto Sans JP',sans-serif}
 .pk .dm.txt{font-size:9px;letter-spacing:.06em}
 .pk.sel .dm{color:#fff}
 .nomctl{font-size:10.5px;font-weight:700;color:#fff;background:rgba(255,255,255,.18);border:none;border-radius:14px;padding:4px 11px;cursor:pointer}
+.nomctl.adm{background:rgba(233,0,82,.85)}
+.alog{margin:0 12px 18px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
+.alog .r{display:flex;gap:9px;align-items:baseline;padding:9px 12px;border-bottom:1px solid var(--line);font-size:11.5px;line-height:1.6}
+.alog .r:last-child{border-bottom:none}
+.alog .t{flex:none;font-family:var(--disp);font-size:10px;font-weight:700;color:var(--grey);width:78px}
+.alog .x{flex:1;font-weight:600;color:var(--purple)}
+.alog .x b{font-weight:800}
 .ovlog{margin:9px 11px 0;background:#FDE9F0;border-radius:9px;padding:8px 11px;font-size:10.5px;font-weight:600;color:#B00040;line-height:1.65}
 .ovlog b{font-weight:800}
 .favc{width:16px;height:16px;flex:none;vertical-align:-3px}
@@ -1738,7 +1745,11 @@ function ticket(f, nomBy){
 
   /* 指名した本人だけ、締切前なら指名を取り消して選び直せる */
   const nomCtl = (nomOpen(f) && me && nomBy && me===nomBy)
-    ? `<button class="nomctl" data-nomdel="${f.key}">指名を変える</button>` : '';
+    ? `<button class="nomctl" data-nomdel="${f.key}">指名を変える</button>`
+    /* 指名締切〜賭け締切のあいだだけ、管理人が特例で解除できる。
+       開票後は精算が絡むので出さん */
+    : (!nomOpen(f) && !isLocked(f) && nomBy)
+      ? `<button class="nomctl adm" data-nomforce="${f.key}">管理人が解除</button>` : '';
 
   return `<div class="tk">
     <div class="tk-top"><div class="who">指名：<b>${esc(nomBy||'?')}</b></div>
@@ -2020,7 +2031,28 @@ function viewMembers(){
       ${bio?`<span class="bi">${esc(bio)}</span>`:''}</div>
       <span class="rec">${c&&CLUBS[c] ? esc(jp(c)) : '注目クラブ未選択'}</span></div>`;
   }).join('') + `</div>`;
+  html += adminLog();
   return html;
+}
+/* 管理人がやった特例操作の履歴。全員が見れる */
+function adminLog(){
+  const L = Object.values(state.alog||{}).sort((a,b)=>b.at-a.at).slice(0,20);
+  let html = `<div class="divider"></div><div class="sec"><h2><span class="kick">ADMIN LOG</span>管理人の操作</h2>
+    <p>締切後の特例で指名を解除したときは、ここに残る。管理人（${esc(ADMIN)}）だけが操作できる</p></div>`;
+  if(!L.length) return html + `<div class="empty" style="margin:0 12px 18px">まだ特例の操作は無いで</div>`;
+  html += `<div class="alog">` + L.map(x=>{
+    const f = byKey[x.key];
+    const m = f ? `${jp(f.h)} vs ${jp(f.a)}` : x.key;
+    const body = x.act==='nomforce'
+      ? `第${x.gw}節・<b>${esc(x.who)}</b> の指名を解除（${m}／投票${x.votes||0}件も削除）`
+      : esc(x.act);
+    return `<div class="r"><span class="t">${stamp(x.at)}</span><span class="x">${body}</span></div>`;
+  }).join('') + `</div>`;
+  return html;
+}
+function stamp(ms){
+  const d = new Date(ms + 9*3600000);
+  return `${d.getUTCMonth()+1}/${d.getUTCDate()} ${String(d.getUTCHours()).padStart(2,'0')}:${String(d.getUTCMinutes()).padStart(2,'0')}`;
 }
 
 
@@ -2503,6 +2535,9 @@ function viewRules(){
     みんなの賭けを見てから書き換えるのは無理や。<br><br>
     <b>自己紹介</b>：メンバータブでアイコンをタップしたら本人が書ける（100字）。
     名前の下に吹き出しで出る。<br><br>
+    <b>指名の締切後の特例</b>：どうしても変えたいときは管理人（${esc(ADMIN)}）に頼む。
+    賭けの締切前なら解除できる。ただし<b>解除したことはメンバータブのログに残る</b>し、
+    入っとる投票とコメントは全部消える。<br><br>
     <b>PIN</b>：初めて自分の行を触るとき4〜8桁のPINを設定する。以降その行は本人しか触れん。
     忘れたら管理人（${esc(ADMIN)}）にリセットしてもらえ。<br><br>
     <b>順位表</b>：入れたスコアから自動で計算される。1試合ずつ保存してもええから、
@@ -2673,6 +2708,37 @@ function bind(){
   });
 
   /* 指名の取り消し（指名した本人・締切前だけ） */
+  /* 管理人の特例解除：指名締切を過ぎたあとでも指名を外せる。
+     誰の指名をいつ外したかは全員が見えるログに残す */
+  document.querySelectorAll('[data-nomforce]').forEach(b=>b.onclick=async()=>{
+    const key=b.dataset.nomforce, f=byKey[key];
+    if(!f){ return; }
+    if(isLocked(f)){ toast('賭けの締切ずみ。開票後は解除でけへん'); return; }
+    const noms=nomsOf(f.gw);
+    const owner=Object.keys(noms).find(p=>noms[p]===key);
+    if(!owner){ toast('指名がないで'); return; }
+    const n = Object.keys((state.enc||{})[key]||{}).length
+            + Object.keys((state.picks||{})[key]||{}).length;
+    if(!await ask(`【管理人の特例】第${f.gw}節・${esc(owner)} の指名を解除する？\n\n`+
+      `${jp(f.h)} vs ${jp(f.a)}\n`+
+      `入っとる投票 ${n}件とコメントは全部消える（戻せへん）\n`+
+      `解除したことは全員に見えるログに残る`)) return;
+    if(!await verifyAdmin()) return;
+    const at = Date.now();
+    await db.ref().update({
+      [`${ROOT}/noms/gw${f.gw}/${owner}`]: null,
+      [`${ROOT}/bet/${key}`]: null,
+      [`${ROOT}/enc/${key}`]: null,
+      [`${ROOT}/picks/${key}`]: null,
+      [`${ROOT}/ovr/${key}`]: null,
+      [`${ROOT}/note/${key}`]: null,
+      [`${ROOT}/cmt/${key}`]: null,
+      [`${ROOT}/alog/a${at}`]: { at, act:'nomforce', gw:f.gw, key, who:owner, votes:n }
+    });
+    PLAYERS.forEach(p=>setLocalPick(key,p,null));
+    toast(`${owner} の指名を解除した（ログに残したで）`);
+  });
+
   document.querySelectorAll('[data-nomdel]').forEach(b=>b.onclick=async()=>{
     const key=b.dataset.nomdel, f=byKey[key];
     if(!f || !nomOpen(f)){ toast('指名の締切ずみ（KO24時間前）。もう変えられへん'); return; }
