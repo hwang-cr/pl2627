@@ -201,6 +201,7 @@ input,select{font-family:var(--body),'Noto Sans JP',sans-serif}
 .nomctl{font-size:10.5px;font-weight:700;color:#fff;background:rgba(255,255,255,.18);border:none;border-radius:14px;padding:4px 11px;cursor:pointer}
 .nomctl.adm{background:rgba(233,0,82,.85)}
 .grantnote{display:inline-block;margin-top:5px;color:#B00040;font-weight:700}
+.nomctl.sm{margin-left:7px;padding:3px 9px;font-size:9.5px;vertical-align:1px}
 .nombtn.late{border-color:var(--pink);color:var(--pink)}
 .alog{margin:0 12px 18px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
 .alog .r{display:flex;gap:9px;align-items:baseline;padding:9px 12px;border-bottom:1px solid var(--line);font-size:11.5px;line-height:1.6}
@@ -781,6 +782,19 @@ function askPin(title,sub){
     ov.querySelector('.dlg-no').onclick=()=>done(null);
     i.addEventListener('keydown',e=>{ if(e.key==='Enter') done(i.value.trim()) });
     ov.onclick=e=>{ if(e.target===ov) done(null) };
+  });
+}
+/* 一覧から1人選ばせる。誰に特例枠を出すかを決めるのに使う */
+function pickFrom(title, list){
+  return new Promise(res=>{
+    const ov=document.createElement('div'); ov.className='ov';
+    ov.innerHTML=`<div class="dlg"><p>${esc(title)}</p>
+      <div class="who-chips">${list.map(p=>`<button class="who-chip" data-p="${esc(p)}">${esc(p)}</button>`).join('')}</div>
+      <div class="dlg-btns"><button class="dlg-no">やめる</button></div></div>`;
+    document.body.appendChild(ov);
+    ov.querySelectorAll('[data-p]').forEach(b=>b.onclick=()=>{ov.remove();res(b.dataset.p)});
+    ov.querySelector('.dlg-no').onclick=()=>{ov.remove();res(null)};
+    ov.onclick=e=>{ if(e.target===ov){ov.remove();res(null)} };
   });
 }
 function pickWho(){
@@ -1628,7 +1642,10 @@ function viewMatch(){
     if(owner){
       foot = `<span class="nomtag on">${avatar(owner,20)}<b>${esc(owner)}</b> が指名済み</span>`;
     } else if(!nomOpenFor(f, me)){
-      foot = `<span class="mini">指名の締切ずみ（KO24時間前）</span>`;
+      /* 締切ずみでも、賭けの締切前なら管理人が誰かに特例枠を出せる */
+      foot = `<span class="mini">指名の締切ずみ（KO24時間前）</span>`
+        + (!isLocked(f) && left.length
+            ? ` <button class="nomctl adm sm" data-grant="${f.gw}">特例枠を出す（管理人）</button>` : '');
     } else if(me && noms[me]){
       foot = `<span class="mini" data-fdl="${f.key}">指名の締切まで ${remain(nomDeadlineOf(f)-Date.now())||'—'}</span>`;
     } else {
@@ -2055,6 +2072,8 @@ function adminLog(){
     const m = f ? `${jp(f.h)} vs ${jp(f.a)}` : x.key;
     const body = x.act==='nomforce'
       ? `第${x.gw}節・<b>${esc(x.who)}</b> の指名を解除（${m}／投票${x.votes||0}件も削除）＋特例枠を付与`
+      : x.act==='grantgive'
+      ? `第${x.gw}節・<b>${esc(x.who)}</b> に特例枠を付与`
       : x.act==='grantuse'
       ? `第${x.gw}節・<b>${esc(x.who)}</b> が特例枠で指名（${m}）`
       : esc(x.act);
@@ -2548,7 +2567,8 @@ function viewRules(){
     <b>自己紹介</b>：メンバータブでアイコンをタップしたら本人が書ける（100字）。
     名前の下に吹き出しで出る。<br><br>
     <b>指名の締切後の特例</b>：どうしても変えたいときは管理人（${esc(ADMIN)}）に頼む。
-    賭けの締切前なら解除できて、そのとき<b>特例枠</b>がもらえる。枠があるうちは
+    指名を外す場合と、まだ指名しとらん人に枠だけ出す場合の両方できる。
+    もらえるのは<b>特例枠</b>で、枠があるうちは
     <b>締切を過ぎた試合も自分で選び直せる</b>（賭けの締切前まで）。枠は1回使ったら消える。
     解除も、枠を使った指名も<b>メンバータブのログに残る</b>。入っとる投票とコメントは全部消える。<br><br>
     <b>PIN</b>：初めて自分の行を触るとき4〜8桁のPINを設定する。以降その行は本人しか触れん。
@@ -2730,6 +2750,27 @@ function bind(){
   });
 
   /* 指名の取り消し（指名した本人・締切前だけ） */
+  /* 管理人が特例枠を出す：まだ指名しとらん人に、締切後でも選べる権利を渡す */
+  document.querySelectorAll('[data-grant]').forEach(b=>b.onclick=async()=>{
+    const gw = Number(b.dataset.grant);
+    const noms = nomsOf(gw);
+    const left = PLAYERS.filter(p=>!noms[p]);
+    if(!left.length){ toast('全員もう指名しとるで'); return; }
+    const who = await pickFrom(`第${gw}節・誰に特例枠を出す？`, left);
+    if(!who) return;
+    if(hasGrant(gw, who)){ toast(`${who} はもう枠を持っとる`); return; }
+    if(!await ask(`第${gw}節の特例枠を ${who} に出す？\n\n`+
+      `${who} は締切を過ぎた試合も選べるようになる（賭けの締切前まで）\n`+
+      `枠は1回使ったら消える。出したことは全員に見えるログに残る`)) return;
+    if(!await verifyAdmin()) return;
+    const at = Date.now();
+    await db.ref().update({
+      [`${ROOT}/grant/gw${gw}/${who}`]: at,
+      [`${ROOT}/alog/a${at}`]: { at, act:'grantgive', gw, who }
+    });
+    toast(`${who} に特例枠を出した`);
+  });
+
   /* 管理人の特例解除：指名締切を過ぎたあとでも指名を外せる。
      誰の指名をいつ外したかは全員が見えるログに残す */
   document.querySelectorAll('[data-nomforce]').forEach(b=>b.onclick=async()=>{
