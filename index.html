@@ -202,6 +202,17 @@ input,select{font-family:var(--body),'Noto Sans JP',sans-serif}
 .nomctl.adm{background:rgba(233,0,82,.85)}
 .grantnote{display:inline-block;margin-top:5px;color:#B00040;font-weight:700}
 .nomctl.sm{margin-left:7px;padding:3px 9px;font-size:9.5px;vertical-align:1px}
+.kickbtn{margin-top:9px;font-size:11px;font-weight:700;color:var(--grey);background:#fff;border:1px solid var(--line);border-radius:8px;padding:6px 11px;cursor:pointer}
+.kdlg{max-width:none;width:min(94vw,470px)}
+.krows{max-height:52vh;overflow-y:auto;margin:10px 0 4px}
+.krow{display:flex;align-items:center;gap:7px;padding:6px 0;border-bottom:1px solid var(--line)}
+.krow:last-child{border-bottom:none}
+.krow .kt{flex:1;min-width:0;font-size:11px;font-weight:700;line-height:1.35}
+.krow .kt i{font-style:normal;color:var(--grey);font-weight:600}
+.krow input{flex:none;width:158px;padding:6px 7px;border:1.5px solid var(--line);border-radius:7px;font-family:inherit;font-size:11.5px;font-weight:600;color:var(--purple);background:#fff}
+.kreset{flex:none;font-size:9.5px;font-weight:700;color:var(--pink);background:none;border:none;padding:0 2px;cursor:pointer;text-decoration:underline}
+.kmoved{display:inline-block;margin-left:6px;font-family:var(--disp);font-size:8.5px;font-weight:700;letter-spacing:.06em;color:var(--pink);border:1px solid var(--pink);border-radius:4px;padding:0 4px}
+.betat{display:block;font-family:var(--disp);font-size:9px;font-weight:600;color:var(--grey);opacity:.8;margin-top:2px;line-height:1.5;white-space:normal;word-break:break-word}
 .nombtn.late{border-color:var(--pink);color:var(--pink)}
 .alog{margin:0 12px 18px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
 .alog .r{display:flex;gap:9px;align-items:baseline;padding:9px 12px;border-bottom:1px solid var(--line);font-size:11.5px;line-height:1.6}
@@ -675,7 +686,7 @@ const MANAGERS = [
 
 /* 全380試合：[節, キックオフ(UTCミリ秒), ホーム, アウェイ]
    イギリス現地時間から夏時間/冬時間を判定して変換済み */
-const FIXTURES = '1,1787338800000,ARS,COV;1,1787398200000,HUL,MUN;1,1787407200000,EVE,CRY;1,1787407200000,IPS,SUN;1,1787407200000,NFO,LEE;1,1787416200000,BRE,TOT;1,1787490000000,BHA,AVL;1,1787490000000,MCI,BOU;1,1787499000000,NEW,LIV;1,1787598000000,FUL,CHE;2,1787943600000,CRY,MCI;2,1788003000000,LIV,NFO;2,1788012000000,BOU,EVE;2,1788012000000,COV,HUL;2,1788021000000,TOT,NEW;2,1788094800000,CHE,BHA;2,1788094800000,LEE,BRE;2,1788094800000,SUN,FUL;2,1788103800000,MUN,IPS;2,1788202800000,AVL,ARS;3,1788548400000,IPS,LIV;3,1788607800000,NEW,BOU;3,1788616800000,BRE,SUN;3,1788616800000,BHA,LEE;3,1788616800000,FUL,CRY;3,1788616800000,MCI,COV;3,1788616800000,NFO,TOT;3,1788625800000,HUL,AVL;3,1788699600000,EVE,MUN;3,1788708600000,ARS,CHE;4,1789221600000,BOU,BRE;4,1789221600000,AVL,NFO;4,1789221600000,CHE,HUL;4,1789221600000,CRY,IPS;4,1789221600000,LIV,FUL;4,1789230600000,TOT,EVE;4,1789239600000,SUN,ARS;4,1789304400000,COV,BHA;4,1789313400000,MUN,MCI;4,1789412400000,LEE,NEW;5,1789758000000,BRE,CHE;5,1789817400000,TOT,AVL;5,1789826400000,BHA,ARS;5,1789826400000,EVE,IPS;5,1789826400000,LEE,CRY;5,1789826400000,MCI,SUN;5,1789826400000,NEW,HUL;5,1789835400000,NFO,COV;5,1789909200000,BOU,LIV;5,1789918200000,FUL,MUN;6,1791640800000,ARS,LEE;6,1791640800000,AVL,BRE;6,1791640800000,CHE,BOU;6,1791640800000,COV,NEW;6,1791640800000,CRY,NFO;6,1791640800000,HUL,EVE;6,1791640800000,IPS,FUL;6,1791640800000,LIV,MCI;6,1791640800000,MUN,TOT;6,1791640800000,SUN,BHA;7,1792245600000,BOU,SUN;7,1792245600000,BRE,LIV;7,1792245600000,BHA,CRY;7,1792245600000,EVE,CHE;7,1792245600000,FUL,HUL;7,1792245600000,LEE,MUN;7,1792245600000,MCI,IPS;7,1792245600000,NEW,AVL;7,1792245600000,NFO,ARS;7,1792245600000,TOT,COV;8,1792850400000,ARS,EVE;8,1792850400000,AVL,MCI;8,1792850400000,CHE,TOT;8,1792850400000,COV,FUL;8,1792850400000,CRY,NEW;8,1792850400000,HUL,BRE;8,1792850400000,IPS,NFO;8,1792850400000,LIV,BHA;8,1792850400000,MUN,BOU;8,1792850400000,SUN,LEE;9,1793458800000,BOU,LEE;9,1793458800000,AVL,FUL;9,1793458800000,BRE,NFO;9,1793458800000,CHE,MUN;9,1793458800000,COV,SUN;9,1793458800000,HUL,IPS;9,1793458800000,LIV,ARS;9,1793458800000,MCI,BHA;9,1793458800000,NEW,EVE;9,1793458800000,TOT,CRY;10,1794063600000,ARS,HUL;10,1794063600000,BHA,BRE;10,1794063600000,CRY,LIV;10,1794063600000,EVE,COV;10,1794063600000,FUL,NEW;10,1794063600000,IPS,BOU;10,1794063600000,LEE,TOT;10,1794063600000,MUN,AVL;10,1794063600000,NFO,MCI;10,1794063600000,SUN,CHE;11,1795273200000,BOU,NFO;11,1795273200000,AVL,SUN;11,1795273200000,BRE,EVE;11,1795273200000,CHE,LEE;11,1795273200000,COV,CRY;11,1795273200000,HUL,BHA;11,1795273200000,LIV,MUN;11,1795273200000,MCI,FUL;11,1795273200000,NEW,ARS;11,1795273200000,TOT,IPS;12,1795878000000,ARS,MCI;12,1795878000000,BHA,NEW;12,1795878000000,CRY,HUL;12,1795878000000,EVE,LIV;12,1795878000000,FUL,BOU;12,1795878000000,IPS,AVL;12,1795878000000,LEE,COV;12,1795878000000,MUN,BRE;12,1795878000000,NFO,CHE;12,1795878000000,SUN,TOT;13,1796241600000,BOU,BHA;13,1796241600000,AVL,EVE;13,1796241600000,BRE,ARS;13,1796241600000,CHE,CRY;13,1796241600000,COV,IPS;13,1796241600000,HUL,NFO;13,1796241600000,LIV,SUN;13,1796241600000,MCI,LEE;13,1796241600000,NEW,MUN;13,1796241600000,TOT,FUL;14,1796482800000,BOU,HUL;14,1796482800000,AVL,CRY;14,1796482800000,BRE,MCI;14,1796482800000,CHE,LIV;14,1796482800000,EVE,FUL;14,1796482800000,LEE,IPS;14,1796482800000,MUN,COV;14,1796482800000,NEW,SUN;14,1796482800000,NFO,BHA;14,1796482800000,TOT,ARS;15,1797087600000,ARS,BOU;15,1797087600000,BHA,EVE;15,1797087600000,COV,AVL;15,1797087600000,CRY,MUN;15,1797087600000,FUL,BRE;15,1797087600000,HUL,TOT;15,1797087600000,IPS,NEW;15,1797087600000,LIV,LEE;15,1797087600000,MCI,CHE;15,1797087600000,SUN,NFO;16,1797692400000,BOU,COV;16,1797692400000,ARS,MUN;16,1797692400000,BRE,NEW;16,1797692400000,BHA,IPS;16,1797692400000,CHE,AVL;16,1797692400000,LEE,FUL;16,1797692400000,LIV,TOT;16,1797692400000,MCI,HUL;16,1797692400000,NFO,EVE;16,1797692400000,SUN,CRY;17,1798297200000,AVL,LEE;17,1798297200000,COV,CHE;17,1798297200000,CRY,ARS;17,1798297200000,EVE,SUN;17,1798297200000,FUL,BHA;17,1798297200000,HUL,LIV;17,1798297200000,IPS,BRE;17,1798297200000,MUN,NFO;17,1798297200000,NEW,MCI;17,1798297200000,TOT,BOU;18,1798660800000,AVL,LIV;18,1798660800000,COV,BRE;18,1798660800000,CRY,BOU;18,1798660800000,EVE,MCI;18,1798660800000,FUL,ARS;18,1798660800000,HUL,LEE;18,1798660800000,IPS,CHE;18,1798660800000,MUN,SUN;18,1798660800000,NEW,NFO;18,1798660800000,TOT,BHA;19,1798902000000,BOU,AVL;19,1798902000000,ARS,IPS;19,1798902000000,BRE,CRY;19,1798902000000,BHA,MUN;19,1798902000000,CHE,NEW;19,1798902000000,LEE,EVE;19,1798902000000,LIV,COV;19,1798902000000,MCI,TOT;19,1798902000000,NFO,FUL;19,1798902000000,SUN,HUL;20,1799265600000,ARS,BRE;20,1799265600000,BHA,BOU;20,1799265600000,CRY,CHE;20,1799265600000,EVE,AVL;20,1799265600000,FUL,TOT;20,1799265600000,IPS,COV;20,1799265600000,LEE,MCI;20,1799265600000,MUN,NEW;20,1799265600000,NFO,HUL;20,1799265600000,SUN,LIV;21,1800111600000,BOU,IPS;21,1800111600000,AVL,MUN;21,1800111600000,BRE,BHA;21,1800111600000,CHE,SUN;21,1800111600000,COV,EVE;21,1800111600000,HUL,ARS;21,1800111600000,LIV,CRY;21,1800111600000,MCI,NFO;21,1800111600000,NEW,FUL;21,1800111600000,TOT,LEE;22,1800716400000,ARS,NEW;22,1800716400000,BHA,MCI;22,1800716400000,CRY,TOT;22,1800716400000,EVE,BRE;22,1800716400000,FUL,AVL;22,1800716400000,IPS,HUL;22,1800716400000,LEE,CHE;22,1800716400000,MUN,LIV;22,1800716400000,NFO,BOU;22,1800716400000,SUN,COV;23,1801321200000,BOU,FUL;23,1801321200000,AVL,IPS;23,1801321200000,BRE,MUN;23,1801321200000,CHE,NFO;23,1801321200000,COV,LEE;23,1801321200000,HUL,CRY;23,1801321200000,LIV,EVE;23,1801321200000,MCI,ARS;23,1801321200000,NEW,BHA;23,1801321200000,TOT,SUN;24,1801926000000,ARS,LIV;24,1801926000000,BHA,HUL;24,1801926000000,CRY,COV;24,1801926000000,EVE,NEW;24,1801926000000,FUL,MCI;24,1801926000000,IPS,TOT;24,1801926000000,LEE,BOU;24,1801926000000,MUN,CHE;24,1801926000000,NFO,BRE;24,1801926000000,SUN,AVL;25,1802289600000,AVL,BOU;25,1802289600000,COV,LIV;25,1802289600000,CRY,BRE;25,1802289600000,EVE,LEE;25,1802289600000,FUL,NFO;25,1802289600000,HUL,SUN;25,1802289600000,IPS,ARS;25,1802289600000,MUN,BHA;25,1802289600000,NEW,CHE;25,1802289600000,TOT,MCI;26,1803135600000,BOU,CRY;26,1803135600000,ARS,FUL;26,1803135600000,BRE,COV;26,1803135600000,BHA,TOT;26,1803135600000,CHE,IPS;26,1803135600000,LEE,AVL;26,1803135600000,LIV,HUL;26,1803135600000,MCI,NEW;26,1803135600000,NFO,MUN;26,1803135600000,SUN,EVE;27,1803740400000,AVL,CHE;27,1803740400000,COV,BOU;27,1803740400000,CRY,SUN;27,1803740400000,EVE,NFO;27,1803740400000,FUL,LEE;27,1803740400000,HUL,MCI;27,1803740400000,IPS,BHA;27,1803740400000,MUN,ARS;27,1803740400000,NEW,BRE;27,1803740400000,TOT,LIV;28,1804104000000,BOU,TOT;28,1804104000000,ARS,CRY;28,1804104000000,BRE,IPS;28,1804104000000,BHA,FUL;28,1804104000000,CHE,COV;28,1804104000000,LEE,HUL;28,1804104000000,LIV,AVL;28,1804104000000,MCI,EVE;28,1804104000000,NFO,NEW;28,1804104000000,SUN,MUN;29,1804950000000,BOU,NEW;29,1804950000000,AVL,HUL;29,1804950000000,CHE,ARS;29,1804950000000,COV,MCI;29,1804950000000,CRY,FUL;29,1804950000000,LEE,BHA;29,1804950000000,LIV,IPS;29,1804950000000,MUN,EVE;29,1804950000000,SUN,BRE;29,1804950000000,TOT,NFO;30,1805554800000,ARS,SUN;30,1805554800000,BRE,BOU;30,1805554800000,BHA,COV;30,1805554800000,EVE,TOT;30,1805554800000,FUL,LIV;30,1805554800000,HUL,CHE;30,1805554800000,IPS,CRY;30,1805554800000,MCI,MUN;30,1805554800000,NEW,LEE;30,1805554800000,NFO,AVL;31,1807365600000,BOU,MCI;31,1807365600000,AVL,BHA;31,1807365600000,CHE,FUL;31,1807365600000,COV,ARS;31,1807365600000,CRY,EVE;31,1807365600000,LEE,NFO;31,1807365600000,LIV,NEW;31,1807365600000,MUN,HUL;31,1807365600000,SUN,IPS;31,1807365600000,TOT,BRE;32,1807970400000,ARS,AVL;32,1807970400000,BRE,LEE;32,1807970400000,BHA,CHE;32,1807970400000,EVE,BOU;32,1807970400000,FUL,SUN;32,1807970400000,HUL,COV;32,1807970400000,IPS,MUN;32,1807970400000,MCI,CRY;32,1807970400000,NEW,TOT;32,1807970400000,NFO,LIV;33,1808575200000,BOU,ARS;33,1808575200000,AVL,COV;33,1808575200000,BRE,FUL;33,1808575200000,CHE,MCI;33,1808575200000,EVE,BHA;33,1808575200000,LEE,LIV;33,1808575200000,MUN,CRY;33,1808575200000,NEW,IPS;33,1808575200000,NFO,SUN;33,1808575200000,TOT,HUL;34,1809180000000,ARS,TOT;34,1809180000000,BHA,NFO;34,1809180000000,COV,MUN;34,1809180000000,CRY,AVL;34,1809180000000,FUL,EVE;34,1809180000000,HUL,BOU;34,1809180000000,IPS,LEE;34,1809180000000,LIV,CHE;34,1809180000000,MCI,BRE;34,1809180000000,SUN,NEW;35,1809784800000,BOU,MUN;35,1809784800000,BRE,AVL;35,1809784800000,BHA,SUN;35,1809784800000,EVE,HUL;35,1809784800000,FUL,IPS;35,1809784800000,LEE,ARS;35,1809784800000,MCI,LIV;35,1809784800000,NEW,COV;35,1809784800000,NFO,CRY;35,1809784800000,TOT,CHE;36,1810389600000,ARS,NFO;36,1810389600000,AVL,NEW;36,1810389600000,CHE,EVE;36,1810389600000,COV,TOT;36,1810389600000,CRY,BHA;36,1810389600000,HUL,FUL;36,1810389600000,IPS,MCI;36,1810389600000,LIV,BRE;36,1810389600000,MUN,LEE;36,1810389600000,SUN,BOU;37,1811080800000,BOU,CHE;37,1811080800000,BRE,HUL;37,1811080800000,BHA,LIV;37,1811080800000,EVE,ARS;37,1811080800000,FUL,COV;37,1811080800000,LEE,SUN;37,1811080800000,MCI,AVL;37,1811080800000,NEW,CRY;37,1811080800000,NFO,IPS;37,1811080800000,TOT,MUN;38,1811689200000,ARS,BHA;38,1811689200000,AVL,TOT;38,1811689200000,CHE,BRE;38,1811689200000,COV,NFO;38,1811689200000,CRY,LEE;38,1811689200000,HUL,NEW;38,1811689200000,IPS,EVE;38,1811689200000,LIV,BOU;38,1811689200000,MUN,FUL;38,1811689200000,SUN,MCI'.split(';').map(s=>{
+const FIXTURES = '1,1787338800000,ARS,COV;1,1787398200000,HUL,MUN;1,1787407200000,EVE,CRY;1,1787407200000,IPS,SUN;1,1787407200000,NFO,LEE;1,1787416200000,BRE,TOT;1,1787490000000,BHA,AVL;1,1787490000000,MCI,BOU;1,1787499000000,NEW,LIV;1,1787598000000,FUL,CHE;2,1787943600000,CRY,MCI;2,1788003000000,LIV,NFO;2,1788012000000,BOU,EVE;2,1788012000000,COV,HUL;2,1788021000000,TOT,NEW;2,1788094800000,CHE,BHA;2,1788094800000,LEE,BRE;2,1788094800000,SUN,FUL;2,1788103800000,MUN,IPS;2,1788202800000,AVL,ARS;3,1788548400000,IPS,LIV;3,1788607800000,NEW,BOU;3,1788616800000,BRE,SUN;3,1788616800000,BHA,LEE;3,1788616800000,FUL,CRY;3,1788616800000,MCI,COV;3,1788616800000,NFO,TOT;3,1788625800000,HUL,AVL;3,1788699600000,EVE,MUN;3,1788708600000,ARS,CHE;4,1789221600000,BOU,BRE;4,1789221600000,AVL,NFO;4,1789221600000,CHE,HUL;4,1789221600000,CRY,IPS;4,1789221600000,LIV,FUL;4,1789230600000,TOT,EVE;4,1789239600000,SUN,ARS;4,1789304400000,COV,BHA;4,1789313400000,MUN,MCI;4,1789412400000,LEE,NEW;5,1789758000000,BRE,CHE;5,1789817400000,TOT,AVL;5,1789826400000,BHA,ARS;5,1789826400000,EVE,IPS;5,1789909200000,LEE,CRY;5,1789909200000,MCI,SUN;5,1789826400000,NEW,HUL;5,1789835400000,NFO,COV;5,1789909200000,BOU,LIV;5,1789918200000,FUL,MUN;6,1791631800000,ARS,LEE;6,1791640800000,AVL,BRE;6,1791640800000,CHE,BOU;6,1791831600000,COV,NEW;6,1791723600000,CRY,NFO;6,1791723600000,HUL,EVE;6,1791640800000,IPS,FUL;6,1791732600000,LIV,MCI;6,1791649800000,MUN,TOT;6,1791640800000,SUN,BHA;7,1792328400000,BOU,SUN;7,1792245600000,BRE,LIV;7,1792328400000,BHA,CRY;7,1792236600000,EVE,CHE;7,1792245600000,FUL,HUL;7,1792328400000,LEE,MUN;7,1792245600000,MCI,IPS;7,1792254600000,NEW,AVL;7,1792337400000,NFO,ARS;7,1792436400000,TOT,COV;8,1792850400000,ARS,EVE;8,1792841400000,AVL,MCI;8,1792859400000,CHE,TOT;8,1792850400000,COV,FUL;8,1792936800000,CRY,NEW;8,1792936800000,HUL,BRE;8,1792782000000,IPS,NFO;8,1792936800000,LIV,BHA;8,1792936800000,MUN,BOU;8,1792945800000,SUN,LEE;9,1793458800000,BOU,LEE;9,1793476800000,AVL,FUL;9,1793458800000,BRE,NFO;9,1793449800000,CHE,MUN;9,1793458800000,COV,SUN;9,1793458800000,HUL,IPS;9,1793541600000,LIV,ARS;9,1793458800000,MCI,BHA;9,1793649600000,NEW,EVE;9,1793467800000,TOT,CRY;10,1794063600000,ARS,HUL;10,1794063600000,BHA,BRE;10,1794063600000,CRY,LIV;10,1794063600000,EVE,COV;10,1794063600000,FUL,NEW;10,1794063600000,IPS,BOU;10,1794063600000,LEE,TOT;10,1794063600000,MUN,AVL;10,1794063600000,NFO,MCI;10,1794063600000,SUN,CHE;11,1795273200000,BOU,NFO;11,1795273200000,AVL,SUN;11,1795273200000,BRE,EVE;11,1795273200000,CHE,LEE;11,1795273200000,COV,CRY;11,1795273200000,HUL,BHA;11,1795273200000,LIV,MUN;11,1795273200000,MCI,FUL;11,1795273200000,NEW,ARS;11,1795273200000,TOT,IPS;12,1795878000000,ARS,MCI;12,1795878000000,BHA,NEW;12,1795878000000,CRY,HUL;12,1795878000000,EVE,LIV;12,1795878000000,FUL,BOU;12,1795878000000,IPS,AVL;12,1795878000000,LEE,COV;12,1795878000000,MUN,BRE;12,1795878000000,NFO,CHE;12,1795878000000,SUN,TOT;13,1796241600000,BOU,BHA;13,1796241600000,AVL,EVE;13,1796241600000,BRE,ARS;13,1796241600000,CHE,CRY;13,1796241600000,COV,IPS;13,1796241600000,HUL,NFO;13,1796241600000,LIV,SUN;13,1796241600000,MCI,LEE;13,1796241600000,NEW,MUN;13,1796241600000,TOT,FUL;14,1796482800000,BOU,HUL;14,1796482800000,AVL,CRY;14,1796482800000,BRE,MCI;14,1796482800000,CHE,LIV;14,1796482800000,EVE,FUL;14,1796482800000,LEE,IPS;14,1796482800000,MUN,COV;14,1796482800000,NEW,SUN;14,1796482800000,NFO,BHA;14,1796482800000,TOT,ARS;15,1797087600000,ARS,BOU;15,1797087600000,BHA,EVE;15,1797087600000,COV,AVL;15,1797087600000,CRY,MUN;15,1797087600000,FUL,BRE;15,1797087600000,HUL,TOT;15,1797087600000,IPS,NEW;15,1797087600000,LIV,LEE;15,1797087600000,MCI,CHE;15,1797087600000,SUN,NFO;16,1797692400000,BOU,COV;16,1797692400000,ARS,MUN;16,1797692400000,BRE,NEW;16,1797692400000,BHA,IPS;16,1797692400000,CHE,AVL;16,1797692400000,LEE,FUL;16,1797692400000,LIV,TOT;16,1797692400000,MCI,HUL;16,1797692400000,NFO,EVE;16,1797692400000,SUN,CRY;17,1798297200000,AVL,LEE;17,1798297200000,COV,CHE;17,1798297200000,CRY,ARS;17,1798297200000,EVE,SUN;17,1798297200000,FUL,BHA;17,1798297200000,HUL,LIV;17,1798297200000,IPS,BRE;17,1798297200000,MUN,NFO;17,1798297200000,NEW,MCI;17,1798297200000,TOT,BOU;18,1798660800000,AVL,LIV;18,1798660800000,COV,BRE;18,1798660800000,CRY,BOU;18,1798660800000,EVE,MCI;18,1798660800000,FUL,ARS;18,1798660800000,HUL,LEE;18,1798660800000,IPS,CHE;18,1798660800000,MUN,SUN;18,1798660800000,NEW,NFO;18,1798660800000,TOT,BHA;19,1798902000000,BOU,AVL;19,1798902000000,ARS,IPS;19,1798902000000,BRE,CRY;19,1798902000000,BHA,MUN;19,1798902000000,CHE,NEW;19,1798902000000,LEE,EVE;19,1798902000000,LIV,COV;19,1798902000000,MCI,TOT;19,1798902000000,NFO,FUL;19,1798902000000,SUN,HUL;20,1799265600000,ARS,BRE;20,1799265600000,BHA,BOU;20,1799265600000,CRY,CHE;20,1799265600000,EVE,AVL;20,1799265600000,FUL,TOT;20,1799265600000,IPS,COV;20,1799265600000,LEE,MCI;20,1799265600000,MUN,NEW;20,1799265600000,NFO,HUL;20,1799265600000,SUN,LIV;21,1800111600000,BOU,IPS;21,1800111600000,AVL,MUN;21,1800111600000,BRE,BHA;21,1800111600000,CHE,SUN;21,1800111600000,COV,EVE;21,1800111600000,HUL,ARS;21,1800111600000,LIV,CRY;21,1800111600000,MCI,NFO;21,1800111600000,NEW,FUL;21,1800111600000,TOT,LEE;22,1800716400000,ARS,NEW;22,1800716400000,BHA,MCI;22,1800716400000,CRY,TOT;22,1800716400000,EVE,BRE;22,1800716400000,FUL,AVL;22,1800716400000,IPS,HUL;22,1800716400000,LEE,CHE;22,1800716400000,MUN,LIV;22,1800716400000,NFO,BOU;22,1800716400000,SUN,COV;23,1801321200000,BOU,FUL;23,1801321200000,AVL,IPS;23,1801321200000,BRE,MUN;23,1801321200000,CHE,NFO;23,1801321200000,COV,LEE;23,1801321200000,HUL,CRY;23,1801321200000,LIV,EVE;23,1801321200000,MCI,ARS;23,1801321200000,NEW,BHA;23,1801321200000,TOT,SUN;24,1801926000000,ARS,LIV;24,1801926000000,BHA,HUL;24,1801926000000,CRY,COV;24,1801926000000,EVE,NEW;24,1801926000000,FUL,MCI;24,1801926000000,IPS,TOT;24,1801926000000,LEE,BOU;24,1801926000000,MUN,CHE;24,1801926000000,NFO,BRE;24,1801926000000,SUN,AVL;25,1802289600000,AVL,BOU;25,1802289600000,COV,LIV;25,1802289600000,CRY,BRE;25,1802289600000,EVE,LEE;25,1802289600000,FUL,NFO;25,1802289600000,HUL,SUN;25,1802289600000,IPS,ARS;25,1802289600000,MUN,BHA;25,1802289600000,NEW,CHE;25,1802289600000,TOT,MCI;26,1803135600000,BOU,CRY;26,1803135600000,ARS,FUL;26,1803135600000,BRE,COV;26,1803135600000,BHA,TOT;26,1803135600000,CHE,IPS;26,1803135600000,LEE,AVL;26,1803135600000,LIV,HUL;26,1803135600000,MCI,NEW;26,1803135600000,NFO,MUN;26,1803135600000,SUN,EVE;27,1803740400000,AVL,CHE;27,1803740400000,COV,BOU;27,1803740400000,CRY,SUN;27,1803740400000,EVE,NFO;27,1803740400000,FUL,LEE;27,1803740400000,HUL,MCI;27,1803740400000,IPS,BHA;27,1803740400000,MUN,ARS;27,1803740400000,NEW,BRE;27,1803740400000,TOT,LIV;28,1804104000000,BOU,TOT;28,1804104000000,ARS,CRY;28,1804104000000,BRE,IPS;28,1804104000000,BHA,FUL;28,1804104000000,CHE,COV;28,1804104000000,LEE,HUL;28,1804104000000,LIV,AVL;28,1804104000000,MCI,EVE;28,1804104000000,NFO,NEW;28,1804104000000,SUN,MUN;29,1804950000000,BOU,NEW;29,1804950000000,AVL,HUL;29,1804950000000,CHE,ARS;29,1804950000000,COV,MCI;29,1804950000000,CRY,FUL;29,1804950000000,LEE,BHA;29,1804950000000,LIV,IPS;29,1804950000000,MUN,EVE;29,1804950000000,SUN,BRE;29,1804950000000,TOT,NFO;30,1805554800000,ARS,SUN;30,1805554800000,BRE,BOU;30,1805554800000,BHA,COV;30,1805554800000,EVE,TOT;30,1805554800000,FUL,LIV;30,1805554800000,HUL,CHE;30,1805554800000,IPS,CRY;30,1805554800000,MCI,MUN;30,1805554800000,NEW,LEE;30,1805554800000,NFO,AVL;31,1807365600000,BOU,MCI;31,1807365600000,AVL,BHA;31,1807365600000,CHE,FUL;31,1807365600000,COV,ARS;31,1807365600000,CRY,EVE;31,1807365600000,LEE,NFO;31,1807365600000,LIV,NEW;31,1807365600000,MUN,HUL;31,1807365600000,SUN,IPS;31,1807365600000,TOT,BRE;32,1807970400000,ARS,AVL;32,1807970400000,BRE,LEE;32,1807970400000,BHA,CHE;32,1807970400000,EVE,BOU;32,1807970400000,FUL,SUN;32,1807970400000,HUL,COV;32,1807970400000,IPS,MUN;32,1807970400000,MCI,CRY;32,1807970400000,NEW,TOT;32,1807970400000,NFO,LIV;33,1808575200000,BOU,ARS;33,1808575200000,AVL,COV;33,1808575200000,BRE,FUL;33,1808575200000,CHE,MCI;33,1808575200000,EVE,BHA;33,1808575200000,LEE,LIV;33,1808575200000,MUN,CRY;33,1808575200000,NEW,IPS;33,1808575200000,NFO,SUN;33,1808575200000,TOT,HUL;34,1809180000000,ARS,TOT;34,1809180000000,BHA,NFO;34,1809180000000,COV,MUN;34,1809180000000,CRY,AVL;34,1809180000000,FUL,EVE;34,1809180000000,HUL,BOU;34,1809180000000,IPS,LEE;34,1809180000000,LIV,CHE;34,1809180000000,MCI,BRE;34,1809180000000,SUN,NEW;35,1809784800000,BOU,MUN;35,1809784800000,BRE,AVL;35,1809784800000,BHA,SUN;35,1809784800000,EVE,HUL;35,1809784800000,FUL,IPS;35,1809784800000,LEE,ARS;35,1809784800000,MCI,LIV;35,1809784800000,NEW,COV;35,1809784800000,NFO,CRY;35,1809784800000,TOT,CHE;36,1810389600000,ARS,NFO;36,1810389600000,AVL,NEW;36,1810389600000,CHE,EVE;36,1810389600000,COV,TOT;36,1810389600000,CRY,BHA;36,1810389600000,HUL,FUL;36,1810389600000,IPS,MCI;36,1810389600000,LIV,BRE;36,1810389600000,MUN,LEE;36,1810389600000,SUN,BOU;37,1811080800000,BOU,CHE;37,1811080800000,BRE,HUL;37,1811080800000,BHA,LIV;37,1811080800000,EVE,ARS;37,1811080800000,FUL,COV;37,1811080800000,LEE,SUN;37,1811080800000,MCI,AVL;37,1811080800000,NEW,CRY;37,1811080800000,NFO,IPS;37,1811080800000,TOT,MUN;38,1811689200000,ARS,BHA;38,1811689200000,AVL,TOT;38,1811689200000,CHE,BRE;38,1811689200000,COV,NFO;38,1811689200000,CRY,LEE;38,1811689200000,HUL,NEW;38,1811689200000,IPS,EVE;38,1811689200000,LIV,BOU;38,1811689200000,MUN,FUL;38,1811689200000,SUN,MCI'.split(';').map(s=>{
   const p = s.split(',');
   return { gw:+p[0], ko:+p[1], h:p[2], a:p[3], key:'m'+p[0]+'_'+p[2]+'_'+p[3] };
 });
@@ -718,6 +729,20 @@ const isLocked = f => Date.now() > deadlineOf(f);
 /* 指名まわりの締切。賭けより早く閉まる */
 const nomDeadlineOf = f => f.ko - NOM_LOCK_MS;
 const nomOpen = f => Date.now() < nomDeadlineOf(f);
+/* キックオフ時刻の上書き。TV放送で日程が動くたび管理人が直せるようにしとる。
+   元の時刻は ko0 に退避してあるので、上書きを消したら戻る */
+function applyKickOverrides(){
+  const K = (state && state.kick) || {};
+  FIXTURES.forEach(f=>{
+    if(f.ko0 === undefined) f.ko0 = f.ko;
+    const v = K[f.key];
+    f.ko = (typeof v === 'number' && v > 0) ? v : f.ko0;
+  });
+}
+const kickMoved = f => f.ko0 !== undefined && f.ko !== f.ko0;
+/* 日本時間の文字列 <-> エポック */
+const toJstStr = ms => new Date(ms + 9*3600000).toISOString().slice(0,16);
+const fromJstStr = str => Date.parse(str + ':00Z') - 9*3600000;
 /* 管理人が渡した特例枠。渡された人はその節だけ、指名の締切を過ぎた試合も選べる。
    賭けの締切（KO15分前）を過ぎた試合は対象外 */
 const hasGrant = (gw, p) => !!p && !!((state.grant||{})['gw'+gw]||{})[p];
@@ -1097,38 +1122,78 @@ function seasonSubmitted(){
 
 /* ══════ 締切後の自動開示 ══════ */
 let revealing = false;
+const histCache = {};
+/* 賭けの変更履歴（開票後のみ）。古い順に [{at, v}] を返す。v==='X' は取り消し */
+function betHistory(key, who){
+  const h = (histCache[key]||{})[who] || {};
+  return Object.keys(h).map(t=>({at:Number(t.slice(1)), v:h[t]}))
+    .filter(x=>x.v!=null && !isNaN(x.at)).sort((a,b)=>a.at-b.at);
+}
+const SIDE_TYPES = ['champion','top4','relegation','scorer','sack'];
+const sideCache = {};
+/* 締切後に原本を復号した結果を端末内に持っておく置き場。Firebaseには書かん */
+const revealCache = {};
+/* その試合の確定した選択（開票後）。
+   優先順位：管理人の修正 > 原本の復号結果 > 旧データのpicks（過去分の互換） */
+function shownPicks(key){
+  const out = {};
+  const old = (state.picks||{})[key] || {};      /* 昔のバージョンが書いた分 */
+  const dec = revealCache[key] || {};
+  const fix = (state.fix||{})[key] || {};         /* 管理人の修正 */
+  PLAYERS.forEach(p=>{
+    let v = dec[p] != null ? dec[p] : (old[p] || null);
+    if(fix[p] !== undefined) v = (fix[p]==='X' ? null : fix[p]);
+    if(v && validPick(key, v)) out[p] = v;
+  });
+  return out;
+}
 async function autoReveal(){
   if(revealing || !state) return;
   revealing = true;
   try{
-    const updates = {};
-    /* 試合の賭け */
-    const enc = state.enc || {}, picks = state.picks || {};
+    /* 試合の賭け：締切後は各端末がその場で原本（enc）を復号して表示する。
+       ここではFirebaseに書き込まん。書き込むと、古いデータを持った端末が
+       間違った値で上書きしてまうから（過去にその事故が起きた）。
+       原本も絶対に消さん。消したら正しい値を取り戻せんようになる */
+    const enc = state.enc || {};
     for(const key of Object.keys(enc)){
       const f = byKey[key]; if(!f || !isLocked(f)) continue;
+      if(!revealCache[key]) revealCache[key] = {};
       for(const who of Object.keys(enc[key]||{})){
-        if((picks[key]||{})[who]) continue;
+        if(revealCache[key][who] !== undefined) continue;   /* 復号は1回だけ */
         const v = await unseal(key, who, enc[key][who]);
-        if(v && validPick(key, v)) updates[`${ROOT}/picks/${key}/${who}`] = v;
+        revealCache[key][who] = (v && validPick(key, v)) ? v : null;
       }
-      updates[`${ROOT}/enc/${key}`] = null;
     }
-    /* 年間予想（開幕キックオフで一斉開示） */
+    /* 変更履歴も同じく開票後に復号。中身は暗号のままFirebaseに残っとる */
+    const hist = state.hist || {};
+    for(const key of Object.keys(hist)){
+      const f = byKey[key]; if(!f || !isLocked(f)) continue;
+      if(!histCache[key]) histCache[key] = {};
+      for(const who of Object.keys(hist[key]||{})){
+        if(!histCache[key][who]) histCache[key][who] = {};
+        for(const t of Object.keys(hist[key][who]||{})){
+          if(histCache[key][who][t] !== undefined) continue;
+          const v = await unseal(key, who, hist[key][who][t]);
+          histCache[key][who][t] = (v==='X' || validPick(key,v)) ? v : null;
+        }
+      }
+    }
+    /* 年間予想も同じ。ロック後に各端末が復号して持つだけ。書き込まんし消さん */
     if(Date.now() > SEASON_LOCK){
       const se = (state.side||{});
-      for(const type of ['champion','top4','relegation','scorer','sack']){
-        const e = (se[type]||{}).enc || {}, p = (se[type]||{}).picks || {};
+      for(const type of SIDE_TYPES){
+        const e = (se[type]||{}).enc || {};
+        if(!sideCache[type]) sideCache[type] = {};
         for(const who of Object.keys(e)){
-          if(p[who] != null) continue;
+          if(sideCache[type][who] !== undefined) continue;
           const v = await unseal('side:'+type, who, e[who]);
-          if(v != null){
-            try{ updates[`${ROOT}/side/${type}/picks/${who}`] = JSON.parse(v); }catch(x){}
-          }
+          let parsed = null;
+          if(v != null){ try{ parsed = JSON.parse(v); }catch(x){ parsed = null; } }
+          sideCache[type][who] = parsed;
         }
-        if(Object.keys(e).length) updates[`${ROOT}/side/${type}/enc`] = null;
       }
     }
-    if(Object.keys(updates).length) await db.ref().update(updates);
   }catch(e){ /* 次回に持ち越し */ }
   revealing = false;
 }
@@ -1303,7 +1368,7 @@ function betMatches(){
   return out.sort((a,b)=>a.ko-b.ko);
 }
 function settleMatch(key){
-  const picks = (state.picks||{})[key] || {};
+  const picks = shownPicks(key);
   const res = resultOf(key);
   const delta = {}; PLAYERS.forEach(p=>delta[p]=0);
   if(!res) return { pending:true, delta, transfers:[], winners:[], losers:[] };
@@ -1317,7 +1382,14 @@ function settleMatch(key){
 }
 function sideEntries(type){
   const s = (state.side||{})[type]||{};
-  return s.picks || {};
+  const old = s.picks || {};        /* 昔のバージョンが書いた分 */
+  const dec = sideCache[type] || {};
+  const out = {};
+  PLAYERS.forEach(p=>{
+    const v = dec[p] != null ? dec[p] : (old[p] != null ? old[p] : null);
+    if(v != null) out[p] = v;
+  });
+  return out;
 }
 function actualOf(type){ return (state.actual||{})[type] || null; }
 const top4Hit = (pk,ac) => Array.isArray(pk)&&Array.isArray(ac)&&pk.length===4&&ac.length===4&&pk.every((c,i)=>c===ac[i]);
@@ -1349,7 +1421,7 @@ function grandTotals(){
     st[p]={hit:0,bet:0,cur:0,best:0,curL:0,worstL:0,joined:0,elig:0,lone:0,mvp:0}; });
   const ms = betMatches();
   ms.forEach(f=>{
-    const picks=(state.picks||{})[f.key]||{};
+    const picks=shownPicks(f.key);
     const locked = isLocked(f);
     if(locked){ PLAYERS.forEach(p=>{ st[p].elig++; if(picks[p]) st[p].joined++; }); }
     /* 逆張り王：その選択肢を1人だけで張った回数。当たり外れは関係なし。
@@ -1585,7 +1657,7 @@ function fxLine(f){
     ${d?`<div class="fxderby">${esc(d.en)}</div>`:''}
     <div class="fxrow">
     <div class="tn h">${esc(jp(f.h))}</div>${crest(f.h)}
-    <div class="ko">${hhmm(f.ko)}</div>${crest(f.a)}
+    <div class="ko">${hhmm(f.ko)}${kickMoved(f)?`<span class="kmoved">変更</span>`:''}</div>${crest(f.a)}
     <div class="tn">${esc(jp(f.a))}</div></div>
     ${venueLine(f)}</div>`;
 }
@@ -1632,7 +1704,8 @@ function viewMatch(){
   html += `<div class="divider"></div><div class="sec"><h2><span class="kick">ALL FIXTURES</span>第${curGw}節 全試合</h2>
     <p>${left.length ? `未指名：${left.map(esc).join('・')}` : '全員が指名済み'}<br>
     <span style="color:var(--grey)">指名はキックオフ<b>24時間前</b>まで。それ以降は指名も変更もでけへん</span>
-    ${grantMe ? `<br><span class="grantnote">🎫 管理人から<b>特例枠</b>をもらっとる。締切を過ぎた試合も選べる（賭けの締切前まで）</span>` : ''}</p></div>`;
+    ${grantMe ? `<br><span class="grantnote">🎫 管理人から<b>特例枠</b>をもらっとる。締切を過ぎた試合も選べる（賭けの締切前まで）</span>` : ''}</p>
+    <button class="kickbtn" data-kickedit="${curGw}">⏱ キックオフ時刻を直す（管理人）</button></div>`;
   let lastDay='';
   fs.forEach(f=>{
     const dk=dayKey(f.ko);
@@ -1662,7 +1735,7 @@ function ticket(f, nomBy){
   const locked = isLocked(f);
   const sc = scoreOf(f.key);
   const res = resultOf(f.key);
-  const picks = (state.picks||{})[f.key] || {};
+  const picks = shownPicks(f.key);
   const enc = (state.enc||{})[f.key] || {};
   const me = meNow();
   const r = settleMatch(f.key);
@@ -1711,13 +1784,25 @@ function ticket(f, nomBy){
       if(v && res && !r.void) mk = r.winners.includes(p) ? `<span class="mk win">◎</span>` : `<span class="mk lose">✕</span>`;
       const label = v ? optLabel(f.key,f,v,true) : '不参加';
       const ovr = sc ? '' : `<button class="ovr" data-ovr="${f.key}" data-p="${esc(p)}">修正</button>`;
+      /* 開票後は全員ぶん出す。中身がもう公開されとるから隠す意味がない。
+         2回以上動かしとったら経過も並べる */
+      const at = betAt(f.key, p);
+      const hs = betHistory(f.key, p);
+      const ts = hs.length > 1
+        ? `<span class="betat">${hs.map(x=>
+            `${stamp(x.at)} ${x.v==='X' ? '取消' : esc(optLabel(f.key,f,x.v))}`).join(' → ')}</span>`
+        : (v && at) ? `<span class="betat">${stamp(at)}</span>` : '';
       return `<div class="vrow">${mk}${avatar(p,20)}<div class="nm">${esc(p)}</div>
-        <div class="val">${esc(label)}</div>${ovr}</div>`;
+        <div class="val">${esc(label)}${ts}</div>${ovr}</div>`;
     }
     const done = !!enc[p];
-    const label = (p===me && mine && done) ? optLabel(f.key,f,mine,true) : done ? '投票済み' : '未投票';
+    const isMine = (p===me && mine && done);
+    const label = isMine ? optLabel(f.key,f,mine,true) : done ? '投票済み' : '未投票';
+    /* 締切前は自分の行だけ。他人の更新時刻が見えると中身を推測されて目隠しが崩れる */
+    const at = isMine ? betAt(f.key, p) : null;
+    const ts = at ? `<span class="betat">最終 ${stamp(at)}</span>` : '';
     return `<div class="vrow"><div class="dot ${done?'':'no'}"></div>${avatar(p,20)}
-      <div class="nm">${esc(p)}</div><div class="val">${esc(label)}</div></div>`;
+      <div class="nm">${esc(p)}</div><div class="val">${esc(label)}${ts}</div></div>`;
   }).join('');
 
   /* 管理人の修正履歴（全員に見える・アプリからは消せへん） */
@@ -1815,9 +1900,9 @@ const lpKey = () => ROOT+'-mypicks';
    本物はFirebase側なので、毎回そっちに合わせて上書きする */
 async function syncMyPicks(){
   const me = meNow(); if(!me || !state) return;
-  const enc = state.enc || {}, picks = state.picks || {};
+  const enc = state.enc || {};
   for(const key of Object.keys(byKey)){
-    let truth = (picks[key]||{})[me] || null;       /* 開示済みならそのまま */
+    let truth = shownPicks(key)[me] || null;        /* 開票済みならそっちが正 */
     if(truth == null){
       const blob = (enc[key]||{})[me];
       if(blob){
@@ -1832,6 +1917,8 @@ async function syncMyPicks(){
 function localPick(key, who){
   try{ const m=JSON.parse(localStorage.getItem(lpKey())||'{}'); return (m[key]||{})[who]||null; }catch(e){ return null; }
 }
+/* 賭けを最後に書き込んだ時刻。中身は含まんので平文で持っとる */
+const betAt = (key, who) => ((state.betat||{})[key]||{})[who] || null;
 function setLocalPick(key, who, v){
   try{
     const m=JSON.parse(localStorage.getItem(lpKey())||'{}');
@@ -2571,6 +2658,14 @@ function viewRules(){
     もらえるのは<b>特例枠</b>で、枠があるうちは
     <b>締切を過ぎた試合も自分で選び直せる</b>（賭けの締切前まで）。枠は1回使ったら消える。
     解除も、枠を使った指名も<b>メンバータブのログに残る</b>。入っとる投票とコメントは全部消える。<br><br>
+    <b>変更履歴</b>：締切前に賭けを変えた分は<b>全部記録されとる</b>（中身は暗号のまま）。
+    開票後、2回以上動かした人の行に「○○ → ××」と経過が出る。1回しか賭けてない人は出ん。
+    締切前は誰にも読めん。<br><br>
+    <b>開票</b>：締切が来たら各自の端末が暗号を解いて中身を表示する。
+    <b>暗号の原本は消さずに残る</b>ので、表示が食い違っても必ず正しい値に戻る。
+    どうしてもおかしいときは管理人が「修正」で直せて、履歴が全員に残る。<br><br>
+    <b>キックオフ時刻</b>：TV放送の都合で日程はよく動く。管理人が「試合」タブの
+    <b>⏱ キックオフ時刻を直す</b>から節ごとにまとめて修正できる。<br><br>
     <b>PIN</b>：初めて自分の行を触るとき4〜8桁のPINを設定する。以降その行は本人しか触れん。
     忘れたら管理人（${esc(ADMIN)}）にリセットしてもらえ。<br><br>
     <b>順位表</b>：入れたスコアから自動で計算される。1試合ずつ保存してもええから、
@@ -2648,13 +2743,28 @@ function bind(){
     const me=await whoAmI(); if(!me) return;
     const cur=localPick(key,me);
     if(cur===side){
-      db.ref(`${ROOT}/enc/${key}/${me}`).remove();
+      if(!await ask(`「${optLabel(key,f,side,true)}」の賭けを取り消す？`)) return;
+      const at0 = Date.now();
+      await db.ref().update({
+        [`${ROOT}/enc/${key}/${me}`]: null,
+        [`${ROOT}/betat/${key}/${me}`]: null,
+        [`${ROOT}/hist/${key}/${me}/t${at0}`]: await seal(key, me, 'X')
+      });
       setLocalPick(key,me,null); toast('取り消した');
     }else{
+      /* 既に賭けとるのを別の選択肢に変えるときだけ確認。誤タップで黙って変わらんように */
+      if(cur && !await ask(`賭けを変える？\n\n`+
+        `いま　：${optLabel(key,f,cur,true)}\n`+
+        `変更後：${optLabel(key,f,side,true)}`)) return;
       const blob=await seal(key,me,side);
-      db.ref(`${ROOT}/enc/${key}/${me}`).set(blob);
+      const at0 = Date.now();
+      await db.ref().update({
+        [`${ROOT}/enc/${key}/${me}`]: blob,
+        [`${ROOT}/betat/${key}/${me}`]: at0,
+        [`${ROOT}/hist/${key}/${me}/t${at0}`]: blob   /* 変更の履歴。中身は暗号のまま */
+      });
       setLocalPick(key,me,side);
-      toast(`賭けたで（締切まで非公開）`);
+      toast(cur ? '賭けを変えた（締切まで非公開）' : '賭けたで（締切まで非公開）');
     }
     render();
   });
@@ -2676,7 +2786,7 @@ function bind(){
   document.querySelectorAll('[data-ovr]').forEach(b=>b.onclick=async()=>{
     const key=b.dataset.ovr, p=b.dataset.p, f=byKey[key];
     if(!await verifyAdmin()) return;
-    const cur=((state.picks||{})[key]||{})[p]||null;
+    const cur=shownPicks(key)[p]||null;
     const label = v => (v && v!=='X') ? optLabel(key, f, v, true) : '不参加';
     const next = await pickSide(f, p, cur);
     if(!next) return;
@@ -2684,7 +2794,7 @@ function bind(){
     if(!await ask(`${p} の選択を\n${label(cur)} → ${label(next)}\nに変更する？\n\n※この修正は全員に見える履歴として残る`)) return;
     const at = Date.now();
     db.ref().update({
-      [`${ROOT}/picks/${key}/${p}`]: next==='X' ? null : next,
+      [`${ROOT}/fix/${key}/${p}`]: next,
       [`${ROOT}/ovr/${key}/o${at}`]: { p, from: label(cur), to: label(next), at }
     });
     toast('修正した（履歴に残したで）');
@@ -2750,6 +2860,48 @@ function bind(){
   });
 
   /* 指名の取り消し（指名した本人・締切前だけ） */
+  /* キックオフ時刻の一括修正（管理人）。TV放送で日程が動いたとき用 */
+  document.querySelectorAll('[data-kickedit]').forEach(b=>b.onclick=async()=>{
+    const gw = Number(b.dataset.kickedit);
+    const list = FIXTURES.filter(f=>f.gw===gw).sort((x,y)=>x.ko-y.ko);
+    const ov = document.createElement('div'); ov.className='ov';
+    ov.innerHTML = `<div class="dlg kdlg"><p>第${gw}節 キックオフ時刻（日本時間）</p>
+      <p class="dlg-sub">プレミア公式の時刻を日本時間に直して入れてや。変えた試合だけ保存される</p>
+      <div class="krows">${list.map(f=>`<label class="krow">
+        <span class="kt">${esc(jp(f.h))} <i>v</i> ${esc(jp(f.a))}</span>
+        <input type="datetime-local" data-kk="${f.key}" value="${toJstStr(f.ko)}">
+        ${kickMoved(f)?`<button type="button" class="kreset" data-kreset="${f.key}">元に戻す</button>`:''}
+      </label>`).join('')}</div>
+      <div class="dlg-btns"><button class="dlg-no">やめる</button><button class="dlg-yes">保存</button></div></div>`;
+    document.body.appendChild(ov);
+    const close = ()=>ov.remove();
+    ov.querySelector('.dlg-no').onclick = close;
+    ov.onclick = e=>{ if(e.target===ov) close(); };
+    ov.querySelectorAll('[data-kreset]').forEach(r=>r.onclick=()=>{
+      const f = byKey[r.dataset.kreset];
+      const el = ov.querySelector(`[data-kk="${r.dataset.kreset}"]`);
+      if(f && el) el.value = toJstStr(f.ko0);
+    });
+    ov.querySelector('.dlg-yes').onclick = async()=>{
+      const up = {}; const lines = [];
+      for(const f of list){
+        const el = ov.querySelector(`[data-kk="${f.key}"]`);
+        if(!el || !el.value) continue;
+        const ms = fromJstStr(el.value);
+        if(!ms || isNaN(ms)) continue;
+        if(ms === f.ko) continue;                      /* 変えてない */
+        up[`${ROOT}/kick/${f.key}`] = (ms === f.ko0) ? null : ms;   /* 元と同じなら上書きを消す */
+        lines.push(`${jp(f.h)} v ${jp(f.a)}：${dateJp(f.ko)} ${hhmm(f.ko)} → ${dateJp(ms)} ${hhmm(ms)}`);
+      }
+      if(!lines.length){ toast('変更なし'); close(); return; }
+      if(!await ask(`第${gw}節の時刻を ${lines.length}件 直す？\n\n${lines.join('\n')}`)) return;
+      if(!await verifyAdmin()) return;
+      await db.ref().update(up);
+      close();
+      toast(`${lines.length}件の時刻を直した`);
+    };
+  });
+
   /* 管理人が特例枠を出す：まだ指名しとらん人に、締切後でも選べる権利を渡す */
   document.querySelectorAll('[data-grant]').forEach(b=>b.onclick=async()=>{
     const gw = Number(b.dataset.grant);
@@ -2795,9 +2947,12 @@ function bind(){
       [`${ROOT}/bet/${key}`]: null,
       [`${ROOT}/enc/${key}`]: null,
       [`${ROOT}/picks/${key}`]: null,
+      [`${ROOT}/fix/${key}`]: null,
       [`${ROOT}/ovr/${key}`]: null,
       [`${ROOT}/note/${key}`]: null,
       [`${ROOT}/cmt/${key}`]: null,
+      [`${ROOT}/betat/${key}`]: null,
+      [`${ROOT}/hist/${key}`]: null,
       [`${ROOT}/alog/a${at}`]: { at, act:'nomforce', gw:f.gw, key, who:owner, votes:n }
     });
     PLAYERS.forEach(p=>setLocalPick(key,p,null));
@@ -2822,9 +2977,12 @@ function bind(){
       [`${ROOT}/bet/${key}`]: null,
       [`${ROOT}/enc/${key}`]: null,
       [`${ROOT}/picks/${key}`]: null,
+      [`${ROOT}/fix/${key}`]: null,
       [`${ROOT}/ovr/${key}`]: null,
       [`${ROOT}/note/${key}`]: null,
-      [`${ROOT}/cmt/${key}`]: null
+      [`${ROOT}/cmt/${key}`]: null,
+      [`${ROOT}/betat/${key}`]: null,
+      [`${ROOT}/hist/${key}`]: null
     });
     PLAYERS.forEach(p=>setLocalPick(key,p,null));
     toast('指名を取り消した。下から選び直してや');
@@ -3113,6 +3271,7 @@ function askText(title, ph){
       return;
     }
     state = v;
+    applyKickOverrides();
     document.getElementById('loading').style.display='none';
     document.getElementById('app').style.display='block';
     pruneLocalPicks();
