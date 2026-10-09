@@ -407,6 +407,12 @@ input,select{font-family:var(--body),'Noto Sans JP',sans-serif}
 .stake{font-size:9.5px;font-weight:800;color:#fff;background:var(--pink);padding:3px 9px;border-radius:20px}
 .rtag{display:inline-block;margin-left:6px;font-size:9px;font-weight:800;color:#fff;background:var(--grey);padding:1px 7px;border-radius:10px;vertical-align:1px}
 .mrow.retired{opacity:.6}
+.rtag.back{background:var(--pink)}
+.saga{margin:0 12px 18px;border:1px solid var(--line);border-radius:12px;background:#fff;overflow:hidden}
+.saga .r{display:flex;gap:10px;padding:10px 13px;border-top:1px dashed var(--line);font-size:12px;line-height:1.6}
+.saga .r:first-child{border-top:none}
+.saga .d{flex:none;width:44px;font-weight:800;color:var(--purple)}
+.bonus{margin:0 12px 14px;padding:11px 13px;border:1px solid var(--line);border-radius:12px;background:#fff;font-size:12px;line-height:1.8}
 .krow input:disabled{opacity:.45;background:#F3F3F3}
 .side-b{padding:10px 12px;font-size:11.5px;color:var(--grey);font-weight:600;line-height:1.6}
 .pickline{display:flex;align-items:center;gap:7px;padding:4px 0;color:var(--purple);font-weight:700;font-size:12px}
@@ -543,6 +549,132 @@ input,select{font-family:var(--body),'Noto Sans JP',sans-serif}
 .cx-rankhead b{font-size:15px;font-weight:900;color:var(--purple)}
 .cx-rankhead em{font-style:normal;font-size:11px;color:var(--grey);font-weight:700}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+/* ── 記録タブ ── */
+.paper{margin:0 12px;background:#FBF8F1;border:1px solid #E6DECB;border-radius:12px;padding:14px 15px 13px;color:#231F20;box-shadow:0 2px 0 rgba(55,0,60,.06)}
+.pp-mast{display:flex;justify-content:space-between;align-items:baseline;gap:8px;border-bottom:3px double #231F20;padding-bottom:6px;margin-bottom:11px}
+.pp-mast b{font-family:'Dela Gothic One',sans-serif;font-weight:400;font-size:19px;letter-spacing:.02em;color:var(--purple)}
+.pp-mast span{font-size:10px;font-weight:700;color:#7A6F66;white-space:nowrap}
+.pp-head{font-family:'Dela Gothic One',sans-serif;font-weight:400;font-size:23px;line-height:1.3;letter-spacing:-.01em}
+.pp-lead{font-size:12.5px;line-height:1.7;margin-top:6px;font-weight:500}
+.pp-subs{margin-top:11px;border-top:1px solid #E1D8C3}
+.pp-subs div{padding:8px 0;border-bottom:1px solid #E1D8C3;font-size:11.5px;line-height:1.6}
+.pp-subs b{display:block;font-size:13.5px;font-weight:900}
+.pp-subs span{color:#5E554D}
+.pp-box{margin-top:11px;background:#fff;border:1px solid #E6DECB;border-radius:9px;padding:8px 11px}
+.pp-bt{font-size:10px;font-weight:800;letter-spacing:.12em;color:var(--pink);margin-bottom:3px}
+.pp-m{padding:5px 0;border-top:1px dashed #EDE6D6;font-size:12.5px;font-weight:700}
+.pp-m:first-of-type{border-top:none}
+.pp-m small{display:block;font-size:10.5px;font-weight:500;color:#7A6F66}
+.pp-m i{font-style:normal;color:#7A6F66}
+.pp-n{display:flex;justify-content:space-between;padding:3px 0;font-size:12.5px;font-weight:700}
+.pp-n b{font-family:var(--disp);font-weight:700}
+.paper .up,.rv-c .up{color:var(--green)} .paper .dn,.rv-c .dn{color:var(--pink)}
+.pp-ed{margin-top:11px;padding:9px 11px;border-left:3px solid var(--purple);background:#F3EEF4;border-radius:0 8px 8px 0;font-size:12.5px;font-weight:700;line-height:1.6}
+.pp-ed span{display:block;font-size:9.5px;font-weight:800;letter-spacing:.1em;color:var(--purple);margin-bottom:1px}
+.pp-edbtn{display:block;margin:10px 0 0 auto;font-size:10.5px;font-weight:700;color:#7A6F66;background:none;border:1px solid #E1D8C3;border-radius:7px;padding:5px 9px;cursor:pointer;font-family:inherit}
+.pp-back{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:10px 12px 0}
+.pp-back span{font-size:10.5px;font-weight:700;color:var(--grey);margin-right:2px}
+.pp-back button{font-size:11px;font-weight:700;padding:5px 10px;border-radius:14px;border:1px solid var(--line);background:#fff;color:var(--grey);cursor:pointer;font-family:inherit}
+.pp-back button.on{background:var(--purple);border-color:var(--purple);color:#fff}
+.trend{margin:0 12px}
+.tr-leg{display:flex;flex-wrap:wrap;gap:4px 12px;margin-bottom:6px}
+.tr-leg span{display:flex;align-items:center;gap:5px;font-size:11px;font-weight:700;color:var(--purple)}
+.tr-leg i,.tr-tip i{display:inline-block;width:10px;height:10px;border-radius:3px}
+.tr-wrap{position:relative;border:1px solid var(--line);border-radius:12px;background:#fff;padding:6px 4px 2px}
+.tr-svg{display:block;width:100%;height:auto;overflow:visible}
+.tr-svg .tg{stroke:#EFE9F1;stroke-width:1}
+.tr-svg .tz{stroke:#BFB2C3;stroke-width:1;stroke-dasharray:3 3}
+.tr-svg .tc{stroke:var(--purple);stroke-width:1;opacity:.35;pointer-events:none}
+.tr-svg .ty,.tr-svg .tx{font-size:9px;fill:var(--grey);font-family:var(--disp)}
+.tr-svg .ty{text-anchor:end} .tr-svg .tx{text-anchor:middle}
+.tr-svg .tl{font-size:10px;font-weight:700;fill:var(--purple)}
+.tr-tip{display:none;position:absolute;top:8px;min-width:128px;background:#fff;border:1px solid var(--line);border-radius:9px;box-shadow:0 4px 14px rgba(55,0,60,.14);padding:7px 9px;font-size:11px;pointer-events:none}
+.tr-tip b{display:block;font-size:10.5px;color:var(--grey);margin-bottom:3px}
+.tr-tip div{display:flex;align-items:center;gap:5px;padding:1px 0;font-weight:700;color:var(--purple)}
+.tr-tip span{margin-left:auto;padding-left:10px;font-family:var(--disp)}
+.tr-tbl{margin-top:8px;font-size:11px}
+.tr-tbl summary{cursor:pointer;color:var(--grey);font-weight:700}
+.tr-scroll{overflow-x:auto;margin-top:6px}
+.tr-tbl table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}
+.tr-tbl th,.tr-tbl td{padding:4px 6px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+.tr-tbl th:first-child,.tr-tbl td:first-child{text-align:left}
+.rv-big{margin:0 12px 10px;padding:10px 12px;border-radius:10px;background:var(--purple);color:#fff;font-size:12.5px;font-weight:700}
+.rv-big b{color:var(--green-lt)}
+.rv-row{align-items:flex-start}
+.rv-c{font-size:11.5px;line-height:1.75;text-align:right;color:var(--grey)}
+.rv-c b{color:var(--purple)}
+.rv-c em{font-style:normal;font-weight:800;font-family:var(--disp)}
+/* ══════ スコア予想タブ（sp-） ══════ */
+.sp-card{border:1px solid var(--line);border-radius:14px;margin:0 12px 12px;overflow:hidden}
+.sp-top{display:flex;align-items:center;gap:8px;padding:9px 12px;background:var(--panel);font-size:11px;font-weight:700;color:var(--grey)}
+.sp-top b{color:var(--purple)}
+.sp-top .sp0{flex:1}
+.sp-top .dl{font-size:10.5px;font-weight:800;color:var(--purple);background:#fff;padding:3px 9px;border-radius:12px}
+.sp-top .dl.shut{background:var(--pink);color:#fff}
+
+/* 入力（締切前・まだ出してへん） */
+.sp-in{display:grid;grid-template-columns:1fr auto 14px auto 1fr;align-items:center;gap:6px;padding:14px 10px 4px}
+.sp-in .tm{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:10.5px;font-weight:700;color:var(--grey);min-width:0}
+.sp-in .tm span{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sp-st{display:flex;flex-direction:column;align-items:center;gap:3px}
+.sp-st button{width:44px;height:26px;border:1.5px solid var(--line);background:#fff;border-radius:8px;
+  font-size:14px;font-weight:800;color:var(--purple);cursor:pointer;line-height:1}
+.sp-st b{font-family:var(--disp);font-size:34px;font-weight:800;letter-spacing:-.04em;line-height:1;min-width:44px;text-align:center}
+.sp-in .dash{font-family:var(--disp);font-size:22px;font-weight:800;color:var(--grey);text-align:center}
+.sp-go{display:block;width:calc(100% - 22px);margin:8px 11px 0;padding:12px 0;border:none;border-radius:10px;
+  background:var(--purple);color:#fff;font-weight:800;font-size:13px;cursor:pointer}
+
+/* 1行の試合表示（出したあと・開票後） */
+.sp-line{display:grid;grid-template-columns:1fr 24px auto 24px 1fr;align-items:center;gap:8px;padding:13px 11px 4px}
+.sp-line .tn{font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sp-line .tn.h{text-align:right}
+.sp-line .crest{width:24px;height:24px}
+.sp-line .mid{text-align:center;font-family:var(--disp);font-weight:800}
+.sp-line .mid b{display:block;font-size:22px;letter-spacing:-.03em;line-height:1}
+.sp-line .mid i{display:block;font-style:normal;font-size:9px;font-weight:700;color:var(--grey);margin-top:3px;letter-spacing:.04em}
+.sp-no{display:block;width:100%;margin-top:2px;padding:9px 0 2px;border:none;background:none;font-size:11px;font-weight:700;color:var(--grey);cursor:pointer}
+.sp-mine{display:flex;align-items:center;gap:8px;margin:8px 11px 0;padding:9px 11px;border-radius:10px;background:var(--panel)}
+.sp-mine .lb{font-size:11px;font-weight:700;color:var(--grey)}
+.sp-mine .sc{font-family:var(--disp);font-size:18px;font-weight:800;letter-spacing:-.02em}
+.sp-mine .sp0{flex:1}
+.sp-mine .ed{font-size:11px;font-weight:800;border:1.5px solid var(--line);background:#fff;color:var(--purple);
+  border-radius:14px;padding:5px 13px;cursor:pointer}
+
+/* 誰が出したか（締切前は中身なし） */
+.sp-who{display:flex;align-items:center;gap:6px;padding:10px 12px 12px;flex-wrap:wrap}
+.sp-who .lb{font-size:10.5px;font-weight:700;color:var(--grey);margin-right:2px}
+.sp-who .p{position:relative;opacity:.3}
+.sp-who .p.ok{opacity:1}
+.sp-who .p.ok::after{content:'✓';position:absolute;right:-3px;top:-4px;width:12px;height:12px;border-radius:50%;
+  background:var(--green);color:#fff;font-size:8px;font-weight:900;display:grid;place-items:center;border:1.5px solid #fff}
+
+/* 開票後：みんなの予想をチップで */
+.sp-chips{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;padding:10px 11px 12px}
+.sp-chip{display:flex;flex-direction:column;align-items:center;gap:3px;padding:7px 2px 6px;border-radius:10px;border:1.5px solid var(--line)}
+.sp-chip .nm{font-size:9.5px;font-weight:700;color:var(--grey);white-space:nowrap}
+.sp-chip .sc{font-family:var(--disp);font-size:14px;font-weight:800;letter-spacing:-.02em}
+.sp-chip .sc.none{font-family:inherit;font-size:10px;color:var(--grey)}
+.sp-chip .pt{font-family:var(--disp);font-size:9.5px;font-weight:800;color:var(--grey)}
+.sp-chip.p3{background:var(--purple);border-color:var(--purple)}
+.sp-chip.p3 .nm{color:rgba(255,255,255,.75)} .sp-chip.p3 .sc{color:#fff} .sp-chip.p3 .pt{color:var(--green-lt)}
+.sp-chip.p1{background:#EAFBF2;border-color:#BFEFD6} .sp-chip.p1 .pt{color:#0A7B47}
+
+/* 🎯称号（名前の横） */
+.sp-t{font-family:var(--disp);font-size:9.5px;font-weight:800;background:var(--purple);color:var(--green-lt);
+  padding:1px 6px 1px 4px;border-radius:10px;white-space:nowrap;flex:none}
+
+/* ランキング */
+.sp-rank{margin:0 12px;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.sp-rr{display:flex;align-items:center;gap:9px;padding:10px 12px;border-top:1px solid var(--line)}
+.sp-rr:first-child{border-top:none}
+.sp-rr .no{font-family:var(--disp);font-size:16px;font-weight:800;width:20px;text-align:center;color:var(--grey)}
+.sp-rr.top{background:linear-gradient(90deg,rgba(0,255,135,.18),rgba(0,255,135,0))}
+.sp-rr.top .no{color:var(--purple)}
+.sp-rr .nm{flex:1;min-width:0}
+.sp-rr .nm b{display:flex;align-items:center;gap:5px;font-size:12.5px;font-weight:800}
+.sp-rr .nm small{display:block;font-size:10px;font-weight:600;color:var(--grey);margin-top:2px}
+.sp-rr .pts{font-family:var(--disp);font-size:22px;font-weight:800;letter-spacing:-.03em;line-height:1}
+.sp-rr .pts i{font-style:normal;font-size:10px;font-weight:700;color:var(--grey);margin-left:2px}
 </style>
 </head>
 <body>
@@ -563,8 +695,10 @@ input,select{font-family:var(--body),'Noto Sans JP',sans-serif}
     <div class="tabwrap">
     <div class="tabs" id="tabs">
       <button data-tab="match" class="on">試合</button>
+      <button data-tab="score">スコア予想</button>
       <button data-tab="table">順位表</button>
       <button data-tab="money">収支</button>
+      <button data-tab="record">記録</button>
       <button data-tab="season">年間予想</button>
       <button data-tab="club">クラブ</button>
       <button data-tab="sound">テーマ</button>
@@ -612,18 +746,31 @@ const CREW_SONG_YT    = 'f71YSjMZbl8';
 const CREW_SONG_TITLE = 'D.O「悪党の詩」';
 const ICON_PX = 96;                  /* 正方形に切って縮めるサイズ */
 const ICON_MAX = 60000;              /* dataURLの上限（超えたら画質を落として再圧縮） */
-const OLD_ADMIN = 'さんふぁん';     /* 10/2まで管理人。古いログの「誰が」表示にだけ使う */
+const ADMIN = 'さんふぁん';        /* 管理人（10/2引退→10/9復帰で返り咲き） */
+const OLD_ADMIN = ADMIN;           /* 「誰が」が無い古いログの表示用 */
 const PLAYERS = ['りゅんで','さんふぁん','ふぁんさ','よんす','りき'];
 /* 引退：名前と過去の記録は残す。収支は固定、以降の指名・賭け・スタッツからは外す */
-const RETIRED = { 'さんふぁん': { total:-2000, at: Date.UTC(2026,9,1,15,0,0) } };   /* 2026/10/2 0:00 JST */
+const RETIRED = {};   /* 10/2〜10/9 はさんふぁんが引退中やった（その間に試合は無し）。10/9 復帰で空に */
+const RETURNED = ['さんふぁん'];
+const RETURN_GW = 6;   /* 復帰した節。この節だけ試合カードに「電撃復帰」が出る */
 const isRetired = p => !!RETIRED[p];
 const ACTIVE = PLAYERS.filter(p=>!isRetired(p));
 /* その試合の顔ぶれ。引退前の試合は全員、引退後の試合は現役だけ */
 const playersFor = f => PLAYERS.filter(p=>!isRetired(p) ||
   (f && (f.ko0!==undefined ? f.ko0 : f.ko) < RETIRED[p].at));
-const rtag = p => isRetired(p) ? `<span class="rtag">引退</span>` : '';
+const rtag = p => isRetired(p) ? `<span class="rtag">引退</span>`
+  : RETURNED.includes(p) ? `<span class="rtag back">引退からの復帰</span>` : '';
 /* 年間予想：10/2 の話し合いで作り直し。優勝だけ残して3人で張る */
-const CHAMP_FIXED = { 'りゅんで':['ARS'], 'ふぁんさ':['CHE'], 'よんす':['LIV'] };
+const CHAMP_FIXED = { 'りゅんで':['ARS'], 'さんふぁん':['ARS'], 'ふぁんさ':['CHE'] };   /* 10/9 再修正。よんす・りきは不参加 */
+/* 最終ボーナス：リーグ戦（試合の賭け）だけの最終順位で、2〜5位が1位に払う */
+const BONUS_PER_RANK = 1000;
+/* 事件簿。日付は日本時間 */
+const SAGA = [
+  ['9/21','第5節が終了'],
+  ['10/2','さんふぁん、電撃引退。収支は−2,000で凍結、年間予想は優勝だけ残して作り直し、管理人不在で4人運営へ'],
+  ['10/9','わずか1週間で電撃復帰🔥 管理人に返り咲き、優勝予想にもアーセナルで再参戦'],
+  ['10/10','第6節から5人で再始動'],
+];
 const SIDE_VOID = ['top4','relegation','scorer','sack'];
 const STAKE = 1000;
 const CHAMP_STAKE = 10000;
@@ -890,8 +1037,24 @@ async function whoAmI(){
   const pick = await pickWho(); if(!pick) return null;
   return (await verify(pick)) ? pick : null;
 }
-/* 管理操作：現役メンバーなら誰でも本人PINでできる。返り値は操作した人（ログ用） */
-async function verifyAdmin(){ return await whoAmI(); }
+/* 管理人認証。投票用とは別の管理人PIN。返り値は操作した人（ログ用） */
+async function verifyAdmin(){
+  const stored = state.adminPin || null;
+  if(!stored){
+    const pin = await askPin(`管理人（${ADMIN}）PINを新規設定`,'投票用とは別の専用PIN');
+    if(pin===null) return false;
+    if(!/^\d{4,8}$/.test(pin)){ toast('数字4〜8桁でな'); return false; }
+    const h = await sha('admin:'+pin);
+    db.ref(`${ROOT}/adminPin`).set(h);
+    localStorage.setItem(ROOT+'-admin',h); toast('管理人PINを設定した'); return ADMIN;
+  }
+  if(localStorage.getItem(ROOT+'-admin')===stored) return ADMIN;
+  const pin = await askPin('管理人PINを入力',`${ADMIN} 本人確認`);
+  if(pin===null) return false;
+  const h = await sha('admin:'+pin);
+  if(h!==stored){ toast('管理人PINがちゃうで🚫'); return false; }
+  localStorage.setItem(ROOT+'-admin',h); return ADMIN;
+}
 
 /* ══════ 目隠し用の暗号化 ══════
    締切前、Firebaseには意味不明な文字列だけが入る。
@@ -928,20 +1091,6 @@ async function unseal(slot, who, blob){
 /* ══════ アイコン写真 ══════
    端末側で正方形に切って96pxに縮めてJPEG化してから送る。
    でかい写真をそのまま上げることは無い */
-function chooseImage(){
-  return new Promise(res=>{
-    const inp = document.createElement('input');
-    inp.type = 'file'; inp.accept = 'image/*';
-    inp.style.position='fixed'; inp.style.left='-9999px';
-    document.body.appendChild(inp);
-    let done = false;
-    const finish = v => { if(done) return; done=true; inp.remove(); res(v); };
-    inp.onchange = () => finish(inp.files && inp.files[0] ? inp.files[0] : null);
-    /* キャンセルされたら onchange が飛ばん端末があるので保険 */
-    window.addEventListener('focus', ()=>setTimeout(()=>finish(null), 1500), {once:true});
-    inp.click();
-  });
-}
 function squareDataURL(file, px){
   return new Promise((res,rej)=>{
     const fr = new FileReader();
@@ -1200,6 +1349,7 @@ async function autoReveal(){
         }
       }
     }
+    await spReveal();
   }catch(e){ /* 次回に持ち越し */ }
   revealing = false;
 }
@@ -1462,14 +1612,31 @@ function grandTotals(){
     if(m.mvp) st[m.mvp].mvp++;
     else if(m.tie) m.tie.forEach(p=>st[p].mvp++);
   }
+  const league = Object.assign({}, totals);   /* リーグ戦（試合の賭け）だけの収支 */
   ['champion','top4','relegation','scorer','sack'].forEach(type=>{
     const r = settleSide(type);
     if(r.pending||r.void) return;
     PLAYERS.forEach(p=>totals[p]+=r.delta[p]);
   });
+  const bonus = state.seasonEnd ? finalBonus(league) : null;
+  if(bonus) PLAYERS.forEach(p=>totals[p]+=bonus.delta[p]);
   /* 引退した人の収支は固定 */
   Object.keys(RETIRED).forEach(p=>{ if(p in totals) totals[p]=RETIRED[p].total; });
-  return { totals, rec, st };
+  return { totals, rec, st, league, bonus };
+}
+/* 最終ボーナス。同率は同じ順位（2位が2人なら2人とも2位で2,000ずつ、次の人は4位）。
+   1位が複数なら山分け。全員1位なら動かん */
+function finalBonus(league){
+  const delta={}, rank={}; PLAYERS.forEach(p=>delta[p]=0);
+  PLAYERS.forEach(p=>{ rank[p] = 1 + PLAYERS.filter(q=>league[q]>league[p]).length; });
+  const tops = PLAYERS.filter(p=>rank[p]===1);
+  const payers = PLAYERS.filter(p=>rank[p]>1);
+  if(!payers.length) return { delta, rank, tops, pool:0 };
+  let pool = 0;
+  payers.forEach(p=>{ const a = rank[p]*BONUS_PER_RANK; delta[p]-=a; pool+=a; });
+  const share = Math.floor(pool/tops.length), rem = pool - share*tops.length;
+  tops.forEach((p,i)=>{ delta[p] += share + (i===0?rem:0); });
+  return { delta, rank, tops, pool };
 }
 function gwNet(gw){
   const net={}; PLAYERS.forEach(p=>net[p]=0);
@@ -1575,8 +1742,10 @@ function render(){
   }
   const v=document.getElementById('view');
   if(curTab==='match') v.innerHTML = viewMatch();
+  else if(curTab==='score') v.innerHTML = viewScore();
   else if(curTab==='table') v.innerHTML = viewTable();
   else if(curTab==='money') v.innerHTML = viewMoney();
+  else if(curTab==='record') v.innerHTML = viewRecord();
   else if(curTab==='club'){ v.innerHTML = viewClub(); }
   else if(curTab==='sound') v.innerHTML = viewSound();
   else if(curTab==='members') v.innerHTML = viewMembers();
@@ -1716,7 +1885,7 @@ function viewMatch(){
     <p>${left.length ? `未指名：${left.map(esc).join('・')}` : '全員が指名済み'}<br>
     <span style="color:var(--grey)">指名はキックオフ<b>24時間前</b>まで。それ以降は指名も変更もでけへん</span>
     ${grantMe ? `<br><span class="grantnote">🎫 <b>特例枠</b>をもらっとる。締切を過ぎた試合も選べる（賭けの締切前まで）</span>` : ''}</p>
-    <button class="kickbtn" data-kickedit="${curGw}">⏱ キックオフ時刻を直す</button></div>`;
+    <button class="kickbtn" data-kickedit="${curGw}">⏱ キックオフ時刻を直す（管理人）</button></div>`;
   let lastDay='';
   fs.forEach(f=>{
     const dk=dayKey(f.ko);
@@ -1726,10 +1895,10 @@ function viewMatch(){
     if(owner){
       foot = `<span class="nomtag on">${avatar(owner,20)}<b>${esc(owner)}</b> が指名済み</span>`;
     } else if(!nomVisible(f, me)){
-      /* 締切ずみでも、賭けの締切前なら他のメンバーが特例枠を出せる */
+      /* 締切ずみでも、賭けの締切前なら管理人が特例枠を出せる */
       foot = `<span class="mini">指名の締切ずみ（KO24時間前）</span>`
         + (!isLocked(f) && left.length
-            ? ` <button class="nomctl adm sm" data-grant="${f.gw}">特例枠を出す</button>` : '');
+            ? ` <button class="nomctl adm sm" data-grant="${f.gw}">特例枠を出す（管理人）</button>` : '');
     } else if(me && noms[me]){
       foot = `<span class="mini" data-fdl="${f.key}">指名の締切まで ${remain(nomDeadlineOf(f)-Date.now())||'—'}</span>`;
     } else {
@@ -1789,6 +1958,8 @@ function ticket(f, nomBy){
     }).join('') + `</div>`;
 
   /* メンバー行 */
+  /* 第6節だけ、復帰した人の名前に「電撃復帰」を付ける */
+  const nmTag = p => (f.gw===RETURN_GW && RETURNED.includes(p)) ? `<span class="rtag back">電撃復帰</span>` : '';
   const rows = who.map(p=>{
     if(locked){
       const v = picks[p];
@@ -1804,7 +1975,7 @@ function ticket(f, nomBy){
         ? `<span class="betat">${hs.map(x=>
             `${stamp(x.at)} ${x.v==='X' ? '取消' : esc(optLabel(f.key,f,x.v))}`).join(' → ')}</span>`
         : (v && at) ? `<span class="betat">${stamp(at)}</span>` : '';
-      return `<div class="vrow">${mk}${avatar(p,20)}<div class="nm">${esc(p)}</div>
+      return `<div class="vrow">${mk}${avatar(p,20)}<div class="nm">${esc(p)}${nmTag(p)}</div>
         <div class="val">${esc(label)}${ts}</div>${ovr}</div>`;
     }
     const done = !!enc[p];
@@ -1814,7 +1985,7 @@ function ticket(f, nomBy){
     const at = isMine ? betAt(f.key, p) : null;
     const ts = at ? `<span class="betat">最終 ${stamp(at)}</span>` : '';
     return `<div class="vrow"><div class="dot ${done?'':'no'}"></div>${avatar(p,20)}
-      <div class="nm">${esc(p)}</div><div class="val">${esc(label)}${ts}</div></div>`;
+      <div class="nm">${esc(p)}${nmTag(p)}</div><div class="val">${esc(label)}${ts}</div></div>`;
   }).join('');
 
   /* 締切後の修正履歴（全員に見える・アプリからは消せへん） */
@@ -1870,10 +2041,10 @@ function ticket(f, nomBy){
   /* 指名した本人だけ、締切前なら指名を取り消して選び直せる */
   const nomCtl = (nomOpen(f) && me && nomBy && me===nomBy)
     ? `<button class="nomctl" data-nomdel="${f.key}">指名を変える</button>`
-    /* 指名締切〜賭け締切のあいだだけ、他のメンバーが特例で解除できる。
+    /* 指名締切〜賭け締切のあいだだけ、管理人が特例で解除できる。
        開票後は精算が絡むので出さん */
     : (!nomOpen(f) && !isLocked(f) && nomBy)
-      ? `<button class="nomctl adm" data-nomforce="${f.key}">特例で解除</button>` : '';
+      ? `<button class="nomctl adm" data-nomforce="${f.key}">管理人が解除</button>` : '';
 
   return `<div class="tk">
     <div class="tk-top"><div class="who">指名：<b>${esc(nomBy||'?')}</b></div>
@@ -1968,6 +2139,168 @@ function formOf(code, n){
   });
 }
 
+/* ══════ スコア予想タブ ══════
+   指名試合だけ。お金は動かん、名誉ポイントだけ。
+   保存先は plnote/sp/{試合}/{人}（賭けの enc とは別）。中身は 'sp:'+試合 の名前空間で暗号化。
+   締切（KO15分前）までは自分のぶんしか復号せん。締切後に全員ぶんを各端末で復号する（書き込まん） */
+const spDec = {};            /* spDec[試合][人] = { b:暗号文, v:{h,a} } 端末内だけ */
+const spDraft = {};          /* 入力中のスコア（端末内だけ） */
+const spEdit = new Set();    /* 「変える」を押して入力欄を開いとる試合 */
+const spParse = v => { const m = /^(\d{1,2})-(\d{1,2})$/.exec(String(v==null?'':v)); return m ? {h:+m[1], a:+m[2]} : null; };
+async function spReveal(){
+  const sp = state.sp || {};
+  const me = meNow();
+  for(const key of Object.keys(sp)){
+    const f = byKey[key]; if(!f) continue;
+    const open = isLocked(f);
+    if(!spDec[key]) spDec[key] = {};
+    for(const who of Object.keys(sp[key]||{})){
+      if(!open && who!==me) continue;          /* 締切前は自分のだけ */
+      const blob = sp[key][who];
+      const c = spDec[key][who];
+      if(c && c.b===blob) continue;            /* 同じ暗号文は1回だけ */
+      spDec[key][who] = { b:blob, v:spParse(await unseal('sp:'+key, who, blob)) };
+    }
+  }
+}
+/* その人の予想（復号できとる分だけ） */
+function spOf(key, who){
+  const blob = ((state.sp||{})[key]||{})[who]; if(!blob) return null;
+  const c = (spDec[key]||{})[who];
+  return (c && c.b===blob) ? c.v : null;
+}
+/* 配点：ピタリ3・勝敗だけ当たり1・それ以外0 */
+function spPoints(pr, sc){
+  if(!pr || !sc) return 0;
+  if(pr.h===sc.h && pr.a===sc.a) return 3;
+  return Math.sign(pr.h-pr.a)===Math.sign(sc.h-sc.a) ? 1 : 0;
+}
+/* 通算成績。スコアが記帳された指名試合だけ数える */
+function spStats(){
+  const st = {}; PLAYERS.forEach(p=>st[p]={p, pt:0, t:0, w:0, n:0});
+  let any = false;
+  betMatches().forEach(f=>{
+    if(!isLocked(f)) return;
+    const sc = scoreOf(f.key); if(!sc) return;
+    playersFor(f).forEach(p=>{
+      const pr = spOf(f.key, p); if(!pr) return;
+      any = true;
+      const n = spPoints(pr, sc), s = st[p];
+      s.n++; s.pt += n;
+      if(n===3) s.t++; else if(n===1) s.w++;
+    });
+  });
+  /* 点数→🎯の数。両方同じなら同順位 */
+  const rows = Object.values(st).sort((a,b)=>b.pt-a.pt || b.t-a.t);
+  let prev = null;
+  rows.forEach((r,i)=>{ r.rank = (prev && prev.pt===r.pt && prev.t===r.t) ? prev.rank : i+1; prev = r; });
+  return { any, rows };
+}
+const spTitle = n => n ? `<span class="sp-t">🎯${n}</span>` : '';
+
+function viewScore(){
+  const ms = betMatches().filter(f=>f.gw===curGw);
+  let html = mwBar(`指名試合 ${ms.length}`);
+  html += `<div class="sec"><h2><span class="kick">SCORE PREDICT</span>スコア予想</h2>
+    <p>ピタリ3点・勝敗当たり1点。<b style="color:var(--purple)">お金は動かん、名誉だけ</b></p></div><div style="height:8px"></div>`;
+  html += ms.length ? ms.map(spCard).join('')
+    : `<div class="empty">この節はまだ指名された試合がないで</div>`;
+
+  const S = spStats();
+  html += `<div class="divider"></div><div class="sec"><h2><span class="kick">RANKING</span>ランキング</h2></div><div style="height:8px"></div>`;
+  html += !S.any ? `<div class="empty">試合が終わったら点数がつくで</div>`
+    : `<div class="sp-rank">` + S.rows.map(r=>`<div class="sp-rr${r.rank===1?' top':''}">
+        <span class="no">${r.rank}</span>${avatar(r.p,28)}
+        <div class="nm"><b>${esc(r.p)}${spTitle(r.t)}</b><small>予想 ${r.n}試合 · 🎯 ${r.t} · 勝敗当たり ${r.w}</small></div>
+        <span class="pts">${r.pt}<i>点</i></span></div>`).join('') + `</div>`;
+  return html + `<div style="height:20px"></div>`;
+}
+
+function spCard(f){
+  const me = meNow();
+  const who = playersFor(f);
+  const locked = isLocked(f);
+  const sc = scoreOf(f.key);
+  const dl = !locked ? `<span class="dl" data-tdl="${f.key}">締切まで ${remain(deadlineOf(f)-Date.now())||'まもなく'}</span>`
+    : sc ? `<span class="dl shut">試合終了</span>` : `<span class="dl shut">締切済み</span>`;
+  let h = `<div class="sp-card"><div class="sp-top">指名 <b>${esc(f.nomBy)}</b><span class="sp0"></span>${dl}</div>`;
+  const line = mid => `<div class="sp-line"><div class="tn h">${esc(jp(f.h))}</div>${crest(f.h,24)}
+    <div class="mid">${mid}</div>${crest(f.a,24)}<div class="tn">${esc(jp(f.a))}</div></div>`;
+  const koMid = `<b>${hhmm(f.ko)}</b><i>${esc(dateJp(f.ko))}</i>`;
+
+  if(!locked){
+    const can = !me || who.includes(me);
+    const mine = me ? spOf(f.key, me) : null;
+    if(can && (!mine || spEdit.has(f.key))){
+      const d = spDraft[f.key] || mine || {h:0, a:0};
+      const st = k => `<div class="sp-st"><button data-spd="${f.key}" data-k="${k}" data-v="1">＋</button>
+        <b data-spn="${f.key}-${k}">${d[k]}</b><button data-spd="${f.key}" data-k="${k}" data-v="-1">−</button></div>`;
+      h += `<div class="sp-in">
+        <div class="tm">${crest(f.h,28)}<span>${esc(jp(f.h))}</span></div>${st('h')}
+        <div class="dash">-</div>${st('a')}
+        <div class="tm">${crest(f.a,28)}<span>${esc(jp(f.a))}</span></div></div>
+        <button class="sp-go" data-spgo="${f.key}">${mine ? 'この予想に変える' : 'この予想で出す'}</button>
+        ${mine ? `<button class="sp-no" data-spno="${f.key}">やめる（${mine.h} - ${mine.a} のまま）</button>` : ''}`;
+    } else {
+      h += line(koMid);
+      if(mine) h += `<div class="sp-mine"><span class="lb">あんたの予想</span><span class="sc">${mine.h} - ${mine.a}</span>
+        <span class="sp0"></span><button class="ed" data-spedit="${f.key}">変える</button></div>`;
+    }
+    const sent = (state.sp||{})[f.key] || {};
+    const n = who.filter(p=>sent[p]).length;
+    h += `<div class="sp-who"><span class="lb">🔒 出した人 ${n}/${who.length}</span>${who.map(p=>
+      `<span class="p ${sent[p]?'ok':''}">${avatar(p,24)}</span>`).join('')}</div>`;
+  } else {
+    h += line(sc ? `<b>${sc.h} - ${sc.a}</b><i>FULL TIME</i>` : koMid);
+    h += `<div class="sp-chips" style="grid-template-columns:repeat(${who.length},1fr)">` + who.map(p=>{
+      const pr = spOf(f.key, p);
+      const n = sc ? spPoints(pr, sc) : -1;
+      const pt = n<0 ? '' : `<span class="pt">${n===3?'🎯+3':n===1?'+1':'0'}</span>`;
+      return `<div class="sp-chip ${n===3?'p3':n===1?'p1':''}"><span class="nm">${esc(p)}</span>
+        ${pr ? `<span class="sc">${pr.h}-${pr.a}</span>` : `<span class="sc none">なし</span>`}${pt}</div>`;
+    }).join('') + `</div>`;
+  }
+  return h + `</div>`;
+}
+
+function bindScore(){
+  /* ＋−は数字だけ書き換える（画面は作り直さん） */
+  document.querySelectorAll('[data-spd]').forEach(b=>b.onclick=()=>{
+    const key = b.dataset.spd, k = b.dataset.k;
+    const d = spDraft[key] || { ...(spOf(key, meNow()) || {h:0, a:0}) };
+    d[k] = Math.max(0, Math.min(19, d[k] + Number(b.dataset.v)));
+    spDraft[key] = d;
+    const el = document.querySelector(`[data-spn="${key}-${k}"]`);
+    if(el) el.textContent = d[k];
+  });
+  document.querySelectorAll('[data-spgo]').forEach(b=>b.onclick=async()=>{
+    const key = b.dataset.spgo, f = byKey[key];
+    if(!f || isLocked(f)){ toast('締切済み。もう変えられへん'); render(); return; }
+    const me = await whoAmI(); if(!me) return;
+    if(!playersFor(f).includes(me)){ toast('この試合は予想でけへん'); return; }
+    const had = spOf(key, me);
+    const d = spDraft[key] || had || {h:0, a:0};
+    const blob = await seal('sp:'+key, me, `${d.h}-${d.a}`);
+    if(isLocked(f)){ toast('締切に間に合わへんかった'); render(); return; }
+    if(!spDec[key]) spDec[key] = {};
+    spDec[key][me] = { b:blob, v:{h:d.h, a:d.a} };
+    delete spDraft[key]; spEdit.delete(key);
+    await db.ref(`${ROOT}/sp/${key}/${me}`).set(blob);
+    toast(had ? `${d.h}-${d.a} に変えた（締切まで非公開）` : `${d.h}-${d.a} で出したで（締切まで非公開）`);
+    render();
+  });
+  document.querySelectorAll('[data-spedit]').forEach(b=>b.onclick=()=>{
+    const key = b.dataset.spedit;
+    const mine = spOf(key, meNow());
+    if(mine) spDraft[key] = { ...mine };
+    spEdit.add(key); render();
+  });
+  document.querySelectorAll('[data-spno]').forEach(b=>b.onclick=()=>{
+    const key = b.dataset.spno;
+    delete spDraft[key]; spEdit.delete(key); render();
+  });
+}
+
 /* ── 順位表タブ ── */
 function viewTable(){
   const rows = leagueTable();
@@ -2044,10 +2377,17 @@ function viewTable(){
 
 /* ── 収支タブ ── */
 function viewMoney(){
-  const { totals, rec, st } = grandTotals();
+  const { totals, rec, st, bonus } = grandTotals();
   const ranked = [...PLAYERS].sort((a,b)=>totals[b]-totals[a]);
   let html = `<div class="sec"><h2><span class="kick">BALANCE</span>収支ランキング</h2>
     <p>1試合 1,000ペリカ・年間予想も含む合計</p></div>`;
+  if(bonus){
+    html += `<div class="bonus">🏁 <b>最終ボーナス</b>（リーグ戦だけの順位）<br>` +
+      [...PLAYERS].sort((a,b)=>bonus.rank[a]-bonus.rank[b]).map(p=>{
+        const d=bonus.delta[p];
+        return `${bonus.rank[p]}位 ${esc(p)}：${d>0?'+':''}${d.toLocaleString()}`;
+      }).join('<br>') + `</div>`;
+  }
   html += `<div class="tbl">` + ranked.map((p,i)=>{
     const v=totals[p], cls=v>0?'up':v<0?'dn':'ze';
     return `<div class="mrow${isRetired(p)?' retired':''}"><span class="rk">${i+1}</span>${avatar(p,24,true)}<span class="nm">${esc(p)}${rtag(p)}</span>
@@ -2157,9 +2497,12 @@ function viewMembers(){
       ${bio?`<span class="bi">${esc(bio)}</span>`:''}</div>
       <span class="rec">${c&&CLUBS[c] ? esc(jp(c)) : '注目クラブ未選択'}</span></div>`;
   }).join('') + `</div>`;
-  html += `<div class="divider"></div><div class="sec"><h2><span class="kick">PIN RESET</span>PINリセット</h2>
-    <p>PINを忘れた人のを、他のメンバーが本人PINで消せる。自分のは不可・ログに残る</p>
-    <button class="kickbtn" id="pinReset">🔑 誰かのPINをリセットする</button></div>`;
+  html += `<div class="divider"></div><div class="sec"><h2><span class="kick">CASE FILE</span>📜 事件簿</h2>
+    <p>第5節と第6節のあいだに起きたこと</p></div>
+    <div class="saga">${SAGA.map(([d,t])=>`<div class="r"><span class="d">${esc(d)}</span><span>${esc(t)}</span></div>`).join('')}</div>`;
+  html += `<div class="divider"></div><div class="sec"><h2><span class="kick">PIN RESET</span>PINリセット（管理人）</h2>
+    <p>PINを忘れた人は管理人に言うてや。ログに残る</p>
+    <button class="kickbtn" id="pinReset">🔑 PINをリセットする</button></div>`;
   html += adminLog();
   return html;
 }
@@ -2167,7 +2510,7 @@ function viewMembers(){
 function adminLog(){
   const L = Object.values(state.alog||{}).sort((a,b)=>b.at-a.at).slice(0,30);
   let html = `<div class="divider"></div><div class="sec"><h2><span class="kick">LOG</span>操作ログ</h2>
-    <p>特例枠・特例解除・時刻変更・PINリセット・結果の確定は、誰がやったかここに残る</p></div>`;
+    <p>特例枠・特例解除・時刻変更・PINリセット・シーズン確定はここに残る</p></div>`;
   if(!L.length) return html + `<div class="empty" style="margin:0 12px 18px">まだ操作は無いで</div>`;
   html += `<div class="alog">` + L.map(x=>{
     const f = byKey[x.key];
@@ -2409,9 +2752,9 @@ function viewSeason(){
     <p>賭けやない。今季どこを追いかけるかの表明や</p></div>`;
   html += favCard(me);
   html += `<div class="divider"></div>`;
-  html += `<div class="sec"><h2><span class="kick">SETTLE RESULTS</span>結果の確定</h2>
-    <p>全試合のスコアが入ったら、順位表の1位で優勝クラブを確定する。誰でも本人PINで押せて、ログに残る</p></div>
-    <div style="padding:0 12px"><button class="sbtn ghost" id="setActual">優勝クラブを確定する</button></div>`;
+  html += `<div class="sec"><h2><span class="kick">SETTLE RESULTS</span>シーズンの確定（管理人）</h2>
+    <p>全試合のスコアが入ったら押す。優勝予想と最終ボーナスが精算される</p></div>
+    <div style="padding:0 12px"><button class="sbtn ghost" id="setActual">シーズンを確定する</button></div>`;
   return html;
 }
 /* 優勝予想（10/2 作り直し版）。3人だけ、変更不可 */
@@ -2419,8 +2762,8 @@ function champCard(){
   const entries = sideEntries('champion');
   const ac = actualOf('champion');
   const r = settleSide('champion');
-  let body = `<div class="side-b">10/2 の話し合いで作り直し。的中した人が外した人から総取り。
-    <b style="color:var(--pink)">この3クラブ以外が優勝したら全員ノーゲーム</b>。`;
+  let body = `<div class="side-b">10/2 に作り直し、10/9 さんふぁん復帰で再修正。的中した人が外した人から総取り（複数なら山分け）。
+    <b style="color:var(--pink)">アーセナルとチェルシー以外が優勝したら全員ノーゲーム</b>。`;
   body += revealList(entries, {actual: ac, winners: r.winners, who: Object.keys(CHAMP_FIXED)});
   body += ac
     ? `<div class="rv-actual">実際：${esc(jp(ac))}<br>${
@@ -2673,15 +3016,28 @@ function viewRules(){
     <b>目隠し</b>：締切まで誰がどこに賭けたかは<b>完全非公開</b>。
     見えるのは投票数と自分の選択だけ。締切が来たら自動で全公開＋人気メーターも開票される。<br><br>
     <b>締切後の修正</b>：開票して不成立やった試合を成立させたい場合、
-    締切〜キックオフの15分間だけ「修正」ボタンで変更できる。メンバーなら誰でも本人PINで押せるけど、<b>自分の賭けは自分で直されへん</b>。
+    締切〜キックオフの15分間だけ、管理人が「修正」ボタンで変更できる。<b>管理人自身の賭けは直されへん</b>。
     修正したら<b>誰の何をどう変えたかが全員に見える履歴として試合カードに残る</b>。
     アプリからは消せへん。<br><br>
-    <b>年間予想</b>：10/2 の話し合いで作り直し。残すのは<b>優勝クラブ（10,000）だけ</b>で、
-    りゅんで＝アーセナル・ふぁんさ＝チェルシー・よんす＝リヴァプール（りきは不参加）。
-    的中した人が外した2人から総取り。3クラブ以外が優勝したら全員ノーゲーム。
+    <b>年間予想</b>：残すのは<b>優勝クラブ（10,000）だけ</b>。
+    りゅんで・さんふぁん＝アーセナル、ふぁんさ＝チェルシー（よんす・りきは不参加）。
+    アーセナルが勝ったら2人で山分け、チェルシーならふぁんさの総取り。それ以外が優勝したら全員ノーゲーム。
     トップ4・降格3・得点王・最初にいなくなる監督は<b>無効</b>で、金は動かん。<br><br>
-    <b>引退</b>：さんふぁんは 10/2 で引退。収支は<b>−2,000で固定</b>で、名前と過去の記録だけ残る。
-    10/2 以降の試合には出てこん。<br><br>
+    <b>最終ボーナス</b>：シーズン終了時、<b>リーグ戦（試合の賭け）だけの収支</b>で順位をつけて、
+    2位が2,000・3位が3,000・4位が4,000・5位が5,000ペリカを1位に払う（優勝予想は順位に入れへん）。
+    同率は同じ順位として扱う。1位が2人なら2人で山分け、2位が2人なら2人とも2,000払って、次の人は4位で4,000。<br><br>
+    <b>引退と復帰</b>：さんふぁんは 10/2 に引退して、10/9 に復帰。不在中に試合は無かったから、収支も記録もそのまま続く。
+    詳しくはメンバータブの📜 事件簿。<br><br>
+    <b>記録タブ</b>：節の指名試合が全部終わったら<b>週刊バスク新聞</b>が自動で発行される（記事はデータから自動で書かれる）。
+    管理人が「編集長のひとこと」を1行だけ載せられる。収支の推移グラフと、相手ごとの天敵・カモも見れる。金は動かん。<br><br>
+    <b>スコア予想</b>：指名された試合だけ、スコアを当てるおまけ。<b>お金は1ペリカも動かん。名誉だけ</b>。
+    その試合に賭けてへん人も予想できる。<br>
+    ・<b>ピタリ</b>（スコア完全一致）＝<b>3点＋🎯</b><br>
+    ・<b>勝敗だけ当たり</b>＝<b>1点</b><br>
+    ・ハズレ・予想なし＝0点<br>
+    締切は賭けと同じ<b>キックオフ15分前</b>。それまで何回でも変えられて、中身は<b>非公開</b>（出したかどうかだけ見える）。
+    試合が延期になったら締切も新しいキックオフに合わせて動く。指名が取り消されたら、その試合の予想も消える。
+    ランキングはスコア予想タブの一番下。同点なら🎯の多いほうが上。<br><br>
     <b>注目クラブ</b>：年間予想タブの一番下で選ぶ。金は動かん、ただのキャラ付けや。
     かぶってもOKで、年間予想と同じ日にロック。<br><br>
     <b>アイコン</b>：右上の丸アイコンを押したら写真を変えられる。いつでも変更OK。
@@ -2691,7 +3047,7 @@ function viewRules(){
     みんなの賭けを見てから書き換えるのは無理や。<br><br>
     <b>自己紹介</b>：メンバータブでアイコンをタップしたら本人が書ける（100字）。
     名前の下に吹き出しで出る。<br><br>
-    <b>指名の締切後の特例</b>：どうしても変えたいときは他のメンバーに頼む（自分の指名・自分への枠は自分でいじれへん）。
+    <b>指名の締切後の特例</b>：どうしても変えたいときは管理人（${esc(ADMIN)}）に頼む。
     指名を外す場合と、まだ指名しとらん人に枠だけ出す場合の両方できる。
     もらえるのは<b>特例枠</b>で、枠があるうちは
     <b>締切を過ぎた試合も自分で選び直せる</b>（賭けの締切前まで）。枠は1回使ったら消える。
@@ -2701,11 +3057,11 @@ function viewRules(){
     締切前は誰にも読めん。<br><br>
     <b>開票</b>：締切が来たら各自の端末が暗号を解いて中身を表示する。
     <b>暗号の原本は消さずに残る</b>ので、表示が食い違っても必ず正しい値に戻る。
-    どうしてもおかしいときは他のメンバーが「修正」で直せて、履歴が全員に残る。<br><br>
-    <b>キックオフ時刻</b>：TV放送の都合で日程はよく動く。メンバーなら誰でも「試合」タブの
-    <b>⏱ キックオフ時刻を直す</b>から節ごとにまとめて修正できる（第1〜38節どこでも）。賭けの締切を過ぎた試合と、過去の時刻にはできへん。誰が直したかはメンバータブのログに残る。<br><br>
+    どうしてもおかしいときは管理人が「修正」で直せて、履歴が全員に残る。<br><br>
+    <b>キックオフ時刻</b>：TV放送の都合で日程はよく動く。管理人が「試合」タブの
+    <b>⏱ キックオフ時刻を直す</b>から節ごとにまとめて修正する。直した内容はメンバータブのログに残る。<br><br>
     <b>PIN</b>：初めて自分の行を触るとき4〜8桁のPINを設定する。以降その行は本人しか触れん。
-    忘れたら他のメンバーに、メンバータブの<b>🔑 PINリセット</b>を押してもらえ（自分のは不可・ログに残る）。<br><br>
+    忘れたら管理人（${esc(ADMIN)}）にリセットしてもらえ。<br><br>
     <b>順位表</b>：入れたスコアから自動で計算される。1試合ずつ保存してもええから、
     延期があったらその試合だけ後で入れたらええ。
     指名された試合のスコアは賭けの精算にもそのまま使われる。
@@ -2714,6 +3070,8 @@ function viewRules(){
 
 /* ══════ 操作 ══════ */
 function bind(){
+  if(curTab==='record') bindRecord();
+  if(curTab==='score') bindScore();
   /* アイコンをタップしたら大きく見れる */
   document.querySelectorAll('[data-avtap]').forEach(el=>{
     el.onclick = e=>{ e.stopPropagation(); avBig(el.dataset.avtap); };
@@ -2820,11 +3178,11 @@ function bind(){
     toast('記帳した');
   });
 
-  /* 締切後の修正（メンバーなら誰でも。自分の分は不可） */
+  /* 締切後の修正（管理人。自分の賭けは不可） */
   document.querySelectorAll('[data-ovr]').forEach(b=>b.onclick=async()=>{
     const key=b.dataset.ovr, p=b.dataset.p, f=byKey[key];
     const by = await verifyAdmin(); if(!by) return;
-    if(by===p){ toast('自分の賭けは自分で直されへん。他の人に頼んでや'); return; }
+    if(by===p){ toast('自分の賭けは管理人でも直されへん'); return; }
     const cur=shownPicks(key)[p]||null;
     const label = v => (v && v!=='X') ? optLabel(key, f, v, true) : '不参加';
     const next = await pickSide(f, p, cur);
@@ -2899,18 +3257,17 @@ function bind(){
   });
 
   /* 指名の取り消し（指名した本人・締切前だけ） */
-  /* キックオフ時刻の一括修正（メンバーなら誰でも）。TV放送で日程が動いたとき用。
-     賭けの締切を過ぎた試合は開票済みやから触らせん（時刻を後ろにずらして賭けを再開するズル防止） */
+  /* キックオフ時刻の一括修正（管理人）。TV放送で日程が動いたとき用。延期にも対応できるよう全試合いじれる */
   document.querySelectorAll('[data-kickedit]').forEach(b=>b.onclick=async()=>{
     const gw = Number(b.dataset.kickedit);
     const list = FIXTURES.filter(f=>f.gw===gw).sort((x,y)=>x.ko-y.ko);
     const ov = document.createElement('div'); ov.className='ov';
     ov.innerHTML = `<div class="dlg kdlg"><p>第${gw}節 キックオフ時刻（日本時間）</p>
-      <p class="dlg-sub">プレミア公式の時刻を日本時間に直して入れてや。変えた試合だけ保存される。締切を過ぎた試合はいじれへん</p>
+      <p class="dlg-sub">プレミア公式の時刻を日本時間に直して入れてや。変えた試合だけ保存される</p>
       <div class="krows">${list.map(f=>`<label class="krow">
         <span class="kt">${esc(jp(f.h))} <i>v</i> ${esc(jp(f.a))}</span>
-        <input type="datetime-local" data-kk="${f.key}" value="${toJstStr(f.ko)}" ${isLocked(f)?'disabled':''}>
-        ${(kickMoved(f) && !isLocked(f))?`<button type="button" class="kreset" data-kreset="${f.key}">元に戻す</button>`:''}
+        <input type="datetime-local" data-kk="${f.key}" value="${toJstStr(f.ko)}">
+        ${kickMoved(f)?`<button type="button" class="kreset" data-kreset="${f.key}">元に戻す</button>`:''}
       </label>`).join('')}</div>
       <div class="dlg-btns"><button class="dlg-no">やめる</button><button class="dlg-yes">保存</button></div></div>`;
     document.body.appendChild(ov);
@@ -2924,19 +3281,15 @@ function bind(){
     });
     ov.querySelector('.dlg-yes').onclick = async()=>{
       const up = {}; const lines = [];
-      let bad = null;
       for(const f of list){
-        if(isLocked(f)) continue;                      /* 開票済みは触らん */
         const el = ov.querySelector(`[data-kk="${f.key}"]`);
         if(!el || !el.value) continue;
         const ms = fromJstStr(el.value);
         if(!ms || isNaN(ms)) continue;
         if(ms === f.ko) continue;                      /* 変えてない */
-        if(ms <= Date.now()){ bad = f; break; }
         up[`${ROOT}/kick/${f.key}`] = (ms === f.ko0) ? null : ms;   /* 元と同じなら上書きを消す */
         lines.push(`${jp(f.h)} v ${jp(f.a)}：${dateJp(f.ko)} ${hhmm(f.ko)} → ${dateJp(ms)} ${hhmm(ms)}`);
       }
-      if(bad){ toast(`${jp(bad.h)} v ${jp(bad.a)}：過去の時刻にはできへん`); return; }
       if(!lines.length){ toast('変更なし'); close(); return; }
       if(!await ask(`第${gw}節の時刻を ${lines.length}件 直す？\n\n${lines.join('\n')}\n\n誰が直したかはログに残る`)) return;
       const by = await verifyAdmin(); if(!by) return;
@@ -2948,7 +3301,7 @@ function bind(){
     };
   });
 
-  /* 特例枠を出す：まだ指名しとらん人に、締切後でも選べる権利を渡す。自分には出されへん */
+  /* 管理人が特例枠を出す：まだ指名しとらん人に、締切後でも選べる権利を渡す。自分には出されへん */
   document.querySelectorAll('[data-grant]').forEach(b=>b.onclick=async()=>{
     const gw = Number(b.dataset.grant);
     const noms = nomsOf(gw);
@@ -2961,7 +3314,7 @@ function bind(){
       `${who} は締切を過ぎた試合も選べるようになる（賭けの締切前まで）\n`+
       `枠は1回使ったら消える。出したことは全員に見えるログに残る`)) return;
     const by = await verifyAdmin(); if(!by) return;
-    if(by===who){ toast('自分に特例枠は出されへん。他の人に頼んでや'); return; }
+    if(by===who){ toast('自分に特例枠は出されへん'); return; }
     const at = Date.now();
     await db.ref().update({
       [`${ROOT}/grant/gw${gw}/${who}`]: at,
@@ -2983,11 +3336,11 @@ function bind(){
             + Object.keys((state.picks||{})[key]||{}).length;
     if(!await ask(`【特例】第${f.gw}節・${esc(owner)} の指名を解除する？\n\n`+
       `${jp(f.h)} vs ${jp(f.a)}\n`+
-      `入っとる投票 ${n}件とコメントは全部消える（戻せへん）\n`+
+      `入っとる投票 ${n}件・コメント・スコア予想は全部消える（戻せへん）\n`+
       `${esc(owner)} には特例枠が付いて、締切を過ぎた試合も選び直せるようになる\n`+
       `解除したことは全員に見えるログに残る`)) return;
     const by = await verifyAdmin(); if(!by) return;
-    if(by===owner){ toast('自分の指名は自分で特例解除できへん。他の人に頼んでや'); return; }
+    if(by===owner){ toast('自分の指名は特例解除できへん'); return; }
     const at = Date.now();
     await db.ref().update({
       [`${ROOT}/noms/gw${f.gw}/${owner}`]: null,
@@ -3001,6 +3354,7 @@ function bind(){
       [`${ROOT}/cmt/${key}`]: null,
       [`${ROOT}/betat/${key}`]: null,
       [`${ROOT}/hist/${key}`]: null,
+      [`${ROOT}/sp/${key}`]: null,
       [`${ROOT}/alog/a${at}`]: { at, act:'nomforce', gw:f.gw, key, who:owner, votes:n, by }
     });
     PLAYERS.forEach(p=>setLocalPick(key,p,null));
@@ -3018,7 +3372,7 @@ function bind(){
     const n = Object.keys((state.enc||{})[key]||{}).length
             + Object.keys((state.picks||{})[key]||{}).length;
     if(!await ask(`${jp(f.h)} vs ${jp(f.a)} の指名を取り消す？\n\n`+
-      `入っとる投票 ${n}件とコメントは全部消える（戻せへん）\n`+
+      `入っとる投票 ${n}件・コメント・スコア予想は全部消える（戻せへん）\n`+
       `取り消したら、この節の別の試合をもう一回指名できる`)) return;
     await db.ref().update({
       [`${ROOT}/noms/gw${f.gw}/${me}`]: null,
@@ -3030,7 +3384,8 @@ function bind(){
       [`${ROOT}/note/${key}`]: null,
       [`${ROOT}/cmt/${key}`]: null,
       [`${ROOT}/betat/${key}`]: null,
-      [`${ROOT}/hist/${key}`]: null
+      [`${ROOT}/hist/${key}`]: null,
+      [`${ROOT}/sp/${key}`]: null
     });
     PLAYERS.forEach(p=>setLocalPick(key,p,null));
     toast('指名を取り消した。下から選び直してや');
@@ -3160,7 +3515,7 @@ function bind(){
     toast('提出したで'); render();
   };
 
-  /* 優勝クラブの確定（誰でも本人PIN・ログに残る）。他の年間予想は無効 */
+  /* シーズン確定（管理人）：優勝クラブ＋最終ボーナス。他の年間予想は無効 */
   const sa=document.getElementById('setActual');
   if(sa) sa.onclick=async()=>{
     const rows = leagueTable();
@@ -3168,21 +3523,22 @@ function bind(){
     if(!c){ toast('順位表がまだ無いで'); return; }
     if(!FIXTURES.every(f=>scoreOf(f.key)) &&
        !await ask('まだスコアが入ってない試合があるで。それでも確定する？')) return;
-    if(!await ask(`いまの順位表の1位で確定する？\n\n優勝：${jp(c)}\n\n誰が確定したかはログに残る`)) return;
+    if(!await ask(`シーズンを確定する？\n\n優勝：${jp(c)}（いまの順位表の1位）\n優勝予想と最終ボーナスが精算される`)) return;
     const by = await verifyAdmin(); if(!by) return;
     const at = Date.now();
     await db.ref().update({
       [`${ROOT}/actual/champion`]: c,
+      [`${ROOT}/seasonEnd`]: at,
       [`${ROOT}/alog/a${at}`]: { at, act:'actual', c, by }
     });
     toast('確定した');
   };
 
-  /* PINリセット：他のメンバーのPINを消す。自分のは不可 */
+  /* PINリセット（管理人）：メンバーのPINを消す */
   const pr=document.getElementById('pinReset');
   if(pr) pr.onclick=async()=>{
-    const by = await whoAmI(); if(!by) return;
-    const targets = ACTIVE.filter(p=>p!==by && (state.pins||{})[p]);
+    const by = await verifyAdmin(); if(!by) return;
+    const targets = ACTIVE.filter(p=>(state.pins||{})[p]);
     if(!targets.length){ toast('リセットできる人がおらん'); return; }
     const who = await pickFrom('誰のPINをリセットする？', targets);
     if(!who) return;
@@ -3293,18 +3649,263 @@ function pickActualType(){
     ov.onclick=e=>{ if(e.target===ov){ov.remove();res(null)} };
   });
 }
-function askText(title, ph){
-  return new Promise(res=>{
-    const ov=document.createElement('div'); ov.className='ov';
-    ov.innerHTML=`<div class="dlg"><p>${esc(title)}</p>
-      <input class="txtin" style="margin-top:0" placeholder="${esc(ph||'')}">
-      <div class="dlg-btns"><button class="dlg-no">やめる</button><button class="dlg-yes">OK</button></div></div>`;
-    document.body.appendChild(ov);
-    const i=ov.querySelector('input'); setTimeout(()=>i.focus(),60);
-    ov.querySelector('.dlg-yes').onclick=()=>{const v=i.value.trim();ov.remove();res(v||null)};
-    ov.querySelector('.dlg-no').onclick=()=>{ov.remove();res(null)};
-    ov.onclick=e=>{ if(e.target===ov){ov.remove();res(null)} };
+/* ══════ 記録タブ：週刊バスク新聞・収支の推移・天敵とカモ ══════
+   全部いまあるデータから計算するだけ。新しく保存するのは編集長のひとことだけ */
+const PCOL = ['#2a78d6','#eb6834','#1baf7a','#eda100','#e87ba4'];   /* PLAYERS の順で固定 */
+const pcol = p => PCOL[PLAYERS.indexOf(p)] || '#888';
+let paperGw = null;          /* 新聞のバックナンバーで選んだ節 */
+let recSnaps = [];           /* グラフのタップ表示用 */
+const yen = n => (n>0?'+':'')+Number(n).toLocaleString();
+const rankOf = t => { const r={}; PLAYERS.forEach(p=>r[p]=1+PLAYERS.filter(q=>t[q]>t[p]).length); return r; };
+
+/* その節の指名試合が全部精算済みか */
+function gwDone(gw){
+  const ms = betMatches().filter(f=>f.gw===gw);
+  return ms.length>0 && ms.every(f=>!settleMatch(f.key).pending);
+}
+/* 節ごとの累計収支・順位・連勝連敗を、試合の順に積み上げる（試合の賭けだけ） */
+function recordTimeline(){
+  const ms = betMatches().filter(f=>!settleMatch(f.key).pending).sort((a,b)=>a.ko-b.ko);
+  const tot={}, w={}, l={}, bestW={}, worstL={};
+  PLAYERS.forEach(p=>{ tot[p]=0; w[p]=0; l[p]=0; bestW[p]=0; worstL[p]=0; });
+  const snaps=[];
+  [...new Set(ms.map(f=>f.gw))].sort((a,b)=>a-b).forEach(g=>{
+    const prevBestW = Math.max(0,...PLAYERS.map(p=>bestW[p]));
+    const prevWorstL = Math.max(0,...PLAYERS.map(p=>worstL[p]));
+    ms.filter(f=>f.gw===g).forEach(f=>{
+      const r = settleMatch(f.key);
+      PLAYERS.forEach(p=>tot[p]+=r.delta[p]);
+      if(r.void) return;
+      r.winners.forEach(p=>{ w[p]++; l[p]=0; if(w[p]>bestW[p]) bestW[p]=w[p]; });
+      r.losers.forEach(p=>{ l[p]++; w[p]=0; if(l[p]>worstL[p]) worstL[p]=l[p]; });
+    });
+    snaps.push({ gw:g, tot:{...tot}, rank:rankOf(tot), w:{...w}, l:{...l}, prevBestW, prevWorstL });
   });
+  return snaps;
+}
+/* 言い回しを節ごとに変える（同じ節なら毎回同じ） */
+const pickT = (arr, seed) => arr[Math.abs(seed) % arr.length];
+
+/* ── 新聞の記事を組み立てる ── */
+function buildPaper(gw, snaps){
+  const i = snaps.findIndex(s=>s.gw===gw);
+  const s = snaps[i], prev = i>0 ? snaps[i-1] : null;
+  const ms = betMatches().filter(f=>f.gw===gw).sort((a,b)=>a.ko-b.ko);
+  const net = gwNet(gw);
+  const st = [];   /* {pt, head, sub} 点数が高いほど一面向き */
+  const seed = gw*7;
+
+  /* 電撃復帰の初陣 */
+  if(gw===RETURN_GW) RETURNED.forEach(p=>{
+    const n = net[p];
+    st.push({ pt:100, head: n>0 ? `${p}、電撃復帰の初陣でいきなり${yen(n)}`
+                       : n<0 ? `${p}、電撃復帰早々に洗礼（${yen(n)}）`
+                       : `${p}、電撃復帰。初陣は静かな再出発`,
+      sub:`1週間の引退から戻ってきた男の今節は ${yen(n)}。` });
+  });
+  /* 1人逆張りで総取り */
+  ms.forEach(f=>{
+    const r = settleMatch(f.key);
+    if(r.void || r.winners.length!==1 || r.losers.length<2) return;
+    const p = r.winners[0], amt = r.losers.length*STAKE;
+    st.push({ pt:70+r.losers.length*5,
+      head: pickT([`${p}、1人逆張りで総取り`,`読み切った${p}、ひとりだけの正解`,`${p}の逆張り炸裂`], seed+PLAYERS.indexOf(p)),
+      sub:`${jp(f.h)} vs ${jp(f.a)} で ${r.losers.length}人を相手に1人だけ正解、${yen(amt)}。` });
+  });
+  /* 首位交代・最下位転落 */
+  if(prev){
+    const lead = t => PLAYERS.filter(p=>t.rank[p]===1);
+    const L = lead(s), PL = lead(prev);
+    if(L.length===1 && !(PL.length===1 && PL[0]===L[0]))
+      st.push({ pt:60, head:`${L[0]}、首位奪取`, sub:`今節の結果で ${L[0]} が単独トップ（${yen(s.tot[L[0]])}）に立った。` });
+    const worst = PLAYERS.filter(p=>s.rank[p]===Math.max(...PLAYERS.map(q=>s.rank[q])));
+    if(worst.length===1 && prev.rank[worst[0]] < s.rank[worst[0]])
+      st.push({ pt:35, head:`${worst[0]}、最下位に転落`, sub:`${worst[0]} は ${yen(s.tot[worst[0]])} で最下位に沈んだ。` });
+  }
+  /* 今節のMVP・大敗 */
+  const best = Math.max(...PLAYERS.map(p=>net[p])), low = Math.min(...PLAYERS.map(p=>net[p]));
+  const tops = PLAYERS.filter(p=>net[p]===best), lows = PLAYERS.filter(p=>net[p]===low);
+  if(best>0 && tops.length===1){
+    const p = tops[0];
+    st.push({ pt:50+best/200, head: pickT([`${p}、今節${yen(best)}の大勝`,`笑いが止まらん${p}、${yen(best)}`,`${p}がひとり勝ち`], seed),
+      sub:`今節のMVPは ${p}（${yen(best)}）。` });
+  }
+  if(low<0 && lows.length===1){
+    const p = lows[0];
+    st.push({ pt:30-low/200, head: pickT([`${p}、今節${yen(low)}の大敗`,`${p}に冷たい雨、${yen(low)}`,`踏んだり蹴ったりの${p}`], seed+1),
+      sub:`今節いちばん削られたのは ${p}（${yen(low)}）。` });
+  }
+  /* 連勝・連敗 */
+  PLAYERS.forEach(p=>{
+    if(s.w[p]>=3){
+      const rec = s.w[p] > s.prevBestW;
+      st.push({ pt:40+s.w[p]*5+(rec?20:0), head: rec ? `${p}、${s.w[p]}連勝でバスク31新記録` : `${p}、${s.w[p]}連勝で止まらん`,
+        sub:`${p} は ${s.w[p]}連勝中。` });
+    }
+    if(s.l[p]>=3){
+      const rec = s.l[p] > s.prevWorstL;
+      st.push({ pt:45+s.l[p]*5+(rec?20:0), head: rec ? `${p}、${s.l[p]}連敗の不名誉な新記録` : `${p}、泥沼の${s.l[p]}連敗`,
+        sub:`${p} は ${s.l[p]}連敗中。そろそろ流れを変えたい。` });
+    }
+  });
+  st.sort((a,b)=>b.pt-a.pt);
+  /* 同じ人の記事は一番大きいネタ1本だけにする */
+  const seen = new Set();
+  const uniq = st.filter(x=>{ const who = PLAYERS.find(p=>x.head.includes(p)); if(seen.has(who)) return false; seen.add(who); return true; });
+  st.length = 0; st.push(...uniq);
+  const voids = ms.filter(f=>settleMatch(f.key).void).length;
+  return { s, net, ms, voids,
+    head: st[0] ? st[0].head : (voids===ms.length ? '今節は全試合ノーゲーム、波風なし' : '今節は大きな動きなし'),
+    lead: st[0] ? st[0].sub : '',
+    subs: st.slice(1,4) };
+}
+
+function viewRecord(){
+  const snaps = recordTimeline();
+  recSnaps = snaps;
+  let html = '';
+
+  /* ── 週刊バスク新聞 ── */
+  const issues = snaps.map(s=>s.gw).filter(gwDone);
+  html += `<div class="sec"><h2><span class="kick">WEEKLY PAPER</span>週刊バスク新聞</h2>
+    <p>節の指名試合が全部終わったら自動で発行される</p></div>`;
+  if(!issues.length){
+    html += `<div class="empty">まだ発行された号はないで</div>`;
+  } else {
+    const g = issues.includes(paperGw) ? paperGw : issues[issues.length-1];
+    const P = buildPaper(g, snaps);
+    const last = Math.max(...P.ms.map(f=>f.ko));
+    const ed = ((state.editor||{})['gw'+g]||'').trim();
+    html += `<div class="paper">
+      <div class="pp-mast"><b>週刊バスク31</b><span>第${g}節号 · ${dateJp(last + 6*3600e3)}発行</span></div>
+      <h3 class="pp-head">${esc(P.head)}</h3>
+      ${P.lead?`<p class="pp-lead">${esc(P.lead)}</p>`:''}
+      ${P.subs.length?`<div class="pp-subs">${P.subs.map(x=>`<div><b>${esc(x.head)}</b><span>${esc(x.sub)}</span></div>`).join('')}</div>`:''}
+      <div class="pp-box"><div class="pp-bt">今節の結果</div>${P.ms.map(f=>{
+        const r = settleMatch(f.key), sc = scoreOf(f.key);
+        const res = r.void ? '<i>不成立</i>' : `的中 ${r.winners.map(esc).join('・')}`;
+        return `<div class="pp-m"><span>${esc(jp(f.h))} ${sc?`${sc.h}-${sc.a}`:'-'} ${esc(jp(f.a))}</span><small>指名 ${esc(f.nomBy)}｜${res}</small></div>`;
+      }).join('')}</div>
+      <div class="pp-box"><div class="pp-bt">今節の収支</div>${[...PLAYERS].sort((a,b)=>P.net[b]-P.net[a]).map(p=>
+        `<div class="pp-n"><span>${esc(p)}</span><b class="${P.net[p]>0?'up':P.net[p]<0?'dn':''}">${yen(P.net[p])}</b></div>`).join('')}</div>
+      ${ed?`<div class="pp-ed"><span>編集長のひとこと</span>${esc(ed)}</div>`:''}
+      <button class="pp-edbtn" data-editor="${g}">✍️ 編集長のひとこと${ed?'を直す':'を書く'}（管理人）</button>
+    </div>`;
+    if(issues.length>1) html += `<div class="pp-back"><span>バックナンバー</span>${issues.map(x=>
+      `<button class="${x===g?'on':''}" data-paper="${x}">第${x}節</button>`).join('')}</div>`;
+  }
+
+  /* ── 収支の推移 ── */
+  html += `<div class="divider"></div><div class="sec"><h2><span class="kick">BALANCE TREND</span>収支の推移</h2>
+    <p>節ごとの累計（試合の賭けだけ）。グラフをタップしたらその節の数字が出る</p></div>`;
+  html += snaps.length ? trendChart(snaps) : `<div class="empty">結果が入ったら線が伸びるで</div>`;
+
+  /* ── 天敵とカモ ── */
+  html += `<div class="divider"></div><div class="sec"><h2><span class="kick">RIVALRY</span>天敵とカモ</h2>
+    <p>相手ごとの差し引き。一番取られた相手が天敵、一番取った相手がカモ</p></div>`;
+  html += rivalry();
+  return html;
+}
+
+/* 折れ線グラフ（SVG）。線の色は人で固定、名前は線の右端と凡例に出す */
+function trendChart(snaps){
+  const W=340, H=210, L=38, R=64, T=12, B=26;
+  const pts = [{gw:0, tot:Object.fromEntries(PLAYERS.map(p=>[p,0]))}, ...snaps];
+  const vals = pts.flatMap(s=>PLAYERS.map(p=>s.tot[p]));
+  let lo = Math.min(0,...vals), hi = Math.max(0,...vals);
+  const raw = (hi-lo)/4;
+  const step = [1000,2000,2500,5000,10000,20000,25000,50000].find(v=>v>=raw) || 100000;
+  lo = Math.floor(lo/step)*step; hi = Math.ceil(hi/step)*step; if(hi===lo) hi=lo+step;
+  const x = i => L + (W-L-R) * (pts.length>1 ? i/(pts.length-1) : 0.5);
+  const y = v => T + (H-T-B) * (hi-v)/(hi-lo);
+  let g = '';
+  for(let v=lo; v<=hi; v+=step){
+    g += `<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" class="${v===0?'tz':'tg'}"/>
+      <text x="${L-5}" y="${y(v)+3}" class="ty">${v===0?'0':(v/1000)+'k'}</text>`;
+  }
+  pts.forEach((s,i)=>{ if(pts.length<=12 || i%2===0 || i===pts.length-1)
+    g += `<text x="${x(i)}" y="${H-8}" class="tx">${s.gw===0?'開幕':s.gw}</text>`; });
+  /* 線 */
+  PLAYERS.forEach(p=>{
+    g += `<polyline points="${pts.map((s,i)=>`${x(i)},${y(s.tot[p])}`).join(' ')}" fill="none" stroke="${pcol(p)}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>`;
+  });
+  /* 右端の名前：重ならんように縦にずらす */
+  const end = PLAYERS.map(p=>({p, yy:y(pts[pts.length-1].tot[p])})).sort((a,b)=>a.yy-b.yy);
+  for(let k=1;k<end.length;k++) if(end[k].yy-end[k-1].yy<12) end[k].yy=end[k-1].yy+12;
+  const over = end.length ? end[end.length-1].yy-(H-B) : 0;
+  if(over>0) end.forEach(e=>e.yy-=over);
+  end.forEach(e=>{
+    const yy0 = y(pts[pts.length-1].tot[e.p]);
+    g += `<circle cx="${x(pts.length-1)}" cy="${yy0}" r="4" fill="${pcol(e.p)}" stroke="#fff" stroke-width="2"/>
+      <text x="${W-R+8}" y="${e.yy+3.5}" class="tl">${esc(e.p)}</text>`;
+  });
+  /* タップ用の当たり判定（見えへん縦帯） */
+  const bw = (W-L-R)/Math.max(1,pts.length-1);
+  pts.forEach((s,i)=>{ if(i>0) g += `<rect data-rx="${i-1}" x="${x(i)-bw/2}" y="${T}" width="${bw}" height="${H-T-B}" fill="transparent"/>`; });
+  g += `<line id="rxLine" x1="0" x2="0" y1="${T}" y2="${H-B}" class="tc" style="display:none"/>`;
+  const legend = PLAYERS.map(p=>`<span><i style="background:${pcol(p)}"></i>${esc(p)}</span>`).join('');
+  const table = `<details class="tr-tbl"><summary>表で見る</summary><div class="tr-scroll"><table>
+    <tr><th>節</th>${PLAYERS.map(p=>`<th>${esc(p)}</th>`).join('')}</tr>
+    ${snaps.map(s=>`<tr><td>${s.gw}</td>${PLAYERS.map(p=>`<td>${yen(s.tot[p])}</td>`).join('')}</tr>`).join('')}
+    </table></div></details>`;
+  return `<div class="trend"><div class="tr-leg">${legend}</div>
+    <div class="tr-wrap"><svg viewBox="0 0 ${W} ${H}" class="tr-svg">${g}</svg><div class="tr-tip" id="rxTip"></div></div>
+    ${table}</div>`;
+}
+
+/* 相手ごとの差し引き。flow[a][b] = a が b から取った額 */
+function rivalry(){
+  const flow={}; PLAYERS.forEach(a=>{ flow[a]={}; PLAYERS.forEach(b=>flow[a][b]=0); });
+  betMatches().forEach(f=>{ settleMatch(f.key).transfers.forEach(([l,w,a])=>{ flow[w][l]+=a; }); });
+  const vs = (a,b) => flow[a][b]-flow[b][a];
+  let big = null;
+  PLAYERS.forEach((a,i)=>PLAYERS.slice(i+1).forEach(b=>{
+    const v = vs(a,b); if(v && (!big || Math.abs(v)>Math.abs(big.v))) big = v>0 ? {w:a,l:b,v} : {w:b,l:a,v:-v};
+  }));
+  if(!big) return `<div class="empty">まだ誰も誰からも取ってへん</div>`;
+  let html = `<div class="rv-big">🔥 最大の因縁：<b>${esc(big.w)}</b> が <b>${esc(big.l)}</b> から ${yen(big.v)}</div><div class="tbl">`;
+  html += PLAYERS.map(p=>{
+    const others = PLAYERS.filter(q=>q!==p).map(q=>({q, v:vs(p,q)}));
+    const kamo = others.filter(o=>o.v>0).sort((a,b)=>b.v-a.v)[0];
+    const teki = others.filter(o=>o.v<0).sort((a,b)=>a.v-b.v)[0];
+    return `<div class="mrow rv-row">${avatar(p,24)}<span class="nm">${esc(p)}</span>
+      <span class="rv-c">${teki?`😈 天敵 <b>${esc(teki.q)}</b> <em class="dn">${yen(teki.v)}</em>`:'😈 天敵 なし'}<br>
+      ${kamo?`🦆 カモ <b>${esc(kamo.q)}</b> <em class="up">${yen(kamo.v)}</em>`:'🦆 カモ なし'}</span></div>`;
+  }).join('');
+  return html + `</div>`;
+}
+
+/* 記録タブのタップ操作。bind() から呼ぶ */
+function bindRecord(){
+  document.querySelectorAll('[data-paper]').forEach(b=>b.onclick=()=>{ paperGw = +b.dataset.paper; render(); });
+  document.querySelectorAll('[data-editor]').forEach(b=>b.onclick=async()=>{
+    const g = +b.dataset.editor;
+    const by = await verifyAdmin(); if(!by) return;
+    const cur = (state.editor||{})['gw'+g] || '';
+    const v = await askText(`第${g}節号・編集長のひとこと`,'1行だけ（60字）。空にして保存したら消えるで', cur, 60);
+    if(v===null) return;
+    const t = v.trim().slice(0,60);
+    await db.ref(`${ROOT}/editor/gw${g}`).set(t || null);
+    toast(t ? '載せたで' : '消したで');
+  });
+  const tip = document.getElementById('rxTip'), line = document.getElementById('rxLine');
+  document.querySelectorAll('[data-rx]').forEach(r=>{
+    const show = ()=>{
+      const s = recSnaps[+r.dataset.rx]; if(!s || !tip) return;
+      const cx = +r.getAttribute('x') + (+r.getAttribute('width'))/2;
+      line.setAttribute('x1',cx); line.setAttribute('x2',cx); line.style.display='';
+      tip.innerHTML = `<b>第${s.gw}節まで</b>` + [...PLAYERS].sort((a,b)=>s.tot[b]-s.tot[a]).map(p=>
+        `<div><i style="background:${pcol(p)}"></i>${esc(p)}<span>${yen(s.tot[p])}</span></div>`).join('');
+      const pct = cx/340*100;
+      tip.style.left = pct>55 ? '' : `calc(${pct}% + 10px)`;
+      tip.style.right = pct>55 ? `calc(${100-pct}% + 10px)` : '';
+      tip.style.display = 'block';
+    };
+    r.addEventListener('mouseenter', show);
+    r.addEventListener('click', show);
+  });
+  const wrap = document.querySelector('.tr-wrap');
+  if(wrap) wrap.addEventListener('mouseleave', ()=>{ if(tip) tip.style.display='none'; if(line) line.style.display='none'; });
 }
 
 /* ══════ 起動 ══════ */
@@ -3345,6 +3946,8 @@ function askText(title, ph){
      賭けるたびの通信は今までと変わらん */
   db.ref(ICONS).on('value', snap=>{
     icons = snap.val() || {};
+    const ae=document.activeElement;
+    if(ae && (ae.tagName==='INPUT' || ae.tagName==='TEXTAREA')) return;   /* 入力中は再描画で消さん */
     if(state) render();
   }, ()=>{ icons = {}; });
 
