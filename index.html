@@ -295,13 +295,27 @@ input,select{font-family:var(--body),'Noto Sans JP',sans-serif}
 .rv-actual{margin-top:10px;padding:9px 11px;border-radius:10px;background:var(--panel);
   font-size:12px;font-weight:700;color:var(--purple);line-height:1.7}
 .vrow{display:flex;align-items:center;gap:8px;padding:8px 13px;border-top:1px solid var(--line);font-size:12px}
-.vrow .nm{flex:1;font-weight:700}
-.vrow .val{font-size:11px;font-weight:700;color:var(--grey)}
+.vrow .nm{flex:1;min-width:0;font-weight:700;white-space:nowrap}
+.vrow .val{font-size:11px;font-weight:700;color:var(--grey);text-align:right;flex:none;max-width:52%}
+.vhist{margin-top:-5px;padding:0 13px 8px 67px;font-family:var(--disp);font-size:9.5px;font-weight:600;color:var(--grey);opacity:.85;line-height:1.55;word-break:break-word}
+.vhist.pre{padding-left:57px}
+.vh-tg{font:inherit;color:inherit;background:none;border:none;padding:0;cursor:pointer}
+.vh-body{margin-top:3px;padding:6px 9px;border-radius:8px;background:var(--panel)}
+.pen{margin:0 12px;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.pen-r{display:flex;align-items:center;gap:9px;padding:10px 12px;border-top:1px solid var(--line)}
+.pen-r:first-child{border-top:none}
+.pen-x{flex:1;min-width:0}
+.pen-x b{display:block;font-size:12.5px;font-weight:800}
+.pen-x small{display:block;font-size:10px;font-weight:600;color:var(--grey);margin-top:2px}
+.pen-r .amt{font-family:var(--disp);font-size:14px;font-weight:800;color:var(--pink);white-space:nowrap}
+.pen-r .ovr{font-size:9.5px;font-weight:700;color:var(--pink);background:#FDE9F0;border:none;border-radius:12px;padding:3px 8px;cursor:pointer;flex:none}
+.pen-add{display:block;margin:10px 12px 0;width:calc(100% - 24px);padding:11px 0;border:1.5px dashed var(--pink);border-radius:10px;
+  background:#fff;color:var(--pink);font-weight:800;font-size:12px;cursor:pointer}
 .vrow .dot{width:8px;height:8px;border-radius:50%;background:var(--green);flex:none}
 .vrow .dot.no{background:#D9CFDD}
 .vrow .mk{width:18px;text-align:center;font-weight:800;font-size:13px}
 .mk.win{color:var(--green)} .mk.lose{color:var(--pink)}
-.vrow .ovr{font-size:9.5px;font-weight:700;color:var(--pink);background:#FDE9F0;border:none;border-radius:12px;padding:3px 8px;cursor:pointer}
+.vrow .ovr{flex:none;white-space:nowrap;font-size:9.5px;font-weight:700;color:var(--pink);background:#FDE9F0;border:none;border-radius:12px;padding:3px 8px;cursor:pointer}
 .blind{margin:9px 11px 0;font-size:11.5px;font-weight:600;color:var(--purple-2);background:var(--panel);border-radius:9px;padding:9px 11px;line-height:1.5}
 .meter{margin:9px 11px 0}
 .meter .bar{display:flex;height:7px;border-radius:4px;overflow:hidden;background:var(--line)}
@@ -405,7 +419,7 @@ input,select{font-family:var(--body),'Noto Sans JP',sans-serif}
 .side-h{padding:10px 12px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--line)}
 .side-h b{font-family:var(--disp);font-size:12.5px;font-weight:700;flex:1}
 .stake{font-size:9.5px;font-weight:800;color:#fff;background:var(--pink);padding:3px 9px;border-radius:20px}
-.rtag{display:inline-block;margin-left:6px;font-size:9px;font-weight:800;color:#fff;background:var(--grey);padding:1px 7px;border-radius:10px;vertical-align:1px}
+.rtag{display:inline-block;white-space:nowrap;margin-left:6px;font-size:9px;font-weight:800;color:#fff;background:var(--grey);padding:1px 7px;border-radius:10px;vertical-align:1px}
 .mrow.retired{opacity:.6}
 .rtag.back{background:var(--pink)}
 .saga{margin:0 12px 18px;border:1px solid var(--line);border-radius:12px;background:#fff;overflow:hidden}
@@ -569,6 +583,8 @@ input,select{font-family:var(--body),'Noto Sans JP',sans-serif}
 .pp-n{display:flex;justify-content:space-between;padding:3px 0;font-size:12.5px;font-weight:700}
 .pp-n b{font-family:var(--disp);font-weight:700}
 .paper .up,.rv-c .up{color:var(--green)} .paper .dn,.rv-c .dn{color:var(--pink)}
+.alias{margin-left:5px;font-size:.82em;font-weight:700;color:var(--grey)}
+.pp-nx{padding:5px 0 1px;border-top:1px dashed #EDE6D6;font-size:11.5px;font-weight:700;color:#5E554D}
 .pp-ed{margin-top:11px;padding:9px 11px;border-left:3px solid var(--purple);background:#F3EEF4;border-radius:0 8px 8px 0;font-size:12.5px;font-weight:700;line-height:1.6}
 .pp-ed span{display:block;font-size:9.5px;font-weight:800;letter-spacing:.1em;color:var(--purple);margin-bottom:1px}
 .pp-edbtn{display:block;margin:10px 0 0 auto;font-size:10.5px;font-weight:700;color:#7A6F66;background:none;border:1px solid #E1D8C3;border-radius:7px;padding:5px 9px;cursor:pointer;font-family:inherit}
@@ -764,6 +780,10 @@ const rtag = p => isRetired(p) ? `<span class="rtag">引退</span>`
 const CHAMP_FIXED = { 'りゅんで':['ARS'], 'さんふぁん':['ARS'], 'ふぁんさ':['CHE'] };   /* 10/9 再修正。よんす・りきは不参加 */
 /* 最終ボーナス：リーグ戦（試合の賭け）だけの最終順位で、2〜5位が1位に払う */
 const BONUS_PER_RANK = 1000;
+/* LINEの罰金（10/10〜）：グループを自分で抜ける／誰かを消したら、違反した人が他の全員に1人1,000ずつ払う。
+   収支には入るけど、最終ボーナスの順位（リーグ戦だけ）には入れへん */
+const PEN_STAKE = 1000;
+const PEN_TYPE = { leave:'自分からLINEグループを抜けた', kick:'誰かをLINEグループから消した' };
 /* 事件簿。日付は日本時間 */
 const SAGA = [
   ['9/21','第5節が終了'],
@@ -1466,10 +1486,11 @@ function avBig(p){
     ? `<div class="bio">${esc(bio)}</div>`
     : (p===me ? `<div class="bio empty">まだ自己紹介が無い。「メモを書く」から書けるで</div>` : '');
   ov.innerHTML = `<div class="dlg"><div class="avbig">${pic}
-      <div class="who">${esc(p)}</div>${club}</div>
+      <div class="who">${esc(p)}${aliasOf(p)?`<span class="alias">「${esc(aliasOf(p))}」</span>`:''}</div>${club}</div>
     ${bioBlock}
     <div class="dlg-btns" style="margin-top:14px">
       ${p===me ? `<button class="dlg-no" data-biedit>メモを書く</button>` : ''}
+      ${p===me ? `<button class="dlg-no" data-aledit>異名</button>` : ''}
       ${p===me ? `<button class="dlg-no" data-avedit>写真を変える</button>` : ''}
       <button class="dlg-no" data-avclose>閉じる</button>
     </div></div>`;
@@ -1479,8 +1500,22 @@ function avBig(p){
   if(ed) ed.onclick = ()=>{ close(); meMenu(p); };
   const be = ov.querySelector('[data-biedit]');
   if(be) be.onclick = ()=>{ close(); editBio(p); };
+  const ae = ov.querySelector('[data-aledit]');
+  if(ae) ae.onclick = ()=>{ close(); editAlias(p); };
   ov.querySelector('[data-avclose]').onclick = close;
   ov.onclick = e=>{ if(e.target===ov) close(); };
+}
+/* 異名：新聞の見出しでときどきこう呼ばれる。本人だけが付けられる（PIN確認あり） */
+const aliasOf = p => String(((state&&state.alias)||{})[p]||'').trim();
+async function editAlias(p){
+  const cur = aliasOf(p);
+  const v = await askText(`${p} の異名`, 'バスク新聞の見出しでときどきこう呼ばれる（8字まで）。空にしたら消えるで', cur, 8);
+  if(v===null) return;
+  if(!await verify(p)) return;
+  const t = v.trim().slice(0,8);
+  if(!t){ await db.ref(`${ROOT}/alias/${p}`).remove(); toast('異名を消した'); return; }
+  await db.ref(`${ROOT}/alias/${p}`).set(t);
+  toast(`異名「${t}」で登録した`);
 }
 /* 自己紹介メモ。本人だけが書ける（PIN確認あり） */
 async function editBio(p){
@@ -1618,11 +1653,24 @@ function grandTotals(){
     if(r.pending||r.void) return;
     PLAYERS.forEach(p=>totals[p]+=r.delta[p]);
   });
+  const pd = penDelta();
+  PLAYERS.forEach(p=>totals[p]+=pd[p]);
   const bonus = state.seasonEnd ? finalBonus(league) : null;
   if(bonus) PLAYERS.forEach(p=>totals[p]+=bonus.delta[p]);
   /* 引退した人の収支は固定 */
   Object.keys(RETIRED).forEach(p=>{ if(p in totals) totals[p]=RETIRED[p].total; });
   return { totals, rec, st, league, bonus };
+}
+/* LINEの罰金の記録（古い順）。払う相手は記録した時点の顔ぶれで固定してある */
+const penList = () => Object.keys(state.pen||{}).map(id=>({id, ...state.pen[id]}))
+  .filter(x=>x.who && PEN_TYPE[x.type]).sort((a,b)=>a.at-b.at);
+function penDelta(){
+  const d={}; PLAYERS.forEach(p=>d[p]=0);
+  penList().forEach(x=>{
+    const to = (x.to||[]).filter(q=>q!==x.who && q in d);
+    to.forEach(q=>{ d[q]+=PEN_STAKE; d[x.who]-=PEN_STAKE; });
+  });
+  return d;
 }
 /* 最終ボーナス。同率は同じ順位（2位が2人なら2人とも2位で2,000ずつ、次の人は4位）。
    1位が複数なら山分け。全員1位なら動かん */
@@ -1911,6 +1959,7 @@ function viewMatch(){
   });
   return html;
 }
+const vhOpen = new Set();   /* 経過を開いとる行（端末内だけ） */
 function ticket(f, nomBy){
   const locked = isLocked(f);
   const sc = scoreOf(f.key);
@@ -1966,26 +2015,30 @@ function ticket(f, nomBy){
       let mk = `<span class="mk">−</span>`;
       if(v && res && !r.void) mk = r.winners.includes(p) ? `<span class="mk win">◎</span>` : `<span class="mk lose">✕</span>`;
       const label = v ? optLabel(f.key,f,v,true) : '不参加';
-      const ovr = sc ? '' : `<button class="ovr" data-ovr="${f.key}" data-p="${esc(p)}">修正</button>`;
+      /* 修正ボタンは管理人の画面にだけ出す（他の人には押しても使えんから邪魔なだけ） */
+      const ovr = (sc || me!==ADMIN || p===ADMIN) ? '' : `<button class="ovr" data-ovr="${f.key}" data-p="${esc(p)}">修正</button>`;
       /* 開票後は全員ぶん出す。中身がもう公開されとるから隠す意味がない。
          2回以上動かしとったら経過も並べる */
       const at = betAt(f.key, p);
       const hs = betHistory(f.key, p);
+      /* 時刻・経過は名前の下に別の行で出す（横に詰めると名前が縦に潰れる） */
+      /* 2回以上動かした人は「変更N回 ▾」だけ出して、タップで経過を開く */
+      const vk = f.key+'|'+p;
       const ts = hs.length > 1
-        ? `<span class="betat">${hs.map(x=>
-            `${stamp(x.at)} ${x.v==='X' ? '取消' : esc(optLabel(f.key,f,x.v))}`).join(' → ')}</span>`
-        : (v && at) ? `<span class="betat">${stamp(at)}</span>` : '';
+        ? `<button class="vh-tg" data-vh="${esc(vk)}">${stamp(hs[hs.length-1].at)} · 変更${hs.length-1}回 ${vhOpen.has(vk)?'▴':'▾'}</button>`
+          + (vhOpen.has(vk) ? `<div class="vh-body">${hs.map(x=>`${stamp(x.at)} ${x.v==='X' ? '取消' : esc(optLabel(f.key,f,x.v))}`).join(' → ')}</div>` : '')
+        : (v && at) ? stamp(at) : '';
       return `<div class="vrow">${mk}${avatar(p,20)}<div class="nm">${esc(p)}${nmTag(p)}</div>
-        <div class="val">${esc(label)}${ts}</div>${ovr}</div>`;
+        <div class="val">${esc(label)}</div>${ovr}</div>${ts?`<div class="vhist">${ts}</div>`:''}`;
     }
     const done = !!enc[p];
     const isMine = (p===me && mine && done);
     const label = isMine ? optLabel(f.key,f,mine,true) : done ? '投票済み' : '未投票';
     /* 締切前は自分の行だけ。他人の更新時刻が見えると中身を推測されて目隠しが崩れる */
     const at = isMine ? betAt(f.key, p) : null;
-    const ts = at ? `<span class="betat">最終 ${stamp(at)}</span>` : '';
+    const ts = at ? `最終 ${stamp(at)}` : '';
     return `<div class="vrow"><div class="dot ${done?'':'no'}"></div>${avatar(p,20)}
-      <div class="nm">${esc(p)}${nmTag(p)}</div><div class="val">${esc(label)}${ts}</div></div>`;
+      <div class="nm">${esc(p)}${nmTag(p)}</div><div class="val">${esc(label)}</div></div>${ts?`<div class="vhist pre">${ts}</div>`:''}`;
   }).join('');
 
   /* 締切後の修正履歴（全員に見える・アプリからは消せへん） */
@@ -2380,7 +2433,7 @@ function viewMoney(){
   const { totals, rec, st, bonus } = grandTotals();
   const ranked = [...PLAYERS].sort((a,b)=>totals[b]-totals[a]);
   let html = `<div class="sec"><h2><span class="kick">BALANCE</span>収支ランキング</h2>
-    <p>1試合 1,000ペリカ・年間予想も含む合計</p></div>`;
+    <p>1試合 1,000ペリカ・年間予想・LINEの罰金も含む合計</p></div>`;
   if(bonus){
     html += `<div class="bonus">🏁 <b>最終ボーナス</b>（リーグ戦だけの順位）<br>` +
       [...PLAYERS].sort((a,b)=>bonus.rank[a]-bonus.rank[b]).map(p=>{
@@ -2394,6 +2447,19 @@ function viewMoney(){
       <span class="rec">${rec[p].w}勝${rec[p].l}敗</span>
       <span class="amt ${cls}">${v>0?'+':''}${v.toLocaleString()}</span></div>`;
   }).join('') + `</div>`;
+
+  /* LINEの罰金 */
+  const pl = penList();
+  html += `<div class="divider"></div><div class="sec"><h2><span class="kick">LINE PENALTY</span>LINEの罰金</h2>
+    <p>抜ける・誰かを消す＝1回ごとに全員へ${PEN_STAKE.toLocaleString()}ずつ</p></div>`;
+  html += pl.length ? `<div class="pen">` + [...pl].reverse().map(x=>{
+    const n = (x.to||[]).filter(q=>q!==x.who).length;
+    const undo = meNow()===ADMIN ? `<button class="ovr" data-penundo="${esc(x.id)}">取消</button>` : '';
+    return `<div class="pen-r">${avatar(x.who,24)}<div class="pen-x"><b>${esc(x.who)}</b>
+      <small>${stamp(x.at)} · ${esc(PEN_TYPE[x.type])}</small></div>
+      <span class="amt dn">−${(n*PEN_STAKE).toLocaleString()}</span>${undo}</div>`;
+  }).join('') + `</div>` : `<div class="empty">まだ違反はないで</div>`;
+  if(meNow()===ADMIN) html += `<button class="pen-add" data-penadd="1">違反を記録する（管理人）</button>`;
 
   /* 戦績 */
   html += `<div class="divider"></div><div class="sec"><h2><span class="kick">STATS</span>戦績スタッツ</h2><p></p></div>`;
@@ -2488,12 +2554,12 @@ function viewMoney(){
 /* ── メンバータブ ── */
 function viewMembers(){
   let html = `<div class="sec"><h2><span class="kick">MEMBERS</span>メンバー</h2>
-    <p>自己紹介はアイコンをタップして本人が書ける。写真は右上の丸アイコン、注目クラブは年間予想タブから</p></div>`;
+    <p>自己紹介と異名はアイコンをタップして本人が書ける。写真は右上の丸アイコン、注目クラブは年間予想タブから</p></div>`;
   html += `<div class="tbl">` + PLAYERS.map(p=>{
     const c = favOf(p);
     const bio = (state.bio||{})[p];
     return `<div class="mrow mrow-b${isRetired(p)?' retired':''}">${avatar(p,30,true)}
-      <div class="mtx"><span class="nm">${esc(p)}${rtag(p)}</span>
+      <div class="mtx"><span class="nm">${esc(p)}${aliasOf(p)?`<span class="alias">「${esc(aliasOf(p))}」</span>`:''}${rtag(p)}</span>
       ${bio?`<span class="bi">${esc(bio)}</span>`:''}</div>
       <span class="rec">${c&&CLUBS[c] ? esc(jp(c)) : '注目クラブ未選択'}</span></div>`;
   }).join('') + `</div>`;
@@ -2510,7 +2576,7 @@ function viewMembers(){
 function adminLog(){
   const L = Object.values(state.alog||{}).sort((a,b)=>b.at-a.at).slice(0,30);
   let html = `<div class="divider"></div><div class="sec"><h2><span class="kick">LOG</span>操作ログ</h2>
-    <p>特例枠・特例解除・時刻変更・PINリセット・シーズン確定はここに残る</p></div>`;
+    <p>特例枠・特例解除・時刻変更・PINリセット・LINEの罰金・シーズン確定はここに残る</p></div>`;
   if(!L.length) return html + `<div class="empty" style="margin:0 12px 18px">まだ操作は無いで</div>`;
   html += `<div class="alog">` + L.map(x=>{
     const f = byKey[x.key];
@@ -2526,6 +2592,10 @@ function adminLog(){
       ? `${by}第${x.gw}節のキックオフ時刻を ${x.n||0}件変更<br><span style="font-weight:500">${esc(x.txt||'').replace(/\n/g,'<br>')}</span>`
       : x.act==='pinreset'
       ? `${by}<b>${esc(x.who)}</b> のPINをリセット`
+      : x.act==='pen'
+      ? `${by}<b>${esc(x.who)}</b> のLINE違反を記録（${esc(PEN_TYPE[x.type]||'')}／−${(x.amt||0).toLocaleString()}）`
+      : x.act==='penundo'
+      ? `${by}<b>${esc(x.who)}</b> のLINE違反の記録を取消（${esc(PEN_TYPE[x.type]||'')}）`
       : x.act==='actual'
       ? `${by}優勝クラブを確定（${esc(jp(x.c))}）`
       : esc(x.act);
@@ -3026,10 +3096,13 @@ function viewRules(){
     <b>最終ボーナス</b>：シーズン終了時、<b>リーグ戦（試合の賭け）だけの収支</b>で順位をつけて、
     2位が2,000・3位が3,000・4位が4,000・5位が5,000ペリカを1位に払う（優勝予想は順位に入れへん）。
     同率は同じ順位として扱う。1位が2人なら2人で山分け、2位が2人なら2人とも2,000払って、次の人は4位で4,000。<br><br>
+    <b>LINEの罰金</b>（10/10〜）：LINEグループを<b>自分から抜ける</b>、または<b>誰かをグループから消す</b>と違反。
+    1回につき他の全員に1,000ペリカずつ払う（5人なら<b>−4,000</b>）。管理人が記録して、収支タブに履歴が残る。
+    収支には入るけど、最終ボーナスの順位（リーグ戦だけ）には入れへん。<br><br>
     <b>引退と復帰</b>：さんふぁんは 10/2 に引退して、10/9 に復帰。不在中に試合は無かったから、収支も記録もそのまま続く。
     詳しくはメンバータブの📜 事件簿。<br><br>
     <b>記録タブ</b>：節の指名試合が全部終わったら<b>週刊バスク新聞</b>が自動で発行される（記事はデータから自動で書かれる）。
-    管理人が「編集長のひとこと」を1行だけ載せられる。収支の推移グラフと、相手ごとの天敵・カモも見れる。金は動かん。<br><br>
+    管理人が「編集長のひとこと」を1行だけ載せられる。アイコンから<b>異名</b>を登録しとくと、見出しでときどきその名前で呼ばれる。収支の推移グラフと、相手ごとの天敵・カモも見れる。金は動かん。<br><br>
     <b>スコア予想</b>：指名された試合だけ、スコアを当てるおまけ。<b>お金は1ペリカも動かん。名誉だけ</b>。
     その試合に賭けてへん人も予想できる。<br>
     ・<b>ピタリ</b>（スコア完全一致）＝<b>3点＋🎯</b><br>
@@ -3071,6 +3144,9 @@ function viewRules(){
 /* ══════ 操作 ══════ */
 function bind(){
   if(curTab==='record') bindRecord();
+  document.querySelectorAll('[data-vh]').forEach(b=>b.onclick=()=>{
+    const k=b.dataset.vh; vhOpen.has(k) ? vhOpen.delete(k) : vhOpen.add(k); render();
+  });
   if(curTab==='score') bindScore();
   /* アイコンをタップしたら大きく見れる */
   document.querySelectorAll('[data-avtap]').forEach(el=>{
@@ -3391,6 +3467,34 @@ function bind(){
     toast('指名を取り消した。下から選び直してや');
   });
 
+  /* LINEの罰金：管理人が記録する。払う相手は今の顔ぶれで固定して保存 */
+  document.querySelectorAll('[data-penadd]').forEach(b=>b.onclick=async()=>{
+    const who = await pickFrom('LINEの違反、誰がやった？', ACTIVE); if(!who) return;
+    const lbl = await pickFrom('何をした？', Object.values(PEN_TYPE)); if(!lbl) return;
+    const type = Object.keys(PEN_TYPE).find(k=>PEN_TYPE[k]===lbl);
+    const to = ACTIVE.filter(q=>q!==who);
+    const amt = to.length*PEN_STAKE;
+    if(!await ask(`${who}：${lbl}\n\n${who} が ${to.join('・')} に ${PEN_STAKE.toLocaleString()}ペリカずつ払う（−${amt.toLocaleString()}）\n\n記録は全員に見える`)) return;
+    const by = await verifyAdmin(); if(!by) return;
+    const at = Date.now();
+    await db.ref().update({
+      [`${ROOT}/pen/p${at}`]: { at, who, type, to, by },
+      [`${ROOT}/alog/a${at}`]: { at, act:'pen', who, type, amt, by }
+    });
+    toast(`${who} の違反を記録した（−${amt.toLocaleString()}）`);
+  });
+  document.querySelectorAll('[data-penundo]').forEach(b=>b.onclick=async()=>{
+    const id = b.dataset.penundo, x = (state.pen||{})[id]; if(!x) return;
+    if(!await ask(`${x.who} の違反（${stamp(x.at)}・${PEN_TYPE[x.type]||''}）を取り消す？\n\n取り消したこともログに残る`)) return;
+    const by = await verifyAdmin(); if(!by) return;
+    const at = Date.now();
+    await db.ref().update({
+      [`${ROOT}/pen/${id}`]: null,
+      [`${ROOT}/alog/a${at}`]: { at, act:'penundo', who:x.who, type:x.type, by }
+    });
+    toast('取り消した');
+  });
+
   /* 順位表グリッド保存 */
   const sg=document.getElementById('saveGrid');
   if(sg) sg.onclick=async()=>{
@@ -3686,78 +3790,247 @@ function recordTimeline(){
 /* 言い回しを節ごとに変える（同じ節なら毎回同じ） */
 const pickT = (arr, seed) => arr[Math.abs(seed) % arr.length];
 
-/* ── 新聞の記事を組み立てる ── */
+/* ── 新聞の記事を組み立てる ──
+   ネタを全部拾って点数をつけて、一番デカいのが一面。同じ人のネタは一番大きい1本だけ。
+   言い回しは節ごとに変わる（同じ節なら毎回同じ文になる） */
+/* 連勝・連敗の煽り。数が増えるほど言葉が強くなる */
+function streakHead(p, n, win, k, T){
+  if(win){
+    if(n>=6) return T([`${p}、神がかりの${n}連勝`,`手がつけられん${p}、${n}連勝`,`${p}、${n}連勝で伝説の領域へ`], k, 'w');
+    if(n>=5) return T([`${p}、${n}連勝で手がつけられん`,`止められる者なし、${p}${n}連勝`,`${p}、${n}連勝の大独演会`], k, 'w');
+    if(n>=4) return T([`${p}、怒涛の${n}連勝`,`${p}の勢い本物、${n}連勝`,`誰が止める、${p}${n}連勝`], k, 'w');
+    return T([`${p}、${n}連勝で止まらん`,`${p}、${n}連勝と波に乗る`,`乗ってきた${p}、${n}連勝`], k, 'w');
+  }
+  if(n>=7) return T([`${p}、伝説級の${n}連敗`,`${p}、${n}連敗。もはや芸術`,`底が見えん${p}、${n}連敗`], k, 'l');
+  if(n>=5) return T([`${p}、歴史的${n}連敗`,`${p}、${n}連敗でお祓い必須`,`${p}の${n}連敗、誰か止めたって`], k, 'l');
+  if(n>=4) return T([`${p}、怒涛の${n}連敗`,`${p}、${n}連敗で出口見えず`,`止まらん${p}の連敗、これで${n}`], k, 'l');
+  return T([`${p}、泥沼の${n}連敗`,`${p}、${n}連敗と苦しむ`,`${p}にじわり${n}連敗`], k, 'l');
+}
+
 function buildPaper(gw, snaps){
   const i = snaps.findIndex(s=>s.gw===gw);
   const s = snaps[i], prev = i>0 ? snaps[i-1] : null;
   const ms = betMatches().filter(f=>f.gw===gw).sort((a,b)=>a.ko-b.ko);
   const net = gwNet(gw);
-  const st = [];   /* {pt, head, sub} 点数が高いほど一面向き */
+  const st = [];   /* {pt, who, head, sub} 点数が高いほど一面向き */
   const seed = gw*7;
+  /* fam を渡したら、同じ号で同じ言い回しが2回出んように次の候補へずらす */
+  const used = {};
+  const T = (arr, k, fam) => {
+    let idx = Math.abs(seed + (k||0)) % arr.length;
+    if(fam){
+      const u = used[fam] = used[fam] || new Set();
+      for(let n=0; n<arr.length && u.has(idx); n++) idx = (idx+1) % arr.length;
+      u.add(idx);
+    }
+    return arr[idx];
+  };
+  const add = (pt, who, head, sub) => st.push({ pt, who, head, sub });
+  const pi = p => PLAYERS.indexOf(p);
+  const mt = f => `${jp(f.h)} vs ${jp(f.a)}`;
 
   /* 電撃復帰の初陣 */
   if(gw===RETURN_GW) RETURNED.forEach(p=>{
     const n = net[p];
-    st.push({ pt:100, head: n>0 ? `${p}、電撃復帰の初陣でいきなり${yen(n)}`
-                       : n<0 ? `${p}、電撃復帰早々に洗礼（${yen(n)}）`
-                       : `${p}、電撃復帰。初陣は静かな再出発`,
-      sub:`1週間の引退から戻ってきた男の今節は ${yen(n)}。` });
+    add(100, p, n>0 ? T([`${p}、電撃復帰の初陣でいきなり${yen(n)}`,`帰ってきた${p}、復帰戦で${yen(n)}の快勝`,`${p}、1週間のブランクなんのその（${yen(n)}）`])
+              : n<0 ? T([`${p}、電撃復帰早々に洗礼（${yen(n)}）`,`復帰戦は苦い味、${p}が${yen(n)}`,`${p}、戻ってきたらいきなり${yen(n)}`])
+              : `${p}、電撃復帰。初陣は静かな再出発`,
+      `1週間の引退から戻ってきた男の今節は ${yen(n)}。`);
   });
-  /* 1人逆張りで総取り */
-  ms.forEach(f=>{
+
+  /* LINEの罰金（この号の期間に記録されたもの） */
+  const lastOf = g => Math.max(0, ...betMatches().filter(f=>f.gw===g).map(f=>f.ko));
+  const to = lastOf(gw) + 6*3600e3, from = prev ? lastOf(prev.gw) + 6*3600e3 : -Infinity;
+  penList().filter(x=>x.at>from && x.at<=to).forEach((x,k)=>{
+    const amt = (x.to||[]).filter(q=>q!==x.who).length * PEN_STAKE;
+    add(85, x.who, x.type==='leave'
+        ? T([`${x.who}、LINEグループを脱走 罰金${yen(-amt)}`,`${x.who}、無言の退室で${yen(-amt)}`,`${x.who}、LINE脱退で場代${yen(-amt)}`], k, 'pen')
+        : T([`${x.who}、仲間をグループから消して罰金${yen(-amt)}`,`${x.who}の強制退室に罰金${yen(-amt)}`,`消した${x.who}、消された財布`], k, 'pen'),
+      `${PEN_TYPE[x.type]}として、${x.who} が全員に ${PEN_STAKE.toLocaleString()}ペリカずつ払った。`);
+  });
+
+  /* 試合ごとのネタ。逆張り（1人だけ正解）と1人負けは毎節のように起きるから、
+     記事にするのは一番デカい1本だけ。残りは「ほかにも」で1行にまとめる */
+  const gyaku = [], hitori = [];
+  ms.forEach((f, k)=>{
     const r = settleMatch(f.key);
-    if(r.void || r.winners.length!==1 || r.losers.length<2) return;
-    const p = r.winners[0], amt = r.losers.length*STAKE;
-    st.push({ pt:70+r.losers.length*5,
-      head: pickT([`${p}、1人逆張りで総取り`,`読み切った${p}、ひとりだけの正解`,`${p}の逆張り炸裂`], seed+PLAYERS.indexOf(p)),
-      sub:`${jp(f.h)} vs ${jp(f.a)} で ${r.losers.length}人を相手に1人だけ正解、${yen(amt)}。` });
+    if(r.pending || r.void) return;
+    if(r.winners.length===1 && r.losers.length>=2) gyaku.push({ f, k, p:r.winners[0], n:r.losers.length, d:derbyOf(f) });
+    else if(r.losers.length===1 && r.winners.length>=2) hitori.push({ f, k, p:r.losers[0], n:r.winners.length, d:derbyOf(f) });
+    /* 指名した本人が外す */
+    if(f.nomBy && r.losers.includes(f.nomBy) && r.losers.length>1)
+      add(40, f.nomBy, T([`${f.nomBy}、自分で指名した試合で散る`,`言い出しっぺの${f.nomBy}が外す`,`${f.nomBy}、指名試合で痛恨`], k, 'nom'),
+        `${mt(f)} を指名した ${f.nomBy} が、自分の試合で外した。`);
   });
-  /* 首位交代・最下位転落 */
+  gyaku.sort((a,b)=>b.n-a.n || (b.d?1:0)-(a.d?1:0));
+  if(gyaku.length){
+    const g0 = gyaku[0], p = g0.p, amt = g0.n*STAKE, dz = g0.d ? `${g0.d.en}の` : '';
+    add(70+g0.n*5 + (g0.d?5:0), p,
+      T([`${p}、1人逆張りで総取り`,`読み切った${p}、ひとりだけの正解`,`${p}の逆張り炸裂`,`${dz}${p}、${g0.n}人まとめて斬る`,`孤高の一票、${p}が${yen(amt)}`], g0.k+pi(p)),
+      T([`${mt(g0.f)} で ${g0.n}人を相手に1人だけ正解、${yen(amt)}。`,
+         `${mt(g0.f)}、みんなが外す中で ${p} だけが当てて ${yen(amt)} を総取り。`], g0.k));
+    const rest = gyaku.slice(1);
+    if(rest.length) add(28, '#gyaku', `逆張りは今節${gyaku.length}本`,
+      `ほかにも ${rest.map(x=>`${x.p}（${mt(x.f)}）`).join('・')} が1人だけ正解。`);
+  }
+  hitori.sort((a,b)=>b.n-a.n);
+  if(hitori.length){
+    const h0 = hitori[0], p = h0.p, amt = h0.n*STAKE, dz = h0.d ? `${h0.d.en}で` : '';
+    add(52+h0.n*3, p,
+      T([`${p}だけが外した`,`ひとり負けの${p}、${yen(-amt)}`,`${dz}${p}、まさかの1人負け`,`${p}、${h0.n}人に${STAKE.toLocaleString()}ずつ配る羽目に`], h0.k+pi(p)),
+      `${mt(h0.f)} は ${h0.n}人が正解、外したのは ${p} だけ（${yen(-amt)}）。` +
+      (hitori.length>1 ? `ほかに ${hitori.slice(1).map(x=>x.p).join('・')} も1人負けがあった。` : ''));
+  }
+
+  /* 節ごとの的中（当てた試合があるか・賭けた試合があるか） */
+  const gwHit = (g, p) => betMatches().filter(f=>f.gw===g).some(f=>{ const r=settleMatch(f.key); return !r.pending && !r.void && r.winners.includes(p); });
+  const gwBet = (g, p) => betMatches().filter(f=>f.gw===g).some(f=>{ const r=settleMatch(f.key); return !r.pending && !r.void && (r.winners.includes(p)||r.losers.includes(p)); });
+
   if(prev){
+    /* 首位交代・首位キープ（在位が続いとったら週数も） */
     const lead = t => PLAYERS.filter(p=>t.rank[p]===1);
     const L = lead(s), PL = lead(prev);
     if(L.length===1 && !(PL.length===1 && PL[0]===L[0]))
-      st.push({ pt:60, head:`${L[0]}、首位奪取`, sub:`今節の結果で ${L[0]} が単独トップ（${yen(s.tot[L[0]])}）に立った。` });
-    const worst = PLAYERS.filter(p=>s.rank[p]===Math.max(...PLAYERS.map(q=>s.rank[q])));
+      add(60, L[0], T([`${L[0]}、首位奪取`,`${L[0]}が首位に立つ`,`新首位は${L[0]}`,`${L[0]}、ついにトップへ`]),
+        `今節の結果で ${L[0]} が単独トップ（${yen(s.tot[L[0]])}）に立った。`);
+    else if(L.length===1 && PL.length===1 && PL[0]===L[0]){
+      let weeks = 0;
+      for(let j=i; j>=0; j--){ const Lj = lead(snaps[j]); if(Lj.length===1 && Lj[0]===L[0]) weeks++; else break; }
+      const second = Math.max(...PLAYERS.filter(p=>p!==L[0]).map(p=>s.tot[p]));
+      const gap = s.tot[L[0]] - second;
+      add(weeks>=3 ? 34 : 24, L[0],
+        weeks>=3 ? T([`${L[0]}、首位在位${weeks}週目`,`${weeks}週連続首位、${L[0]}政権安泰か`,`${L[0]}の天下、${weeks}週目に突入`])
+        : gap>=5000 ? T([`${L[0]}、首位独走`,`${L[0]}の独走が止まらん`,`2位に${gap.toLocaleString()}差、${L[0]}が独走`])
+        : T([`${L[0]}、首位を守る`,`${L[0]}、首位キープ`,`首位${L[0]}、逃げ切れるか`]),
+        `首位 ${L[0]}（${yen(s.tot[L[0]])}）と2位の差は ${gap.toLocaleString()}。`);
+    }
+    /* 最下位転落 */
+    const bottom = Math.max(...PLAYERS.map(q=>s.rank[q]));
+    const worst = PLAYERS.filter(p=>s.rank[p]===bottom);
     if(worst.length===1 && prev.rank[worst[0]] < s.rank[worst[0]])
-      st.push({ pt:35, head:`${worst[0]}、最下位に転落`, sub:`${worst[0]} は ${yen(s.tot[worst[0]])} で最下位に沈んだ。` });
+      add(35, worst[0], T([`${worst[0]}、最下位に転落`,`${worst[0]}が最下位に沈む`,`最下位は${worst[0]}に`]),
+        `${worst[0]} は ${yen(s.tot[worst[0]])} で最下位に沈んだ。`);
+    PLAYERS.forEach(p=>{
+      /* 順位の急変（2つ以上） */
+      const up = prev.rank[p] - s.rank[p];
+      if(up>=2) add(38+up*3, p, T([`${p}、${prev.rank[p]}位から${s.rank[p]}位へ急浮上`,`${p}がごぼう抜き`,`${p}、一気に${s.rank[p]}位`], pi(p), 'up'),
+        `${p} は今節で ${up}つ順位を上げて ${s.rank[p]}位。`);
+      if(up<=-2) add(33-up*3, p, T([`${p}、${prev.rank[p]}位から${s.rank[p]}位へ急降下`,`${p}が急失速`,`${p}、${s.rank[p]}位まで後退`], pi(p), 'down'),
+        `${p} は今節で ${-up}つ順位を落として ${s.rank[p]}位。`);
+      /* プラス圏・マイナス圏 */
+      if(prev.tot[p]<=0 && s.tot[p]>0) add(32, p, T([`${p}、ついにプラス圏へ`,`${p}、黒字転換`,`${p}の収支がプラスに`], pi(p), 'plus'),
+        `${p} の累計が ${yen(s.tot[p])} になってプラスに乗った。`);
+      if(prev.tot[p]>=0 && s.tot[p]<0) add(30, p, T([`${p}、マイナス圏に転落`,`${p}、ついに赤字`,`${p}の財布に赤ランプ`], pi(p), 'minus'),
+        `${p} の累計が ${yen(s.tot[p])} でマイナスになった。`);
+      /* 連勝ストップ・連敗脱出 */
+      if(prev.w[p]>=3 && s.w[p]===0) add(44+prev.w[p]*3, p, T([`${p}の連勝、${prev.w[p]}で止まる`,`${p}、${prev.w[p]}連勝でストップ`,`止まった${p}の快進撃`], pi(p), 'wstop'),
+        `${prev.w[p]}連勝中やった ${p} に土がついた。`);
+      if(prev.l[p]>=3 && s.l[p]===0) add(42+prev.l[p]*3, p, T([`${p}、ようやく連敗脱出`,`${p}、${prev.l[p]}連敗でトンネル抜けた`,`${p}に久々の白星`], pi(p), 'lstop'),
+        `${prev.l[p]}連敗やった ${p} が、やっと当てた。`);
+      /* ○節ぶりの的中：賭けてたのに当たらん節が2つ以上続いたあとで当てた */
+      if(gwHit(gw, p)){
+        let dry = 0;
+        for(let j=i-1; j>=0; j--){ const g = snaps[j].gw; if(gwHit(g,p)) break; if(gwBet(g,p)) dry++; }
+        if(dry>=2) add(40+dry*3, p, T([`${p}、${dry+1}節ぶりの的中`,`長かった…${p}に${dry+1}節ぶりの当たり`,`${p}、${dry}節の沈黙を破る`], pi(p), 'dry'),
+          `${p} が当てたのは ${dry+1}節ぶり。`);
+      }
+    });
+    /* 因縁：今節も同じ相手から取った（前の節に続いて2節連続） */
+    const flowOf = g => { const fl={}; betMatches().filter(f=>f.gw===g).forEach(f=>settleMatch(f.key).transfers.forEach(([l,w,a])=>{ fl[w+'>'+l]=(fl[w+'>'+l]||0)+a; })); return fl; };
+    const nowF = flowOf(gw), preF = flowOf(prev.gw);
+    const net2 = (fl,a,b) => (fl[a+'>'+b]||0) - (fl[b+'>'+a]||0);
+    let rv = null;
+    PLAYERS.forEach(a=>PLAYERS.forEach(b=>{
+      if(a===b) return;
+      const n = net2(nowF,a,b);
+      if(n>0 && net2(preF,a,b)>0 && (!rv || n>rv.n)) rv = {a,b,n};
+    }));
+    if(rv) add(36, rv.a, T([`今節も${rv.a}が${rv.b}から奪う`,`${rv.b}は${rv.a}のカモか、2節連続`,`${rv.a}、${rv.b}をまたも食う`], pi(rv.a), 'rv'),
+      `${rv.a} は今節も ${rv.b} から差し引き ${yen(rv.n)}。天敵とカモの関係が固まってきた。`);
   }
+
   /* 今節のMVP・大敗 */
   const best = Math.max(...PLAYERS.map(p=>net[p])), low = Math.min(...PLAYERS.map(p=>net[p]));
   const tops = PLAYERS.filter(p=>net[p]===best), lows = PLAYERS.filter(p=>net[p]===low);
   if(best>0 && tops.length===1){
     const p = tops[0];
-    st.push({ pt:50+best/200, head: pickT([`${p}、今節${yen(best)}の大勝`,`笑いが止まらん${p}、${yen(best)}`,`${p}がひとり勝ち`], seed),
-      sub:`今節のMVPは ${p}（${yen(best)}）。` });
+    add(50+best/200, p, T([`${p}、今節${yen(best)}の大勝`,`笑いが止まらん${p}、${yen(best)}`,`${p}がひとり勝ち`,`${p}、今節の主役`,`財布が重い${p}、${yen(best)}`]),
+      T([`今節のMVPは ${p}（${yen(best)}）。`,`今節いちばん稼いだのは ${p}（${yen(best)}）。`], 1));
   }
   if(low<0 && lows.length===1){
     const p = lows[0];
-    st.push({ pt:30-low/200, head: pickT([`${p}、今節${yen(low)}の大敗`,`${p}に冷たい雨、${yen(low)}`,`踏んだり蹴ったりの${p}`], seed+1),
-      sub:`今節いちばん削られたのは ${p}（${yen(low)}）。` });
+    add(30-low/200, p, T([`${p}、今節${yen(low)}の大敗`,`${p}に冷たい雨、${yen(low)}`,`踏んだり蹴ったりの${p}`,`${p}、今節は厄日`,`${p}の財布が泣いとる（${yen(low)}）`], 1),
+      T([`今節いちばん削られたのは ${p}（${yen(low)}）。`,`今節のワーストは ${p}（${yen(low)}）。`], 2));
   }
-  /* 連勝・連敗 */
+
+  /* 連勝・連敗（数が増えるほど煽りが強くなる） */
   PLAYERS.forEach(p=>{
     if(s.w[p]>=3){
-      const rec = s.w[p] > s.prevBestW;
-      st.push({ pt:40+s.w[p]*5+(rec?20:0), head: rec ? `${p}、${s.w[p]}連勝でバスク31新記録` : `${p}、${s.w[p]}連勝で止まらん`,
-        sub:`${p} は ${s.w[p]}連勝中。` });
+      const rec = s.prevBestW>=3 && s.w[p] > s.prevBestW;   /* 記録は3以上が既にあるときだけ */
+      add(40+s.w[p]*5+(rec?20:0), p, rec ? T([`${p}、${s.w[p]}連勝でバスク31新記録`,`${p}、${s.w[p]}連勝の新記録樹立`], pi(p), 'wrec')
+                                         : streakHead(p, s.w[p], true, pi(p), T),
+        `${p} は ${s.w[p]}連勝中。`);
     }
     if(s.l[p]>=3){
-      const rec = s.l[p] > s.prevWorstL;
-      st.push({ pt:45+s.l[p]*5+(rec?20:0), head: rec ? `${p}、${s.l[p]}連敗の不名誉な新記録` : `${p}、泥沼の${s.l[p]}連敗`,
-        sub:`${p} は ${s.l[p]}連敗中。そろそろ流れを変えたい。` });
+      const rec = s.prevWorstL>=3 && s.l[p] > s.prevWorstL;
+      add(45+s.l[p]*5+(rec?20:0), p, rec ? T([`${p}、${s.l[p]}連敗の不名誉な新記録`,`${p}、${s.l[p]}連敗でワースト更新`], pi(p), 'lrec')
+                                         : streakHead(p, s.l[p], false, pi(p), T),
+        T([`${p} は ${s.l[p]}連敗中。そろそろ流れを変えたい。`,`${p} は ${s.l[p]}連敗中。お祓いが要るかもしれん。`], pi(p), 'lsub'));
     }
   });
+
+  /* 全休（指名試合にひとつも賭けんかった） */
+  PLAYERS.forEach(p=>{
+    const elig = ms.filter(f=>playersFor(f).includes(p));
+    if(elig.length>=2 && elig.every(f=>!shownPicks(f.key)[p]))
+      add(22, p, T([`${p}、今節は全休`,`${p}、どこにも賭けず高みの見物`,`${p}の姿なし、今節は不参加`], pi(p), 'zen'),
+        `${p} は今節の指名試合に1つも賭けんかった。`);
+  });
+
+  /* スコア予想ピタリ */
+  const hits = {};
+  ms.forEach(f=>{ const sc = scoreOf(f.key); if(!sc || !isLocked(f)) return;
+    playersFor(f).forEach(p=>{ if(spPoints(spOf(f.key,p), sc)===3) (hits[p]=hits[p]||[]).push(f); }); });
+  Object.keys(hits).forEach(p=>{
+    const fs = hits[p], f = fs[0], sc = scoreOf(f.key);
+    add(fs.length>1 ? 65 : 46, p, fs.length>1 ? `${p}、スコア予想を${fs.length}試合ピタリ🎯`
+        : T([`${p}、スコア予想ピタリ🎯`,`🎯${p}、${sc.h}-${sc.a}を言い当てる`,`予言者${p}、スコア的中`], pi(p), 'sp'),
+      `${mt(f)} の ${sc.h}-${sc.a} を ${p} がピタリ（スコア予想・お金は動かん）。`);
+  });
+
+  /* 大混戦（誰の話でもない） */
+  const tv = PLAYERS.map(p=>s.tot[p]);
+  const spread = Math.max(...tv) - Math.min(...tv);
+  if(i>=2 && spread>0 && spread<=3000)
+    add(26, '#mix', T([`大混戦、首位から最下位まで${spread.toLocaleString()}差`,`団子レース、全員${spread.toLocaleString()}差の中`,`抜け出す者なし、大混戦`]),
+      `${PLAYERS.length}人の差はわずか ${spread.toLocaleString()}ペリカ。`);
+
   st.sort((a,b)=>b.pt-a.pt);
   /* 同じ人の記事は一番大きいネタ1本だけにする */
   const seen = new Set();
-  const uniq = st.filter(x=>{ const who = PLAYERS.find(p=>x.head.includes(p)); if(seen.has(who)) return false; seen.add(who); return true; });
-  st.length = 0; st.push(...uniq);
+  const uniq = st.filter(x=>{ if(seen.has(x.who)) return false; seen.add(x.who); return true; });
+  /* 異名：登録しとる人は、見出しで2回に1回くらい異名で呼ばれる（本文は本名のまま） */
+  uniq.forEach((x,k)=>{
+    const al = aliasOf(x.who);
+    if(al && (seed + k + pi(x.who)) % 2 === 0) x.head = x.head.replace(x.who, al);
+  });
   const voids = ms.filter(f=>settleMatch(f.key).void).length;
-  return { s, net, ms, voids,
-    head: st[0] ? st[0].head : (voids===ms.length ? '今節は全試合ノーゲーム、波風なし' : '今節は大きな動きなし'),
-    lead: st[0] ? st[0].sub : '',
-    subs: st.slice(1,4) };
+
+  /* 来節の注目：次の節の指名試合と、連勝中・連敗中の人 */
+  const ng = gw + 1;
+  const next = ng<=GW_MAX ? {
+    gw: ng,
+    ms: betMatches().filter(f=>f.gw===ng).sort((a,b)=>a.ko-b.ko),
+    hot: PLAYERS.filter(p=>s.w[p]>=2).sort((a,b)=>s.w[b]-s.w[a]).map(p=>({p, n:s.w[p]})),
+    cold: PLAYERS.filter(p=>s.l[p]>=2).sort((a,b)=>s.l[b]-s.l[a]).map(p=>({p, n:s.l[p]})),
+  } : null;
+
+  return { s, net, ms, voids, next,
+    head: uniq[0] ? uniq[0].head : (voids===ms.length
+      ? T(['今節は全試合ノーゲーム、波風なし','全試合ノーゲーム、ペリカは1枚も動かず','意見が割れず、今節は全試合ノーゲーム'])
+      : T(['今節は大きな動きなし','嵐の前の静けさ','小競り合いに終わった今節','静かな節、順位も小動き'])),
+    lead: uniq[0] ? uniq[0].sub : '',
+    subs: uniq.slice(1,4) };
 }
 
 function viewRecord(){
@@ -3788,6 +4061,12 @@ function viewRecord(){
       }).join('')}</div>
       <div class="pp-box"><div class="pp-bt">今節の収支</div>${[...PLAYERS].sort((a,b)=>P.net[b]-P.net[a]).map(p=>
         `<div class="pp-n"><span>${esc(p)}</span><b class="${P.net[p]>0?'up':P.net[p]<0?'dn':''}">${yen(P.net[p])}</b></div>`).join('')}</div>
+      ${P.next && (P.next.ms.length || P.next.hot.length || P.next.cold.length) ? `<div class="pp-box"><div class="pp-bt">来節の注目</div>
+        ${P.next.ms.length ? P.next.ms.map(f=>`<div class="pp-m"><span>${esc(jp(f.h))} vs ${esc(jp(f.a))}</span><small>第${P.next.gw}節・指名 ${esc(f.nomBy)}</small></div>`).join('')
+          : `<div class="pp-m"><small>第${P.next.gw}節の指名はまだ</small></div>`}
+        ${P.next.hot.length ? `<div class="pp-nx">🔥 連勝中：${P.next.hot.map(x=>`${esc(x.p)}（${x.n}）`).join('・')}</div>` : ''}
+        ${P.next.cold.length ? `<div class="pp-nx">🥶 連敗中：${P.next.cold.map(x=>`${esc(x.p)}（${x.n}）`).join('・')}</div>` : ''}
+      </div>` : ''}
       ${ed?`<div class="pp-ed"><span>編集長のひとこと</span>${esc(ed)}</div>`:''}
       <button class="pp-edbtn" data-editor="${g}">✍️ 編集長のひとこと${ed?'を直す':'を書く'}（管理人）</button>
     </div>`;
