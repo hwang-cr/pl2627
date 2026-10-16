@@ -423,6 +423,7 @@ input,select{font-family:var(--body),'Noto Sans JP',sans-serif}
 .rtag{display:inline-block;white-space:nowrap;margin-left:6px;font-size:9px;font-weight:800;color:#fff;background:var(--grey);padding:1px 7px;border-radius:10px;vertical-align:1px}
 .mrow.retired{opacity:.6}
 .rtag.back{background:var(--pink)}
+.rtag.bad{background:#1F1A1C}
 .saga{margin:0 12px 18px;border:1px solid var(--line);border-radius:12px;background:#fff;overflow:hidden}
 .saga .r{display:flex;gap:10px;padding:10px 13px;border-top:1px dashed var(--line);font-size:12px;line-height:1.6}
 .saga .r:first-child{border-top:none}
@@ -775,8 +776,10 @@ const ACTIVE = PLAYERS.filter(p=>!isRetired(p));
 /* その試合の顔ぶれ。引退前の試合は全員、引退後の試合は現役だけ */
 const playersFor = f => PLAYERS.filter(p=>!isRetired(p) ||
   (f && (f.ko0!==undefined ? f.ko0 : f.ko) < RETIRED[p].at));
+/* 名前の横のラベル。暴言の罰金が1回でもあったら「暴言魔」（10/16〜）。
+   「引退からの復帰」は10/16に外した（第6節の試合カードの「電撃復帰」は残す） */
 const rtag = p => isRetired(p) ? `<span class="rtag">引退</span>`
-  : RETURNED.includes(p) ? `<span class="rtag back">引退からの復帰</span>` : '';
+  : penList().some(x=>x.who===p && x.type==='abuse') ? `<span class="rtag bad">暴言魔</span>` : '';
 /* 年間予想：10/2 の話し合いで作り直し。優勝だけ残して3人で張る */
 const CHAMP_FIXED = { 'りゅんで':['ARS'], 'さんふぁん':['ARS'], 'ふぁんさ':['CHE'] };   /* 10/9 再修正。よんす・りきは不参加 */
 /* 最終ボーナス：リーグ戦（試合の賭け）だけの最終順位で、2〜5位が1位に払う */
