@@ -307,6 +307,7 @@ input,select{font-family:var(--body),'Noto Sans JP',sans-serif}
 .pen-x{flex:1;min-width:0}
 .pen-x b{display:block;font-size:12.5px;font-weight:800}
 .pen-x small{display:block;font-size:10px;font-weight:600;color:var(--grey);margin-top:2px}
+.pen-note{display:block;margin-top:5px;padding:6px 9px;border-radius:8px;background:var(--panel);font-size:10.5px;font-weight:500;line-height:1.6;color:var(--purple);white-space:pre-wrap;word-break:break-word}
 .pen-r .amt{font-family:var(--disp);font-size:14px;font-weight:800;color:var(--pink);white-space:nowrap}
 .pen-r .ovr{font-size:9.5px;font-weight:700;color:var(--pink);background:#FDE9F0;border:none;border-radius:12px;padding:3px 8px;cursor:pointer;flex:none}
 .pen-add{display:block;margin:10px 12px 0;width:calc(100% - 24px);padding:11px 0;border:1.5px dashed var(--pink);border-radius:10px;
@@ -2460,7 +2461,7 @@ function viewMoney(){
     const n = (x.to||[]).filter(q=>q!==x.who).length;
     const undo = meNow()===ADMIN ? `<button class="ovr" data-penundo="${esc(x.id)}">取消</button>` : '';
     return `<div class="pen-r">${avatar(x.who,24)}<div class="pen-x"><b>${esc(x.who)}</b>
-      <small>${stamp(x.at)} · ${esc(penDesc(x))}</small></div>
+      <small>${stamp(x.at)} · ${esc(penDesc(x))}</small>${x.note?`<span class="pen-note">${esc(x.note)}</span>`:''}</div>
       <span class="amt dn">−${(n*PEN_STAKE).toLocaleString()}</span>${undo}</div>`;
   }).join('') + `</div>` : `<div class="empty">まだ違反はないで</div>`;
   if(meNow()===ADMIN) html += `<button class="pen-add" data-penadd="1">違反を記録する（管理人）</button>`;
@@ -3487,6 +3488,9 @@ function bind(){
       if(w===null) return;
       rec.target = tg;
       if(w.trim()) rec.word = w.trim().slice(0,20);
+      const nt = await askText('くわしく（なくてもOK）', 'どういう状況やったか（120字まで）。収支タブに載る', '', 120);
+      if(nt===null) return;
+      if(nt.trim()) rec.note = nt.trim().slice(0,120);
     }
     const to = ACTIVE.filter(q=>q!==who);
     const amt = to.length*PEN_STAKE;
