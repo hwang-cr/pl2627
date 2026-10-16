@@ -783,7 +783,11 @@ const BONUS_PER_RANK = 1000;
 /* LINEの罰金（10/10〜）：グループを自分で抜ける／誰かを消したら、違反した人が他の全員に1人1,000ずつ払う。
    収支には入るけど、最終ボーナスの順位（リーグ戦だけ）には入れへん */
 const PEN_STAKE = 1000;
-const PEN_TYPE = { leave:'自分からLINEグループを抜けた', kick:'誰かをLINEグループから消した' };
+const PEN_TYPE = { leave:'自分からLINEグループを抜けた', kick:'誰かをLINEグループから消した', abuse:'暴言' };   /* 暴言は10/16〜 */
+/* 罰金1件の中身を1行で（暴言は相手と言葉も） */
+const penDesc = x => x.type==='abuse'
+  ? `暴言${x.target?`（${x.target}に`:'（'}${x.word?`「${x.word}」`:''}）`.replace('（）','')
+  : (PEN_TYPE[x.type]||'');
 /* 事件簿。日付は日本時間 */
 const SAGA = [
   ['9/21','第5節が終了'],
@@ -2433,7 +2437,7 @@ function viewMoney(){
   const { totals, rec, st, bonus } = grandTotals();
   const ranked = [...PLAYERS].sort((a,b)=>totals[b]-totals[a]);
   let html = `<div class="sec"><h2><span class="kick">BALANCE</span>収支ランキング</h2>
-    <p>1試合 1,000ペリカ・年間予想・LINEの罰金も含む合計</p></div>`;
+    <p>1試合 1,000ペリカ・年間予想・罰金も含む合計</p></div>`;
   if(bonus){
     html += `<div class="bonus">🏁 <b>最終ボーナス</b>（リーグ戦だけの順位）<br>` +
       [...PLAYERS].sort((a,b)=>bonus.rank[a]-bonus.rank[b]).map(p=>{
@@ -2448,15 +2452,15 @@ function viewMoney(){
       <span class="amt ${cls}">${v>0?'+':''}${v.toLocaleString()}</span></div>`;
   }).join('') + `</div>`;
 
-  /* LINEの罰金 */
+  /* 罰金（LINE・暴言） */
   const pl = penList();
-  html += `<div class="divider"></div><div class="sec"><h2><span class="kick">LINE PENALTY</span>LINEの罰金</h2>
-    <p>抜ける・誰かを消す＝1回ごとに全員へ${PEN_STAKE.toLocaleString()}ずつ</p></div>`;
+  html += `<div class="divider"></div><div class="sec"><h2><span class="kick">PENALTY</span>罰金</h2>
+    <p>LINEを抜ける・誰かを消す・暴言＝1回ごとに全員へ${PEN_STAKE.toLocaleString()}ずつ</p></div>`;
   html += pl.length ? `<div class="pen">` + [...pl].reverse().map(x=>{
     const n = (x.to||[]).filter(q=>q!==x.who).length;
     const undo = meNow()===ADMIN ? `<button class="ovr" data-penundo="${esc(x.id)}">取消</button>` : '';
     return `<div class="pen-r">${avatar(x.who,24)}<div class="pen-x"><b>${esc(x.who)}</b>
-      <small>${stamp(x.at)} · ${esc(PEN_TYPE[x.type])}</small></div>
+      <small>${stamp(x.at)} · ${esc(penDesc(x))}</small></div>
       <span class="amt dn">−${(n*PEN_STAKE).toLocaleString()}</span>${undo}</div>`;
   }).join('') + `</div>` : `<div class="empty">まだ違反はないで</div>`;
   if(meNow()===ADMIN) html += `<button class="pen-add" data-penadd="1">違反を記録する（管理人）</button>`;
@@ -2576,7 +2580,7 @@ function viewMembers(){
 function adminLog(){
   const L = Object.values(state.alog||{}).sort((a,b)=>b.at-a.at).slice(0,30);
   let html = `<div class="divider"></div><div class="sec"><h2><span class="kick">LOG</span>操作ログ</h2>
-    <p>特例枠・特例解除・時刻変更・PINリセット・LINEの罰金・シーズン確定はここに残る</p></div>`;
+    <p>特例枠・特例解除・時刻変更・PINリセット・罰金・シーズン確定はここに残る</p></div>`;
   if(!L.length) return html + `<div class="empty" style="margin:0 12px 18px">まだ操作は無いで</div>`;
   html += `<div class="alog">` + L.map(x=>{
     const f = byKey[x.key];
@@ -2593,9 +2597,9 @@ function adminLog(){
       : x.act==='pinreset'
       ? `${by}<b>${esc(x.who)}</b> のPINをリセット`
       : x.act==='pen'
-      ? `${by}<b>${esc(x.who)}</b> のLINE違反を記録（${esc(PEN_TYPE[x.type]||'')}／−${(x.amt||0).toLocaleString()}）`
+      ? `${by}<b>${esc(x.who)}</b> の罰金を記録（${esc(penDesc(x))}／−${(x.amt||0).toLocaleString()}）`
       : x.act==='penundo'
-      ? `${by}<b>${esc(x.who)}</b> のLINE違反の記録を取消（${esc(PEN_TYPE[x.type]||'')}）`
+      ? `${by}<b>${esc(x.who)}</b> の罰金の記録を取消（${esc(penDesc(x))}）`
       : x.act==='actual'
       ? `${by}優勝クラブを確定（${esc(jp(x.c))}）`
       : esc(x.act);
@@ -3096,8 +3100,11 @@ function viewRules(){
     <b>最終ボーナス</b>：シーズン終了時、<b>リーグ戦（試合の賭け）だけの収支</b>で順位をつけて、
     2位が2,000・3位が3,000・4位が4,000・5位が5,000ペリカを1位に払う（優勝予想は順位に入れへん）。
     同率は同じ順位として扱う。1位が2人なら2人で山分け、2位が2人なら2人とも2,000払って、次の人は4位で4,000。<br><br>
-    <b>LINEの罰金</b>（10/10〜）：LINEグループを<b>自分から抜ける</b>、または<b>誰かをグループから消す</b>と違反。
-    1回につき他の全員に1,000ペリカずつ払う（5人なら<b>−4,000</b>）。管理人が記録して、収支タブに履歴が残る。
+    <b>罰金</b>：次のどれかをやったら違反。<b>1回につき他の全員に1,000ペリカずつ</b>払う（5人なら<b>−4,000</b>）。<br>
+    ・LINEグループを<b>自分から抜ける</b>（10/10〜）<br>
+    ・<b>誰かをグループから消す</b>（10/10〜）<br>
+    ・<b>暴言</b>（10/16〜）。1回言うたら1回ぶん。3回言うたら−12,000<br>
+    管理人が1回ずつ記録して、収支タブに履歴が残る。暴言は誰に何を言うたかも載るし、バスク新聞にも出る。
     収支には入るけど、最終ボーナスの順位（リーグ戦だけ）には入れへん。<br><br>
     <b>引退と復帰</b>：さんふぁんは 10/2 に引退して、10/9 に復帰。不在中に試合は無かったから、収支も記録もそのまま続く。
     詳しくはメンバータブの📜 事件簿。<br><br>
@@ -3467,30 +3474,39 @@ function bind(){
     toast('指名を取り消した。下から選び直してや');
   });
 
-  /* LINEの罰金：管理人が記録する。払う相手は今の顔ぶれで固定して保存 */
+  /* 罰金：管理人が1回ずつ記録する。払う相手は今の顔ぶれで固定して保存。
+     暴言は誰に・なんて言うたかも残す（収支タブと新聞に出る） */
   document.querySelectorAll('[data-penadd]').forEach(b=>b.onclick=async()=>{
-    const who = await pickFrom('LINEの違反、誰がやった？', ACTIVE); if(!who) return;
+    const who = await pickFrom('違反、誰がやった？', ACTIVE); if(!who) return;
     const lbl = await pickFrom('何をした？', Object.values(PEN_TYPE)); if(!lbl) return;
     const type = Object.keys(PEN_TYPE).find(k=>PEN_TYPE[k]===lbl);
+    const rec = { who, type };
+    if(type==='abuse'){
+      const tg = await pickFrom('誰に言うた？', ACTIVE.filter(q=>q!==who)); if(!tg) return;
+      const w = await askText('なんて言うた？', '1回分だけ（20字まで）。収支タブと新聞に出るで', '', 20);
+      if(w===null) return;
+      rec.target = tg;
+      if(w.trim()) rec.word = w.trim().slice(0,20);
+    }
     const to = ACTIVE.filter(q=>q!==who);
     const amt = to.length*PEN_STAKE;
-    if(!await ask(`${who}：${lbl}\n\n${who} が ${to.join('・')} に ${PEN_STAKE.toLocaleString()}ペリカずつ払う（−${amt.toLocaleString()}）\n\n記録は全員に見える`)) return;
+    if(!await ask(`${who}：${penDesc(rec)}\n\n${who} が ${to.join('・')} に ${PEN_STAKE.toLocaleString()}ペリカずつ払う（−${amt.toLocaleString()}）\n\n記録は全員に見える`)) return;
     const by = await verifyAdmin(); if(!by) return;
     const at = Date.now();
     await db.ref().update({
-      [`${ROOT}/pen/p${at}`]: { at, who, type, to, by },
-      [`${ROOT}/alog/a${at}`]: { at, act:'pen', who, type, amt, by }
+      [`${ROOT}/pen/p${at}`]: { at, ...rec, to, by },
+      [`${ROOT}/alog/a${at}`]: { at, act:'pen', ...rec, amt, by }
     });
     toast(`${who} の違反を記録した（−${amt.toLocaleString()}）`);
   });
   document.querySelectorAll('[data-penundo]').forEach(b=>b.onclick=async()=>{
     const id = b.dataset.penundo, x = (state.pen||{})[id]; if(!x) return;
-    if(!await ask(`${x.who} の違反（${stamp(x.at)}・${PEN_TYPE[x.type]||''}）を取り消す？\n\n取り消したこともログに残る`)) return;
+    if(!await ask(`${x.who} の違反（${stamp(x.at)}・${penDesc(x)}）を取り消す？\n\n取り消したこともログに残る`)) return;
     const by = await verifyAdmin(); if(!by) return;
     const at = Date.now();
     await db.ref().update({
       [`${ROOT}/pen/${id}`]: null,
-      [`${ROOT}/alog/a${at}`]: { at, act:'penundo', who:x.who, type:x.type, by }
+      [`${ROOT}/alog/a${at}`]: { at, act:'penundo', who:x.who, type:x.type, target:x.target||null, word:x.word||null, by }
     });
     toast('取り消した');
   });
@@ -3838,15 +3854,32 @@ function buildPaper(gw, snaps){
       `1週間の引退から戻ってきた男の今節は ${yen(n)}。`);
   });
 
-  /* LINEの罰金（この号の期間に記録されたもの） */
+  /* 罰金（この号の期間に記録されたもの）。違反した人ごとにまとめて1本。
+     件数が多いほど点数が上がる（1件=90、2件=100、3件=110…）。ほかのネタより大きかったら一面 */
   const lastOf = g => Math.max(0, ...betMatches().filter(f=>f.gw===g).map(f=>f.ko));
   const to = lastOf(gw) + 6*3600e3, from = prev ? lastOf(prev.gw) + 6*3600e3 : -Infinity;
-  penList().filter(x=>x.at>from && x.at<=to).forEach((x,k)=>{
-    const amt = (x.to||[]).filter(q=>q!==x.who).length * PEN_STAKE;
-    add(85, x.who, x.type==='leave'
-        ? T([`${x.who}、LINEグループを脱走 罰金${yen(-amt)}`,`${x.who}、無言の退室で${yen(-amt)}`,`${x.who}、LINE脱退で場代${yen(-amt)}`], k, 'pen')
-        : T([`${x.who}、仲間をグループから消して罰金${yen(-amt)}`,`${x.who}の強制退室に罰金${yen(-amt)}`,`消した${x.who}、消された財布`], k, 'pen'),
-      `${PEN_TYPE[x.type]}として、${x.who} が全員に ${PEN_STAKE.toLocaleString()}ペリカずつ払った。`);
+  const pens = {};
+  penList().filter(x=>x.at>from && x.at<=to).forEach(x=>{ (pens[x.who]=pens[x.who]||[]).push(x); });
+  Object.keys(pens).forEach((p,k)=>{
+    const xs = pens[p];
+    const amt = xs.reduce((a,x)=>a+(x.to||[]).filter(q=>q!==x.who).length*PEN_STAKE, 0);
+    const ab = xs.filter(x=>x.type==='abuse'), ln = xs.filter(x=>x.type!=='abuse');
+    const words = [...new Set(ab.map(x=>x.word).filter(Boolean))];
+    const targets = [...new Set(ab.map(x=>x.target).filter(Boolean))];
+    const q = words.map(w=>`「${w}」`).join('');
+    let head;
+    if(ab.length>=2) head = T([`${p}、暴言${ab.length}連発で罰金${yen(-amt)}`,`${p}の口が止まらん、暴言${ab.length}回で${yen(-amt)}`,
+                                 words.length ? `${q}…${p}、暴言${ab.length}回で${yen(-amt)}` : `舌禍の${p}、${yen(-amt)}`], k, 'pen');
+    else if(ab.length===1) head = T([`${p}、暴言で罰金${yen(-amt)}`,`口は災いの元、${p}が${yen(-amt)}`,
+                                     words.length ? `${q}の代償、${p}が${yen(-amt)}` : `${p}、失言で${yen(-amt)}`], k, 'pen');
+    else head = ln[0].type==='leave'
+      ? T([`${p}、LINEグループを脱走 罰金${yen(-amt)}`,`${p}、無言の退室で${yen(-amt)}`,`${p}、LINE脱退で場代${yen(-amt)}`], k, 'pen')
+      : T([`${p}、仲間をグループから消して罰金${yen(-amt)}`,`${p}の強制退室に罰金${yen(-amt)}`,`消した${p}、消された財布`], k, 'pen');
+    const parts = [];
+    if(ab.length) parts.push(`${targets.length?targets.join('・')+'に対して':''}${words.length?q+'など':''}暴言${ab.length}回`);
+    ln.forEach(x=>parts.push(PEN_TYPE[x.type]));
+    add(80 + 10*xs.length, p, head,
+      `${parts.join('、')}。1回ごとに全員へ ${PEN_STAKE.toLocaleString()}ずつで、${p} は計 ${yen(-amt)}。`);
   });
 
   /* 試合ごとのネタ。逆張り（1人だけ正解）と1人負けは毎節のように起きるから、
