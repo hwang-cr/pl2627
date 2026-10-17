@@ -2593,7 +2593,7 @@ function adminLog(){
     const body = x.act==='nomforce'
       ? `${by}第${x.gw}節・<b>${esc(x.who)}</b> の指名を解除（${m}／投票${x.votes||0}件も削除）＋特例枠を付与`
       : x.act==='grantgive'
-      ? `${by}第${x.gw}節・<b>${esc(x.who)}</b> に特例枠を付与`
+      ? (x.by && x.by===x.who ? `${by}第${x.gw}節・<b>自分に</b>特例枠を付与` : `${by}第${x.gw}節・<b>${esc(x.who)}</b> に特例枠を付与`)
       : x.act==='grantuse'
       ? `第${x.gw}節・<b>${esc(x.who)}</b> が特例枠で指名（${m}）`
       : x.act==='kick'
@@ -3132,7 +3132,7 @@ function viewRules(){
     <b>自己紹介</b>：メンバータブでアイコンをタップしたら本人が書ける（100字）。
     名前の下に吹き出しで出る。<br><br>
     <b>指名の締切後の特例</b>：どうしても変えたいときは管理人（${esc(ADMIN)}）に頼む。
-    指名を外す場合と、まだ指名しとらん人に枠だけ出す場合の両方できる。
+    指名を外す場合と、まだ指名しとらん人に枠だけ出す場合の両方できる。管理人が自分に枠を出すのもOK（ログに「自分に付与」と残る）。
     もらえるのは<b>特例枠</b>で、枠があるうちは
     <b>締切を過ぎた試合も自分で選び直せる</b>（賭けの締切前まで）。枠は1回使ったら消える。
     解除も、枠を使った指名も<b>メンバータブのログに残る</b>。入っとる投票とコメントは全部消える。<br><br>
@@ -3388,7 +3388,8 @@ function bind(){
     };
   });
 
-  /* 管理人が特例枠を出す：まだ指名しとらん人に、締切後でも選べる権利を渡す。自分には出されへん */
+  /* 管理人が特例枠を出す：まだ指名しとらん人に、締切後でも選べる権利を渡す。
+     10/17〜 管理人が自分に出すのもOK（ログに「自分に付与」と残る） */
   document.querySelectorAll('[data-grant]').forEach(b=>b.onclick=async()=>{
     const gw = Number(b.dataset.grant);
     const noms = nomsOf(gw);
@@ -3401,7 +3402,6 @@ function bind(){
       `${who} は締切を過ぎた試合も選べるようになる（賭けの締切前まで）\n`+
       `枠は1回使ったら消える。出したことは全員に見えるログに残る`)) return;
     const by = await verifyAdmin(); if(!by) return;
-    if(by===who){ toast('自分に特例枠は出されへん'); return; }
     const at = Date.now();
     await db.ref().update({
       [`${ROOT}/grant/gw${gw}/${who}`]: at,
