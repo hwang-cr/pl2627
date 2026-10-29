@@ -2462,19 +2462,6 @@ function viewMoney(){
 
   html += trendAndRivalry();
 
-  /* 罰金（LINE・暴言） */
-  const pl = penList();
-  html += `<div class="divider"></div><div class="sec"><h2><span class="kick">PENALTY</span>罰金</h2>
-    <p>LINEを抜ける・誰かを消す・暴言＝1回ごとに全員へ${PEN_STAKE.toLocaleString()}ずつ</p></div>`;
-  html += pl.length ? `<div class="pen">` + [...pl].reverse().map(x=>{
-    const n = (x.to||[]).filter(q=>q!==x.who).length;
-    const undo = meNow()===ADMIN ? `<button class="ovr" data-penundo="${esc(x.id)}">取消</button>` : '';
-    return `<div class="pen-r">${avatar(x.who,24)}<div class="pen-x"><b>${esc(x.who)}</b>
-      <small>${stamp(x.at)} · ${esc(penDesc(x))}</small>${x.note?`<span class="pen-note">${esc(x.note)}</span>`:''}</div>
-      <span class="amt dn">−${(n*PEN_STAKE).toLocaleString()}</span>${undo}</div>`;
-  }).join('') + `</div>` : `<div class="empty">まだ違反はないで</div>`;
-  if(meNow()===ADMIN) html += `<button class="pen-add" data-penadd="1">違反を記録する（管理人）</button>`;
-
   /* 戦績 */
   html += `<div class="divider"></div><div class="sec"><h2><span class="kick">STATS</span>戦績スタッツ</h2><p></p></div>`;
   const bet = ACTIVE.filter(p=>st[p].bet>0);
@@ -2562,6 +2549,19 @@ function viewMoney(){
         的中率 <b>${s.bet?Math.round(s.hit/s.bet*100):0}%</b> ／ 最高連勝 <b>${s.best}</b></div></div>`;
     html += themePlayer();
   }
+  /* 罰金（LINE・暴言） */
+  const pl = penList();
+  html += `<div class="divider"></div><div class="sec"><h2><span class="kick">PENALTY</span>罰金</h2>
+    <p>LINEを抜ける・誰かを消す・暴言＝1回ごとに全員へ${PEN_STAKE.toLocaleString()}ずつ</p></div>`;
+  html += pl.length ? `<div class="pen">` + [...pl].reverse().map(x=>{
+    const n = (x.to||[]).filter(q=>q!==x.who).length;
+    const undo = meNow()===ADMIN ? `<button class="ovr" data-penundo="${esc(x.id)}">取消</button>` : '';
+    return `<div class="pen-r">${avatar(x.who,24)}<div class="pen-x"><b>${esc(x.who)}</b>
+      <small>${stamp(x.at)} · ${esc(penDesc(x))}</small>${x.note?`<span class="pen-note">${esc(x.note)}</span>`:''}</div>
+      <span class="amt dn">−${(n*PEN_STAKE).toLocaleString()}</span>${undo}</div>`;
+  }).join('') + `</div>` : `<div class="empty">まだ違反はないで</div>`;
+  if(meNow()===ADMIN) html += `<button class="pen-add" data-penadd="1">違反を記録する（管理人）</button>`;
+
   return html;
 }
 
@@ -3120,7 +3120,7 @@ function viewRules(){
     詳しくはメンバータブの📜 事件簿。<br><br>
     <b>新聞タブ</b>：節の指名試合が全部終わったら<b>週刊バスク新聞</b>が自動で発行される（記事はデータから自動で書かれる）。
     管理人が「編集長のひとこと」を1行だけ載せられる。アイコンから<b>異名</b>を登録しとくと、見出しでときどきその名前で呼ばれる。金は動かん。<br><br>
-    <b>収支・戦績タブ</b>：収支ランキング（勝ち越しは貯金、負け越しは借金で表示）、収支の推移グラフ、天敵とカモ、罰金、戦績スタッツ、節ごとのMVPがまとめて見れる。<br><br>
+    <b>収支・戦績タブ</b>：収支ランキング（勝ち越しは貯金、負け越しは借金で表示）、収支の推移グラフ、天敵とカモ、戦績スタッツ、節ごとのMVP、罰金がまとめて見れる。<br><br>
     <b>スコア予想</b>：指名された試合だけ、スコアを当てるおまけ。<b>お金は1ペリカも動かん。名誉だけ</b>。
     その試合に賭けてへん人も予想できる。<br>
     ・<b>ピタリ</b>（スコア完全一致）＝<b>3点＋🎯</b><br>
