@@ -2443,7 +2443,11 @@ function viewTable(){
 const kinyo = d => d>0 ? `<b class="kz up">貯金${d}</b>` : d<0 ? `<b class="kz dn">借金${-d}</b>` : `<b class="kz">五分</b>`;
 function viewMoney(){
   const { totals, rec, st, bonus } = grandTotals();
-  const ranked = [...PLAYERS].sort((a,b)=>totals[b]-totals[a]);
+  /* 並び順：収支 → 同額なら貯金（勝ち−負け）が多い方が上。両方同じなら同順位
+     ※最終ボーナスの順位は別計算（同額は同順位）のまま */
+  const kd = p => rec[p].w - rec[p].l;
+  const ranked = [...PLAYERS].sort((a,b)=>totals[b]-totals[a] || kd(b)-kd(a));
+  const rankNo = p => 1 + PLAYERS.filter(q=>totals[q]>totals[p] || (totals[q]===totals[p] && kd(q)>kd(p))).length;
   let html = `<div class="sec"><h2><span class="kick">BALANCE</span>収支ランキング</h2>
     <p>1試合 1,000ペリカ・年間予想・罰金も含む合計</p></div>`;
   if(bonus){
@@ -2455,7 +2459,7 @@ function viewMoney(){
   }
   html += `<div class="tbl">` + ranked.map((p,i)=>{
     const v=totals[p], cls=v>0?'up':v<0?'dn':'ze';
-    return `<div class="mrow${isRetired(p)?' retired':''}"><span class="rk">${i+1}</span>${avatar(p,24,true)}<span class="nm">${esc(p)}${rtag(p)}</span>
+    return `<div class="mrow${isRetired(p)?' retired':''}"><span class="rk">${rankNo(p)}</span>${avatar(p,24,true)}<span class="nm">${esc(p)}${rtag(p)}</span>
       <span class="rec">${rec[p].w}勝${rec[p].l}敗${kinyo(rec[p].w-rec[p].l)}</span>
       <span class="amt ${cls}">${v>0?'+':''}${v.toLocaleString()}</span></div>`;
   }).join('') + `</div>`;
@@ -3120,7 +3124,7 @@ function viewRules(){
     詳しくはメンバータブの📜 事件簿。<br><br>
     <b>新聞タブ</b>：節の指名試合が全部終わったら<b>週刊バスク新聞</b>が自動で発行される（記事はデータから自動で書かれる）。
     管理人が「編集長のひとこと」を1行だけ載せられる。アイコンから<b>異名</b>を登録しとくと、見出しでときどきその名前で呼ばれる。金は動かん。<br><br>
-    <b>収支・戦績タブ</b>：収支ランキング（勝ち越しは貯金、負け越しは借金で表示）、収支の推移グラフ、天敵とカモ、戦績スタッツ、節ごとのMVP、罰金がまとめて見れる。<br><br>
+    <b>収支・戦績タブ</b>：収支ランキング（勝ち越しは貯金、負け越しは借金で表示。収支が同じなら貯金が多い方が上）、収支の推移グラフ、天敵とカモ、戦績スタッツ、節ごとのMVP、罰金がまとめて見れる。<br><br>
     <b>スコア予想</b>：指名された試合だけ、スコアを当てるおまけ。<b>お金は1ペリカも動かん。名誉だけ</b>。
     その試合に賭けてへん人も予想できる。<br>
     ・<b>ピタリ</b>（スコア完全一致）＝<b>3点＋🎯</b><br>
