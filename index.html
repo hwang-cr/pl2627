@@ -2026,7 +2026,8 @@ function ticket(f, nomBy){
       if(v && res && !r.void) mk = r.winners.includes(p) ? `<span class="mk win">◎</span>` : `<span class="mk lose">✕</span>`;
       const label = v ? optLabel(f.key,f,v,true) : '不参加';
       /* 修正ボタンは管理人の画面にだけ出す（他の人には押しても使えんから邪魔なだけ） */
-      const ovr = (sc || me!==ADMIN || p===ADMIN) ? '' : `<button class="ovr" data-ovr="${f.key}" data-p="${esc(p)}">修正</button>`;
+      /* 11/2〜 記帳後も管理人だけ直せる（自分の賭けは不可。履歴は全員に見える） */
+      const ovr = (me!==ADMIN || p===ADMIN) ? '' : `<button class="ovr" data-ovr="${f.key}" data-p="${esc(p)}">修正</button>`;
       /* 開票後は全員ぶん出す。中身がもう公開されとるから隠す意味がない。
          2回以上動かしとったら経過も並べる */
       const at = betAt(f.key, p);
@@ -3103,8 +3104,7 @@ function viewRules(){
     指名を変えたら、その試合に入っとった投票は<b>全部消える</b>。<br><br>
     <b>目隠し</b>：締切まで誰がどこに賭けたかは<b>完全非公開</b>。
     見えるのは投票数と自分の選択だけ。締切が来たら自動で全公開＋人気メーターも開票される。<br><br>
-    <b>締切後の修正</b>：開票して不成立やった試合を成立させたい場合、
-    締切〜キックオフの15分間だけ、管理人が「修正」ボタンで変更できる。<b>管理人自身の賭けは直されへん</b>。
+    <b>締切後の修正</b>：締切後は<b>管理人だけ</b>が「修正」ボタンで変更できる（試合が終わって記帳したあとも可）。<b>管理人自身の賭けは直されへん</b>。
     修正したら<b>誰の何をどう変えたかが全員に見える履歴として試合カードに残る</b>。
     アプリからは消せへん。<br><br>
     <b>年間予想</b>：残すのは<b>優勝クラブ（10,000）だけ</b>。
